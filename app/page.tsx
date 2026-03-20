@@ -116,7 +116,7 @@ export default function HomePage() {
             ].map((p) => (
               <Link
                 key={p.href}
-                href={p.href}
+                href={p.href as never}
                 className="group flex flex-wrap items-start justify-between gap-4 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-5 py-5 hover:bg-[var(--liceu-surface)]/50 transition-colors"
               >
                 <div className="space-y-2">
