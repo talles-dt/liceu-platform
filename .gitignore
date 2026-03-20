@@ -1,0 +1,59 @@
+# Dependencies
+
+/node_modules
+/.pnp
+.pnp.js
+
+# Next.js build output
+
+/.next/
+/out/
+
+# Production build
+
+/build
+
+# Logs
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+
+.env.local
+.env*
+.env.example
+
+# Vercel
+
+.vercel
+
+# TypeScript
+
+*.tsbuildinfo
+next-env.d.ts
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# IDEs
+
+.vscode/
+.idea/
+
+# Tailwind cache (optional, usually safe to ignore)
+
+.cache/
+
+# Coverage reports
+
+/coverage
+
+# Misc
+
+*.pem
+
