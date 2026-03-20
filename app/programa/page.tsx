@@ -1,5 +1,4 @@
 import { ReadingLayout } from "@/components/ReadingLayout";
-import { PurchaseButton } from "@/components/PurchaseButton";
 import Link from "next/link";
 import { MinimalButton } from "@/components/MinimalButton";
 
@@ -173,7 +172,9 @@ export default function ProgramaPage() {
                 exercícios e análises. Acesso à plataforma com progressão
                 guiada e flashcards SM-2.
               </p>
-              <PurchaseButton kind="ebook">Comprar ebook</PurchaseButton>
+              <Link href="/diagnostico">
+                <MinimalButton>Começar pelo diagnóstico</MinimalButton>
+              </Link>
             </div>
 
             <div className="border border-[var(--liceu-accent)]/30 bg-[var(--liceu-surface)]/35 px-6 py-6 space-y-4">
@@ -193,7 +194,9 @@ export default function ProgramaPage() {
                 retóricos em uso. A diferença entre ler sobre pressão e
                 ver a estrutura operar sob ela.
               </p>
-              <PurchaseButton kind="video">Comprar acesso completo</PurchaseButton>
+              <Link href="/diagnostico">
+                <MinimalButton>Começar pelo diagnóstico</MinimalButton>
+              </Link>
             </div>
           </div>
 
