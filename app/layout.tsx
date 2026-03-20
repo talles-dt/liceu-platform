@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Analytics } from "@vercel/analytics/next";
 
 const uiSans = Inter({
   variable: "--font-liceu-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
       >
         <SiteHeader />
         {children}
+        <Analytics />
       </body>
     </html>
   );
