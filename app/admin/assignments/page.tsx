@@ -1,0 +1,170 @@
+import Link from "next/link";
+import { DataTable } from "@/components/admin/DataTable";
+import { createSupabaseServerClient } from "@/lib/supabaseServer";
+
+type Row = {
+  id: string;
+  student: string;
+  module: string;
+  status: string;
+  updatedAt: string;
+};
+
+export default async function AdminAssignmentsPage() {
+  const supabase = await createSupabaseServerClient();
+
+  // Best-effort: list submissions if table exists.
+  const { data: subs, error } = await supabase
+    .from("assignment_submissions")
+    .select("id, user_id, assignment_id, status, updated_at")
+    .order("updated_at", { ascending: false })
+    .limit(200);
+
+  const submissions =
+    (!error
+      ? ((subs as unknown as {
+          id: string;
+          user_id: string;
+          assignment_id: string;
+          status: string | null;
+          updated_at: string | null;
+        }[]) ?? [])
+      : []) ?? [];
+
+  const userIds = Array.from(new Set(submissions.map((s) => s.user_id)));
+  const assignmentIds = Array.from(new Set(submissions.map((s) => s.assignment_id)));
+
+  const [{ data: usersData }, { data: assignmentsData }] = await Promise.all([
+    userIds.length > 0
+      ? supabase.from("users").select("id, name, email").in("id", userIds)
+      : Promise.resolve({ data: [] as unknown[] }),
+    assignmentIds.length > 0
+      ? supabase.from("assignments").select("id, module_id, title").in("id", assignmentIds)
+      : Promise.resolve({ data: [] as unknown[] }),
+  ]);
+
+  const { data: modulesData } = await supabase
+    .from("modules")
+    .select("id, title, order_index");
+
+  const users =
+    (usersData as unknown as { id: string; name?: string | null; email?: string | null }[]) ??
+    [];
+  const assignments =
+    (assignmentsData as unknown as { id: string; module_id?: string | null; title?: string | null }[]) ??
+    [];
+  const modules =
+    (modulesData as unknown as { id: string; title: string; order_index: number }[]) ??
+    [];
+
+  const userById = new Map(users.map((u) => [u.id, u]));
+  const assignmentById = new Map(assignments.map((a) => [a.id, a]));
+  const moduleById = new Map(modules.map((m) => [m.id, m]));
+
+  const rows: Row[] = submissions.map((s) => {
+    const u = userById.get(s.user_id);
+    const a = assignmentById.get(s.assignment_id);
+    const m = a?.module_id ? moduleById.get(a.module_id) : undefined;
+
+    const student = (u?.name?.trim() || u?.email?.trim() || s.user_id.slice(0, 8)) as string;
+    const moduleTitle = m?.title ?? "—";
+    const status = (s.status ?? "pending").toLowerCase();
+    const updatedAt = s.updated_at ? s.updated_at.slice(0, 10) : "—";
+
+    return { id: s.id, student, module: moduleTitle, status, updatedAt };
+  });
+
+  // Fallback if schema/table missing.
+  const safeRows =
+    rows.length > 0
+      ? rows
+      : [
+          {
+            id: "placeholder",
+            student: "—",
+            module: "—",
+            status: "pending",
+            updatedAt: "—",
+          },
+        ];
+
+  return (
+    <div className="p-4 md:p-6">
+      <header className="border-b border-[var(--liceu-stone)]/70 pb-4">
+        <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          /admin/assignments
+        </div>
+        <div className="mt-2 font-serif text-[22px] leading-tight text-[var(--liceu-text)]">
+          Manuscripts
+        </div>
+        <div className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
+          Pending reviews, approved, revision required. Read like a ledger.
+        </div>
+      </header>
+
+      <div className="mt-5">
+        <DataTable
+          caption="submissions"
+          rows={safeRows}
+          rowKey={(r) => r.id}
+          columns={[
+            {
+              key: "student",
+              header: "student",
+              render: (r) =>
+                r.id === "placeholder" ? (
+                  <span className="text-[var(--liceu-muted)]">—</span>
+                ) : (
+                  <Link
+                    href={`/admin/assignments/${r.id}` as never}
+                    className="font-serif underline decoration-[var(--liceu-stone)] underline-offset-4 hover:decoration-[var(--liceu-accent)]"
+                  >
+                    {r.student}
+                  </Link>
+                ),
+            },
+            {
+              key: "module",
+              header: "module",
+              render: (r) => (
+                <span className="font-[var(--font-liceu-mono)] text-[12px]">
+                  {r.module}
+                </span>
+              ),
+            },
+            {
+              key: "status",
+              header: "status",
+              render: (r) => (
+                <span
+                  className={[
+                    "inline-flex items-center border px-2 py-0.5",
+                    "font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em]",
+                    r.status === "approved"
+                      ? "border-[var(--liceu-accent)]/40 text-[var(--liceu-accent)]"
+                      : r.status === "revision"
+                        ? "border-[var(--liceu-stone)] text-[var(--liceu-text)]"
+                        : "border-[var(--liceu-stone)]/70 text-[var(--liceu-muted)]",
+                  ].join(" ")}
+                >
+                  {r.status}
+                </span>
+              ),
+            },
+            {
+              key: "updated",
+              header: "updated",
+              className: "text-right",
+              render: (r) => (
+                <span className="font-[var(--font-liceu-mono)] tabular-nums text-[var(--liceu-muted)]">
+                  {r.updatedAt}
+                </span>
+              ),
+            },
+          ]}
+        />
+      </div>
+    </div>
+  );
+}
+
