@@ -30,20 +30,7 @@ export default function DiagnosticoPage() {
               Sem truques motivacionais. Avaliação puramente tática.
             </div>
           </div>
-
-          {typebotUrl ? (
-            <TypebotEmbed url={typebotUrl} />
-          ) : (
-            <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-6 py-6">
-              <p className="font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
-                Falta configurar o Typebot. Defina{" "}
-                <span className="font-[var(--font-liceu-mono)] text-[12px] text-[var(--liceu-text)]">
-                  NEXT_PUBLIC_TYPEBOT_URL
-                </span>{" "}
-                com o link do seu diagnóstico.
-              </p>
-            </div>
-          )}
+            <TypebotEmbed />
         </section>
 
         <section className="border-t border-[var(--liceu-stone)]/70 pt-8">
