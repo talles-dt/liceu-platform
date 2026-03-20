@@ -4,7 +4,7 @@ import { MinimalButton } from "@/components/MinimalButton";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
 import { canAccessModuleForUser } from "@/lib/progression";
 
-type Params = { params: { moduleId: string } };
+type Params = { params: Promise<{ moduleId: string }> };
 
 type DbModuleRow = {
   id: string;
@@ -87,12 +87,13 @@ export default async function ModulePage({ params }: Params) {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
+  const { moduleId } = await params;
   const supabase = await createSupabaseServerClient();
 
   const { data: moduleRow } = await supabase
     .from("modules")
     .select("id, title, course_id, order_index")
-    .eq("id", params.moduleId)
+    .eq("id", moduleId)
     .maybeSingle<DbModuleRow>();
 
   if (!moduleRow) {

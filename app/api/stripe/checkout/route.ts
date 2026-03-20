@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { getStripeClient } from "@/lib/stripe";
 import { getCurrentUser } from "@/lib/supabaseServer";
 import { getCommerceConfig } from "@/lib/commerce";
-
-type PurchaseKind = "ebook" | "video" | "mentoring";
+import type { PurchaseKind } from "@/lib/purchases";
 
 export async function POST(request: Request) {
   const user = await getCurrentUser();

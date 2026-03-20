@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from "@/lib/supabaseServer";
+import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
 export type AdminMetrics = {
   activeStudents: number;
@@ -9,8 +9,8 @@ export type AdminMetrics = {
 };
 
 export async function getAdminMetrics(): Promise<AdminMetrics> {
-  // Best-effort: schema varies. Keep deterministic fallbacks.
-  const supabase = await createSupabaseServerClient();
+  // Admin client bypasses RLS — required for cross-user reads.
+  const supabase = createSupabaseAdminClient();
 
   const out: AdminMetrics = {
     activeStudents: 0,
@@ -95,7 +95,7 @@ export type AdminStudentRow = {
 };
 
 export async function getAdminStudents(): Promise<AdminStudentRow[]> {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseAdminClient();
 
   // Schema guess: users table has id/email/name; module_progress has completion.
   const { data: usersData } = await supabase

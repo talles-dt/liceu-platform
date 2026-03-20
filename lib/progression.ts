@@ -1,6 +1,7 @@
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import {
   isModuleCompleted,
+  canUnlockMentorship,
   type Lesson,
   type LessonCompletion,
   type ModuleProgress,
@@ -39,7 +40,11 @@ type DbLessonCompletionRow = {
  *
  * Rules:
  * - First module in a course is always accessible.
- * - Any later module requires the immediately previous module to be completed.
+ * - ALL previous modules must be completed (quiz >= 70 + assignment approved).
+ *
+ * This matches the domain.ts canAccessModule logic. Checking only the
+ * immediately-previous module is insufficient: a gap anywhere in the chain
+ * would be invisible.
  */
 export async function canAccessModuleForUser(
   userId: string,
@@ -47,58 +52,56 @@ export async function canAccessModuleForUser(
 ): Promise<boolean> {
   const supabase = await createSupabaseServerClient();
 
-  // Load target module with its course and index
+  // Load target module
   const { data: module, error: moduleError } = await supabase
     .from("modules")
     .select("id, course_id, order_index")
     .eq("id", moduleId)
     .maybeSingle<DbModuleRow>();
 
-  if (moduleError || !module) {
-    return false;
-  }
+  if (moduleError || !module) return false;
 
-  // First module in course (order_index 0): accessible
-  if (module.order_index === 0) {
-    return true;
-  }
+  // First module is always accessible
+  if (module.order_index === 0) return true;
 
-  // Find the immediately previous module in the same course
-  const { data: previousModule, error: prevError } = await supabase
+  // Load ALL modules in the same course that come before this one
+  const { data: previousModules, error: prevError } = await supabase
     .from("modules")
     .select("id, course_id, order_index")
     .eq("course_id", module.course_id)
     .lt("order_index", module.order_index)
-    .order("order_index", { ascending: false })
-    .limit(1)
-    .maybeSingle<DbModuleRow>();
+    .order("order_index", { ascending: true });
 
-  if (prevError || !previousModule) {
+  if (prevError || !previousModules || previousModules.length === 0) {
     return false;
   }
 
-  // Check that the previous module is completed for this user
-  const { data: prevProgress, error: progressError } = await supabase
+  const previousIds = (previousModules as DbModuleRow[]).map((m) => m.id);
+
+  // Load progress rows for all previous modules in one query
+  const { data: progressRows, error: progressError } = await supabase
     .from("module_progress")
     .select(
       "user_id, module_id, completed, quiz_score, assignment_submitted, mentorship_unlocked",
     )
     .eq("user_id", userId)
-    .eq("module_id", previousModule.id)
-    .maybeSingle<DbModuleProgressRow>();
+    .in("module_id", previousIds);
 
-  if (progressError || !prevProgress) {
-    return false;
-  }
+  if (progressError) return false;
 
-  // Require completion with quiz >= 70 and approved assignment
-  if (!prevProgress.completed) return false;
-  if (prevProgress.quiz_score === null || prevProgress.quiz_score < 70) {
-    return false;
-  }
-  if (!prevProgress.assignment_submitted) return false;
+  const progressByModule = new Map(
+    (progressRows as DbModuleProgressRow[]).map((p) => [p.module_id, p]),
+  );
 
-  return true;
+  // Every previous module must be fully completed
+  return (previousModules as DbModuleRow[]).every((m) => {
+    const p = progressByModule.get(m.id);
+    if (!p) return false;
+    if (!p.completed) return false;
+    if (p.quiz_score === null || p.quiz_score < 70) return false;
+    if (!p.assignment_submitted) return false;
+    return true;
+  });
 }
 
 /**
@@ -189,11 +192,23 @@ export async function completeModuleForUser(
     return null;
   }
 
+  const candidateProgress: ModuleProgress = {
+    moduleId,
+    completed: true,
+    quizScore: moduleProgressRow.quiz_score,
+    assignmentApproved: moduleProgressRow.assignment_submitted,
+    mentorshipUnlocked: moduleProgressRow.mentorship_unlocked,
+  };
+
+  const shouldUnlockMentorship = canUnlockMentorship(candidateProgress);
+
   const { data: updated, error: updateError } = await supabase
     .from("module_progress")
     .update({
       completed: true,
-      mentorship_unlocked: true,
+      mentorship_unlocked: shouldUnlockMentorship
+        ? true
+        : moduleProgressRow.mentorship_unlocked,
     })
     .eq("user_id", userId)
     .eq("module_id", moduleId)
