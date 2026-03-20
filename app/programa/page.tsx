@@ -1,36 +1,50 @@
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { PurchaseButton } from "@/components/PurchaseButton";
+import Link from "next/link";
+import { MinimalButton } from "@/components/MinimalButton";
 
 const MODULES = [
   {
+    index: 1,
     title: "Estrutura Mental",
-    desc: "Fundação: ordenar atenção, intenção e direção. Construir a ossatura antes do conflito.",
-    skill: "Diagnóstico e arquitetura inicial do raciocínio.",
+    canon: "Inventio — Aristóteles",
+    desc: "A fundação. Você aprende a ordenar atenção, intenção e direção antes de abrir a boca. Sem essa camada, tudo o que vem depois é improvisação disfarçada.",
+    outcome: "Você para de pensar enquanto fala. Começa a falar o que já pensou.",
   },
   {
+    index: 2,
     title: "Invenção",
-    desc: "Descobrir argumentos relevantes. Enquadrar a questão real e escolher o que decide o caso.",
-    skill: "Heurística argumentativa (inventio).",
+    canon: "Inventio — Cícero",
+    desc: "Descobrir os argumentos certos para o caso certo. Enquadrar a questão real em vez da questão apresentada. A diferença entre defender uma posição e ganhar um debate.",
+    outcome: "Você identifica o ponto que decide o confronto antes de entrar nele.",
   },
   {
+    index: 3,
     title: "Arranjo",
-    desc: "Transformar material em sequência inevitável. Transições, blocos e refutação.",
-    skill: "Arquitetura do discurso (dispositio).",
+    canon: "Dispositio — Quintiliano",
+    desc: "Transformar material disperso em sequência inevitável. Transições como força, não como cola. Refutação como parte da estrutura, não como reação.",
+    outcome: "Sua fala tem direção interna. O ouvinte não precisa seguir — é conduzido.",
   },
   {
+    index: 4,
     title: "Estilo",
-    desc: "Precisão lexical, ritmo e força. Estilo como ferramenta de clareza, não adorno.",
-    skill: "Elocução disciplinada (elocutio).",
+    canon: "Elocutio — Cícero",
+    desc: "Precisão lexical, densidade e ritmo. Estilo não é ornamento — é compressão. Uma frase densa carrega mais autoridade do que um parágrafo frouxo.",
+    outcome: "Você diz mais com menos. Cada palavra sustenta peso.",
   },
   {
+    index: 5,
     title: "Memória",
-    desc: "Sustentar continuidade sob pressão. Pontos de apoio, mapas e repetição dirigida.",
-    skill: "Retenção estrutural e execução sem colapso.",
+    canon: "Memoria — Quintiliano",
+    desc: "Sustentar continuidade sob pressão. Pontos de apoio, mapas mentais e repetição dirigida. A memória treinada é o que impede o branco durante a cobrança.",
+    outcome: "Interrupções não te fazem perder o fio. Você retorna ao ponto com precisão.",
   },
   {
+    index: 6,
     title: "Entrega",
-    desc: "Execução vocal e corporal a serviço do sentido. Silêncio, presença e direção.",
-    skill: "Actio: domínio do ambiente sem histeria.",
+    canon: "Actio — Aristóteles",
+    desc: "Execução vocal, corporal e temporal a serviço do argumento. Silêncio calculado. Presença sem gesticulação ansiosa. O ambiente se organiza ao redor de quem sabe esperar.",
+    outcome: "Você não força autoridade. Ela emerge da estrutura que você construiu.",
   },
 ] as const;
 
@@ -38,82 +52,163 @@ export default function ProgramaPage() {
   return (
     <ReadingLayout
       eyebrow="LICEU / PROGRAMA"
-      title="Os seis módulos"
-      subtitle="Uma progressão. Uma disciplina. Sem atalhos."
+      title="Seis módulos. Um cânone. Sem atalhos."
+      subtitle="O programa é a síntese operacional da retórica clássica. Aristóteles, Cícero e Quintiliano — não como história, mas como tecnologia para quem precisa operar sob pressão."
     >
-      <div className="space-y-10">
+      <div className="space-y-14">
+
+        {/* Opening */}
         <section className="space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
           <p>
-            O programa é deliberadamente simples: seis módulos, em ordem. Cada
-            unidade acrescenta uma peça ao mecanismo.
+            A retórica clássica não foi construída para palestrantes motivacionais.
+            Foi construída por homens que perdiam processos, carreiras e às vezes
+            a vida quando o argumento colapsava. Ela existe para operar sob adversidade —
+            não para performar em condições favoráveis.
+          </p>
+          <p>
+            O programa segue o cânone em ordem porque a ordem não é arbitrária.
+            Cada módulo pressupõe o anterior. Pular é o equivalente a tentar
+            levantar peso máximo sem ter construído a fundação.
           </p>
         </section>
 
+        {/* Module list */}
         <section className="space-y-4">
           <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-            Lista vertical
+            Os módulos
           </div>
-          <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35">
-            <ol className="divide-y divide-[var(--liceu-stone)]/70">
-              {MODULES.map((m, idx) => (
-                <li key={m.title} className="px-5 py-5">
-                  <div className="flex flex-wrap items-baseline justify-between gap-4">
-                    <div className="font-serif text-[20px] text-[var(--liceu-text)]">
-                      {idx + 1}. {m.title}
-                    </div>
-                    <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
-                      HABILIDADE
-                    </div>
+          <ol className="space-y-px">
+            {MODULES.map((m) => (
+              <li
+                key={m.title}
+                className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-5 py-6 space-y-3"
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-3">
+                  <div className="font-serif text-[20px] text-[var(--liceu-text)]">
+                    {m.index}. {m.title}
                   </div>
-                  <p className="mt-3 font-serif text-[15px] leading-[1.9] text-[var(--liceu-muted)]">
-                    {m.desc}
-                  </p>
-                  <div className="mt-3 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-text)]">
-                    {m.skill}
+                  <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.2em] text-[var(--liceu-muted)]">
+                    {m.canon}
                   </div>
-                </li>
-              ))}
-            </ol>
-          </div>
+                </div>
+                <p className="font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
+                  {m.desc}
+                </p>
+                <div className="border-l-2 border-[var(--liceu-accent)]/40 pl-3 font-[var(--font-liceu-sans)] text-[12px] text-[var(--liceu-text)]">
+                  {m.outcome}
+                </div>
+              </li>
+            ))}
+          </ol>
         </section>
 
-        <section className="space-y-4 border-t border-[var(--liceu-stone)]/70 pt-10">
+        {/* What's inside */}
+        <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
           <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-            Aquisição (pagamento único)
+            Dentro de cada módulo
           </div>
-
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-            <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5">
-              <div className="font-serif text-[18px] text-[var(--liceu-text)]">
-                Ebook
+            {[
+              { item: "Leitura dirigida", note: "Textos selecionados do cânone com objetivo explícito." },
+              { item: "Aula estruturada", note: "Conceito, mapa e exemplos precisos. Sem espetáculo." },
+              { item: "Quiz de verificação", note: "Impede ilusão de entendimento. Mínimo de 70% para avançar." },
+              { item: "Exercício retórico", note: "Produção escrita com tese, razões e refutação. Revisão humana." },
+              { item: "Análise de texto clássico", note: "Identificação e explicação de dispositivos retóricos." },
+              { item: "Micro discurso", note: "Aplicação do dispositivo central do módulo em forma concisa." },
+              { item: "Flashcards SM-2", note: "Repetição espaçada baseada no algoritmo SuperMemo." },
+              { item: "Sessão de mentoria", note: "Liberada após conclusão do módulo. Correção técnica ao vivo." },
+            ].map((f) => (
+              <div
+                key={f.item}
+                className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-4 py-4"
+              >
+                <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.18em] text-[var(--liceu-text)]">
+                  {f.item}
+                </div>
+                <p className="mt-1 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+                  {f.note}
+                </p>
               </div>
-              <div className="mt-2 font-[var(--font-liceu-sans)] text-[13px] text-[var(--liceu-muted)]">
-                R$ 149
-              </div>
-              <div className="mt-4">
-                <PurchaseButton kind="ebook">Comprar ebook</PurchaseButton>
-              </div>
-            </div>
-
-            <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5">
-              <div className="font-serif text-[18px] text-[var(--liceu-text)]">
-                Aulas em vídeo
-              </div>
-              <div className="mt-2 font-[var(--font-liceu-sans)] text-[13px] text-[var(--liceu-muted)]">
-                R$ 1.297
-              </div>
-              <div className="mt-4">
-                <PurchaseButton kind="video">Comprar acesso</PurchaseButton>
-              </div>
-            </div>
-          </div>
-
-          <div className="font-[var(--font-liceu-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
-            Acesso ao curso é provisionado após a confirmação do pagamento.
+            ))}
           </div>
         </section>
+
+        {/* The rule */}
+        <section className="border border-[var(--liceu-accent)]/20 bg-[var(--liceu-surface)]/25 px-6 py-6 space-y-3">
+          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-accent)]/70">
+            A regra de progressão
+          </div>
+          <p className="font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+            Nenhum módulo é desbloqueado antes do anterior estar completo.
+            Completo significa: todas as lições, quiz com nota mínima de 70%,
+            e exercício retórico aprovado. Não existe exceção.
+          </p>
+          <p className="font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
+            Essa rigidez não é burocracia. É a tecnologia do processo.
+            A fundação precisa estar sólida antes de puxar o peso.
+          </p>
+        </section>
+
+        {/* Purchase */}
+        <section className="space-y-6 border-t border-[var(--liceu-stone)]/70 pt-10">
+          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+            Acesso — pagamento único
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-6 py-6 space-y-4">
+              <div>
+                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                  Entrada
+                </div>
+                <div className="mt-2 font-serif text-[22px] text-[var(--liceu-text)]">
+                  Ebook
+                </div>
+                <div className="mt-1 font-[var(--font-liceu-sans)] text-[13px] text-[var(--liceu-muted)]">
+                  R$ 149
+                </div>
+              </div>
+              <p className="font-serif text-[13px] leading-[1.85] text-[var(--liceu-muted)]">
+                O programa completo em forma escrita. Todos os seis módulos,
+                exercícios e análises. Acesso à plataforma com progressão
+                guiada e flashcards SM-2.
+              </p>
+              <PurchaseButton kind="ebook">Comprar ebook</PurchaseButton>
+            </div>
+
+            <div className="border border-[var(--liceu-accent)]/30 bg-[var(--liceu-surface)]/35 px-6 py-6 space-y-4">
+              <div>
+                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-accent)]/70">
+                  Completo
+                </div>
+                <div className="mt-2 font-serif text-[22px] text-[var(--liceu-text)]">
+                  Aulas em vídeo
+                </div>
+                <div className="mt-1 font-[var(--font-liceu-sans)] text-[13px] text-[var(--liceu-muted)]">
+                  R$ 1.297
+                </div>
+              </div>
+              <p className="font-serif text-[13px] leading-[1.85] text-[var(--liceu-muted)]">
+                Ebook + aulas gravadas com demonstração dos dispositivos
+                retóricos em uso. A diferença entre ler sobre pressão e
+                ver a estrutura operar sob ela.
+              </p>
+              <PurchaseButton kind="video">Comprar acesso completo</PurchaseButton>
+            </div>
+          </div>
+
+          <div className="space-y-2 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+            <p>Acesso provisionado imediatamente após confirmação do pagamento.</p>
+            <p>
+              Quer mentoria individual além do programa?{" "}
+              <Link href="/mentoria" className="underline underline-offset-4 hover:text-[var(--liceu-text)]">
+                Ver formato de mentoria →
+              </Link>
+            </p>
+          </div>
+        </section>
+
       </div>
     </ReadingLayout>
   );
 }
-

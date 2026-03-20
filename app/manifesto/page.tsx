@@ -171,36 +171,18 @@ export default function ManifestoPage() {
 
         <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
           <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-            Provas e depoimentos
+            Um princípio sobre prova
           </div>
-          <h2 className="font-serif text-2xl leading-tight text-[var(--liceu-text)]">
-            A Técnica Validada Sob Carga Extrema
-          </h2>
-          <div className="space-y-6">
-            {[
-              {
-                quote:
-                  "Eu achava que precisava ser mais solto e extrovertido com a diretoria. O Liceu me ensinou a ser frio. Hoje eu assumo o controle da mesa cortando a confusão com uma única frase lógica.",
-                name: "Marcos V., Diretor Executivo",
-              },
-              {
-                quote:
-                  "Eu gastava muita energia implorando pela atenção dos alunos. O treino me deu uma base letal. Agora a minha postura física exige silêncio absoluto na sala antes mesmo de eu dizer o meu nome.",
-                name: "Helena T., Professora Universitária",
-              },
-            ].map((t) => (
-              <figure
-                key={t.name}
-                className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5"
-              >
-                <div className="font-serif text-[18px] leading-[1.75] text-[var(--liceu-text)]">
-                  “{t.quote}”
-                </div>
-                <figcaption className="mt-4 font-[var(--font-liceu-sans)] text-[11px] tracking-wide text-[var(--liceu-muted)]">
-                  {t.name}
-                </figcaption>
-              </figure>
-            ))}
+          <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-6 py-6 space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+            <p>
+              Depoimentos fabricados são a marca de quem não tem argumento.
+              Quando tivermos histórias reais de alunos que aceitam ser citados,
+              elas vão aparecer aqui — com nome completo, contexto e especificidade.
+            </p>
+            <p className="text-[var(--liceu-muted)]">
+              Até lá: o método é verificável. O diagnóstico é gratuito.
+              Você não precisa acreditar em ninguém — precisa testar a estrutura.
+            </p>
           </div>
         </section>
 
