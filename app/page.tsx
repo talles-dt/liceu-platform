@@ -116,18 +116,18 @@ export default function HomePage() {
             ].map((p) => (
               <Link
                 key={p.href}
-                href={p.href as never}
-                className="group flex flex-wrap items-start justify-between gap-4 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-5 py-5 hover:bg-[var(--liceu-surface)]/50 transition-colors"
+                href={p.href as any}
+                className="group flex flex-wrap items-start justify-between gap-4 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)] px-5 py-5 hover:bg-[var(--liceu-surface)] transition-colors"
               >
                 <div className="space-y-2">
-                  <div className="font-serif text-[18px] text-[var(--liceu-text)] group-hover:underline decoration-[var(--liceu-accent)] underline-offset-4">
+                  <div className="font-[var(--font-noto-serif)] text-[18px] text-[var(--liceu-text)] group-hover:underline decoration-[var(--liceu-secondary)] underline-offset-4">
                     {p.title}
                   </div>
-                  <p className="font-[var(--font-liceu-sans)] text-[12px] text-[var(--liceu-muted)]">
+                  <p className="font-[var(--font-work-sans)] text-[12px] text-[var(--liceu-muted)]">
                     {p.desc}
                   </p>
                 </div>
-                <div className="shrink-0 font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
+                <div className="shrink-0 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
                   {p.tag}
                 </div>
               </Link>

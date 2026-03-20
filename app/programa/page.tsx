@@ -1,4 +1,5 @@
 import { ReadingLayout } from "@/components/ReadingLayout";
+import { PurchaseButton } from "@/components/PurchaseButton";
 import Link from "next/link";
 import { MinimalButton } from "@/components/MinimalButton";
 
@@ -172,12 +173,10 @@ export default function ProgramaPage() {
                 exercícios e análises. Acesso à plataforma com progressão
                 guiada e flashcards SM-2.
               </p>
-              <Link href="/diagnostico">
-                <MinimalButton>Começar pelo diagnóstico</MinimalButton>
-              </Link>
+              <PurchaseButton kind="ebook">Comprar ebook</PurchaseButton>
             </div>
 
-            <div className="border border-[var(--liceu-accent)]/30 bg-[var(--liceu-surface)]/35 px-6 py-6 space-y-4">
+            <div className="border border-[var(--liceu-secondary)] bg-[var(--liceu-surface)] px-6 py-6 space-y-4">
               <div>
                 <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-accent)]/70">
                   Completo
@@ -194,13 +193,11 @@ export default function ProgramaPage() {
                 retóricos em uso. A diferença entre ler sobre pressão e
                 ver a estrutura operar sob ela.
               </p>
-              <Link href="/diagnostico">
-                <MinimalButton>Começar pelo diagnóstico</MinimalButton>
-              </Link>
+              <PurchaseButton kind="video">Comprar acesso completo</PurchaseButton>
             </div>
           </div>
 
-          <div className="space-y-2 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+          <div className="space-y-2 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
             <p>Acesso provisionado imediatamente após confirmação do pagamento.</p>
             <p>
               Quer mentoria individual além do programa?{" "}
