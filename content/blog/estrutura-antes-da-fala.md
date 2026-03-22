@@ -1,6 +1,6 @@
 ---
 title: Estrutura antes da fala
-date: 2026-03-17
+date: "2026-03-17"
 excerpt: A fala é efeito. A causa é a ordem interna.
 ---
 

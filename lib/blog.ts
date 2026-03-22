@@ -33,7 +33,7 @@ export function getAllPosts(): BlogPost[] {
     return {
       slug,
       title: (data.title as string) ?? slug,
-      date: (data.date as string) ?? "",
+      date: data.date ? String(data.date).slice(0, 10) : "",
       excerpt: (data.excerpt as string) ?? "",
       content,
     };
@@ -59,7 +59,7 @@ export function getPost(slug: string): BlogPost | null {
   return {
     slug,
     title: (data.title as string) ?? slug,
-    date: (data.date as string) ?? "",
+    date: data.date ? String(data.date).slice(0, 10) : "",
     excerpt: (data.excerpt as string) ?? "",
     content,
   };

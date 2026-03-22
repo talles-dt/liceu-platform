@@ -1,6 +1,6 @@
 ---
 title: Silêncio e autoridade
-date: 2026-03-17
+date: "2026-03-17"
 excerpt: A autoridade não nasce do volume. Nasce do corte.
 ---
 
