@@ -1,6 +1,8 @@
 import { getResendClient } from "@/lib/resend";
 
-const FROM = "Liceu Underground <acesso@yourdomain.com>"; // replace with your verified Resend domain
+const FROM =
+  process.env.RESEND_FROM ??
+  "Liceu Underground <acesso@oliceu.com>";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 /**
