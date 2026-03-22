@@ -6,10 +6,14 @@ import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 import { WritingArea } from "@/components/WritingArea";
 
+const DEFAULT_PROMPT =
+  "Redija um micro discurso (150–400 palavras) aplicando o dispositivo central deste módulo. Uma tese clara, desenvolvimento preciso, conclusão sem evasão.";
+
 export default function SpeechPage() {
   const params = useParams<{ moduleId: string }>();
   const moduleId = params?.moduleId ?? "";
 
+  const [prompt, setPrompt] = useState<string | null>(null);
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -22,7 +26,11 @@ export default function SpeechPage() {
       try {
         const res = await fetch(`/api/modules/${moduleId}/speech`);
         if (res.ok) {
-          const data = await res.json() as { submission: { status: string; content: string } | null };
+          const data = await res.json() as {
+            prompt: string | null;
+            submission: { status: string; content: string } | null;
+          };
+          setPrompt(data.prompt);
           if (data.submission) {
             setExistingStatus(data.submission.status);
             setText(data.submission.content ?? "");
@@ -83,9 +91,7 @@ export default function SpeechPage() {
             Instrução
           </div>
           <p className="font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
-            Redija um micro discurso (150–400 palavras) aplicando o dispositivo
-            central deste módulo. Uma tese clara, desenvolvimento preciso,
-            conclusão sem evasão.
+            {prompt ?? DEFAULT_PROMPT}
           </p>
         </section>
 
@@ -105,7 +111,6 @@ export default function SpeechPage() {
               onChange={(e) => setText(e.target.value)}
               placeholder="Comece com a tese. Sem rodeios."
             />
-
             <section className="flex items-center justify-between border-t border-[var(--liceu-stone)]/70 pt-6">
               <div className="font-[var(--font-liceu-mono)] text-[11px] tracking-[0.22em] text-[var(--liceu-muted)]">
                 {wordCount} palavras
@@ -117,19 +122,10 @@ export default function SpeechPage() {
                   </p>
                 )}
                 <div className="flex gap-3">
-                  <MinimalButton
-                    variant="quiet"
-                    type="button"
-                    onClick={() => setText("")}
-                    disabled={!text || submitting}
-                  >
+                  <MinimalButton variant="quiet" type="button" onClick={() => setText("")} disabled={!text || submitting}>
                     Limpar
                   </MinimalButton>
-                  <MinimalButton
-                    type="button"
-                    onClick={submit}
-                    disabled={wordCount < 20 || submitting}
-                  >
+                  <MinimalButton type="button" onClick={submit} disabled={wordCount < 20 || submitting}>
                     {submitting ? "Enviando..." : "Enviar"}
                   </MinimalButton>
                 </div>
