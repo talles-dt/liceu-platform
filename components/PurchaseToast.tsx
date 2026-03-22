@@ -19,7 +19,7 @@ export function PurchaseToast() {
       const params = new URLSearchParams(searchParams.toString());
       params.delete("purchase");
       const newUrl = params.toString() ? `${pathname}?${params}` : pathname;
-      router.replace(newUrl, { scroll: false });
+      router.replace(newUrl as never, { scroll: false });
     }
   }, [searchParams, router, pathname]);
 
