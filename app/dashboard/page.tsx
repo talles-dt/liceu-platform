@@ -1,10 +1,12 @@
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import type { Course, Module, ModuleProgress } from "@/lib/domain";
 import { canAccessModule } from "@/lib/domain";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { ModuleList, type ModuleListItem } from "@/components/ModuleList";
 import { getCommerceConfig } from "@/lib/commerce";
+import { PurchaseToast } from "@/components/PurchaseToast";
 
 type DbCourseRow = {
   id: string;
@@ -166,7 +168,11 @@ export default async function DashboardPage() {
   });
 
   return (
-    <ReadingLayout
+    <>
+      <Suspense>
+        <PurchaseToast />
+      </Suspense>
+      <ReadingLayout
       eyebrow="LICEU UNDERGROUND / SEU PROGRESSO"
       title="Disciplina antes de velocidade."
       subtitle="Prossiga módulo por módulo. Para avançar: lições completas, quiz ≥ 70%, e produção escrita aprovada."
@@ -348,6 +354,7 @@ export default async function DashboardPage() {
         </div>
       )}
     </ReadingLayout>
+    </>
   );
 }
 

@@ -206,6 +206,7 @@ export async function completeModuleForUser(
     .from("module_progress")
     .update({
       completed: true,
+      completed_at: new Date().toISOString(),
       mentorship_unlocked: shouldUnlockMentorship
         ? true
         : moduleProgressRow.mentorship_unlocked,
