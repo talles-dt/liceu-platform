@@ -53,10 +53,21 @@ export async function POST(req: Request) {
   }
 
   const kind = (session.metadata?.purchase_kind ?? "video") as PurchaseKind;
-  const courseId = session.metadata?.course_id ?? "";
   const userId = session.metadata?.user_id ?? "";
   const buyerEmail =
     session.customer_details?.email ?? session.customer_email ?? "";
+
+  // If course_id is missing from metadata (e.g. raw Stripe Payment Link with
+  // no metadata), fall back to the env vars based on kind.
+  const { courseId: videoCourseId, ebookCourseId, mentoringCourseId } = getCommerceConfig();
+  const metadataCourseId = session.metadata?.course_id ?? "";
+  const courseId = metadataCourseId || (
+    kind === "ebook"
+      ? ebookCourseId
+      : kind === "mentoring_program"
+        ? mentoringCourseId
+        : videoCourseId
+  );
 
   if (!buyerEmail) {
     console.error("[webhook] No buyer email in session", session.id);
