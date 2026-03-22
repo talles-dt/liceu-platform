@@ -211,8 +211,9 @@ export default async function ModulePage({ params }: Params) {
               typedLessons.map((l) => (
                 <CheckRow
                   key={l.id}
-                  label={`${l.order_index}. ${l.title}`}
+                  label={`${l.order_index + 1}. ${l.title}`}
                   checked={completedLessonIds.has(l.id)}
+                  href={`/modules/${moduleRow.id}/lessons/${l.id}`}
                 />
               ))
             )}
