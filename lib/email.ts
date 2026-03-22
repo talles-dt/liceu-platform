@@ -17,7 +17,7 @@ export async function sendAccessReadyEmail(email: string) {
 
   await resend.emails.send({
     from: FROM,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to: email,
     subject: "Seu acesso está pronto — Liceu Underground",
     html: `
@@ -66,7 +66,7 @@ export async function sendRegistrationEmail(email: string, magicLink: string) {
 
   await resend.emails.send({
     from: FROM,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to: email,
     subject: "Complete seu cadastro — Liceu Underground",
     html: `
@@ -121,7 +121,7 @@ export async function sendInterviewSchedulingEmail(
 
   await resend.emails.send({
     from: FROM,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to: email,
     subject: "Agende sua entrevista — Liceu Underground",
     html: `
@@ -172,7 +172,7 @@ export async function sendMentoringApprovedEmail(
 
   await resend.emails.send({
     from: FROM,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to: email,
     subject: "Aprovado — Complete sua inscrição — Liceu Underground",
     html: `
@@ -224,7 +224,7 @@ export async function sendMentoringRejectedEmail(email: string) {
 
   await resend.emails.send({
     from: FROM,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to: email,
     subject: "Resultado da entrevista — Liceu Underground",
     html: `
@@ -278,7 +278,7 @@ export async function sendDiagnosisRejeicaoEmail(email: string, nome: string) {
   const resend = getResendClient();
   await resend.emails.send({
     from: FROM,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to: email,
     subject: "O seu diagnóstico (Reprovado)",
     html: diagnosisHtml(nome, `
