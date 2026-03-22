@@ -6,7 +6,7 @@ import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 import { WritingArea } from "@/components/WritingArea";
 
-export default function AssignmentPage() {
+export default function SpeechPage() {
   const params = useParams<{ moduleId: string }>();
   const moduleId = params?.moduleId ?? "";
 
@@ -20,7 +20,7 @@ export default function AssignmentPage() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch(`/api/modules/${moduleId}/assignment`);
+        const res = await fetch(`/api/modules/${moduleId}/speech`);
         if (res.ok) {
           const data = await res.json() as { submission: { status: string; content: string } | null };
           if (data.submission) {
@@ -43,7 +43,7 @@ export default function AssignmentPage() {
     setError("");
     setSubmitting(true);
     try {
-      const res = await fetch(`/api/modules/${moduleId}/assignment`, {
+      const res = await fetch(`/api/modules/${moduleId}/speech`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: text }),
@@ -65,7 +65,7 @@ export default function AssignmentPage() {
 
   if (loading) {
     return (
-      <ReadingLayout eyebrow="LICEU UNDERGROUND / PRODUÇÃO" title="Exercício retórico." subtitle="">
+      <ReadingLayout eyebrow="LICEU UNDERGROUND / PRODUÇÃO" title="Micro discurso." subtitle="">
         <p className="font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-muted)]">Carregando...</p>
       </ReadingLayout>
     );
@@ -74,8 +74,8 @@ export default function AssignmentPage() {
   return (
     <ReadingLayout
       eyebrow="LICEU UNDERGROUND / PRODUÇÃO"
-      title="Exercício retórico principal."
-      subtitle="Estrutura lógica, clareza, evidência, estilo. Escreva como quem treina."
+      title="Micro discurso escrito."
+      subtitle="Estrutura deliberada. Tese, desenvolvimento, conclusão. Sem prolixidade."
     >
       <div className="space-y-6">
         <section className="space-y-3">
@@ -83,44 +83,27 @@ export default function AssignmentPage() {
             Instrução
           </div>
           <p className="font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
-            Redija um texto argumentativo (400–800 palavras) defendendo uma tese
-            clara, com pelo menos duas razões e um contra-argumento respondido.
-            Aplique o dispositivo central deste módulo.
+            Redija um micro discurso (150–400 palavras) aplicando o dispositivo
+            central deste módulo. Uma tese clara, desenvolvimento preciso,
+            conclusão sem evasão.
           </p>
         </section>
 
         {alreadySubmitted ? (
-          <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5 space-y-3">
-            <div className={[
-              "font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em]",
-              existingStatus === "approved"
-                ? "text-[var(--liceu-accent)]"
-                : "text-[var(--liceu-muted)]",
-            ].join(" ")}>
-              {existingStatus === "approved" ? "Aprovado" : "Aguardando revisão"}
+          <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5 space-y-2">
+            <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+              Enviado — aguardando revisão
             </div>
             <p className="font-[var(--font-liceu-sans)] text-[13px] text-[var(--liceu-muted)]">
-              {existingStatus === "approved"
-                ? "Seu exercício foi aprovado. Módulo desbloqueado."
-                : "Seu texto foi recebido. A revisão é humana — aguarde."}
+              Não obrigatório para avançar. Revisão humana.
             </p>
-            {existingStatus !== "approved" && (
-              <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-4 py-4 mt-2">
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)] mb-2">
-                  Sua submissão
-                </div>
-                <p className="font-serif text-[13px] leading-[1.85] text-[var(--liceu-muted)] whitespace-pre-wrap">
-                  {text}
-                </p>
-              </div>
-            )}
           </div>
         ) : (
           <>
             <WritingArea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="Comece pela tese. Frases completas. Rigor. Sem pressa."
+              placeholder="Comece com a tese. Sem rodeios."
             />
 
             <section className="flex items-center justify-between border-t border-[var(--liceu-stone)]/70 pt-6">
@@ -145,7 +128,7 @@ export default function AssignmentPage() {
                   <MinimalButton
                     type="button"
                     onClick={submit}
-                    disabled={wordCount < 50 || submitting}
+                    disabled={wordCount < 20 || submitting}
                   >
                     {submitting ? "Enviando..." : "Enviar"}
                   </MinimalButton>
@@ -156,7 +139,7 @@ export default function AssignmentPage() {
         )}
 
         <p className="font-[var(--font-liceu-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
-          Este exercício é revisado pelo instrutor. A aprovação desbloqueia o próximo módulo.
+          Não obrigatório para avançar. Revisão humana.
         </p>
       </div>
     </ReadingLayout>
