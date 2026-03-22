@@ -1,13 +1,16 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/lib/supabaseServer";
-import { createSupabaseServerClient } from "@/lib/supabaseServer";
+import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
 
 type Context = { params: Promise<{ moduleId: string }> };
 
+type DbAssignment = {
+  assignment_prompt: string;
+};
+
 /**
- * The main rhetorical exercise — kind='assignment'.
- * This is the one that gates module completion (assignment_submitted flag).
- * Admin approves it via the assignments panel.
+ * GET — returns the prompt for this module + the user's existing submission if any.
+ * POST — submits the main rhetorical exercise (kind='assignment').
+ *        This is the one that gates module completion.
  */
 export async function GET(_req: Request, { params }: Context) {
   const user = await getCurrentUser();
@@ -16,17 +19,27 @@ export async function GET(_req: Request, { params }: Context) {
   const { moduleId } = await params;
   const supabase = await createSupabaseServerClient();
 
-  const { data } = await supabase
-    .from("assignment_submissions")
-    .select("id, content, status, created_at")
-    .eq("user_id", user.id)
-    .eq("module_id", moduleId)
-    .eq("kind", "assignment")
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle<{ id: string; content: string; status: string; created_at: string }>();
+  const [{ data: assignmentRow }, { data: submissionRow }] = await Promise.all([
+    supabase
+      .from("module_assignments")
+      .select("assignment_prompt")
+      .eq("module_id", moduleId)
+      .maybeSingle<DbAssignment>(),
+    supabase
+      .from("assignment_submissions")
+      .select("id, content, status, created_at")
+      .eq("user_id", user.id)
+      .eq("module_id", moduleId)
+      .eq("kind", "assignment")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle<{ id: string; content: string; status: string; created_at: string }>(),
+  ]);
 
-  return NextResponse.json({ submission: data ?? null });
+  return NextResponse.json({
+    prompt: assignmentRow?.assignment_prompt ?? null,
+    submission: submissionRow ?? null,
+  });
 }
 
 export async function POST(req: Request, { params }: Context) {
@@ -37,10 +50,7 @@ export async function POST(req: Request, { params }: Context) {
   const body = (await req.json().catch(() => ({}))) as { content?: string };
 
   if (!body.content?.trim() || body.content.trim().length < 50) {
-    return NextResponse.json(
-      { error: "Mínimo de 50 caracteres." },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Mínimo de 50 caracteres." }, { status: 400 });
   }
 
   const supabase = await createSupabaseServerClient();

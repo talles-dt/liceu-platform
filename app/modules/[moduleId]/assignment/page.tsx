@@ -6,10 +6,14 @@ import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 import { WritingArea } from "@/components/WritingArea";
 
+const DEFAULT_PROMPT =
+  "Redija um texto argumentativo (400–800 palavras) defendendo uma tese clara, com pelo menos duas razões e um contra-argumento respondido. Aplique o dispositivo central deste módulo.";
+
 export default function AssignmentPage() {
   const params = useParams<{ moduleId: string }>();
   const moduleId = params?.moduleId ?? "";
 
+  const [prompt, setPrompt] = useState<string | null>(null);
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -22,7 +26,11 @@ export default function AssignmentPage() {
       try {
         const res = await fetch(`/api/modules/${moduleId}/assignment`);
         if (res.ok) {
-          const data = await res.json() as { submission: { status: string; content: string } | null };
+          const data = await res.json() as {
+            prompt: string | null;
+            submission: { status: string; content: string } | null;
+          };
+          setPrompt(data.prompt);
           if (data.submission) {
             setExistingStatus(data.submission.status);
             setText(data.submission.content ?? "");
@@ -83,9 +91,7 @@ export default function AssignmentPage() {
             Instrução
           </div>
           <p className="font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
-            Redija um texto argumentativo (400–800 palavras) defendendo uma tese
-            clara, com pelo menos duas razões e um contra-argumento respondido.
-            Aplique o dispositivo central deste módulo.
+            {prompt ?? DEFAULT_PROMPT}
           </p>
         </section>
 
@@ -104,16 +110,14 @@ export default function AssignmentPage() {
                 ? "Seu exercício foi aprovado. Módulo desbloqueado."
                 : "Seu texto foi recebido. A revisão é humana — aguarde."}
             </p>
-            {existingStatus !== "approved" && (
-              <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-4 py-4 mt-2">
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)] mb-2">
-                  Sua submissão
-                </div>
-                <p className="font-serif text-[13px] leading-[1.85] text-[var(--liceu-muted)] whitespace-pre-wrap">
-                  {text}
-                </p>
+            <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-4 py-4">
+              <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)] mb-2">
+                Sua submissão
               </div>
-            )}
+              <p className="font-serif text-[13px] leading-[1.85] text-[var(--liceu-muted)] whitespace-pre-wrap">
+                {text}
+              </p>
+            </div>
           </div>
         ) : (
           <>
@@ -122,7 +126,6 @@ export default function AssignmentPage() {
               onChange={(e) => setText(e.target.value)}
               placeholder="Comece pela tese. Frases completas. Rigor. Sem pressa."
             />
-
             <section className="flex items-center justify-between border-t border-[var(--liceu-stone)]/70 pt-6">
               <div className="font-[var(--font-liceu-mono)] text-[11px] tracking-[0.22em] text-[var(--liceu-muted)]">
                 {wordCount} palavras
@@ -134,19 +137,10 @@ export default function AssignmentPage() {
                   </p>
                 )}
                 <div className="flex gap-3">
-                  <MinimalButton
-                    variant="quiet"
-                    type="button"
-                    onClick={() => setText("")}
-                    disabled={!text || submitting}
-                  >
+                  <MinimalButton variant="quiet" type="button" onClick={() => setText("")} disabled={!text || submitting}>
                     Limpar
                   </MinimalButton>
-                  <MinimalButton
-                    type="button"
-                    onClick={submit}
-                    disabled={wordCount < 50 || submitting}
-                  >
+                  <MinimalButton type="button" onClick={submit} disabled={wordCount < 50 || submitting}>
                     {submitting ? "Enviando..." : "Enviar"}
                   </MinimalButton>
                 </div>
