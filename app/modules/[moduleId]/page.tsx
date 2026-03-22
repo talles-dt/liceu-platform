@@ -259,7 +259,7 @@ export default async function ModulePage({ params }: Params) {
               label="Micro discurso"
               checked={speechDone}
               optional
-              href={`/modules/${moduleRow.id}/assignment`}
+              href={`/modules/${moduleRow.id}/speech`}
             />
           </div>
           <p className="font-[var(--font-liceu-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
