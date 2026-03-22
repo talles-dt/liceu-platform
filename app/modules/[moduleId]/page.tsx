@@ -3,6 +3,7 @@ import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
 import { canAccessModuleForUser } from "@/lib/progression";
+import { ModuleStartTracker } from "@/components/ModuleStartTracker";
 
 type Params = { params: Promise<{ moduleId: string }> };
 
@@ -197,6 +198,7 @@ export default async function ModulePage({ params }: Params) {
       }
     >
       <div className="space-y-10">
+        <ModuleStartTracker moduleId={moduleRow.id} />
         {/* CONTENT */}
         <section className="space-y-3">
           <SectionTitle>CONTEÚDO</SectionTitle>
