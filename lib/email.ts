@@ -318,7 +318,7 @@ export async function sendDiagnosisApostilaEmail(email: string, nome: string) {
 
   await resend.emails.send({
     from: FROM,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to: email,
     subject: "Seu mapa de falhas (Diagnóstico do Liceu)",
     html: diagnosisHtml(nome, `
@@ -354,7 +354,7 @@ export async function sendDiagnosisVideoEmail(email: string, nome: string) {
 
   await resend.emails.send({
     from: FROM,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to: email,
     subject: "Por que o seu cérebro apaga (Seu Diagnóstico)",
     html: diagnosisHtml(nome, `
@@ -390,7 +390,7 @@ export async function sendDiagnosisEntrevistaEmail(email: string, nome: string) 
 
   await resend.emails.send({
     from: FROM,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to: email,
     subject: "Aprovado no filtro teórico. Próximo passo.",
     html: diagnosisHtml(nome, `
