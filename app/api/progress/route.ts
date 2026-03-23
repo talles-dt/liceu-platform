@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
+import { isUuidV4 } from "@/lib/validation";
 
 // NOTE: assignmentApproved is intentionally NOT accepted from the client.
 // Assignment approval is a server-only action performed by admins via
@@ -11,20 +12,26 @@ type ProgressPayload = {
 };
 
 export async function POST(request: Request) {
-  const body = (await request.json().catch(() => null)) as ProgressPayload | null;
+  let body: ProgressPayload | null = null;
+  try {
+    body = (await request.json()) as ProgressPayload;
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
+  }
 
   if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
-  const moduleId =
-    typeof body.moduleId === "string" ? body.moduleId.trim() : "";
+  if (typeof body.moduleId !== "string") {
+    return NextResponse.json({ error: "Invalid moduleId" }, { status: 400 });
+  }
+
+  const moduleId = body.moduleId.trim();
   const quizScore = body.quizScore;
-  const uuidV4Regex =
-    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
   if (
-    !uuidV4Regex.test(moduleId) ||
+    !isUuidV4(moduleId) ||
     typeof quizScore !== "number" ||
     !Number.isFinite(quizScore) ||
     quizScore < 0 ||

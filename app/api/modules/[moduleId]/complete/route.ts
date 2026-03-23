@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/supabaseServer";
 import { completeModuleForUser } from "@/lib/progression";
+import { isUuidV4 } from "@/lib/validation";
 
 type Context = {
   params: Promise<{
@@ -15,9 +16,7 @@ export async function POST(_request: Request, { params }: Context) {
   }
 
   const { moduleId } = await params;
-  const uuidV4Regex =
-    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  if (!uuidV4Regex.test(moduleId)) {
+  if (!isUuidV4(moduleId)) {
     return NextResponse.json({ error: "Invalid moduleId" }, { status: 400 });
   }
 
