@@ -40,7 +40,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const origin = request.headers.get("origin") ?? "http://localhost:3000";
+  const originHeader = request.headers.get("origin");
+  const requestUrl = new URL(request.url);
+  const fallbackOrigin = `${requestUrl.protocol}//${requestUrl.host}`;
+  const origin = originHeader && originHeader === fallbackOrigin
+    ? originHeader
+    : fallbackOrigin;
   const stripe = getStripeClient();
 
   const session = await stripe.checkout.sessions.create({
@@ -58,4 +63,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ url: session.url });
 }
-

@@ -11,9 +11,25 @@ type ProgressPayload = {
 };
 
 export async function POST(request: Request) {
-  const body = (await request.json()) as ProgressPayload;
+  const body = (await request.json().catch(() => null)) as ProgressPayload | null;
 
-  if (!body.moduleId || typeof body.quizScore !== "number") {
+  if (!body || typeof body !== "object") {
+    return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+  }
+
+  const moduleId =
+    typeof body.moduleId === "string" ? body.moduleId.trim() : "";
+  const quizScore = body.quizScore;
+  const uuidV4Regex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+  if (
+    !uuidV4Regex.test(moduleId) ||
+    typeof quizScore !== "number" ||
+    !Number.isFinite(quizScore) ||
+    quizScore < 0 ||
+    quizScore > 100
+  ) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
@@ -22,7 +38,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const quizPassed = body.quizScore >= 70;
+  const quizPassed = quizScore >= 70;
 
   const supabase = await createSupabaseServerClient();
 
@@ -31,7 +47,7 @@ export async function POST(request: Request) {
     .from("module_progress")
     .select("assignment_submitted")
     .eq("user_id", user.id)
-    .eq("module_id", body.moduleId)
+    .eq("module_id", moduleId)
     .maybeSingle<{ assignment_submitted: boolean }>();
 
   const assignmentApproved = existing?.assignment_submitted ?? false;
@@ -41,8 +57,8 @@ export async function POST(request: Request) {
     .upsert(
       {
         user_id: user.id,
-        module_id: body.moduleId,
-        quiz_score: body.quizScore,
+        module_id: moduleId,
+        quiz_score: quizScore,
         // completed is derived server-side; the /complete endpoint is the
         // canonical way to mark a module done once all conditions are met.
       },
@@ -54,9 +70,8 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({
-    quizScore: body.quizScore,
+    quizScore,
     quizPassed,
     assignmentApproved,
   });
 }
-
