@@ -79,16 +79,16 @@ export function BarChart({ labels, values }: BarChartProps) {
         const w = `${Math.round((v / max) * 100)}%`;
         return (
           <div key={label} className="grid grid-cols-[140px_1fr_60px] gap-3">
-            <div className="truncate font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+            <div className="truncate font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
               {label}
             </div>
-            <div className="h-4 border border-[var(--liceu-stone)] bg-[var(--liceu-bg)]">
+            <div className="h-4 border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)]">
               <div
-                className="h-full bg-[var(--liceu-accent)]/35"
+                className="h-full bg-[var(--liceu-secondary)]/35"
                 style={{ width: w }}
               />
             </div>
-            <div className="text-right font-[var(--font-liceu-mono)] text-[11px] tabular-nums text-[var(--liceu-text)]">
+            <div className="text-right font-[var(--font-space-grotesk)] text-[11px] tabular-nums text-[var(--liceu-text)]">
               {v}
             </div>
           </div>
@@ -117,7 +117,7 @@ export function Heatmap({ rows, cols, values }: HeatmapProps) {
             {cols.map((c) => (
               <div
                 key={c}
-                className="truncate text-center font-[var(--font-liceu-mono)] text-[9px] uppercase tracking-[0.16em] text-[var(--liceu-muted)]"
+                className="truncate text-center font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.16em] text-[var(--liceu-muted)]"
               >
                 {c}
               </div>
@@ -128,7 +128,7 @@ export function Heatmap({ rows, cols, values }: HeatmapProps) {
         <div className="mt-2 space-y-1">
           {rows.map((r, ri) => (
             <div key={r} className="grid grid-cols-[160px_1fr] gap-3">
-              <div className="truncate font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+              <div className="truncate font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
                 {r}
               </div>
               <div

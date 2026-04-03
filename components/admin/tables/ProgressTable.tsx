@@ -24,7 +24,7 @@ export function ProgressTable({ rows }: { rows: ProgressRow[] }) {
           key: "m",
           header: "module",
           render: (r) => (
-            <span className="font-serif text-[13px]">{r.title}</span>
+            <span className="font-[var(--font-noto-serif)] text-[13px]">{r.title}</span>
           ),
         },
         {
@@ -32,7 +32,7 @@ export function ProgressTable({ rows }: { rows: ProgressRow[] }) {
           header: "completion",
           className: "text-right",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums">
               {r.completionRate}%
             </span>
           ),
@@ -42,7 +42,7 @@ export function ProgressTable({ rows }: { rows: ProgressRow[] }) {
           header: "completed",
           className: "text-right",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[var(--liceu-muted)]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[var(--liceu-muted)]">
               {r.completed}/{r.total}
             </span>
           ),
@@ -52,7 +52,7 @@ export function ProgressTable({ rows }: { rows: ProgressRow[] }) {
           header: "median days",
           className: "text-right",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[var(--liceu-muted)]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[var(--liceu-muted)]">
               {r.medianDays}
             </span>
           ),
@@ -62,7 +62,7 @@ export function ProgressTable({ rows }: { rows: ProgressRow[] }) {
           header: "last update",
           className: "text-right",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[var(--liceu-muted)]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[var(--liceu-muted)]">
               {r.lastUpdate}
             </span>
           ),

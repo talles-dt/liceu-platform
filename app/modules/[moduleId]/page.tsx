@@ -21,7 +21,7 @@ type DbSubmissionRow = { kind: string; status: string };
 function SectionTitle({ children }: { children: string }) {
   return (
     <div className="flex items-baseline justify-between gap-6 border-b border-[var(--liceu-stone)]/70 pb-2">
-      <h2 className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+      <h2 className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
         {children}
       </h2>
     </div>
@@ -41,20 +41,20 @@ function CheckRow({
 }) {
   const badge = checked ? "DONE" : optional ? "OPCIONAL" : "TODO";
   const badgeClass = checked
-    ? "border-[var(--liceu-accent)]/45 text-[var(--liceu-accent)]"
+    ? "border-[var(--liceu-secondary)]/45 text-[var(--liceu-secondary)]"
     : optional
       ? "border-[var(--liceu-stone)]/50 text-[var(--liceu-muted)]/60"
       : "border-[var(--liceu-stone)]/80 text-[var(--liceu-muted)]";
 
   const content = (
     <div className="flex items-start justify-between gap-6 py-2">
-      <div className="font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-text)]">
+      <div className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)]">
         {label}
       </div>
       <div
         className={[
           "shrink-0 rounded-full border px-2 py-0.5",
-          "font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em]",
+          "font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em]",
           badgeClass,
         ].join(" ")}
       >
@@ -69,7 +69,7 @@ function CheckRow({
   return (
     <a
       href={href}
-      className="block border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--liceu-accent)]/55"
+      className="block border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--liceu-secondary)]/55"
     >
       {content}
     </a>
@@ -167,7 +167,7 @@ export default async function ModulePage({ params }: Params) {
       subtitle="Conteúdo, treinamento e produção. Três camadas. Uma disciplina."
       right={
         <div className="w-56 space-y-3 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/50 px-4 py-3">
-          <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
             DESBLOQUEIO
           </div>
           <div className="mt-2 space-y-2">
@@ -177,20 +177,20 @@ export default async function ModulePage({ params }: Params) {
               { label: "Produção aprovada", ok: assignmentApproved },
             ].map(({ label, ok }) => (
               <div key={label} className="flex items-center justify-between text-xs">
-                <span className="font-[var(--font-liceu-sans)] text-[var(--liceu-muted)]">
+                <span className="font-[var(--font-work-sans)] text-[var(--liceu-muted)]">
                   {label}
                 </span>
-                <span className="font-[var(--font-liceu-mono)] text-[11px] text-[var(--liceu-text)]">
+                <span className="font-[var(--font-space-grotesk)] text-[11px] text-[var(--liceu-text)]">
                   {ok ? "OK" : "—"}
                 </span>
               </div>
             ))}
           </div>
           <div className="mt-4 border-t border-[var(--liceu-stone)]/60 pt-3">
-            <div className="font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
               Mentoria
             </div>
-            <div className="mt-1 font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-text)]">
+            <div className="mt-1 font-[var(--font-work-sans)] text-xs text-[var(--liceu-text)]">
               {progressRow?.mentorship_unlocked ? "Liberada" : "Bloqueada"}
             </div>
           </div>
@@ -204,7 +204,7 @@ export default async function ModulePage({ params }: Params) {
           <SectionTitle>CONTEÚDO</SectionTitle>
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-4 py-1">
             {typedLessons.length === 0 ? (
-              <div className="py-3 font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-muted)]">
+              <div className="py-3 font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
                 Nenhuma lição cadastrada.
               </div>
             ) : (
@@ -236,7 +236,7 @@ export default async function ModulePage({ params }: Params) {
               href={`/modules/${moduleRow.id}/flashcards`}
             />
           </div>
-          <p className="font-[var(--font-liceu-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
+          <p className="font-[var(--font-work-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
             Flashcards: repetição espaçada (SM-2). Não obrigatório para avançar.
           </p>
         </section>
@@ -265,14 +265,14 @@ export default async function ModulePage({ params }: Params) {
               href={`/modules/${moduleRow.id}/speech`}
             />
           </div>
-          <p className="font-[var(--font-liceu-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
+          <p className="font-[var(--font-work-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
             Análise e micro discurso não bloqueiam avanço. Revisão humana.
           </p>
         </section>
 
         {/* COMPLETE */}
         <section className="flex items-center justify-between gap-6 border-t border-[var(--liceu-stone)]/70 pt-6">
-          <div className="font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
             Ao concluir o módulo, a próxima unidade e a sessão de mentoria são liberadas.
           </div>
           <form action={`/api/modules/${moduleRow.id}/complete`} method="post">

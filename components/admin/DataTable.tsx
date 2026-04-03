@@ -25,10 +25,10 @@ export function DataTable<Row>({
   dense = true,
 }: Props<Row>) {
   return (
-    <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-bg)]">
+    <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)]">
       {caption && (
         <div className="border-b border-[var(--liceu-stone)]/70 px-4 py-3">
-          <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             {caption}
           </div>
         </div>
@@ -43,7 +43,7 @@ export function DataTable<Row>({
                   className={[
                     "whitespace-nowrap px-3 text-left",
                     dense ? "py-2" : "py-3",
-                    "font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]",
+                    "font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]",
                     col.className ?? "",
                   ].join(" ")}
                 >

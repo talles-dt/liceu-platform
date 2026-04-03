@@ -39,7 +39,7 @@ function AnnotationRow({
 }) {
   const inputClass = [
     "w-full border-none bg-transparent",
-    "font-[var(--font-liceu-sans)] text-[13px] text-[var(--liceu-text)]",
+    "font-[var(--font-work-sans)] text-[13px] text-[var(--liceu-text)]",
     "placeholder:text-[var(--liceu-muted)]/50 focus:outline-none",
   ].join(" ");
 
@@ -49,7 +49,7 @@ function AnnotationRow({
   return (
     <tr className="border-b border-[var(--liceu-stone)]/50 last:border-b-0">
       <td className={cellClass + " w-6 text-center"}>
-        <span className="font-[var(--font-liceu-mono)] text-[10px] text-[var(--liceu-muted)]">
+        <span className="font-[var(--font-space-grotesk)] text-[10px] text-[var(--liceu-muted)]">
           {index + 1}
         </span>
       </td>
@@ -81,7 +81,7 @@ function AnnotationRow({
         {canRemove && (
           <button
             onClick={() => onRemove(index)}
-            className="font-[var(--font-liceu-mono)] text-[10px] text-[var(--liceu-muted)] hover:text-[var(--liceu-text)]"
+            className="font-[var(--font-space-grotesk)] text-[10px] text-[var(--liceu-muted)] hover:text-[var(--liceu-text)]"
           >
             ✕
           </button>
@@ -184,7 +184,7 @@ export default function AnalysisPage() {
   if (loading) {
     return (
       <ReadingLayout eyebrow="LICEU / ANÁLISE" title="Carregando..." subtitle="">
-        <p className="font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-muted)]">
+        <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
           Buscando texto...
         </p>
       </ReadingLayout>
@@ -194,7 +194,7 @@ export default function AnalysisPage() {
   if (!text) {
     return (
       <ReadingLayout eyebrow="LICEU / ANÁLISE" title="Sem texto" subtitle="">
-        <p className="font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-muted)]">
+        <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
           Nenhum texto clássico atribuído a este módulo ainda.
         </p>
       </ReadingLayout>
@@ -212,11 +212,11 @@ export default function AnalysisPage() {
       <div className="space-y-10">
         {/* Classical text */}
         <section className="space-y-3">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Texto
           </div>
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5">
-            <p className="whitespace-pre-wrap font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+            <p className="whitespace-pre-wrap font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
               {text.content}
             </p>
           </div>
@@ -225,10 +225,10 @@ export default function AnalysisPage() {
         {/* Annotation table */}
         <section className="space-y-3">
           <div className="flex items-baseline justify-between gap-4">
-            <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
               Anotações retóricas
             </div>
-            <div className="font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
               Identifique, localize e explique cada dispositivo.
             </div>
           </div>
@@ -237,16 +237,16 @@ export default function AnalysisPage() {
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border-b border-[var(--liceu-stone)]/70">
-                  <th className="px-3 py-2 text-left font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)] w-6">
+                  <th className="px-3 py-2 text-left font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)] w-6">
                     #
                   </th>
-                  <th className="px-3 py-2 text-left font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+                  <th className="px-3 py-2 text-left font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
                     Dispositivo retórico
                   </th>
-                  <th className="px-3 py-2 text-left font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+                  <th className="px-3 py-2 text-left font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
                     Localização no texto
                   </th>
-                  <th className="px-3 py-2 text-left font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+                  <th className="px-3 py-2 text-left font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
                     Função / efeito
                   </th>
                   <th className="w-6" />
@@ -270,7 +270,7 @@ export default function AnalysisPage() {
           {!alreadySubmitted && !submitted && (
             <button
               onClick={addRow}
-              className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)] hover:text-[var(--liceu-text)]"
+              className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)] hover:text-[var(--liceu-text)]"
             >
               + Adicionar linha
             </button>
@@ -279,7 +279,7 @@ export default function AnalysisPage() {
 
         {/* Notes */}
         <section className="space-y-3">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Notas gerais (opcional)
           </div>
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-4 py-3">
@@ -289,14 +289,14 @@ export default function AnalysisPage() {
               disabled={alreadySubmitted || submitted}
               rows={4}
               placeholder="Impressões gerais, padrões, o que o texto demonstra sobre o método do autor..."
-              className="w-full resize-none border-none bg-transparent font-serif text-[14px] leading-[1.85] text-[var(--liceu-text)] placeholder:text-[var(--liceu-muted)]/50 focus:outline-none disabled:opacity-60"
+              className="w-full resize-none border-none bg-transparent font-[var(--font-noto-serif)] text-[14px] leading-[1.85] text-[var(--liceu-text)] placeholder:text-[var(--liceu-muted)]/50 focus:outline-none disabled:opacity-60"
             />
           </div>
         </section>
 
         {/* Submit */}
         <section className="flex items-center justify-between border-t border-[var(--liceu-stone)]/70 pt-6">
-          <div className="font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
             {submitted || alreadySubmitted
               ? `Enviado — ${existing?.status === "approved" ? "aprovado" : "aguardando revisão"}`
               : "Não obrigatório para avançar. Revisão humana."}
@@ -304,7 +304,7 @@ export default function AnalysisPage() {
           {!submitted && !alreadySubmitted && (
             <div className="flex flex-col items-end gap-2">
               {error && (
-                <p className="font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+                <p className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
                   {error}
                 </p>
               )}

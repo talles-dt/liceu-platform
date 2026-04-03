@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Noto_Serif, Work_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -10,6 +10,22 @@ const uiSans = Inter({
 
 const uiMono = JetBrains_Mono({
   variable: "--font-liceu-mono",
+  subsets: ["latin"],
+});
+
+const notoSerif = Noto_Serif({
+  variable: "--font-noto-serif",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const workSans = Work_Sans({
+  variable: "--font-work-sans",
+  subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -26,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${uiSans.variable} ${uiMono.variable} antialiased`}
+        className={`${uiSans.variable} ${uiMono.variable} ${notoSerif.variable} ${workSans.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <SiteHeader />
         {children}

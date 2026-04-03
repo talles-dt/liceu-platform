@@ -27,13 +27,13 @@ export function StudentProgressTable({ rows }: { rows: StudentProgressRow[] }) {
         {
           key: "module",
           header: "module",
-          render: (r) => <span className="font-serif text-[13px]">{r.title}</span>,
+          render: (r) => <span className="font-[var(--font-noto-serif)] text-[13px]">{r.title}</span>,
         },
         {
           key: "completed",
           header: "completed",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] text-[11px]">
+            <span className="font-[var(--font-space-grotesk)] text-[11px]">
               {r.completed ? "yes" : "no"}
             </span>
           ),
@@ -43,7 +43,7 @@ export function StudentProgressTable({ rows }: { rows: StudentProgressRow[] }) {
           header: "quiz",
           className: "text-right",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[11px]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[11px]">
               {r.quiz_score ?? "—"}
             </span>
           ),
@@ -52,7 +52,7 @@ export function StudentProgressTable({ rows }: { rows: StudentProgressRow[] }) {
           key: "assignment",
           header: "assignment",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] text-[11px]">
+            <span className="font-[var(--font-space-grotesk)] text-[11px]">
               {r.assignment_submitted ? "submitted" : "missing"}
             </span>
           ),
@@ -61,7 +61,7 @@ export function StudentProgressTable({ rows }: { rows: StudentProgressRow[] }) {
           key: "updated",
           header: "updated",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[11px] text-[var(--liceu-muted)]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[11px] text-[var(--liceu-muted)]">
               {r.updated_at ? r.updated_at.slice(0, 10) : "—"}
             </span>
           ),
@@ -81,14 +81,14 @@ export function StudentQuizTable({ rows }: { rows: StudentQuizRow[] }) {
         {
           key: "m",
           header: "module",
-          render: (r) => <span className="font-serif text-[13px]">{r.module}</span>,
+          render: (r) => <span className="font-[var(--font-noto-serif)] text-[13px]">{r.module}</span>,
         },
         {
           key: "s",
           header: "score",
           className: "text-right",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[11px]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[11px]">
               {r.score ?? "—"}
             </span>
           ),

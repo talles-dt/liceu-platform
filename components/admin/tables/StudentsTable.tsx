@@ -17,7 +17,7 @@ export function StudentsTable({ rows }: { rows: AdminStudentRow[] }) {
           render: (r) => (
             <Link
               href={`/admin/students/${r.id}` as never}
-              className="font-serif underline decoration-[var(--liceu-stone)] underline-offset-4 hover:decoration-[var(--liceu-accent)]"
+              className="font-[var(--font-noto-serif)] underline decoration-[var(--liceu-stone)] underline-offset-4 hover:decoration-[var(--liceu-secondary)]"
             >
               {r.name}
             </Link>
@@ -27,7 +27,7 @@ export function StudentsTable({ rows }: { rows: AdminStudentRow[] }) {
           key: "module",
           header: "current module",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] text-[12px]">
+            <span className="font-[var(--font-space-grotesk)] text-[12px]">
               {r.currentModule}
             </span>
           ),
@@ -37,7 +37,7 @@ export function StudentsTable({ rows }: { rows: AdminStudentRow[] }) {
           header: "completion",
           className: "text-right",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums">
               {r.completionPct}%
             </span>
           ),
@@ -46,7 +46,7 @@ export function StudentsTable({ rows }: { rows: AdminStudentRow[] }) {
           key: "last",
           header: "last activity",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[var(--liceu-muted)]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[var(--liceu-muted)]">
               {r.lastActivity}
             </span>
           ),
@@ -58,9 +58,9 @@ export function StudentsTable({ rows }: { rows: AdminStudentRow[] }) {
             <span
               className={[
                 "inline-flex items-center border px-2 py-0.5",
-                "font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em]",
+                "font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em]",
                 r.status === "active"
-                  ? "border-[var(--liceu-accent)]/40 text-[var(--liceu-accent)]"
+                  ? "border-[var(--liceu-secondary)]/40 text-[var(--liceu-secondary)]"
                   : r.status === "stuck"
                     ? "border-[var(--liceu-stone)] text-[var(--liceu-text)]"
                     : "border-[var(--liceu-stone)]/70 text-[var(--liceu-muted)]",

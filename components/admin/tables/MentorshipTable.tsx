@@ -20,13 +20,13 @@ export function MentorshipTable({ rows }: { rows: SessionRow[] }) {
         {
           key: "student",
           header: "student",
-          render: (r) => <span className="font-serif">{r.student}</span>,
+          render: (r) => <span className="font-[var(--font-noto-serif)]">{r.student}</span>,
         },
         {
           key: "when",
           header: "scheduled",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[var(--liceu-muted)]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[var(--liceu-muted)]">
               {r.when}
             </span>
           ),
@@ -38,9 +38,9 @@ export function MentorshipTable({ rows }: { rows: SessionRow[] }) {
             <span
               className={[
                 "inline-flex items-center border px-2 py-0.5",
-                "font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em]",
+                "font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em]",
                 r.status === "completed"
-                  ? "border-[var(--liceu-accent)]/40 text-[var(--liceu-accent)]"
+                  ? "border-[var(--liceu-secondary)]/40 text-[var(--liceu-secondary)]"
                   : r.status === "missed"
                     ? "border-[var(--liceu-stone)] text-[var(--liceu-text)]"
                     : "border-[var(--liceu-stone)]/70 text-[var(--liceu-muted)]",
@@ -57,9 +57,9 @@ export function MentorshipTable({ rows }: { rows: SessionRow[] }) {
           render: (r) => (
             <span
               className={[
-                "font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.18em]",
+                "font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.18em]",
                 r.readiness === "ready"
-                  ? "text-[var(--liceu-accent)]"
+                  ? "text-[var(--liceu-secondary)]"
                   : "text-[var(--liceu-muted)]",
               ].join(" ")}
             >

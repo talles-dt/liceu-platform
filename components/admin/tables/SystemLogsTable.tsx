@@ -19,7 +19,7 @@ export function SystemLogsTable({ rows }: { rows: LogRow[] }) {
           key: "ts",
           header: "ts",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[var(--liceu-muted)]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[var(--liceu-muted)]">
               {r.ts}
             </span>
           ),
@@ -28,21 +28,21 @@ export function SystemLogsTable({ rows }: { rows: LogRow[] }) {
           key: "actor",
           header: "actor",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] text-[11px]">{r.actor}</span>
+            <span className="font-[var(--font-space-grotesk)] text-[11px]">{r.actor}</span>
           ),
         },
         {
           key: "action",
           header: "action",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] text-[11px]">{r.action}</span>
+            <span className="font-[var(--font-space-grotesk)] text-[11px]">{r.action}</span>
           ),
         },
         {
           key: "target",
           header: "target",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] text-[11px] text-[var(--liceu-text)]">
+            <span className="font-[var(--font-space-grotesk)] text-[11px] text-[var(--liceu-text)]">
               {r.target}
             </span>
           ),

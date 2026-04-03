@@ -179,54 +179,54 @@ export default async function DashboardPage() {
       right={
         <div className="w-56 space-y-3">
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/50 px-4 py-3">
-            <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
               CURSOS
             </div>
-            <div className="mt-2 font-serif text-2xl text-[var(--liceu-text)]">
+            <div className="mt-2 font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-text)]">
               {courses.length}
             </div>
-            <div className="mt-1 font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-muted)]">
+            <div className="mt-1 font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
               {courses.length === 1 ? "curso ativo" : "cursos ativos"}
             </div>
           </div>
 
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/50 px-4 py-3">
-            <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
               MENTORIA
             </div>
             {mentoringStatus === "active" ? (
               <>
-                <div className="mt-2 font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-accent)]">
+                <div className="mt-2 font-[var(--font-work-sans)] text-xs text-[var(--liceu-secondary)]">
                   Ativa
                 </div>
-                <div className="mt-1 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+                <div className="mt-1 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
                   Agende sua próxima sessão.
                 </div>
               </>
             ) : mentoringStatus === "pending_interview" ? (
               <>
-                <div className="mt-2 font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-text)]">
+                <div className="mt-2 font-[var(--font-work-sans)] text-xs text-[var(--liceu-text)]">
                   Entrevista pendente
                 </div>
-                <div className="mt-1 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+                <div className="mt-1 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
                   Agende sua entrevista.
                 </div>
               </>
             ) : mentoringStatus === "approved_pending_payment" ? (
               <>
-                <div className="mt-2 font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-text)]">
+                <div className="mt-2 font-[var(--font-work-sans)] text-xs text-[var(--liceu-text)]">
                   Aprovado
                 </div>
-                <div className="mt-1 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+                <div className="mt-1 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
                   Verifique seu email para completar a inscrição.
                 </div>
               </>
             ) : (
               <>
-                <div className="mt-2 font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-text)]">
+                <div className="mt-2 font-[var(--font-work-sans)] text-xs text-[var(--liceu-text)]">
                   {mentorshipAvailable ? "Sessão liberada" : "Bloqueada"}
                 </div>
-                <div className="mt-1 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+                <div className="mt-1 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
                   {mentorshipAvailable
                     ? "Conclua um módulo para agendar."
                     : "Conclua o módulo atual para liberar."}
@@ -238,7 +238,7 @@ export default async function DashboardPage() {
       }
     >
       {courses.length === 0 ? (
-        <p className="font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-muted)]">
+        <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
           Nenhum curso foi atribuído a esta conta.
         </p>
       ) : (
@@ -248,18 +248,18 @@ export default async function DashboardPage() {
               {/* Course header with inline progress */}
               <div className="flex items-end justify-between gap-6 border-b border-[var(--liceu-stone)]/70 pb-4">
                 <div>
-                  <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                  <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                     CURSO
                   </div>
-                  <div className="mt-1 font-serif text-[22px] leading-tight text-[var(--liceu-text)]">
+                  <div className="mt-1 font-[var(--font-noto-serif)] text-[22px] leading-tight text-[var(--liceu-text)]">
                     {course.title}
                   </div>
                 </div>
                 <div className="shrink-0 text-right">
-                  <div className="font-serif text-2xl text-[var(--liceu-text)]">
+                  <div className="font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-text)]">
                     {percent}%
                   </div>
-                  <div className="font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-muted)]">
+                  <div className="font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
                     {completedCount} / {totalCount} módulos
                   </div>
                 </div>
@@ -268,10 +268,10 @@ export default async function DashboardPage() {
               {/* Current module callout */}
               {currentModule && currentModule.status !== "completed" && (
                 <section className="space-y-2">
-                  <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                  <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                     MÓDULO ATUAL
                   </div>
-                  <div className="font-serif text-xl leading-tight text-[var(--liceu-text)]">
+                  <div className="font-[var(--font-noto-serif)] text-xl leading-tight text-[var(--liceu-text)]">
                     {currentModule.title}
                   </div>
                 </section>
@@ -279,7 +279,7 @@ export default async function DashboardPage() {
 
               {/* Module list */}
               <section className="space-y-4">
-                <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   MÓDULOS
                 </div>
                 <ModuleList items={moduleItems} />
@@ -292,23 +292,23 @@ export default async function DashboardPage() {
       {/* Mentoring action section */}
       {(mentoringStatus || mentorshipModuleUnlocked) && (
         <div className="mt-10 border-t border-[var(--liceu-stone)]/70 pt-8 space-y-4">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             MENTORIA
           </div>
 
           {mentoringStatus === "pending_interview" && calInterviewLink && (
             <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5">
-              <div className="font-serif text-[17px] text-[var(--liceu-text)]">
+              <div className="font-[var(--font-noto-serif)] text-[17px] text-[var(--liceu-text)]">
                 Entrevista de qualificação
               </div>
-              <p className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
+              <p className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
                 Seu pagamento foi confirmado. Agende a entrevista no horário disponível.
               </p>
               <a
                 href={calInterviewLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-block border border-[var(--liceu-text)] px-4 py-2 font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.2em] text-[var(--liceu-text)] hover:bg-[var(--liceu-surface)]/40"
+                className="mt-4 inline-block border border-[var(--liceu-text)] px-4 py-2 font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.2em] text-[var(--liceu-text)] hover:bg-[var(--liceu-surface)]/40"
               >
                 Agendar entrevista →
               </a>
@@ -316,22 +316,22 @@ export default async function DashboardPage() {
           )}
 
           {mentoringStatus === "approved_pending_payment" && (
-            <div className="border border-[var(--liceu-accent)]/30 bg-[var(--liceu-surface)]/35 px-5 py-5">
-              <div className="font-serif text-[17px] text-[var(--liceu-text)]">
+            <div className="border border-[var(--liceu-secondary)]/30 bg-[var(--liceu-surface)]/35 px-5 py-5">
+              <div className="font-[var(--font-noto-serif)] text-[17px] text-[var(--liceu-text)]">
                 Aprovado para o programa
               </div>
-              <p className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
+              <p className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
                 Você foi aprovado. Verifique seu email para o link de pagamento com o crédito da entrevista aplicado.
               </p>
             </div>
           )}
 
           {mentoringStatus === "active" && calMentoringLink && (
-            <div className="border border-[var(--liceu-accent)]/30 bg-[var(--liceu-surface)]/35 px-5 py-5">
-              <div className="font-serif text-[17px] text-[var(--liceu-text)]">
+            <div className="border border-[var(--liceu-secondary)]/30 bg-[var(--liceu-surface)]/35 px-5 py-5">
+              <div className="font-[var(--font-noto-serif)] text-[17px] text-[var(--liceu-text)]">
                 Programa de mentoria ativo
               </div>
-              <p className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
+              <p className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
                 As sessões são liberadas conforme você conclui os módulos. Agende quando estiver pronto.
               </p>
               {mentorshipModuleUnlocked && (
@@ -339,13 +339,13 @@ export default async function DashboardPage() {
                   href={calMentoringLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block border border-[var(--liceu-accent)]/60 px-4 py-2 font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.2em] text-[var(--liceu-accent)] hover:bg-[var(--liceu-accent)]/10"
+                  className="mt-4 inline-block border border-[var(--liceu-secondary)]/60 px-4 py-2 font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.2em] text-[var(--liceu-secondary)] hover:bg-[var(--liceu-secondary)]/10"
                 >
                   Agendar sessão →
                 </a>
               )}
               {!mentorshipModuleUnlocked && (
-                <p className="mt-3 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+                <p className="mt-3 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
                   Conclua o próximo módulo para liberar o agendamento.
                 </p>
               )}

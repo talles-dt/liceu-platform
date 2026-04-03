@@ -1,42 +1,25 @@
 import { notFound } from "next/navigation";
-import { marked } from "marked";
 import { ReadingLayout } from "@/components/ReadingLayout";
-import { getAllPosts, getPost } from "@/lib/blog";
+import { getPost } from "@/lib/blog";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: { slug: string } };
 
-// Statically generate all known posts at build time
-export async function generateStaticParams() {
-  return getAllPosts().map((post) => ({ slug: post.slug }));
-}
-
-export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const post = getPost(slug);
-  if (!post) return {};
-  return {
-    title: `${post.title} — Liceu Underground`,
-    description: post.excerpt,
-  };
-}
-
-export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
-  const post = getPost(slug);
+export default function BlogPostPage({ params }: Props) {
+  const post = getPost(params.slug);
   if (!post) notFound();
-
-  const html = await marked(post.content, { breaks: true });
 
   return (
     <ReadingLayout
-      eyebrow={`LICEU / ENSAIOS — ${post.date}`}
+      eyebrow={`LICEU / BLOG — ${post.date}`}
       title={post.title}
-      subtitle={post.excerpt}
+      subtitle=""
     >
-      <article
-        className="prose-liceu"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+      <article className="space-y-5 font-[var(--font-noto-serif)] text-[15px] leading-[2] text-[var(--liceu-text)]">
+        {post.content.split("\n\n").map((p) => (
+          <p key={p}>{p}</p>
+        ))}
+      </article>
     </ReadingLayout>
   );
 }
+

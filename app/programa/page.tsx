@@ -58,7 +58,7 @@ export default function ProgramaPage() {
       <div className="space-y-14">
 
         {/* Opening */}
-        <section className="space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+        <section className="space-y-4 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
           <p>
             A retórica clássica não foi construída para palestrantes motivacionais.
             Foi construída por homens que perdiam processos, carreiras e às vezes
@@ -74,7 +74,7 @@ export default function ProgramaPage() {
 
         {/* Module list */}
         <section className="space-y-4">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Os módulos
           </div>
           <ol className="space-y-px">
@@ -84,17 +84,17 @@ export default function ProgramaPage() {
                 className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-5 py-6 space-y-3"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <div className="font-serif text-[20px] text-[var(--liceu-text)]">
+                  <div className="font-[var(--font-noto-serif)] text-[20px] text-[var(--liceu-text)]">
                     {m.index}. {m.title}
                   </div>
-                  <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.2em] text-[var(--liceu-muted)]">
+                  <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.2em] text-[var(--liceu-muted)]">
                     {m.canon}
                   </div>
                 </div>
-                <p className="font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
+                <p className="font-[var(--font-noto-serif)] text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
                   {m.desc}
                 </p>
-                <div className="border-l-2 border-[var(--liceu-accent)]/40 pl-3 font-[var(--font-liceu-sans)] text-[12px] text-[var(--liceu-text)]">
+                <div className="border-l-2 border-[var(--liceu-secondary)]/40 pl-3 font-[var(--font-work-sans)] text-[12px] text-[var(--liceu-text)]">
                   {m.outcome}
                 </div>
               </li>
@@ -104,7 +104,7 @@ export default function ProgramaPage() {
 
         {/* What's inside */}
         <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Dentro de cada módulo
           </div>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -122,10 +122,10 @@ export default function ProgramaPage() {
                 key={f.item}
                 className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-4 py-4"
               >
-                <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.18em] text-[var(--liceu-text)]">
+                <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.18em] text-[var(--liceu-text)]">
                   {f.item}
                 </div>
-                <p className="mt-1 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+                <p className="mt-1 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
                   {f.note}
                 </p>
               </div>
@@ -134,16 +134,16 @@ export default function ProgramaPage() {
         </section>
 
         {/* The rule */}
-        <section className="border border-[var(--liceu-accent)]/20 bg-[var(--liceu-surface)]/25 px-6 py-6 space-y-3">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-accent)]/70">
+        <section className="border border-[var(--liceu-secondary)]/20 bg-[var(--liceu-surface)]/25 px-6 py-6 space-y-3">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-secondary)]/70">
             A regra de progressão
           </div>
-          <p className="font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+          <p className="font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
             Nenhum módulo é desbloqueado antes do anterior estar completo.
             Completo significa: todas as lições, quiz com nota mínima de 70%,
             e exercício retórico aprovado. Não existe exceção.
           </p>
-          <p className="font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
+          <p className="font-[var(--font-noto-serif)] text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
             Essa rigidez não é burocracia. É a tecnologia do processo.
             A fundação precisa estar sólida antes de puxar o peso.
           </p>
@@ -151,24 +151,24 @@ export default function ProgramaPage() {
 
         {/* Purchase */}
         <section className="space-y-6 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Acesso — pagamento único
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-6 py-6 space-y-4">
               <div>
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   Entrada
                 </div>
-                <div className="mt-2 font-serif text-[22px] text-[var(--liceu-text)]">
+                <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] text-[var(--liceu-text)]">
                   Ebook
                 </div>
-                <div className="mt-1 font-[var(--font-liceu-sans)] text-[13px] text-[var(--liceu-muted)]">
+                <div className="mt-1 font-[var(--font-work-sans)] text-[13px] text-[var(--liceu-muted)]">
                   R$ 149
                 </div>
               </div>
-              <p className="font-serif text-[13px] leading-[1.85] text-[var(--liceu-muted)]">
+              <p className="font-[var(--font-noto-serif)] text-[13px] leading-[1.85] text-[var(--liceu-muted)]">
                 O programa completo em forma escrita. Todos os seis módulos,
                 exercícios e análises. Acesso à plataforma com progressão
                 guiada e flashcards SM-2.
@@ -176,19 +176,19 @@ export default function ProgramaPage() {
               <PurchaseButton kind="ebook">Comprar ebook</PurchaseButton>
             </div>
 
-            <div className="border border-[var(--liceu-secondary)] bg-[var(--liceu-surface)] px-6 py-6 space-y-4">
+            <div className="border border-[var(--liceu-secondary)]/30 bg-[var(--liceu-surface)]/35 px-6 py-6 space-y-4">
               <div>
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-accent)]/70">
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-secondary)]/70">
                   Completo
                 </div>
-                <div className="mt-2 font-serif text-[22px] text-[var(--liceu-text)]">
+                <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] text-[var(--liceu-text)]">
                   Aulas em vídeo
                 </div>
-                <div className="mt-1 font-[var(--font-liceu-sans)] text-[13px] text-[var(--liceu-muted)]">
+                <div className="mt-1 font-[var(--font-work-sans)] text-[13px] text-[var(--liceu-muted)]">
                   R$ 1.297
                 </div>
               </div>
-              <p className="font-serif text-[13px] leading-[1.85] text-[var(--liceu-muted)]">
+              <p className="font-[var(--font-noto-serif)] text-[13px] leading-[1.85] text-[var(--liceu-muted)]">
                 Ebook + aulas gravadas com demonstração dos dispositivos
                 retóricos em uso. A diferença entre ler sobre pressão e
                 ver a estrutura operar sob ela.

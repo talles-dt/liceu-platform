@@ -103,13 +103,13 @@ export default async function AdminStudentDetailPage({ params }: Props) {
   return (
     <div className="p-4 md:p-6">
       <header className="border-b border-[var(--liceu-stone)]/70 pb-4">
-        <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+        <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
           /admin/students/{studentId}
         </div>
-        <div className="mt-2 font-serif text-[22px] leading-tight text-[var(--liceu-text)]">
+        <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] leading-tight text-[var(--liceu-text)]">
           Student dossier
         </div>
-        <div className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
+        <div className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
           {name}
         </div>
       </header>

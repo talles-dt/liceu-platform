@@ -11,11 +11,11 @@ const NAV = [
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-[var(--liceu-stone)]/70 bg-[var(--liceu-bg)]">
+    <header className="border-b border-[var(--liceu-stone)] bg-[var(--liceu-bg)]">
       <div className="mx-auto flex max-w-[var(--liceu-maxw)] items-baseline justify-between gap-6 px-6 py-5">
         <Link
           href="/"
-          className="font-[var(--font-liceu-mono)] text-[12px] uppercase tracking-[0.28em] text-[var(--liceu-text)]"
+          className="font-[var(--font-space-grotesk)] text-[12px] uppercase tracking-[0.28em] text-[var(--liceu-primary)]"
         >
           Liceu
         </Link>
@@ -25,7 +25,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] hover:text-[var(--liceu-text)]"
+              className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] transition-colors hover:text-[var(--liceu-secondary)]"
             >
               {item.label}
             </Link>

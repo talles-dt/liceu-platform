@@ -86,13 +86,13 @@ export default async function AdminMentorshipPage() {
   return (
     <div className="p-4 md:p-6">
       <header className="border-b border-[var(--liceu-stone)]/70 pb-4">
-        <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+        <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
           /admin/mentorship
         </div>
-        <div className="mt-2 font-serif text-[22px] leading-tight text-[var(--liceu-text)]">
+        <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] leading-tight text-[var(--liceu-text)]">
           Mentorship operations
         </div>
-        <div className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
+        <div className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
           Applications pipeline and active sessions.
         </div>
       </header>
@@ -111,10 +111,10 @@ export default async function AdminMentorshipPage() {
             key={status}
             className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-4 py-3"
           >
-            <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
               {label}
             </div>
-            <div className="mt-2 font-serif text-2xl text-[var(--liceu-text)]">
+            <div className="mt-2 font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-text)]">
               {counts[status] ?? 0}
             </div>
           </div>
@@ -123,14 +123,14 @@ export default async function AdminMentorshipPage() {
 
       {/* Applications table */}
       <div className="mt-6">
-        <div className="mb-3 font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+        <div className="mb-3 font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
           Candidaturas
         </div>
         {applicationRows.length > 0 ? (
           <ApplicationsTable rows={applicationRows} />
         ) : (
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-4 py-4">
-            <p className="font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-muted)]">
+            <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
               Nenhuma candidatura ainda.
             </p>
           </div>
@@ -139,7 +139,7 @@ export default async function AdminMentorshipPage() {
 
       {/* Active sessions */}
       <div className="mt-8">
-        <div className="mb-3 font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+        <div className="mb-3 font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
           Sessões ativas
         </div>
         <MentorshipTable rows={sessionRows} />

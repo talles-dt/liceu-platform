@@ -25,10 +25,10 @@ export default async function MentorshipPage() {
     >
       <div className="space-y-10">
         <section className="space-y-4">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Requisitos
           </div>
-          <ul className="list-disc space-y-2 pl-5 font-serif text-[15px] leading-[1.9] text-[var(--liceu-text)]">
+          <ul className="list-disc space-y-2 pl-5 font-[var(--font-noto-serif)] text-[15px] leading-[1.9] text-[var(--liceu-text)]">
             <li>Conclusão dos módulos anteriores ao tema.</li>
             <li>Quiz com nota mínima de 70%.</li>
             <li>Produção escrita enviada e aprovada.</li>
@@ -37,14 +37,14 @@ export default async function MentorshipPage() {
         </section>
 
         <section className="space-y-4">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Estado
           </div>
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/50 px-4 py-4">
-            <div className="font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-text)]">
+            <div className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)]">
               {available ? "Sessão liberada" : "Ainda não liberada"}
             </div>
-            <p className="mt-2 font-[var(--font-liceu-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
+            <p className="mt-2 font-[var(--font-work-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
               {available
                 ? "Você concluiu ao menos um módulo com mentoria liberada."
                 : "Conclua um módulo para liberar a próxima sessão."}
@@ -53,12 +53,12 @@ export default async function MentorshipPage() {
         </section>
 
         <section className="space-y-4">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Agenda
           </div>
 
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-4 py-4">
-            <p className="font-[var(--font-liceu-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
+            <p className="font-[var(--font-work-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
               Integração planejada: Cal.com.
               <br />
               Fluxo: verificar módulo concluído → verificar sessão disponível →

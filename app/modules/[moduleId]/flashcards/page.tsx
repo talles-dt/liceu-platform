@@ -92,7 +92,7 @@ export default function FlashcardsPage() {
   if (state === "loading") {
     return (
       <ReadingLayout eyebrow="LICEU / FLASHCARDS" title="Carregando..." subtitle="">
-        <p className="font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-muted)]">
+        <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
           Buscando conjunto...
         </p>
       </ReadingLayout>
@@ -102,7 +102,7 @@ export default function FlashcardsPage() {
   if (state === "error") {
     return (
       <ReadingLayout eyebrow="LICEU / FLASHCARDS" title="Sem flashcards" subtitle="">
-        <p className="font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-muted)]">
+        <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
           Nenhum conjunto disponível para este módulo ainda.
         </p>
       </ReadingLayout>
@@ -121,26 +121,26 @@ export default function FlashcardsPage() {
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-5 py-5 space-y-4">
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   Cartas
                 </div>
-                <div className="mt-1 font-serif text-2xl text-[var(--liceu-text)]">
+                <div className="mt-1 font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-text)]">
                   {cards.length}
                 </div>
               </div>
               <div>
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   Acertos
                 </div>
-                <div className="mt-1 font-serif text-2xl text-[var(--liceu-accent)]">
+                <div className="mt-1 font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-secondary)]">
                   {passed}
                 </div>
               </div>
               <div>
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   Média
                 </div>
-                <div className="mt-1 font-serif text-2xl text-[var(--liceu-text)]">
+                <div className="mt-1 font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-text)]">
                   {avgGrade}
                 </div>
               </div>
@@ -164,13 +164,13 @@ export default function FlashcardsPage() {
       subtitle="Avalie com honestidade. O algoritmo ajusta o intervalo."
       right={
         <div className="w-44 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/50 px-4 py-3 space-y-2">
-          <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Progresso
           </div>
-          <div className="font-serif text-2xl text-[var(--liceu-text)]">
+          <div className="font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-text)]">
             {idx + 1} / {cards.length}
           </div>
-          <div className="font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
             {results.filter((r) => r.grade >= 3).length} corretas
           </div>
         </div>
@@ -182,10 +182,10 @@ export default function FlashcardsPage() {
           className="min-h-[220px] cursor-pointer border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-6 py-6 transition-colors hover:bg-[var(--liceu-surface)]/60"
           onClick={() => !flipped && setFlipped(true)}
         >
-          <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             {flipped ? "VERSO" : "FRENTE — clique para revelar"}
           </div>
-          <p className="mt-4 font-serif text-[17px] leading-[1.85] text-[var(--liceu-text)]">
+          <p className="mt-4 font-[var(--font-noto-serif)] text-[17px] leading-[1.85] text-[var(--liceu-text)]">
             {flipped ? current.back : current.front}
           </p>
         </div>
@@ -193,7 +193,7 @@ export default function FlashcardsPage() {
         {/* Grade buttons — only show after flip */}
         {flipped && (
           <div className="space-y-3">
-            <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
               Como foi?
             </div>
             <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
@@ -205,17 +205,17 @@ export default function FlashcardsPage() {
                   className={[
                     "border px-3 py-3 text-left transition-colors disabled:opacity-40",
                     g >= 3
-                      ? "border-[var(--liceu-accent)]/35 hover:bg-[var(--liceu-accent)]/10"
+                      ? "border-[var(--liceu-secondary)]/35 hover:bg-[var(--liceu-secondary)]/10"
                       : "border-[var(--liceu-stone)]/70 hover:bg-[var(--liceu-surface)]/40",
                   ].join(" ")}
                 >
-                  <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+                  <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
                     {g}
                   </div>
-                  <div className="mt-1 font-[var(--font-liceu-sans)] text-[12px] text-[var(--liceu-text)]">
+                  <div className="mt-1 font-[var(--font-work-sans)] text-[12px] text-[var(--liceu-text)]">
                     {label}
                   </div>
-                  <div className="mt-0.5 font-[var(--font-liceu-sans)] text-[10px] text-[var(--liceu-muted)]">
+                  <div className="mt-0.5 font-[var(--font-work-sans)] text-[10px] text-[var(--liceu-muted)]">
                     {note}
                   </div>
                 </button>

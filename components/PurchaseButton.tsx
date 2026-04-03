@@ -47,7 +47,7 @@ export function PurchaseButton({
         {loading ? "Aguarde..." : children}
       </MinimalButton>
       {error ? (
-        <div className="font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+        <div className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
           {error}
         </div>
       ) : null}

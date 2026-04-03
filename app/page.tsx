@@ -13,7 +13,7 @@ export default function HomePage() {
       <div className="space-y-14">
 
         {/* Lede */}
-        <section className="space-y-5 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+        <section className="space-y-5 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
           <p>
             Existe um tipo específico de fracasso que ninguém nomeia com precisão.
             Não é incompetência. É o momento em que a inteligência que te distingue
@@ -35,10 +35,10 @@ export default function HomePage() {
 
         {/* Primary CTA */}
         <section className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-6 py-6 space-y-4">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Porta de entrada
           </div>
-          <p className="font-serif text-[17px] leading-[1.7] text-[var(--liceu-text)]">
+          <p className="font-[var(--font-noto-serif)] text-[17px] leading-[1.7] text-[var(--liceu-text)]">
             O diagnóstico técnico é gratuito. É uma avaliação precisa de onde e
             por que sua inteligência falha sob cobrança. Sem palco. Sem truque.
           </p>
@@ -54,7 +54,7 @@ export default function HomePage() {
 
         {/* What this is */}
         <section className="space-y-6 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             O que é o Liceu
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -73,12 +73,12 @@ export default function HomePage() {
               },
             ].map((col) => (
               <div key={col.label} className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-4 py-4 space-y-3">
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   {col.label}
                 </div>
                 <ul className="space-y-2">
                   {col.items.map((item) => (
-                    <li key={item} className="font-serif text-[13px] leading-snug text-[var(--liceu-text)]">
+                    <li key={item} className="font-[var(--font-noto-serif)] text-[13px] leading-snug text-[var(--liceu-text)]">
                       {item}
                     </li>
                   ))}
@@ -90,7 +90,7 @@ export default function HomePage() {
 
         {/* Products */}
         <section className="space-y-6 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Caminhos de entrada
           </div>
           <div className="space-y-3">
@@ -139,12 +139,12 @@ export default function HomePage() {
         {POSTS.length > 0 && (
           <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
             <div className="flex items-baseline justify-between gap-6">
-              <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+              <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                 Ensaios
               </div>
               <Link
                 href="/blog"
-                className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] underline underline-offset-4 hover:text-[var(--liceu-text)]"
+                className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] underline underline-offset-4 hover:text-[var(--liceu-text)]"
               >
                 Ver todos
               </Link>
@@ -157,10 +157,10 @@ export default function HomePage() {
                       href={`/blog/${post.slug}` as never}
                       className="flex flex-wrap items-baseline justify-between gap-4 px-5 py-4 hover:bg-[var(--liceu-surface)]/40 transition-colors"
                     >
-                      <span className="font-serif text-[16px] text-[var(--liceu-text)]">
+                      <span className="font-[var(--font-noto-serif)] text-[16px] text-[var(--liceu-text)]">
                         {post.title}
                       </span>
-                      <span className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.18em] text-[var(--liceu-muted)]">
+                      <span className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.18em] text-[var(--liceu-muted)]">
                         {post.date}
                       </span>
                     </Link>

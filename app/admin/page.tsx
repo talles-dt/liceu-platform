@@ -18,13 +18,13 @@ export default async function AdminCommandCenterPage() {
   return (
     <div className="p-4 md:p-6">
       <header className="border-b border-[var(--liceu-stone)]/70 pb-4">
-        <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+        <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
           /admin
         </div>
-        <div className="mt-2 font-serif text-[22px] leading-tight text-[var(--liceu-text)]">
+        <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] leading-tight text-[var(--liceu-text)]">
           Command center
         </div>
-        <div className="mt-2 max-w-3xl font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
+        <div className="mt-2 max-w-3xl font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
           Global metrics, activity overview, system state. No celebration. Only
           evidence.
         </div>
@@ -64,7 +64,7 @@ export default async function AdminCommandCenterPage() {
           title="Daily activity"
           subtitle="Events/day (placeholder series until event log is stabilized)."
           right={
-            <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
               28D WINDOW
             </div>
           }
@@ -76,7 +76,7 @@ export default async function AdminCommandCenterPage() {
           title="Module completion per cohort"
           subtitle="Counts by cohort (placeholder)."
           right={
-            <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
               COHORTS
             </div>
           }
@@ -88,7 +88,7 @@ export default async function AdminCommandCenterPage() {
           title="Student engagement heatmap"
           subtitle="Intensity by day (placeholder)."
           right={
-            <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
               7D PATTERN
             </div>
           }
@@ -109,12 +109,12 @@ export default async function AdminCommandCenterPage() {
             ].map((r) => (
               <div
                 key={r.k}
-                className="border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-4 py-3"
+                className="border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-4 py-3"
               >
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   {r.k}
                 </div>
-                <div className="mt-2 font-[var(--font-liceu-mono)] text-[12px] tabular-nums text-[var(--liceu-text)]">
+                <div className="mt-2 font-[var(--font-space-grotesk)] text-[12px] tabular-nums text-[var(--liceu-text)]">
                   {r.v}
                 </div>
               </div>

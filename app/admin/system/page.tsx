@@ -46,13 +46,13 @@ export default async function AdminSystemPage() {
   return (
     <div className="p-4 md:p-6">
       <header className="border-b border-[var(--liceu-stone)]/70 pb-4">
-        <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+        <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
           /admin/system
         </div>
-        <div className="mt-2 font-serif text-[22px] leading-tight text-[var(--liceu-text)]">
+        <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] leading-tight text-[var(--liceu-text)]">
           System state
         </div>
-        <div className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
+        <div className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
           Minimal UI. Pure function. Health, counts, and action logs.
         </div>
       </header>
@@ -80,12 +80,12 @@ export default async function AdminSystemPage() {
             ].map((r) => (
               <div
                 key={r.k}
-                className="flex items-baseline justify-between gap-4 border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-4 py-3"
+                className="flex items-baseline justify-between gap-4 border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-4 py-3"
               >
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   {r.k}
                 </div>
-                <div className="font-[var(--font-liceu-mono)] text-[12px] tabular-nums text-[var(--liceu-text)]">
+                <div className="font-[var(--font-space-grotesk)] text-[12px] tabular-nums text-[var(--liceu-text)]">
                   {r.v}
                 </div>
               </div>

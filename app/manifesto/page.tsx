@@ -12,7 +12,7 @@ export default function ManifestoPage() {
       <div className="space-y-12">
         <section className="space-y-4 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-6 py-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
               Diagnóstico técnico
             </div>
             <div className="flex flex-wrap gap-3">
@@ -24,19 +24,19 @@ export default function ManifestoPage() {
               </Link>
             </div>
           </div>
-          <div className="font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
             Sem truques motivacionais. Avaliação puramente tática.
           </div>
         </section>
 
         <section className="space-y-4">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             O problema primário
           </div>
-          <h2 className="font-serif text-2xl leading-tight text-[var(--liceu-text)]">
+          <h2 className="font-[var(--font-noto-serif)] text-2xl leading-tight text-[var(--liceu-text)]">
             O Colapso Sistêmico da Inteligência
           </h2>
-          <div className="space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+          <div className="space-y-4 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
             <p>
               Você não é tímido. Também não é burro. O seu problema é estrutural.
               Quando você é interrompido ou cobrado ao vivo, o seu sistema
@@ -64,13 +64,13 @@ export default function ManifestoPage() {
         </section>
 
         <section className="space-y-4 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             A oportunidade
           </div>
-          <h2 className="font-serif text-2xl leading-tight text-[var(--liceu-text)]">
+          <h2 className="font-[var(--font-noto-serif)] text-2xl leading-tight text-[var(--liceu-text)]">
             A Arquitetura do Pensamento Sob Fogo Cruzado
           </h2>
-          <div className="space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+          <div className="space-y-4 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
             <p>
               O Liceu Underground não é um curso de oratória. É uma escola de
               pensamento. Nós resgatamos o rigor da retórica clássica de
@@ -88,7 +88,7 @@ export default function ManifestoPage() {
               defesa. É um raio-x implacável da sua capacidade de operar sob
               pressão tática, interrupção e discordância.
             </p>
-            <div className="border-l-4 border-[var(--liceu-accent)]/35 pl-4 text-[var(--liceu-muted)]">
+            <div className="border-l-4 border-[var(--liceu-secondary)]/35 pl-4 text-[var(--liceu-muted)]">
               Imagine entrar numa sala de crise. O caos está instalado. O diretor
               exige uma resposta imediata. Você não sua frio. Você senta, faz
               duas perguntas lógicas cortantes e estabelece os limites. O
@@ -99,7 +99,7 @@ export default function ManifestoPage() {
         </section>
 
         <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Para quem é isso
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -121,10 +121,10 @@ export default function ManifestoPage() {
                 key={c.title}
                 className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-5 py-5"
               >
-                <div className="font-serif text-[18px] leading-snug text-[var(--liceu-text)]">
+                <div className="font-[var(--font-noto-serif)] text-[18px] leading-snug text-[var(--liceu-text)]">
                   {c.title}
                 </div>
-                <p className="mt-3 font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
+                <p className="mt-3 font-[var(--font-noto-serif)] text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
                   {c.body}
                 </p>
               </div>
@@ -133,10 +133,10 @@ export default function ManifestoPage() {
         </section>
 
         <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Proposta de valor
           </div>
-          <h2 className="font-serif text-2xl leading-tight text-[var(--liceu-text)]">
+          <h2 className="font-[var(--font-noto-serif)] text-2xl leading-tight text-[var(--liceu-text)]">
             Domine o Conflito e Pare de Se Explicar
           </h2>
           <div className="space-y-5">
@@ -158,10 +158,10 @@ export default function ManifestoPage() {
                 key={v.title}
                 className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-5 py-5"
               >
-                <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   {v.title}
                 </div>
-                <p className="mt-3 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+                <p className="mt-3 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
                   {v.body}
                 </p>
               </div>
@@ -170,10 +170,10 @@ export default function ManifestoPage() {
         </section>
 
         <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Um princípio sobre prova
           </div>
-          <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-6 py-6 space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+          <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-6 py-6 space-y-4 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
             <p>
               Depoimentos fabricados são a marca de quem não tem argumento.
               Quando tivermos histórias reais de alunos que aceitam ser citados,
@@ -187,13 +187,13 @@ export default function ManifestoPage() {
         </section>
 
         <section className="space-y-4 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             História de origem
           </div>
-          <h2 className="font-serif text-2xl leading-tight text-[var(--liceu-text)]">
+          <h2 className="font-[var(--font-noto-serif)] text-2xl leading-tight text-[var(--liceu-text)]">
             A Lesão da Comunicação Rasa
           </h2>
-          <div className="space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+          <div className="space-y-4 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
             <p>
               Sou professor de comunicação há 20 anos. Vi de perto centenas de
               mentes brilhantes colapsarem ao vivo. Eles liam livros, decoravam
@@ -212,7 +212,7 @@ export default function ManifestoPage() {
         </section>
 
         <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Como a mentoria funciona
           </div>
           <ol className="space-y-4">
@@ -238,10 +238,10 @@ export default function ManifestoPage() {
                 key={s.title}
                 className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5"
               >
-                <div className="font-serif text-[16px] text-[var(--liceu-text)]">
+                <div className="font-[var(--font-noto-serif)] text-[16px] text-[var(--liceu-text)]">
                   {s.title}
                 </div>
-                <p className="mt-3 font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
+                <p className="mt-3 font-[var(--font-noto-serif)] text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
                   {s.body}
                 </p>
               </li>
@@ -250,22 +250,22 @@ export default function ManifestoPage() {
         </section>
 
         <section className="space-y-6 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             O seu próximo passo
           </div>
-          <p className="font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+          <p className="font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
             A mentoria não é de livre acesso. O processo de entrada exige
             validação prévia.
           </p>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5">
-              <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+              <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                 Porta de entrada
               </div>
-              <div className="mt-2 font-serif text-[18px] text-[var(--liceu-text)]">
+              <div className="mt-2 font-[var(--font-noto-serif)] text-[18px] text-[var(--liceu-text)]">
                 Diagnóstico técnico (gratuito)
               </div>
-              <ul className="mt-4 list-disc space-y-2 pl-5 font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
+              <ul className="mt-4 list-disc space-y-2 pl-5 font-[var(--font-noto-serif)] text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
                 <li>Avaliação de tolerância à pressão</li>
                 <li>Falhas lógicas na fala</li>
                 <li>Vícios de pensamento confuso</li>
@@ -278,13 +278,13 @@ export default function ManifestoPage() {
               </div>
             </div>
             <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-5">
-              <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+              <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                 Destino (aprovados)
               </div>
-              <div className="mt-2 font-serif text-[18px] text-[var(--liceu-text)]">
+              <div className="mt-2 font-[var(--font-noto-serif)] text-[18px] text-[var(--liceu-text)]">
                 Mentoria Armas da Palavra
               </div>
-              <ul className="mt-4 list-disc space-y-2 pl-5 font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
+              <ul className="mt-4 list-disc space-y-2 pl-5 font-[var(--font-noto-serif)] text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
                 <li>Três fases: Fundação, Pressão, Domínio</li>
                 <li>Simulações de conflito sob carga extrema</li>
                 <li>Supervisão e correção ao vivo</li>
@@ -300,7 +300,7 @@ export default function ManifestoPage() {
         </section>
 
         <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Perguntas & respostas
           </div>
           <div className="space-y-3">
@@ -322,18 +322,18 @@ export default function ManifestoPage() {
                 key={item.q}
                 className="group border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/35 px-5 py-4"
               >
-                <summary className="cursor-pointer list-none font-serif text-[16px] text-[var(--liceu-text)]">
+                <summary className="cursor-pointer list-none font-[var(--font-noto-serif)] text-[16px] text-[var(--liceu-text)]">
                   <div className="flex items-baseline justify-between gap-6">
                     <span>{item.q}</span>
-                    <span className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] group-open:hidden">
+                    <span className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] group-open:hidden">
                       ABRIR
                     </span>
-                    <span className="hidden font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] group-open:inline">
+                    <span className="hidden font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] group-open:inline">
                       FECHAR
                     </span>
                   </div>
                 </summary>
-                <p className="mt-3 font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
+                <p className="mt-3 font-[var(--font-noto-serif)] text-[14px] leading-[1.9] text-[var(--liceu-muted)]">
                   {item.a}
                 </p>
               </details>
@@ -342,13 +342,13 @@ export default function ManifestoPage() {
         </section>
 
         <footer className="space-y-4 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             O Liceu Underground
           </div>
-          <p className="font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+          <p className="font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
             Escola de Pensamento Aplicado à Fala. A ordem interna precede a ação.
           </p>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
             <span>Copyright © 2026 O Liceu. Todos os direitos reservados.</span>
             <Link href="/termos" className="underline underline-offset-4">
               Termos de Uso

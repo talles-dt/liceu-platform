@@ -24,7 +24,7 @@ function ActionCell({
 
   if (status !== "pending_interview") {
     return (
-      <span className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+      <span className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
         —
       </span>
     );
@@ -57,9 +57,9 @@ function ActionCell({
         disabled={loading !== null}
         className={[
           "border px-2 py-0.5",
-          "font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em]",
-          "border-[var(--liceu-accent)]/50 text-[var(--liceu-accent)]",
-          "hover:bg-[var(--liceu-accent)]/10 disabled:opacity-40",
+          "font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em]",
+          "border-[var(--liceu-secondary)]/50 text-[var(--liceu-secondary)]",
+          "hover:bg-[var(--liceu-secondary)]/10 disabled:opacity-40",
         ].join(" ")}
       >
         {loading === "approve" ? "..." : "aprovar"}
@@ -69,7 +69,7 @@ function ActionCell({
         disabled={loading !== null}
         className={[
           "border px-2 py-0.5",
-          "font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em]",
+          "font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em]",
           "border-[var(--liceu-stone)] text-[var(--liceu-muted)]",
           "hover:text-[var(--liceu-text)] disabled:opacity-40",
         ].join(" ")}
@@ -77,7 +77,7 @@ function ActionCell({
         {loading === "reject" ? "..." : "rejeitar"}
       </button>
       {error && (
-        <span className="font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+        <span className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
           {error}
         </span>
       )}
@@ -104,7 +104,7 @@ export function ApplicationsTable({ rows: initial }: { rows: ApplicationRow[] })
           key: "email",
           header: "candidate",
           render: (r) => (
-            <span className="font-serif text-[13px]">{r.email}</span>
+            <span className="font-[var(--font-noto-serif)] text-[13px]">{r.email}</span>
           ),
         },
         {
@@ -115,9 +115,9 @@ export function ApplicationsTable({ rows: initial }: { rows: ApplicationRow[] })
               pending_interview:
                 "border-[var(--liceu-stone)] text-[var(--liceu-text)]",
               approved_pending_payment:
-                "border-[var(--liceu-accent)]/40 text-[var(--liceu-accent)]",
+                "border-[var(--liceu-secondary)]/40 text-[var(--liceu-secondary)]",
               active:
-                "border-[var(--liceu-accent)]/40 text-[var(--liceu-accent)]",
+                "border-[var(--liceu-secondary)]/40 text-[var(--liceu-secondary)]",
               rejected:
                 "border-[var(--liceu-stone)]/50 text-[var(--liceu-muted)]",
             };
@@ -125,7 +125,7 @@ export function ApplicationsTable({ rows: initial }: { rows: ApplicationRow[] })
               <span
                 className={[
                   "inline-flex items-center border px-2 py-0.5",
-                  "font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em]",
+                  "font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em]",
                   colors[r.status] ?? "border-[var(--liceu-stone)] text-[var(--liceu-muted)]",
                 ].join(" ")}
               >
@@ -138,7 +138,7 @@ export function ApplicationsTable({ rows: initial }: { rows: ApplicationRow[] })
           key: "date",
           header: "applied",
           render: (r) => (
-            <span className="font-[var(--font-liceu-mono)] tabular-nums text-[11px] text-[var(--liceu-muted)]">
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[11px] text-[var(--liceu-muted)]">
               {r.createdAt}
             </span>
           ),

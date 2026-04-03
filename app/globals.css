@@ -1,15 +1,68 @@
 @import "tailwindcss";
 
+@theme {
+  /* Colors - Design System from DESIGN.md */
+  --color-primary: var(--liceu-primary);
+  --color-primary-dark: #003D27;
+  --color-primary-light: #006340;
+  
+  --color-secondary: var(--liceu-secondary);
+  --color-secondary-dark: #9A8C35;
+  --color-secondary-light: #D4C65E;
+  
+  --color-neutral: var(--liceu-neutral);
+  --color-surface: var(--liceu-surface);
+  --color-surface-elevated: #1a1a1a;
+  
+  --color-text: var(--liceu-text);
+  --color-text-muted: var(--liceu-muted);
+  --color-border: var(--liceu-stone);
+  
+  /* Legacy color aliases */
+  --color-liceu-bg: var(--liceu-bg);
+  --color-liceu-surface: var(--liceu-surface);
+  --color-liceu-text: var(--liceu-text);
+  --color-liceu-muted: var(--liceu-muted);
+  --color-liceu-accent: var(--liceu-accent);
+  --color-liceu-stone: var(--liceu-stone);
+
+  /* Spacing */
+  --spacing-liceu: var(--liceu-spacing);
+
+  /* Border Radius */
+  --radius-liceu: var(--liceu-radius);
+
+  /* Fonts */
+  --font-noto-serif: var(--font-noto-serif);
+  --font-work-sans: var(--font-work-sans);
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-serif: var(--font-noto-serif), Georgia, serif;
+  --font-sans: var(--font-work-sans), system-ui, sans-serif;
+  --font-mono: var(--font-space-grotesk), monospace;
+}
+
 :root {
-  /* Liceu Underground identity */
-  --liceu-bg: #0f0f0f;
-  --liceu-surface: #1a1a1a;
+  /* Liceu Design System - Dark Mode */
+  --liceu-primary: #004D32;
+  --liceu-secondary: #B5A642;
+  --liceu-neutral: #0D0D0D;
+
+  /* Legacy compatibility */
+  --liceu-bg: #0D0D0D;
+  --liceu-surface: #141414;
   --liceu-text: #eaeaea;
   --liceu-muted: #a1a1a1;
-  --liceu-accent: #c6a96b; /* subtle gold */
-  --liceu-stone: #2f2f2f;
+  --liceu-accent: #B5A642;
+  --liceu-stone: #1a1a1a;
 
   --liceu-maxw: 720px;
+
+  /* Spacing unit: 2 (Normal) */
+  --liceu-spacing: 2;
+
+  /* Border radius: 0 (Sharp, angular) */
+  --liceu-radius: 0;
+
   color-scheme: dark;
 }
 
@@ -33,8 +86,16 @@ body {
 
 /* Typography defaults */
 body {
-  font-family: var(--font-liceu-sans), system-ui, -apple-system, "Segoe UI",
+  font-family: var(--font-work-sans), system-ui, -apple-system, "Segoe UI",
     sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-noto-serif), Georgia, serif;
+}
+
+label, .label, small, .text-xs, .text-\[10px\], .text-\[11px\] {
+  font-family: var(--font-space-grotesk), monospace;
 }
 
 a {

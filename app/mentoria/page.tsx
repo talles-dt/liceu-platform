@@ -12,7 +12,7 @@ export default function MentoriaPage() {
       <div className="space-y-14">
 
         {/* Opening */}
-        <section className="space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+        <section className="space-y-4 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
           <p>
             O programa constrói a fundação. A mentoria aplica pressão sobre ela.
           </p>
@@ -27,7 +27,7 @@ export default function MentoriaPage() {
 
         {/* Format */}
         <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             O formato
           </div>
           <div className="space-y-3">
@@ -50,8 +50,8 @@ export default function MentoriaPage() {
               },
             ].map((f) => (
               <div key={f.title} className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-5 py-5 space-y-2">
-                <div className="font-serif text-[16px] text-[var(--liceu-text)]">{f.title}</div>
-                <p className="font-serif text-[14px] leading-[1.9] text-[var(--liceu-muted)]">{f.body}</p>
+                <div className="font-[var(--font-noto-serif)] text-[16px] text-[var(--liceu-text)]">{f.title}</div>
+                <p className="font-[var(--font-noto-serif)] text-[14px] leading-[1.9] text-[var(--liceu-muted)]">{f.body}</p>
               </div>
             ))}
           </div>
@@ -59,10 +59,10 @@ export default function MentoriaPage() {
 
         {/* Selection */}
         <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             O processo de seleção
           </div>
-          <div className="space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+          <div className="space-y-4 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
             <p>
               A mentoria não é de livre acesso porque o formato não funciona
               para todo mundo. Funciona para quem tem a capacidade de
@@ -98,12 +98,12 @@ export default function MentoriaPage() {
               },
             ].map((s) => (
               <li key={s.step} className="flex gap-5 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-5 py-5">
-                <div className="shrink-0 font-[var(--font-liceu-mono)] text-[22px] text-[var(--liceu-stone)]">
+                <div className="shrink-0 font-[var(--font-space-grotesk)] text-[22px] text-[var(--liceu-stone)]">
                   {s.step}
                 </div>
                 <div className="space-y-1">
-                  <div className="font-serif text-[16px] text-[var(--liceu-text)]">{s.title}</div>
-                  <p className="font-serif text-[13px] leading-[1.85] text-[var(--liceu-muted)]">{s.body}</p>
+                  <div className="font-[var(--font-noto-serif)] text-[16px] text-[var(--liceu-text)]">{s.title}</div>
+                  <p className="font-[var(--font-noto-serif)] text-[13px] leading-[1.85] text-[var(--liceu-muted)]">{s.body}</p>
                 </div>
               </li>
             ))}
@@ -111,28 +111,28 @@ export default function MentoriaPage() {
         </section>
 
         {/* Pricing clarity */}
-        <section className="border border-[var(--liceu-accent)]/20 bg-[var(--liceu-surface)]/25 px-6 py-6 space-y-4">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-accent)]/70">
+        <section className="border border-[var(--liceu-secondary)]/20 bg-[var(--liceu-surface)]/25 px-6 py-6 space-y-4">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-secondary)]/70">
             Estrutura de preço
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 font-serif text-[14px] text-[var(--liceu-text)]">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 font-[var(--font-noto-serif)] text-[14px] text-[var(--liceu-text)]">
             <div className="space-y-1">
-              <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">Entrevista</div>
+              <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">Entrevista</div>
               <div className="text-[18px]">R$ 99</div>
               <div className="text-[12px] text-[var(--liceu-muted)]">Creditado na aprovação</div>
             </div>
             <div className="space-y-1">
-              <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">Programa completo</div>
+              <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">Programa completo</div>
               <div className="text-[18px]">R$ 4.999</div>
               <div className="text-[12px] text-[var(--liceu-muted)]">Seis sessões + plataforma</div>
             </div>
             <div className="space-y-1">
-              <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">Se aprovado, você paga</div>
+              <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">Se aprovado, você paga</div>
               <div className="text-[18px]">R$ 4.900</div>
               <div className="text-[12px] text-[var(--liceu-muted)]">R$ 99 deduzidos</div>
             </div>
           </div>
-          <p className="font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+          <p className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
             A taxa de entrevista não é reembolsável em caso de rejeição. Candidatos rejeitados
             mantêm acesso ao diagnóstico e ao programa de vídeo se já adquirido.
           </p>
@@ -140,10 +140,10 @@ export default function MentoriaPage() {
 
         {/* CTA */}
         <section className="space-y-4 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Primeiro passo
           </div>
-          <p className="font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+          <p className="font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
             O processo começa pelo diagnóstico técnico gratuito. Sem o diagnóstico,
             não há entrevista.
           </p>
