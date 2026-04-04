@@ -1,6 +1,8 @@
 import { AssignmentsTable, type AssignmentRow } from "@/components/admin/tables/AssignmentsTable";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
+export const revalidate = 60;
+
 export default async function AdminAssignmentsPage() {
   const supabase = createSupabaseAdminClient();
 

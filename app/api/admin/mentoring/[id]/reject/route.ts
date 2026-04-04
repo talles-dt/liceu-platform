@@ -1,33 +1,14 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/lib/supabaseServer";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
-import { createSupabaseServerClient } from "@/lib/supabaseServer";
+import { assertAdmin } from "@/lib/admin/auth";
 import { sendMentoringRejectedEmail } from "@/lib/email";
 
 type Context = { params: Promise<{ id: string }> };
 
 export async function POST(_req: Request, { params }: Context) {
   // Admin guard
-  const user = await getCurrentUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const supabaseUser = await createSupabaseServerClient();
-  const { data: profile } = await supabaseUser
-    .from("users")
-    .select("role")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  const envAdmins = (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map((s) => s.trim().toLowerCase())
-    .filter(Boolean);
-
-  const isAdmin =
-    profile?.role === "admin" ||
-    (user.email && envAdmins.includes(user.email.toLowerCase()));
-
-  if (!isAdmin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  const user = await assertAdmin();
+  if (!user) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const { id } = await params;
   const supabase = createSupabaseAdminClient();

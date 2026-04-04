@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
+import DOMPurify from "isomorphic-dompurify";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
 import { canAccessModuleForUser } from "@/lib/progression";
 import { getUserAccessLevel } from "@/lib/access";
@@ -79,9 +80,10 @@ export default async function LessonPage({ params }: Params) {
   const hasQuiz = (quizQuestions?.length ?? 0) > 0;
 
   // Render markdown content
-  const contentHtml = lessonData.content
+  const rawHtml = lessonData.content
     ? await marked(lessonData.content, { breaks: true })
     : null;
+  const contentHtml = rawHtml ? DOMPurify.sanitize(rawHtml) : null;
 
   // Load all lessons in module for prev/next navigation
   const { data: allLessons } = await supabase

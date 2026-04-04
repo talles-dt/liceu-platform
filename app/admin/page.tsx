@@ -4,6 +4,8 @@ import { BarChart, Heatmap, LineChart } from "@/components/admin/charts";
 import { getAdminMetrics } from "@/lib/admin/queries";
 import { seededMatrix, seededSeries } from "@/lib/admin/mock";
 
+export const revalidate = 60;
+
 export default async function AdminCommandCenterPage() {
   const metrics = await getAdminMetrics();
 

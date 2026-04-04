@@ -115,7 +115,7 @@ export async function POST(req: Request) {
       stripeSessionId: session.id,
       amountTotal: session.amount_total ?? null,
       currency: session.currency ?? null,
-    }).catch(() => {}); // non-fatal
+    }).catch((e) => console.error("[webhook] recordPurchaseAdmin (video) failed", e)); // non-fatal
 
     await sendInterviewSchedulingEmail(buyerEmail, calInterviewLink).catch((e) =>
       console.error("[webhook] sendInterviewSchedulingEmail failed", e),
@@ -186,7 +186,7 @@ export async function POST(req: Request) {
         stripeSessionId: session.id,
         amountTotal: session.amount_total ?? null,
         currency: session.currency ?? null,
-      }).catch(() => {});
+      }).catch((e) => console.error("[webhook] recordPurchaseAdmin (ebook) failed", e));
       await sendAccessReadyEmail(buyerEmail).catch((e) =>
         console.error("[webhook] sendAccessReadyEmail (mentoring) failed", e),
       );

@@ -8,6 +8,8 @@ import { ModuleList, type ModuleListItem } from "@/components/ModuleList";
 import { getCommerceConfig } from "@/lib/commerce";
 import { PurchaseToast } from "@/components/PurchaseToast";
 
+export const revalidate = 60;
+
 type DbCourseRow = {
   id: string;
   title: string;

@@ -26,7 +26,7 @@ export function AssignmentsTable({ rows }: { rows: AssignmentRow[] }) {
               <span className="text-[var(--liceu-muted)]">—</span>
             ) : (
               <Link
-                href={`/admin/assignments/${r.id}` as never}
+                href={`/admin/assignments/${r.id}`}
                 className="font-[var(--font-noto-serif)] underline decoration-[var(--liceu-stone)] underline-offset-4 hover:decoration-[var(--liceu-secondary)]"
               >
                 {r.student}

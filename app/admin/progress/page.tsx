@@ -3,6 +3,8 @@ import { BarChart } from "@/components/admin/charts";
 import { ProgressTable, type ProgressRow } from "@/components/admin/tables/ProgressTable";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
+export const revalidate = 60;
+
 export default async function AdminProgressPage() {
   const supabase = createSupabaseAdminClient();
 

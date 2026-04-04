@@ -94,7 +94,7 @@ export default function HomePage() {
             Caminhos de entrada
           </div>
           <div className="space-y-3">
-            {[
+            {([
               {
                 href: "/diagnostico",
                 tag: "GRATUITO",
@@ -113,10 +113,10 @@ export default function HomePage() {
                 title: "Mentoria individual",
                 desc: "Correção ao vivo. Seis sessões. Entrada por entrevista.",
               },
-            ].map((p) => (
+            ] as const).map((p) => (
               <Link
                 key={p.href}
-                href={p.href as any}
+                href={p.href}
                 className="group flex flex-wrap items-start justify-between gap-4 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)] px-5 py-5 hover:bg-[var(--liceu-surface)] transition-colors"
               >
                 <div className="space-y-2">
@@ -154,7 +154,7 @@ export default function HomePage() {
                 {POSTS.slice(0, 2).map((post) => (
                   <li key={post.slug}>
                     <Link
-                      href={`/blog/${post.slug}` as never}
+                      href={`/blog/${post.slug}`}
                       className="flex flex-wrap items-baseline justify-between gap-4 px-5 py-4 hover:bg-[var(--liceu-surface)]/40 transition-colors"
                     >
                       <span className="font-[var(--font-noto-serif)] text-[16px] text-[var(--liceu-text)]">

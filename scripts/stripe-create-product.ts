@@ -1,7 +1,6 @@
 import Stripe from "stripe";
-import dotenv from "dotenv";
 
-dotenv.config({ path: ".env.local" });
+// Load env from .env.local (run with `node --env-file=.env.local` or `tsx --env-file=.env.local`)
 
 async function main() {
   const secretKey = process.env.STRIPE_SECRET_KEY;

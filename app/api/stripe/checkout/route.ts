@@ -4,7 +4,36 @@ import { getCurrentUser } from "@/lib/supabaseServer";
 import { getCommerceConfig } from "@/lib/commerce";
 import type { PurchaseKind } from "@/lib/purchases";
 
+// Simple in-memory rate limiter for checkout
+const checkoutRateLimit = new Map<string, { count: number; resetAt: number }>();
+
+function checkCheckoutRateLimit(key: string): boolean {
+  const now = Date.now();
+  const entry = checkoutRateLimit.get(key);
+
+  if (!entry || now > entry.resetAt) {
+    checkoutRateLimit.set(key, { count: 1, resetAt: now + 10 * 60 * 1000 });
+    return true;
+  }
+
+  if (entry.count >= 5) {
+    return false;
+  }
+
+  entry.count++;
+  return true;
+}
+
 export async function POST(request: Request) {
+  // Rate limit: 5 checkout sessions per 10 minutes
+  const rateLimitKey = `checkout:${request.headers.get("x-forwarded-for") || "unknown"}`;
+  if (!checkCheckoutRateLimit(rateLimitKey)) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded. Try again later." },
+      { status: 429 },
+    );
+  }
+
   // Auth is optional — buyers may not have an account yet.
   const user = await getCurrentUser().catch(() => null);
 

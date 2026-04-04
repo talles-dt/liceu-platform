@@ -1,16 +1,6 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
-
-async function assertAdmin() {
-  const user = await getCurrentUser();
-  if (!user) return null;
-  const supabase = await createSupabaseServerClient();
-  const { data: profile } = await supabase.from("users").select("role").eq("id", user.id).maybeSingle();
-  const envAdmins = (process.env.ADMIN_EMAILS ?? "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
-  const isAdmin = profile?.role === "admin" || (user.email && envAdmins.includes(user.email.toLowerCase()));
-  return isAdmin ? user : null;
-}
+import { assertAdmin } from "@/lib/admin/auth";
 
 /** GET — all module_texts rows */
 export async function GET() {

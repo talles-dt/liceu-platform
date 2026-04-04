@@ -1,6 +1,8 @@
 import { StudentsTable } from "@/components/admin/tables/StudentsTable";
 import { getAdminStudents } from "@/lib/admin/queries";
 
+export const revalidate = 60;
+
 export default async function AdminStudentsPage() {
   const rows = await getAdminStudents();
 

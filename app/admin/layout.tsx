@@ -82,12 +82,14 @@ export default async function AdminLayout({
                 <div className="truncate font-[var(--font-work-sans)] text-[12px] text-[var(--liceu-text)]">
                   {user.email ?? user.id}
                 </div>
-                <Link
-                  href="/api/auth/logout"
-                  className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] underline underline-offset-4 hover:text-[var(--liceu-text)]"
-                >
-                  logout
-                </Link>
+                <form action="/api/auth/logout" method="post">
+                  <button
+                    type="submit"
+                    className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] underline underline-offset-4 hover:text-[var(--liceu-text)] bg-transparent border-none p-0 cursor-pointer"
+                  >
+                    logout
+                  </button>
+                </form>
               </div>
             </div>
           </aside>

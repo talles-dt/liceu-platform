@@ -44,8 +44,14 @@ export default function RootLayout({
       <body
         className={`${uiSans.variable} ${uiMono.variable} ${notoSerif.variable} ${workSans.variable} ${spaceGrotesk.variable} antialiased`}
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-[var(--liceu-primary)] focus:text-[var(--liceu-text)] focus:px-4 focus:py-2"
+        >
+          Pular para o conteúdo
+        </a>
         <SiteHeader />
-        {children}
+        <main id="main-content">{children}</main>
       </body>
     </html>
   );

@@ -14,6 +14,7 @@ export function TypebotEmbed({ url }: Props) {
         src={src}
         style={{ border: "none", width: "100%", height: "600px" }}
         allow="microphone; clipboard-read; clipboard-write"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
       />
     </div>
   );

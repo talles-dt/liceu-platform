@@ -16,10 +16,16 @@ export async function ensureCourseProgressForUserAdmin(
     .select("id")
     .eq("course_id", courseId);
 
-  if (modulesError) return { createdOrUpdated: 0 };
+  if (modulesError) {
+    console.error("[provisioning] Failed to fetch modules for course", courseId, modulesError);
+    return { createdOrUpdated: 0 };
+  }
 
   const moduleIds = (modules ?? []).map((m: { id: string }) => m.id);
-  if (moduleIds.length === 0) return { createdOrUpdated: 0 };
+  if (moduleIds.length === 0) {
+    console.warn("[provisioning] No modules found for course", courseId);
+    return { createdOrUpdated: 0 };
+  }
 
   const rows = moduleIds.map((moduleId) => ({
     user_id: userId,
@@ -34,7 +40,10 @@ export async function ensureCourseProgressForUserAdmin(
     .from("module_progress")
     .upsert(rows, { onConflict: "user_id,module_id" });
 
-  if (upsertError) return { createdOrUpdated: 0 };
+  if (upsertError) {
+    console.error("[provisioning] Failed to upsert module progress", userId, courseId, upsertError);
+    return { createdOrUpdated: 0 };
+  }
   return { createdOrUpdated: rows.length };
 }
 

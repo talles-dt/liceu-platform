@@ -1,18 +1,8 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
+import { assertAdmin } from "@/lib/admin/auth";
 
 type Context = { params: Promise<{ moduleId: string }> };
-
-async function assertAdmin() {
-  const user = await getCurrentUser();
-  if (!user) return null;
-  const supabase = await createSupabaseServerClient();
-  const { data: profile } = await supabase.from("users").select("role").eq("id", user.id).maybeSingle();
-  const envAdmins = (process.env.ADMIN_EMAILS ?? "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
-  const isAdmin = profile?.role === "admin" || (user.email && envAdmins.includes(user.email.toLowerCase()));
-  return isAdmin ? user : null;
-}
 
 /** GET — all flashcard sets for a module, with their cards */
 export async function GET(_req: Request, { params }: Context) {

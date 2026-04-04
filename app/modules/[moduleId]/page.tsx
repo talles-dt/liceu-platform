@@ -5,6 +5,8 @@ import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer
 import { canAccessModuleForUser } from "@/lib/progression";
 import { ModuleStartTracker } from "@/components/ModuleStartTracker";
 
+export const revalidate = 60;
+
 type Params = { params: Promise<{ moduleId: string }> };
 
 type DbModuleRow = { id: string; title: string; course_id: string; order_index: number };

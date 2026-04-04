@@ -7,6 +7,26 @@ import {
   type DiagnosisResult,
 } from "@/lib/email";
 
+// Simple in-memory rate limiter
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+
+function checkRateLimit(key: string, maxRequests: number, windowMs: number): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(key);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(key, { count: 1, resetAt: now + windowMs });
+    return true;
+  }
+
+  if (entry.count >= maxRequests) {
+    return false;
+  }
+
+  entry.count++;
+  return true;
+}
+
 /**
  * POST /api/email/diagnostico
  *
@@ -37,6 +57,15 @@ export async function POST(req: Request) {
     return NextResponse.json(
       { error: "email, nome and resultado are required" },
       { status: 400 },
+    );
+  }
+
+  // Rate limit: 3 requests per email per hour
+  const rateLimitKey = `diagnostico:${email.toLowerCase()}`;
+  if (!checkRateLimit(rateLimitKey, 3, 60 * 60 * 1000)) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded. Try again later." },
+      { status: 429 },
     );
   }
 

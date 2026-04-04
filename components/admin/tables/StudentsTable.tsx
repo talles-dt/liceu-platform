@@ -16,7 +16,7 @@ export function StudentsTable({ rows }: { rows: AdminStudentRow[] }) {
           header: "name",
           render: (r) => (
             <Link
-              href={`/admin/students/${r.id}` as never}
+              href={`/admin/students/${r.id}`}
               className="font-[var(--font-noto-serif)] underline decoration-[var(--liceu-stone)] underline-offset-4 hover:decoration-[var(--liceu-secondary)]"
             >
               {r.name}

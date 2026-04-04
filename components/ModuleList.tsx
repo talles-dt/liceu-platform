@@ -5,7 +5,7 @@ export type ModuleStatus = "locked" | "current" | "completed";
 export type ModuleListItem = {
   id: string;
   title: string;
-  href: string;
+  href: `/${string}`;
   status: ModuleStatus;
 };
 
@@ -58,7 +58,7 @@ export function ModuleList({ items }: { items: ModuleListItem[] }) {
             {isLocked ? (
               <div className={commonClassName}>{inner}</div>
             ) : (
-              <Link href={m.href as never} className={commonClassName}>
+              <Link href={m.href as `/modules/${string}`} className={commonClassName}>
                 {inner}
               </Link>
             )}

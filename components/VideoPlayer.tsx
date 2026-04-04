@@ -51,6 +51,7 @@ export function VideoPlayer({ lessonId }: Props) {
         className="h-full w-full"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
+        sandbox="allow-scripts allow-same-origin allow-forms"
       />
     </div>
   );
