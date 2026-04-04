@@ -1,11 +1,17 @@
 "use client";
 
-export function TypebotEmbed() {
+type Props = {
+  url?: string;
+};
+
+export function TypebotEmbed({ url }: Props) {
+  const src = url || "https://typebot.co/diag-liceu-v2-vmc59ej";
+  
   return (
     <div className="border border-[var(--liceu-stone)]">
       <iframe
         title="Typebot"
-        src="https://typebot.co/diag-liceu-v2-vmc59ej"
+        src={src}
         style={{ border: "none", width: "100%", height: "600px" }}
         allow="microphone; clipboard-read; clipboard-write"
       />
