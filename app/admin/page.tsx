@@ -1,13 +1,14 @@
 import { MetricBlock } from "@/components/admin/MetricBlock";
 import { ChartContainer } from "@/components/admin/ChartContainer";
 import { BarChart, Heatmap, LineChart } from "@/components/admin/charts";
-import { getAdminMetrics } from "@/lib/admin/queries";
+import { getAdminMetrics, getAdminStudents } from "@/lib/admin/queries";
 import { seededMatrix, seededSeries } from "@/lib/admin/mock";
 
 export const revalidate = 60;
 
 export default async function AdminCommandCenterPage() {
   const metrics = await getAdminMetrics();
+  const students = await getAdminStudents();
 
   // Charts: start with deterministic series; swap to real aggregates as schema stabilizes.
   const daily = seededSeries(7_911, 28, 18, 110);
@@ -16,17 +17,6 @@ export default async function AdminCommandCenterPage() {
   const heatRows = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"];
   const heatCols = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const heat = seededMatrix(99_101, heatRows.length, heatCols.length, 0, 1);
-
-  const grammarScore = 87;
-  const rhetoricScore = 72;
-
-  const students = [
-    { id: "S-001", name: "Ana Silva", module: "Grammar I", status: "Active", progress: 92 },
-    { id: "S-002", name: "Bruno Costa", module: "Logic II", status: "Active", progress: 78 },
-    { id: "S-003", name: "Carla Mendes", module: "Rhetoric I", status: "Evaluation", progress: 100 },
-    { id: "S-004", name: "Diogo Ferreira", module: "Grammar II", status: "Active", progress: 65 },
-    { id: "S-005", name: "Eva Rodrigues", module: "Logic I", status: "Completed", progress: 100 },
-  ];
 
   return (
     <div className="p-4 md:p-6 space-y-12">
@@ -62,62 +52,62 @@ export default async function AdminCommandCenterPage() {
           {/* Grammar Foundation */}
           <div className="lg:col-span-8">
             <div className="grid grid-cols-2 gap-6">
-              {/* Grammar Card */}
+              {/* Modules Card */}
               <div className="group relative bg-[var(--liceu-surface-container)] border border-[var(--liceu-stone)] overflow-hidden aspect-video">
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--liceu-primary)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative p-6 flex flex-col justify-between h-full">
                   <div>
                     <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
-                      Grammar Foundation
+                      Modules
                     </div>
                     <div className="text-5xl font-black font-mono text-[var(--liceu-accent)]/20 mt-2">
-                      {grammarScore}
+                      {metrics.activeStudents}
                     </div>
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
-                        Mastery
+                        Active learners
                       </span>
                       <span className="font-[var(--font-space-grotesk)] text-xs font-black text-[var(--liceu-accent)] tabular-nums">
-                        {grammarScore}%
+                        {metrics.activeStudents}
                       </span>
                     </div>
                     <div className="h-1 bg-[var(--liceu-surface-container-highest)] overflow-hidden">
                       <div
                         className="h-full bg-[var(--liceu-accent)]"
-                        style={{ width: `${grammarScore}%` }}
+                        style={{ width: `${Math.min(100, metrics.activeStudents * 5)}%` }}
                       />
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Rhetoric Card */}
+              {/* Completion Card */}
               <div className="group relative bg-[var(--liceu-surface-container)] border border-[var(--liceu-stone)] overflow-hidden aspect-video">
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--liceu-primary)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative p-6 flex flex-col justify-between h-full">
                   <div>
                     <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
-                      Rhetoric Craft
+                      Completion Rate
                     </div>
                     <div className="text-5xl font-black font-mono text-[var(--liceu-accent)]/20 mt-2">
-                      {rhetoricScore}
+                      {metrics.modulesCompletionRate}
                     </div>
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
-                        Mastery
+                        Modules done
                       </span>
                       <span className="font-[var(--font-space-grotesk)] text-xs font-black text-[var(--liceu-accent)] tabular-nums">
-                        {rhetoricScore}%
+                        {metrics.modulesCompletionRate}%
                       </span>
                     </div>
                     <div className="h-1 bg-[var(--liceu-surface-container-highest)] overflow-hidden">
                       <div
                         className="h-full bg-[var(--liceu-secondary)]"
-                        style={{ width: `${rhetoricScore}%` }}
+                        style={{ width: `${metrics.modulesCompletionRate}%` }}
                       />
                     </div>
                   </div>
@@ -141,10 +131,10 @@ export default async function AdminCommandCenterPage() {
               <div className="bg-[#003823]/50 p-4 space-y-3">
                 <div>
                   <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
-                    Current Module
+                    Top Module
                   </div>
                   <div className="font-[var(--font-noto-serif)] text-sm font-bold text-[var(--liceu-text)] mt-1">
-                    Grammar II — Syntax
+                    {students.length > 0 ? students[0].currentModule : "No data"}
                   </div>
                 </div>
                 <div>
@@ -201,46 +191,60 @@ export default async function AdminCommandCenterPage() {
                 <th className="text-left font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)] px-4 py-3">
                   Status
                 </th>
+                <th className="text-left font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)] px-4 py-3">
+                  Last Active
+                </th>
                 <th className="text-right font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)] px-4 py-3">
                   Progress
                 </th>
               </tr>
             </thead>
             <tbody>
-              {students.map((student) => (
-                <tr
-                  key={student.id}
-                  className="border-t border-[var(--liceu-stone)] hover:bg-[var(--liceu-surface-container-low)] transition-colors"
-                >
-                  <td className="px-4 py-3 font-[var(--font-space-grotesk)] text-xs tabular-nums text-[var(--liceu-muted)]">
-                    {student.id}
-                  </td>
-                  <td className="px-4 py-3 font-[var(--font-noto-serif)] text-sm font-bold text-[var(--liceu-text)]">
-                    {student.name}
-                  </td>
-                  <td className="px-4 py-3 font-[var(--font-space-grotesk)] text-xs text-[var(--liceu-muted)]">
-                    {student.module}
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="inline-block px-2 py-1 bg-[var(--liceu-primary)] text-[var(--liceu-accent)] text-[10px] font-[var(--font-space-grotesk)] uppercase tracking-[0.15em]">
-                      {student.status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="flex items-center justify-end gap-3">
-                      <div className="w-24 h-1 bg-[var(--liceu-surface-container-highest)] overflow-hidden">
-                        <div
-                          className="h-full bg-[var(--liceu-accent)]"
-                          style={{ width: `${student.progress}%` }}
-                        />
-                      </div>
-                      <span className="font-[var(--font-space-grotesk)] text-xs font-black text-[var(--liceu-accent)] tabular-nums min-w-[2.5rem] text-right">
-                        {student.progress}%
-                      </span>
-                    </div>
+              {students.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-4 py-8 text-center font-[var(--font-space-grotesk)] text-xs uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
+                    No students enrolled yet.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                students.map((student) => (
+                  <tr
+                    key={student.id}
+                    className="border-t border-[var(--liceu-stone)] hover:bg-[var(--liceu-surface-container-low)] transition-colors"
+                  >
+                    <td className="px-4 py-3 font-[var(--font-space-grotesk)] text-xs tabular-nums text-[var(--liceu-muted)]">
+                      {student.id.slice(0, 8)}
+                    </td>
+                    <td className="px-4 py-3 font-[var(--font-noto-serif)] text-sm font-bold text-[var(--liceu-text)]">
+                      {student.name}
+                    </td>
+                    <td className="px-4 py-3 font-[var(--font-space-grotesk)] text-xs text-[var(--liceu-muted)]">
+                      {student.currentModule}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="inline-block px-2 py-1 bg-[var(--liceu-primary)] text-[var(--liceu-accent)] text-[10px] font-[var(--font-space-grotesk)] uppercase tracking-[0.15em]">
+                        {student.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 font-[var(--font-space-grotesk)] text-xs text-[var(--liceu-muted)] tabular-nums">
+                      {student.lastActivity}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <div className="flex items-center justify-end gap-3">
+                        <div className="w-24 h-1 bg-[var(--liceu-surface-container-highest)] overflow-hidden">
+                          <div
+                            className="h-full bg-[var(--liceu-accent)]"
+                            style={{ width: `${student.completionPct}%` }}
+                          />
+                        </div>
+                        <span className="font-[var(--font-space-grotesk)] text-xs font-black text-[var(--liceu-accent)] tabular-nums min-w-[2.5rem] text-right">
+                          {student.completionPct}%
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
