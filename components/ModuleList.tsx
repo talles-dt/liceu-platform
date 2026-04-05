@@ -17,7 +17,7 @@ const statusLabel: Record<ModuleStatus, string> = {
 
 const statusTone: Record<ModuleStatus, string> = {
   locked: "text-[var(--liceu-muted)] border-[var(--liceu-stone)]",
-  current: "text-[var(--liceu-primary)] border-[var(--liceu-primary)]",
+  current: "text-[var(--liceu-accent)] border-[var(--liceu-accent)]",
   completed: "text-[var(--liceu-secondary)] border-[var(--liceu-secondary)]",
 };
 
@@ -27,11 +27,12 @@ export function ModuleList({ items }: { items: ModuleListItem[] }) {
       {items.map((m) => {
         const isLocked = m.status === "locked";
         const commonClassName = [
-          "group block border bg-[var(--liceu-surface)] px-4 py-3",
-          "border-[var(--liceu-stone)]",
-          !isLocked &&
-            "hover:border-[var(--liceu-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--liceu-primary)]",
-          isLocked && "opacity-60",
+          "group block border border-l-4 bg-[var(--liceu-surface)] px-4 py-3",
+          isLocked
+            ? "border-[var(--liceu-stone)] border-l-[var(--liceu-stone)] opacity-60"
+            : m.status === "current"
+              ? "border-[var(--liceu-stone)] border-l-[var(--liceu-accent)] hover:bg-[var(--liceu-surface-container-high)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--liceu-accent)]"
+              : "border-[var(--liceu-stone)] border-l-[var(--liceu-secondary)] hover:bg-[var(--liceu-surface-container-high)]",
         ].join(" ");
 
         const inner = (

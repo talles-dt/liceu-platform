@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Noto_Serif, Work_Sans, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono, Noto_Serif, Work_Sans, Space_Grotesk, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -16,7 +16,7 @@ const uiMono = JetBrains_Mono({
 const notoSerif = Noto_Serif({
   variable: "--font-noto-serif",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "700", "800"],
 });
 
 const workSans = Work_Sans({
@@ -26,6 +26,11 @@ const workSans = Work_Sans({
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
+  subsets: ["latin"],
+});
+
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 });
 
@@ -42,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${uiSans.variable} ${uiMono.variable} ${notoSerif.variable} ${workSans.variable} ${spaceGrotesk.variable} antialiased`}
+        className={`${uiSans.variable} ${uiMono.variable} ${notoSerif.variable} ${workSans.variable} ${spaceGrotesk.variable} ${robotoMono.variable} antialiased`}
       >
         <a
           href="#main-content"

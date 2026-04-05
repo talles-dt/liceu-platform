@@ -57,3 +57,7 @@ Thumbs.db
 
 *.pem
 
+
+# Design references
+stitch_liceu_underground_prd/
+*.zip

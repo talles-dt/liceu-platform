@@ -1,66 +1,90 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors - Design System from DESIGN.md */
-  --color-primary: var(--liceu-primary);
-  --color-primary-dark: #003D27;
-  --color-primary-light: #006340;
+  /* Colors - Verdant Scriptorium Design System (Material 3 Dark) */
+  --color-primary: #93d5b0;
+  --color-primary-container: #004D32;
+  --color-primary-light: #7CBD9A;
+  --color-accent-emerald: #00A86B;
   
-  --color-secondary: var(--liceu-secondary);
-  --color-secondary-dark: #9A8C35;
-  --color-secondary-light: #D4C65E;
+  --color-secondary: #d8c860;
+  --color-secondary-container: #756901;
   
-  --color-neutral: var(--liceu-neutral);
-  --color-surface: var(--liceu-surface);
-  --color-surface-elevated: #1a1a1a;
+  --color-tertiary: #ffb3af;
+  --color-error: #ffb4ab;
+  --color-critical: #D32F2F;
   
-  --color-text: var(--liceu-text);
-  --color-text-muted: var(--liceu-muted);
-  --color-border: var(--liceu-stone);
+  /* Surface Elevation (Material 3) */
+  --color-base-black: #0A0A0A;
+  --color-surface: #131313;
+  --color-surface-dark: #131313;
+  --color-surface-raised: #1C1B1B;
+  --color-surface-container: #201F1F;
+  --color-surface-container-low: #1a1919;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353534;
   
-  /* Legacy color aliases */
-  --color-liceu-bg: var(--liceu-bg);
-  --color-liceu-surface: var(--liceu-surface);
-  --color-liceu-text: var(--liceu-text);
-  --color-liceu-muted: var(--liceu-muted);
-  --color-liceu-accent: var(--liceu-accent);
-  --color-liceu-stone: var(--liceu-stone);
+  /* Outlines & Borders */
+  --color-outline: #89938c;
+  --color-outline-variant: #404943;
+  --color-border-subtle: #404943;
+  
+  /* Text Colors */
+  --color-text-authoritative: #E5E2E1;
+  --color-text-muted: #89938C;
+  --color-on-primary: #003D27;
+  --color-on-primary-container: #E5E2E1;
+  --color-on-secondary: #3d3600;
+  --color-on-secondary-container: #E5E2E1;
+  
+  /* Legacy Aliases */
+  --color-liceu-bg: #0A0A0A;
+  --color-liceu-neutral: #0A0A0A;
+  --color-liceu-surface: #131313;
+  --color-liceu-text: #E5E2E1;
+  --color-liceu-muted: #89938C;
+  --color-liceu-accent: #93d5b0;
+  --color-liceu-stone: #404943;
+  --color-liceu-primary: #004D32;
+  --color-liceu-secondary: #d8c860;
+  --color-liceu-on-primary: #E5E2E1;
 
   /* Spacing */
-  --spacing-liceu: var(--liceu-spacing);
+  --spacing-liceu: 2;
 
-  /* Border Radius */
-  --radius-liceu: var(--liceu-radius);
+  /* Border Radius - BRUTALIST: Zero everywhere */
+  --radius-liceu: 0;
 
   /* Fonts */
   --font-noto-serif: var(--font-noto-serif);
   --font-work-sans: var(--font-work-sans);
   --font-space-grotesk: var(--font-space-grotesk);
+  --font-roboto-mono: var(--font-roboto-mono);
   --font-serif: var(--font-noto-serif), Georgia, serif;
   --font-sans: var(--font-work-sans), system-ui, sans-serif;
-  --font-mono: var(--font-space-grotesk), monospace;
+  --font-mono: var(--font-space-grotesk), var(--font-roboto-mono), monospace;
 }
 
 :root {
-  /* Liceu Design System - Dark Mode */
+  /* Liceu Design System - Verdant Scriptorium (Material 3 Dark) */
   --liceu-primary: #004D32;
-  --liceu-secondary: #B5A642;
-  --liceu-neutral: #0D0D0D;
+  --liceu-secondary: #d8c860;
+  --liceu-neutral: #0A0A0A;
 
   /* Legacy compatibility */
-  --liceu-bg: #0D0D0D;
-  --liceu-surface: #141414;
-  --liceu-text: #eaeaea;
-  --liceu-muted: #a1a1a1;
-  --liceu-accent: #B5A642;
-  --liceu-stone: #1a1a1a;
+  --liceu-bg: #0A0A0A;
+  --liceu-surface: #131313;
+  --liceu-text: #E5E2E1;
+  --liceu-muted: #89938C;
+  --liceu-accent: #93d5b0;
+  --liceu-stone: #404943;
 
   --liceu-maxw: 720px;
 
   /* Spacing unit: 2 (Normal) */
   --liceu-spacing: 2;
 
-  /* Border radius: 0 (Sharp, angular) */
+  /* Border radius: 0 (Sharp, angular - BRUTALIST) */
   --liceu-radius: 0;
 
   color-scheme: dark;
@@ -84,7 +108,7 @@ body {
   color: var(--liceu-text);
 }
 
-/* Typography defaults */
+/* Typography defaults - Verdant Scriptorium */
 body {
   font-family: var(--font-work-sans), system-ui, -apple-system, "Segoe UI",
     sans-serif;
@@ -92,10 +116,16 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-noto-serif), Georgia, serif;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
 }
 
-label, .label, small, .text-xs, .text-\[10px\], .text-\[11px\] {
-  font-family: var(--font-space-grotesk), monospace;
+/* Terminal/Technical labels */
+label, .label, small, .text-xs, .text-\[10px\], .text-\[11px\], .text-\[12px\] {
+  font-family: var(--font-space-grotesk), var(--font-roboto-mono), monospace;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 a {
@@ -110,7 +140,56 @@ textarea {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--liceu-accent) 35%, transparent);
+  background: color-mix(in oklab, var(--liceu-accent) 30%, transparent);
+}
+
+/* Verdant Scriptorium Utilities */
+.surface-scriptorium {
+  background-color: var(--liceu-surface);
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  border: 1px solid var(--liceu-stone);
+}
+
+.progress-verdant {
+  height: 4px;
+  background: var(--liceu-surface-raised);
+}
+
+.progress-verdant-fill {
+  background: var(--liceu-primary);
+  box-shadow: 0 0 15px rgba(0, 77, 50, 0.4);
+}
+
+.text-headline {
+  font-family: var(--font-noto-serif);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--liceu-text);
+}
+
+.text-label {
+  font-family: var(--font-space-grotesk), var(--font-roboto-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--liceu-muted);
+}
+
+.grayscale-image {
+  filter: grayscale(100%) contrast(125%);
+  opacity: 0.4;
+  transition: all 150ms ease;
+}
+
+.grayscale-image:hover {
+  filter: grayscale(0%) contrast(100%);
+  opacity: 0.6;
+}
+
+/* BRUTALIST: Enforce zero border-radius globally */
+*, *::before, *::after {
+  border-radius: 0 !important;
 }
 
 /* Markdown prose styles for blog posts */
