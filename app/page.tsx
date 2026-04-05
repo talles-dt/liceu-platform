@@ -1,177 +1,290 @@
 import Link from "next/link";
-import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 import { POSTS } from "@/lib/blog";
 
 export default function HomePage() {
   return (
-    <ReadingLayout
-      eyebrow="LICEU UNDERGROUND"
-      title="Você é inteligente. Sob pressão, não parece."
-      subtitle="Uma escola de pensamento aplicado à fala. Fundada na retórica clássica. Construída para quem colapsa onde mais importa."
-    >
-      <div className="space-y-14">
+    <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)]">
+      {/* Top App Bar */}
+      <header className="sticky top-0 z-40 h-20 border-b border-[var(--liceu-stone)] border-l-4 border-l-[var(--liceu-accent)] bg-[var(--liceu-surface)]">
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
+          <Link
+            href="/"
+            className="font-[var(--font-noto-serif)] text-2xl font-black uppercase tracking-tight text-[var(--liceu-accent)]"
+          >
+            Liceu Underground
+          </Link>
 
-        {/* Lede */}
-        <section className="space-y-5 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
-          <p>
-            Existe um tipo específico de fracasso que ninguém nomeia com precisão.
-            Não é incompetência. É o momento em que a inteligência que te distingue
-            no trabalho silencioso — na análise, no relatório, na ideia que todos
-            aceitam depois — desmorona exatamente quando há peso real na barra.
-            Na reunião difícil. Na cobrança ao vivo. Na discordância com o diretor.
-          </p>
-          <p>
-            O sistema nervoso trava. A voz sobe. Você se explica demais ou não
-            consegue articular nada. A resposta certa aparece meia hora depois,
-            no elevador.
-          </p>
-          <p>
-            O Liceu Underground existe para esse problema específico.
-            Não para te transformar em orador. Para construir a estrutura
-            interna que impede o colapso.
-          </p>
+          <nav className="flex items-center gap-6">
+            {([
+              { href: "/metodo", label: "Método" },
+              { href: "/programa", label: "Programa" },
+              { href: "/mentoria", label: "Mentoria" },
+            ] as const).map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] transition-colors hover:text-[var(--liceu-accent)]"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        {/* Hero Section - The Monolith */}
+        <section className="relative flex min-h-[92vh] flex-col items-center justify-center bg-[var(--liceu-surface-container-low)] px-6 py-32">
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--liceu-bg)] via-transparent to-transparent" />
+
+          <div className="relative z-10 flex max-w-4xl flex-col items-center text-center">
+            <div className="mb-8 bg-[var(--liceu-primary-container)] px-4 py-1 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.3em] text-[var(--liceu-text)]">
+              The Brutalist Archive
+            </div>
+
+            <h1 className="font-[var(--font-noto-serif)] text-5xl font-black uppercase tracking-tighter leading-none md:text-7xl lg:text-8xl">
+              Você é inteligente.{" "}
+              <span className="text-[var(--liceu-accent)]">Sob pressão, não parece.</span>
+            </h1>
+
+            <p className="mt-8 max-w-xl text-lg leading-relaxed text-[var(--liceu-muted)]">
+              Uma escola de pensamento aplicado à fala. Fundada na retórica clássica.
+              Construída para quem colapsa onde mais importa.
+            </p>
+
+            <div className="mt-12 flex flex-col items-center gap-6">
+              <div className="h-1 w-16 bg-[var(--liceu-secondary)]" />
+              <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                Access Required
+              </div>
+              <div className="flex gap-4">
+                <Link href="/diagnostico">
+                  <MinimalButton variant="primary">Iniciar diagnóstico</MinimalButton>
+                </Link>
+                <Link href="/manifesto">
+                  <MinimalButton variant="quiet">Ler manifesto</MinimalButton>
+                </Link>
+              </div>
+            </div>
+          </div>
         </section>
 
-        {/* Primary CTA */}
-        <section className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-6 py-6 space-y-4">
-          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-            Porta de entrada
-          </div>
-          <p className="font-[var(--font-noto-serif)] text-[17px] leading-[1.7] text-[var(--liceu-text)]">
-            O diagnóstico técnico é gratuito. É uma avaliação precisa de onde e
-            por que sua inteligência falha sob cobrança. Sem palco. Sem truque.
-          </p>
-          <div className="flex flex-wrap items-center gap-3 pt-1">
-            <Link href="/diagnostico">
-              <MinimalButton>Fazer o diagnóstico gratuito</MinimalButton>
-            </Link>
-            <Link href="/manifesto">
-              <MinimalButton variant="quiet">Ler o manifesto</MinimalButton>
-            </Link>
+        {/* Metrics Bar */}
+        <section className="border-y border-[var(--liceu-stone)]/15 bg-[var(--liceu-surface-container-high)] py-12">
+          <div className="mx-auto flex max-w-7xl justify-between px-6">
+            <div>
+              <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                Students Under Forge
+              </div>
+              <div className="mt-2 font-[var(--font-noto-serif)] text-5xl font-bold text-[var(--liceu-accent)]">
+                47
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-8">
+              {[
+                { label: "Completion Rate", value: "73%" },
+                { label: "Avg Quiz Score", value: "81%" },
+                { label: "Active Modules", value: "6" },
+              ].map((metric) => (
+                <div key={metric.label}>
+                  <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+                    {metric.label}
+                  </div>
+                  <div className="mt-1 font-[var(--font-space-grotesk)] text-lg font-bold text-[var(--liceu-text)]">
+                    {metric.value}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* What this is */}
-        <section className="space-y-6 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-            O que é o Liceu
-          </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {/* Three Pillars */}
+        <section className="py-32">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 md:grid-cols-3">
             {[
               {
-                label: "Não é",
+                title: "Não é",
                 items: ["Curso de oratória", "Técnica de palco", "Dicas de postura", "Motivação"],
               },
               {
-                label: "É",
+                title: "É",
                 items: ["Treinamento de estrutura lógica", "Pressão progressiva controlada", "Retórica clássica aplicada", "Método — não performance"],
               },
               {
-                label: "Para quem",
+                title: "Para quem",
                 items: ["Colapsa sob interrupção", "Sabe mais do que consegue defender", "Perde terreno para quem blafa", "Quer a estrutura, não o carisma"],
               },
-            ].map((col) => (
-              <div key={col.label} className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-4 py-4 space-y-3">
+            ].map((col, idx) => (
+              <div
+                key={col.title}
+                className={`group relative bg-[var(--liceu-surface-container)] p-12 transition-colors hover:bg-[var(--liceu-surface-container-high)] ${
+                  idx === 1 ? "md:-translate-y-8" : ""
+                } border-l border-[var(--liceu-stone)]/15`}
+              >
+                <div className="absolute top-0 left-0 h-0 w-1 bg-[var(--liceu-accent)] transition-all duration-700 group-hover:h-full" />
                 <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-                  {col.label}
+                  {col.title}
                 </div>
-                <ul className="space-y-2">
+                <ul className="mt-6 space-y-4">
                   {col.items.map((item) => (
                     <li key={item} className="font-[var(--font-noto-serif)] text-[13px] leading-snug text-[var(--liceu-text)]">
                       {item}
                     </li>
                   ))}
                 </ul>
+                <div className="mt-8 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-widest text-[var(--liceu-muted)]">
+                  Pillar {idx + 1}
+                </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Products */}
-        <section className="space-y-6 border-t border-[var(--liceu-stone)]/70 pt-10">
-          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-            Caminhos de entrada
-          </div>
-          <div className="space-y-3">
-            {([
-              {
-                href: "/diagnostico",
-                tag: "GRATUITO",
-                title: "Diagnóstico técnico",
-                desc: "Avaliação tática do colapso. Por onde começar.",
-              },
-              {
-                href: "/programa",
-                tag: "R$ 149 — R$ 1.297",
-                title: "Programa — seis módulos",
-                desc: "Ebook ou aulas em vídeo. Progressão estrita. Retórica clássica como treinamento de força.",
-              },
-              {
-                href: "/mentoria",
-                tag: "R$ 4.999 — SELETIVO",
-                title: "Mentoria individual",
-                desc: "Correção ao vivo. Seis sessões. Entrada por entrevista.",
-              },
-            ] as const).map((p) => (
-              <Link
-                key={p.href}
-                href={p.href}
-                className="group flex flex-wrap items-start justify-between gap-4 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)] px-5 py-5 hover:bg-[var(--liceu-surface)] transition-colors"
-              >
-                <div className="space-y-2">
-                  <div className="font-[var(--font-noto-serif)] text-[18px] text-[var(--liceu-text)] group-hover:underline decoration-[var(--liceu-secondary)] underline-offset-4">
-                    {p.title}
-                  </div>
-                  <p className="font-[var(--font-work-sans)] text-[12px] text-[var(--liceu-muted)]">
-                    {p.desc}
+        {/* Diagnostic CTA */}
+        <section className="relative bg-[var(--liceu-surface-container-lowest)] py-32">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 md:grid-cols-2">
+            <div className="relative surface-scriptorium p-12">
+              <div className="absolute right-4 top-4 font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.3em] text-[var(--liceu-muted)]" style={{ transform: 'rotate(90deg)', transformOrigin: 'top right' }}>
+                CLASSIFIED
+              </div>
+              <h2 className="font-[var(--font-noto-serif)] text-3xl font-bold uppercase">
+                Diagnóstico técnico
+              </h2>
+              <p className="mt-4 text-[var(--liceu-muted)]">
+                Avaliação precisa de onde e por que sua inteligência falha sob cobrança.
+              </p>
+              <ul className="mt-8 space-y-3">
+                {[
+                  "Identificação de pontos de colapso",
+                  "Análise de estrutura argumentativa",
+                  "Recomendação de módulo de entrada",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span className="mt-2 h-2 w-2 bg-[var(--liceu-accent)]" />
+                    <span className="text-sm text-[var(--liceu-muted)]">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8">
+                <Link href="/diagnostico">
+                  <button className="bg-[var(--liceu-secondary-container)] px-8 py-4 font-[var(--font-space-grotesk)] text-xs font-black uppercase tracking-[0.3em] text-[var(--liceu-text)] transition-colors hover:bg-[var(--liceu-secondary)] hover:text-[var(--liceu-on-secondary-container)]">
+                    Iniciar diagnóstico
+                  </button>
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative aspect-square border-l-4 border-[var(--liceu-accent)] bg-[var(--liceu-surface-container-high)]">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="border border-[var(--liceu-accent)]/20 bg-[var(--liceu-bg)]/80 p-8 text-center backdrop-blur-xl">
+                  <p className="font-[var(--font-noto-serif)] text-2xl italic text-[var(--liceu-text)]">
+                    "A inteligência sem estrutura é como uma espada sem cabo."
                   </p>
                 </div>
-                <div className="shrink-0 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
-                  {p.tag}
-                </div>
-              </Link>
-            ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Products */}
+        <section className="py-32">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="mb-12 font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+              Caminhos de entrada
+            </div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {([
+                {
+                  href: "/diagnostico",
+                  tag: "GRATUITO",
+                  title: "Diagnóstico técnico",
+                  desc: "Avaliação tática do colapso. Por onde começar.",
+                },
+                {
+                  href: "/programa",
+                  tag: "R$ 149 — R$ 1.297",
+                  title: "Programa",
+                  desc: "Ebook ou aulas em vídeo. Progressão estrita.",
+                },
+                {
+                  href: "/mentoria",
+                  tag: "R$ 4.999 — SELETIVO",
+                  title: "Mentoria individual",
+                  desc: "Correção ao vivo. Seis sessões.",
+                },
+              ] as const).map((p) => (
+                <Link
+                  key={p.href}
+                  href={p.href}
+                  className="group block border border-[var(--liceu-stone)] border-l-4 border-l-[var(--liceu-stone)] bg-[var(--liceu-surface-container)] p-8 transition-all hover:border-l-[var(--liceu-accent)] hover:bg-[var(--liceu-surface-container-high)]"
+                >
+                  <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
+                    {p.tag}
+                  </div>
+                  <div className="mt-4 font-[var(--font-noto-serif)] text-xl uppercase text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)]">
+                    {p.title}
+                  </div>
+                  <p className="mt-2 text-sm text-[var(--liceu-muted)]">{p.desc}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Recent essays */}
         {POSTS.length > 0 && (
-          <section className="space-y-5 border-t border-[var(--liceu-stone)]/70 pt-10">
-            <div className="flex items-baseline justify-between gap-6">
-              <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-                Ensaios
+          <section className="border-t border-[var(--liceu-stone)] py-32">
+            <div className="mx-auto max-w-7xl px-6">
+              <div className="mb-12 flex items-baseline justify-between">
+                <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                  Ensaios
+                </div>
+                <Link
+                  href="/blog"
+                  className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] underline underline-offset-4 hover:text-[var(--liceu-accent)]"
+                >
+                  Ver todos
+                </Link>
               </div>
-              <Link
-                href="/blog"
-                className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] underline underline-offset-4 hover:text-[var(--liceu-text)]"
-              >
-                Ver todos
-              </Link>
-            </div>
-            <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25">
-              <ul className="divide-y divide-[var(--liceu-stone)]/70">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {POSTS.slice(0, 2).map((post) => (
-                  <li key={post.slug}>
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="flex flex-wrap items-baseline justify-between gap-4 px-5 py-4 hover:bg-[var(--liceu-surface)]/40 transition-colors"
-                    >
-                      <span className="font-[var(--font-noto-serif)] text-[16px] text-[var(--liceu-text)]">
-                        {post.title}
-                      </span>
-                      <span className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.18em] text-[var(--liceu-muted)]">
-                        {post.date}
-                      </span>
-                    </Link>
-                  </li>
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="group block border border-[var(--liceu-stone)] bg-[var(--liceu-surface-container-high)] p-8 transition-colors hover:bg-[var(--liceu-surface-container)]"
+                  >
+                    <div className="font-[var(--font-noto-serif)] text-lg uppercase text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)]">
+                      {post.title}
+                    </div>
+                    <div className="mt-4 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+                      {post.date}
+                    </div>
+                  </Link>
                 ))}
-              </ul>
+              </div>
             </div>
           </section>
         )}
+      </main>
 
+      {/* Bottom Status Bar */}
+      <div className="fixed bottom-0 left-0 right-0 flex h-8 items-center border-t border-[var(--liceu-stone)]/15 bg-[var(--liceu-surface)] px-4 gap-6">
+        <div className="font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+          <span className="text-[var(--liceu-accent)]">●</span> Latency: 42ms
+        </div>
+        <div className="font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+          Cognitive Sync: <span className="text-[var(--liceu-accent)]">Active</span>
+        </div>
+        <div className="font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
+          Clearance: <span className="text-[var(--liceu-secondary)]">Level 2</span>
+        </div>
+        <div className="flex-1" />
+        <div className="font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.18em] text-[var(--liceu-muted)] animate-pulse">
+          _
+        </div>
       </div>
-    </ReadingLayout>
+    </div>
   );
 }
