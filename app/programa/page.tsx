@@ -1,5 +1,4 @@
 import { ReadingLayout } from "@/components/ReadingLayout";
-import { PurchaseButton } from "@/components/PurchaseButton";
 import Link from "next/link";
 import { MinimalButton } from "@/components/MinimalButton";
 
@@ -149,58 +148,40 @@ export default function ProgramaPage() {
           </p>
         </section>
 
-        {/* Purchase */}
+        {/* Acesso */}
         <section className="space-y-6 border-t border-[var(--liceu-stone)]/70 pt-10">
           <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-            Acesso — pagamento único
+            Acesso — diagnóstico primeiro
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-6 py-6 space-y-4">
-              <div>
-                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-                  Entrada
-                </div>
-                <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] text-[var(--liceu-text)]">
-                  Ebook
-                </div>
-                <div className="mt-1 font-[var(--font-work-sans)] text-[13px] text-[var(--liceu-muted)]">
-                  R$ 149
-                </div>
+          <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface-container)] px-6 py-6 space-y-4">
+            <div>
+              <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                Primeiro passo
               </div>
-              <p className="font-[var(--font-noto-serif)] text-[13px] leading-[1.85] text-[var(--liceu-muted)]">
-                O programa completo em forma escrita. Todos os seis módulos,
-                exercícios e análises. Acesso à plataforma com progressão
-                guiada e flashcards SM-2.
-              </p>
-              <PurchaseButton kind="ebook">Comprar ebook</PurchaseButton>
-            </div>
-
-            <div className="border border-[var(--liceu-secondary)]/30 bg-[var(--liceu-surface)]/35 px-6 py-6 space-y-4">
-              <div>
-                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-secondary)]/70">
-                  Completo
-                </div>
-                <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] text-[var(--liceu-text)]">
-                  Aulas em vídeo
-                </div>
-                <div className="mt-1 font-[var(--font-work-sans)] text-[13px] text-[var(--liceu-muted)]">
-                  R$ 1.297
-                </div>
+              <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] text-[var(--liceu-text)]">
+                Faça o diagnóstico
               </div>
-              <p className="font-[var(--font-noto-serif)] text-[13px] leading-[1.85] text-[var(--liceu-muted)]">
-                Ebook + aulas gravadas com demonstração dos dispositivos
-                retóricos em uso. A diferença entre ler sobre pressão e
-                ver a estrutura operar sob ela.
-              </p>
-              <PurchaseButton kind="video">Comprar acesso completo</PurchaseButton>
             </div>
+            <p className="font-[var(--font-noto-serif)] text-[15px] leading-[1.85] text-[var(--liceu-muted)]">
+              Todo acesso ao programa começa pelo diagnóstico técnico. Ele identifica
+              onde sua inteligência falha sob pressão e recomenda o ponto de entrada
+              certo. Sem diagnóstico, não há matrícula.
+            </p>
+            <Link href="/diagnostico">
+              <button className="bg-[var(--liceu-primary)] px-8 py-4 font-[var(--font-space-grotesk)] text-xs font-black uppercase tracking-[0.15em] text-[var(--liceu-text)] transition-colors hover:opacity-90">
+                Iniciar diagnóstico gratuito
+              </button>
+            </Link>
           </div>
 
           <div className="space-y-2 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
-            <p>Acesso provisionado imediatamente após confirmação do pagamento.</p>
             <p>
-              Quer mentoria individual além do programa?{" "}
+              Após o diagnóstico, você receberá uma recomendação clara: ebook (R$ 149),
+              vídeo-aulas (R$ 1.297), ou mentoria individual (R$ 4.999, seletivo).
+            </p>
+            <p>
+              Quer entender como funciona a mentoria?{" "}
               <Link href="/mentoria" className="underline underline-offset-4 hover:text-[var(--liceu-text)]">
                 Ver formato de mentoria →
               </Link>
