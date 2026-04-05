@@ -70,36 +70,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Metrics Bar */}
-        <section className="border-y border-[var(--liceu-stone)]/15 bg-[var(--liceu-surface-container-high)] py-12">
-          <div className="mx-auto flex max-w-7xl justify-between px-6">
-            <div>
-              <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-                Students Under Forge
-              </div>
-              <div className="mt-2 font-[var(--font-noto-serif)] text-5xl font-bold text-[var(--liceu-accent)]">
-                47
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-8">
-              {[
-                { label: "Completion Rate", value: "73%" },
-                { label: "Avg Quiz Score", value: "81%" },
-                { label: "Active Modules", value: "6" },
-              ].map((metric) => (
-                <div key={metric.label}>
-                  <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
-                    {metric.label}
-                  </div>
-                  <div className="mt-1 font-[var(--font-space-grotesk)] text-lg font-bold text-[var(--liceu-text)]">
-                    {metric.value}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Three Pillars */}
         <section className="py-32">
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 md:grid-cols-3">
@@ -134,9 +104,6 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-8 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-widest text-[var(--liceu-muted)]">
-                  Pillar {idx + 1}
-                </div>
               </div>
             ))}
           </div>
@@ -146,9 +113,6 @@ export default function HomePage() {
         <section className="relative bg-[var(--liceu-surface-container-lowest)] py-32">
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 md:grid-cols-2">
             <div className="relative surface-scriptorium p-12">
-              <div className="absolute right-4 top-4 font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.3em] text-[var(--liceu-muted)]" style={{ transform: 'rotate(90deg)', transformOrigin: 'top right' }}>
-                CLASSIFIED
-              </div>
               <h2 className="font-[var(--font-noto-serif)] text-3xl font-bold uppercase">
                 Diagnóstico técnico
               </h2>
@@ -270,19 +234,10 @@ export default function HomePage() {
       </main>
 
       {/* Bottom Status Bar */}
-      <div className="fixed bottom-0 left-0 right-0 flex h-8 items-center border-t border-[var(--liceu-stone)]/15 bg-[var(--liceu-surface)] px-4 gap-6">
-        <div className="font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
-          <span className="text-[var(--liceu-accent)]">●</span> Latency: 42ms
-        </div>
-        <div className="font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
-          Cognitive Sync: <span className="text-[var(--liceu-accent)]">Active</span>
-        </div>
-        <div className="font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">
-          Clearance: <span className="text-[var(--liceu-secondary)]">Level 2</span>
-        </div>
+      <div className="fixed bottom-0 left-0 right-0 flex h-8 items-center border-t border-[var(--liceu-stone)]/15 bg-[var(--liceu-surface)] px-4">
         <div className="flex-1" />
         <div className="font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.18em] text-[var(--liceu-muted)] animate-pulse">
-          _
+          Liceu Underground _
         </div>
       </div>
     </div>

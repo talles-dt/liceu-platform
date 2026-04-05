@@ -431,19 +431,9 @@ function ActiveDrills({ courses, progress }: { courses: Course[]; progress: Modu
 
 function BottomStatusBar() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 h-8 bg-[var(--liceu-surface)] border-t border-[var(--liceu-stone)]/20 flex items-center px-6 gap-8 font-mono text-[10px] uppercase tracking-widest text-[var(--liceu-muted)]">
-      <span>
-        Latency: <span className="text-[var(--liceu-accent)]">12ms</span>
-      </span>
-      <span>
-        Cognitive Sync: <span className="text-[var(--liceu-accent)]">Active</span>
-      </span>
-      <span>
-        Clearance: <span className="text-[var(--liceu-secondary)]">Level 1</span>
-      </span>
+    <div className="fixed bottom-0 left-0 right-0 z-50 h-8 bg-[var(--liceu-surface)] border-t border-[var(--liceu-stone)]/20 flex items-center px-6 font-mono text-[10px] uppercase tracking-widest text-[var(--liceu-muted)]">
       <span className="ml-auto flex items-center gap-1">
-        <span className="text-[var(--liceu-accent)]">❯</span>
-        <span className="animate-pulse text-[var(--liceu-accent)]">█</span>
+        <span className="animate-pulse text-[var(--liceu-accent)]">_</span>
       </span>
     </div>
   );
