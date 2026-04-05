@@ -71,6 +71,15 @@
   --liceu-secondary: #d8c860;
   --liceu-neutral: #0A0A0A;
 
+  /* Surface Elevation (Material 3) */
+  --liceu-primary-container: #004D32;
+  --liceu-secondary-container: #756901;
+  --liceu-surface-container: #201F1F;
+  --liceu-surface-container-low: #1a1919;
+  --liceu-surface-container-lowest: #0A0A0A;
+  --liceu-surface-container-high: #2a2a2a;
+  --liceu-surface-container-highest: #353534;
+
   /* Legacy compatibility */
   --liceu-bg: #0A0A0A;
   --liceu-surface: #131313;
