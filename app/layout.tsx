@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Noto_Serif, Work_Sans, Space_Grotesk, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
+import * as Sentry from "@sentry/nextjs";
 
 const uiSans = Inter({
   variable: "--font-liceu-sans",
@@ -69,19 +70,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body
-        className={`${uiSans.variable} ${uiMono.variable} ${notoSerif.variable} ${workSans.variable} ${spaceGrotesk.variable} ${robotoMono.variable} antialiased`}
-      >
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-[var(--liceu-primary)] focus:text-[var(--liceu-text)] focus:px-4 focus:py-2"
+    <Sentry.ErrorBoundary
+      fallback={
+        <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)] flex items-center justify-center">
+          <div className="text-center max-w-md px-6">
+            <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-critical)]">
+              Something went wrong
+            </div>
+            <p className="mt-4 font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
+              The application encountered an unexpected error. Please try refreshing the page.
+            </p>
+          </div>
+        </div>
+      }
+    >
+      <html lang="pt-BR">
+        <body
+          className={`${uiSans.variable} ${uiMono.variable} ${notoSerif.variable} ${workSans.variable} ${spaceGrotesk.variable} ${robotoMono.variable} antialiased`}
         >
-          Pular para o conteúdo
-        </a>
-        <SiteHeader />
-        <main id="main-content">{children}</main>
-      </body>
-    </html>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-[var(--liceu-primary)] focus:text-[var(--liceu-text)] focus:px-4 focus:py-2"
+          >
+            Pular para o conteúdo
+          </a>
+          <SiteHeader />
+          <main id="main-content">{children}</main>
+        </body>
+      </html>
+    </Sentry.ErrorBoundary>
   );
 }

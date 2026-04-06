@@ -55,6 +55,7 @@ export default async function AdminAssignmentDetailPage({ params }: Props) {
       <div className="mt-5">
         <AssignmentReviewPanel
           title={`Submission — ${student}`}
+          submissionId={submissionId}
           fileUrl={sub.file_url}
           meta={[
             { k: "student", v: student },

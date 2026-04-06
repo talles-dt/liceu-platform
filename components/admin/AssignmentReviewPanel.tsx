@@ -1,12 +1,38 @@
+"use client";
+
+import { useState } from "react";
+
 type Props = {
   title: string;
   fileUrl?: string | null;
+  submissionId?: string;
   meta: { k: string; v: string }[];
   text: string;
   aiFeedback?: { score?: number; feedback?: string; status?: string };
 };
 
-export function AssignmentReviewPanel({ title, fileUrl, meta, text, aiFeedback }: Props) {
+export function AssignmentReviewPanel({ title, fileUrl, submissionId, meta, text, aiFeedback }: Props) {
+  const [currentStatus, setCurrentStatus] = useState(aiFeedback?.status ?? "");
+  const [notes, setNotes] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  async function updateStatus(status: "approved" | "revision" | "rejected") {
+    if (!submissionId) return;
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/admin/assignments/${submissionId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status, reviewer_notes: notes || undefined }),
+      });
+      if (res.ok) {
+        setCurrentStatus(status);
+        setSaved(true);
+      }
+    } catch { /* ignore */ }
+    finally { setSaving(false); }
+  }
   return (
     <section className="border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)]">
       <header className="border-b border-[var(--liceu-stone)]/70 px-4 py-3">
@@ -88,27 +114,46 @@ export function AssignmentReviewPanel({ title, fileUrl, meta, text, aiFeedback }
             </div>
           </div>
 
-          <div className="border border-[var(--liceu-secondary)]/35 bg-[var(--liceu-neutral)] px-4 py-4">
-            <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-secondary)]">
-              operator override
+          <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)] px-4 py-4">
+            <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+              reviewer notes
             </div>
-            <div className="mt-2 font-[var(--font-work-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
-              UI only. Wire to an approval endpoint when assignments schema is
-              finalized.
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Feedback for the student..."
+              rows={4}
+              className="mt-2 w-full bg-[var(--liceu-bg)] border border-[var(--liceu-stone)] px-3 py-2 font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] outline-none focus:border-[var(--liceu-accent)] resize-none"
+            />
+          </div>
+
+          <div className="border border-[var(--liceu-secondary)]/35 bg-[var(--liceu-neutral)] px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-secondary)]">
+                {saved ? "✓ Saved" : "operator override"}
+              </div>
+              {currentStatus && (
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-accent)]">
+                  {currentStatus}
+                </div>
+              )}
             </div>
             <div className="mt-3 grid grid-cols-3 gap-2">
-              {["approve", "revision", "reject"].map((x) => (
+              {(["approved", "revision", "rejected"] as const).map((x) => (
                 <button
                   key={x}
                   type="button"
+                  disabled={saving}
+                  onClick={() => updateStatus(x)}
                   className={[
-                    "border border-[var(--liceu-stone)] px-2 py-2",
-                    "bg-[var(--liceu-surface)] hover:bg-[var(--liceu-surface)]/35",
-                    "font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em]",
-                    "text-[var(--liceu-text)]",
+                    "border px-2 py-2 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] transition-colors",
+                    currentStatus === x
+                      ? "border-[var(--liceu-accent)] bg-[var(--liceu-accent)] text-[var(--liceu-on-primary)]"
+                      : "border-[var(--liceu-stone)] bg-[var(--liceu-surface)] hover:bg-[var(--liceu-surface-container-high)] text-[var(--liceu-text)]",
+                    saving ? "opacity-50 cursor-not-allowed" : "",
                   ].join(" ")}
                 >
-                  {x}
+                  {saving ? "..." : x}
                 </button>
               ))}
             </div>
