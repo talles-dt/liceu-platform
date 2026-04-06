@@ -5,6 +5,7 @@ import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer
 const NAV = [
   { href: "/admin" as const, label: "command" },
   { href: "/admin/students" as const, label: "students" },
+  { href: "/admin/students/create" as const, label: "create" },
   { href: "/admin/progress" as const, label: "progress" },
   { href: "/admin/assignments" as const, label: "assignments" },
   { href: "/admin/mentorship" as const, label: "mentorship" },

@@ -1,11 +1,12 @@
 type Props = {
   title: string;
+  fileUrl?: string | null;
   meta: { k: string; v: string }[];
   text: string;
   aiFeedback?: { score?: number; feedback?: string; status?: string };
 };
 
-export function AssignmentReviewPanel({ title, meta, text, aiFeedback }: Props) {
+export function AssignmentReviewPanel({ title, fileUrl, meta, text, aiFeedback }: Props) {
   return (
     <section className="border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)]">
       <header className="border-b border-[var(--liceu-stone)]/70 px-4 py-3">
@@ -26,6 +27,21 @@ export function AssignmentReviewPanel({ title, meta, text, aiFeedback }: Props) 
           <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             manuscript
           </div>
+          {fileUrl && (
+            <div className="mt-2">
+              <a
+                href={fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.15em] text-[var(--liceu-accent)] underline underline-offset-4 hover:text-[var(--liceu-text)]"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Download attached file
+              </a>
+            </div>
+          )}
           <div className="mt-3 whitespace-pre-wrap font-[var(--font-noto-serif)] text-[14px] leading-[1.85] text-[var(--liceu-text)]">
             {text}
           </div>

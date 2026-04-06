@@ -35,8 +35,32 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Liceu",
-  description: "Escola de pensamento aplicado à fala.",
+  title: {
+    default: "Liceu Underground — Escola de pensamento aplicado à fala",
+    template: "%s | Liceu Underground",
+  },
+  description:
+    "Uma escola de pensamento aplicado à fala. Fundada na retórica clássica. Construída para quem colapsa onde mais importa.",
+  keywords: ["retórica", "oratória", "pensamento crítico", "comunicação", "Liceu"],
+  authors: [{ name: "Liceu Underground" }],
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: "https://www.oliceu.com",
+    siteName: "Liceu Underground",
+    title: "Liceu Underground — Escola de pensamento aplicado à fala",
+    description:
+      "Fundada na retórica clássica. Construída para quem colapsa onde mais importa.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Liceu Underground",
+    description: "Escola de pensamento aplicado à fala.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
