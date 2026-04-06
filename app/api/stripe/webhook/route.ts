@@ -191,31 +191,36 @@ export async function POST(req: Request) {
         console.error("[webhook] sendAccessReadyEmail (mentoring) failed", e),
       );
     } else {
-      // No account yet — store pending purchase so auth/callback claims it
-      await supabase
-        .from("pending_purchases")
-        .upsert(
-          {
-            email: buyerEmail.toLowerCase(),
-            kind,
-            course_id: getCommerceConfig().mentoringCourseId,
-            stripe_session_id: session.id,
-            claimed: false,
-          },
-          { onConflict: "stripe_session_id" },
-        );
+      // No account yet — create one via magic link invite and provision
+      const { data: inviteData, error: inviteError } =
+        await supabase.auth.admin.inviteUserByEmail(buyerEmail, {
+          redirectTo: `${siteUrl}/login`,
+          data: { name: buyerEmail.split("@")[0] },
+        });
 
-      const { data: linkData } = await supabase.auth.admin.generateLink({
-        type: "magiclink",
-        email: buyerEmail,
-        options: { redirectTo: `${siteUrl}/auth/callback` },
-      });
-
-      if (linkData?.properties?.action_link) {
-        await sendRegistrationEmail(buyerEmail, linkData.properties.action_link).catch(
-          (e) => console.error("[webhook] sendRegistrationEmail (mentoring) failed", e),
-        );
+      if (inviteError) {
+        console.error("[webhook] inviteUserByEmail (mentoring) failed", inviteError);
+        return NextResponse.json({ received: true });
       }
+
+      resolvedUserId = inviteData.user.id;
+
+      // Provision course for mentoring
+      const { mentoringCourseId } = getCommerceConfig();
+      if (mentoringCourseId) {
+        await ensureCourseProgressForUserAdmin(resolvedUserId, mentoringCourseId);
+      }
+      await recordPurchaseAdmin({
+        userId: resolvedUserId,
+        kind,
+        stripeSessionId: session.id,
+        amountTotal: session.amount_total ?? null,
+        currency: session.currency ?? null,
+      }).catch((e) => console.error("[webhook] recordPurchaseAdmin (mentoring) failed", e));
+
+      await sendAccessReadyEmail(buyerEmail).catch((e) =>
+        console.error("[webhook] sendAccessReadyEmail (mentoring) failed", e),
+      );
     }
 
     return NextResponse.json({ received: true });
@@ -262,30 +267,55 @@ export async function POST(req: Request) {
       console.error("[webhook] sendAccessReadyEmail failed", e),
     );
   } else {
-    await supabase
-      .from("pending_purchases")
-      .upsert(
-        {
-          email: buyerEmail.toLowerCase(),
-          kind,
-          course_id: courseId,
-          stripe_session_id: session.id,
-          claimed: false,
-        },
-        { onConflict: "stripe_session_id" },
-      );
+    // No account yet — create one via magic link invite and provision immediately
+    const { data: inviteData, error: inviteError } =
+      await supabase.auth.admin.inviteUserByEmail(buyerEmail, {
+        redirectTo: `${siteUrl}/login`,
+        data: { purchase_kind: kind, course_id: courseId },
+      });
 
-    const { data: linkData } = await supabase.auth.admin.generateLink({
-      type: "magiclink",
-      email: buyerEmail,
-      options: { redirectTo: `${siteUrl}/auth/callback` },
+    if (inviteError) {
+      console.error("[webhook] inviteUserByEmail failed", inviteError);
+      // Fallback: store as pending so auth/callback can claim later
+      await supabase
+        .from("pending_purchases")
+        .upsert(
+          {
+            email: buyerEmail.toLowerCase(),
+            kind,
+            course_id: courseId,
+            stripe_session_id: session.id,
+            claimed: false,
+          },
+          { onConflict: "stripe_session_id" },
+        );
+      return NextResponse.json({ received: true });
+    }
+
+    resolvedUserId = inviteData.user.id;
+
+    // Record purchase + provision course for the newly created user
+    await recordPurchaseAdmin({
+      userId: resolvedUserId,
+      kind,
+      stripeSessionId: session.id,
+      amountTotal: session.amount_total ?? null,
+      currency: session.currency ?? null,
     });
 
-    if (linkData?.properties?.action_link) {
-      await sendRegistrationEmail(buyerEmail, linkData.properties.action_link).catch(
-        (e) => console.error("[webhook] sendRegistrationEmail failed", e),
-      );
+    if (courseId) {
+      await ensureCourseProgressForUserAdmin(resolvedUserId, courseId);
     }
+
+    // Mark any stale pending purchase as claimed
+    await supabase
+      .from("pending_purchases")
+      .update({ claimed: true })
+      .eq("stripe_session_id", session.id);
+
+    await sendAccessReadyEmail(buyerEmail).catch((e) =>
+      console.error("[webhook] sendAccessReadyEmail failed", e),
+    );
   }
 
   return NextResponse.json({ received: true });
