@@ -101,7 +101,7 @@ export default function AdminCreateStudentPage() {
             placeholder="Leave empty to let them set their own"
           />
           <p className="mt-1 font-[var(--font-work-sans)] text-[10px] text-[var(--liceu-muted)]">
-            If left blank, the account is created with no password. You can share a temporary one manually.
+            If left blank, an invite email with a magic link is sent so they can set their own password.
           </p>
         </div>
 

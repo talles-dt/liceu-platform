@@ -30,57 +30,86 @@ export async function POST(req: Request) {
   const password = body.password?.trim() ?? null;
 
   try {
-    // Create auth user
-    const authPayload: {
-      email: string;
-      password?: string;
-      email_confirm: boolean;
-      user_metadata?: { name: string | null };
-    } = {
-      email,
-      email_confirm: true,
-      user_metadata: { name },
-    };
-
     if (password) {
-      authPayload.password = password;
-    }
+      // Create with explicit password
+      const { data: authData, error: authError } =
+        await supabase.auth.admin.createUser({
+          email,
+          password,
+          email_confirm: true,
+          user_metadata: { name },
+        });
 
-    const { data: authData, error: authError } =
-      await supabase.auth.admin.createUser({
-        ...authPayload,
-        ...(password ? {} : {}),
-      });
+      if (authError) {
+        return NextResponse.json(
+          { error: authError.message },
+          { status: 400 },
+        );
+      }
 
-    if (authError) {
-      return NextResponse.json(
-        { error: authError.message },
-        { status: 400 },
-      );
-    }
+      const userId = authData.user.id;
 
-    const userId = authData.user.id;
+      // Create or update users table row
+      const { error: dbError } = await supabase
+        .from("users")
+        .upsert({
+          id: userId,
+          email,
+          name,
+          role: "student",
+        });
 
-    // Create or update users table row
-    const { error: dbError } = await supabase
-      .from("users")
-      .upsert({
+      if (dbError) {
+        console.error("[admin/students] db upsert failed", dbError);
+      }
+
+      return NextResponse.json({
         id: userId,
         email,
         name,
-        role: "student",
+        created: true,
+        method: "password",
       });
+    } else {
+      // No password — send magic link invite email
+      const { data: inviteData, error: inviteError } =
+        await supabase.auth.admin.inviteUserByEmail(email, {
+          redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.oliceu.com"}/login`,
+          data: { name },
+        });
 
-    if (dbError) {
-      console.error("[admin/students] db upsert failed", dbError);
+      if (inviteError) {
+        return NextResponse.json(
+          { error: inviteError.message },
+          { status: 400 },
+        );
+      }
+
+      const userId = inviteData.user.id;
+
+      // Create or update users table row
+      const { error: dbError } = await supabase
+        .from("users")
+        .upsert({
+          id: userId,
+          email,
+          name,
+          role: "student",
+        });
+
+      if (dbError) {
+        console.error("[admin/students] db upsert failed", dbError);
+      }
+
+      return NextResponse.json({
+        id: userId,
+        email,
+        name,
+        created: true,
+        method: "invite_email",
+        message: "Invite email sent",
+      });
     }
-
-    return NextResponse.json({
-      id: userId,
-      email,
-      name,
-      created: true,
-    });
   } catch (e) {
     console.error("[admin/students] unexpected error", e);
     return NextResponse.json(
