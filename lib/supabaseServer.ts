@@ -1,5 +1,10 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "@/lib/database.types";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SafeClient = SupabaseClient<any, string, any>;
 
 type CookieOptions = {
   domain?: string;
@@ -11,7 +16,7 @@ type CookieOptions = {
   secure?: boolean;
 };
 
-export async function createSupabaseServerClient() {
+export async function createSupabaseServerClient(): Promise<SafeClient> {
   const cookieStore = await cookies();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -21,16 +26,12 @@ export async function createSupabaseServerClient() {
     throw new Error("Supabase environment variables are not configured.");
   }
 
-  return createServerClient(supabaseUrl, supabaseAnonKey, {
+  return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
     cookies: {
       get(name: string) {
         return cookieStore.get(name)?.value;
       },
       set(name: string, value: string, options: CookieOptions) {
-        // Server Components cannot write cookies — only Route Handlers and
-        // Server Actions can. Supabase calls set() during session refresh, so
-        // we silently ignore failures here. The refresh will succeed on the
-        // next Route Handler or Server Action that has write access.
         try {
           cookieStore.set({ name, value, ...options });
         } catch {
@@ -45,7 +46,7 @@ export async function createSupabaseServerClient() {
         }
       },
     },
-  });
+  }) as SafeClient;
 }
 
 export async function getCurrentUser() {

@@ -3,13 +3,10 @@ import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer
 
 type Context = { params: Promise<{ moduleId: string }> };
 
-type DbAssignment = {
-  assignment_prompt: string;
-};
-
 /**
- * GET — returns the prompt for this module + the user's existing submission if any.
- * POST — submits the main rhetorical exercise (kind='assignment').
+ * GET — returns the prompt for this module + the user's latest submission.
+ * POST — submits the main rhetorical exercise. Accepts text content and/or a file upload.
+ *        Files are stored in Supabase Storage bucket "assignment-files".
  *        This is the one that gates module completion.
  */
 export async function GET(_req: Request, { params }: Context) {
@@ -24,16 +21,16 @@ export async function GET(_req: Request, { params }: Context) {
       .from("module_assignments")
       .select("assignment_prompt")
       .eq("module_id", moduleId)
-      .maybeSingle<DbAssignment>(),
+      .maybeSingle(),
     supabase
       .from("assignment_submissions")
-      .select("id, content, status, created_at")
+      .select("id, content, status, created_at, file_url")
       .eq("user_id", user.id)
       .eq("module_id", moduleId)
       .eq("kind", "assignment")
       .order("created_at", { ascending: false })
       .limit(1)
-      .maybeSingle<{ id: string; content: string; status: string; created_at: string }>(),
+      .maybeSingle(),
   ]);
 
   return NextResponse.json({
@@ -47,27 +44,81 @@ export async function POST(req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
-  const body = (await req.json().catch(() => ({}))) as { content?: string };
+  const contentType = req.headers.get("content-type") ?? "";
 
-  if (!body.content?.trim() || body.content.trim().length < 50) {
-    return NextResponse.json({ error: "Mínimo de 50 caracteres." }, { status: 400 });
+  let textContent = "";
+  let fileBuffer: ArrayBuffer | null = null;
+  let fileName: string | null = null;
+  let fileType: string | null = null;
+
+  if (contentType.includes("multipart/form-data")) {
+    // Parse FormData
+    const formData = await req.formData();
+    textContent = formData.get("content")?.toString() ?? "";
+    const file = formData.get("file") as File | null;
+    if (file) {
+      fileBuffer = await file.arrayBuffer();
+      fileName = file.name;
+      fileType = file.type;
+    }
+  } else {
+    // Parse JSON (legacy compatibility)
+    const body = (await req.json().catch(() => ({}))) as { content?: string };
+    textContent = body.content ?? "";
+  }
+
+  // Validate: need either text or file
+  if (!textContent.trim() && !fileBuffer) {
+    return NextResponse.json({ error: "Envie um texto ou um arquivo." }, { status: 400 });
+  }
+
+  if (textContent.trim() && textContent.trim().length < 50) {
+    return NextResponse.json({ error: "Mínimo de 50 caracteres no texto." }, { status: 400 });
   }
 
   const supabase = await createSupabaseServerClient();
 
+  // Upload file to Supabase Storage if provided
+  let fileUrl: string | null = null;
+  if (fileBuffer && fileName) {
+    const ext = fileName.split(".").pop() ?? "bin";
+    const path = `${user.id}/${moduleId}/${Date.now()}.${ext}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("assignment-files")
+      .upload(path, fileBuffer, {
+        contentType: fileType ?? "application/octet-stream",
+        upsert: false,
+      });
+
+    if (uploadError) {
+      console.error("[assignment] file upload failed", uploadError);
+      return NextResponse.json({ error: "Erro ao enviar arquivo." }, { status: 500 });
+    }
+
+    const { data: urlData } = supabase.storage
+      .from("assignment-files")
+      .getPublicUrl(path);
+
+    fileUrl = urlData.publicUrl;
+  }
+
+  // Save submission
   const { data, error } = await supabase
     .from("assignment_submissions")
     .insert({
       user_id: user.id,
       module_id: moduleId,
       kind: "assignment",
-      content: body.content,
+      content: textContent,
+      file_url: fileUrl,
       status: "pending",
     })
     .select("id, status")
     .single();
 
   if (error) {
+    console.error("[assignment] db insert failed", error);
     return NextResponse.json({ error: "Erro ao salvar." }, { status: 500 });
   }
 

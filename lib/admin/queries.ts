@@ -1,4 +1,5 @@
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
+import type { Tables } from "@/lib/database.types";
 
 export type AdminMetrics = {
   activeStudents: number;
@@ -9,7 +10,6 @@ export type AdminMetrics = {
 };
 
 export async function getAdminMetrics(): Promise<AdminMetrics> {
-  // Admin client bypasses RLS — required for cross-user reads.
   const supabase = createSupabaseAdminClient();
 
   const out: AdminMetrics = {
@@ -28,7 +28,7 @@ export async function getAdminMetrics(): Promise<AdminMetrics> {
 
     if (!error && data) {
       const set = new Set<string>();
-      for (const r of data as unknown as { user_id: string }[]) set.add(r.user_id);
+      for (const r of data) set.add(r.user_id);
       out.activeStudents = set.size;
     }
   }
@@ -40,44 +40,39 @@ export async function getAdminMetrics(): Promise<AdminMetrics> {
       .select("completed");
 
     if (!error && data && data.length > 0) {
-      const rows = data as unknown as { completed: boolean | null }[];
-      const done = rows.filter((r) => r.completed === true).length;
-      out.modulesCompletionRate = Math.round((done / rows.length) * 100);
+      const done = data.filter((r) => r.completed === true).length;
+      out.modulesCompletionRate = Math.round((done / data.length) * 100);
     }
   }
 
-  // Quiz success rate: passed attempts / total quiz_attempts (if exists)
+  // Quiz success rate: passed attempts / total quiz_attempts
   {
     const { data, error } = await supabase.from("quiz_attempts").select("passed");
     if (!error && data && data.length > 0) {
-      const rows = data as unknown as { passed: boolean | null }[];
-      const ok = rows.filter((r) => r.passed === true).length;
-      out.quizSuccessRate = Math.round((ok / rows.length) * 100);
+      const ok = data.filter((r) => r.passed === true).length;
+      out.quizSuccessRate = Math.round((ok / data.length) * 100);
     }
   }
 
-  // Assignment approval rate: approved / total submissions (if exists)
+  // Assignment approval rate: approved / total submissions
   {
     const { data, error } = await supabase
       .from("assignment_submissions")
       .select("status");
     if (!error && data && data.length > 0) {
-      const rows = data as unknown as { status: string | null }[];
-      const approved = rows.filter((r) => r.status === "approved").length;
-      out.assignmentApprovalRate = Math.round((approved / rows.length) * 100);
+      const approved = data.filter((r) => r.status === "approved").length;
+      out.assignmentApprovalRate = Math.round((approved / data.length) * 100);
     }
   }
 
-  // Mentorship utilization: completed sessions / (completed + upcoming + missed)
-  // If table doesn't exist, keep 0.
+  // Mentorship utilization: completed sessions / total
   {
     const { data, error } = await supabase
       .from("mentorship_sessions")
       .select("status");
     if (!error && data && data.length > 0) {
-      const rows = data as unknown as { status: string | null }[];
-      const total = rows.length;
-      const completed = rows.filter((r) => r.status === "completed").length;
+      const total = data.length;
+      const completed = data.filter((r) => r.status === "completed").length;
       out.mentorshipUtilization = Math.round((completed / total) * 100);
     }
   }
@@ -97,7 +92,6 @@ export type AdminStudentRow = {
 export async function getAdminStudents(): Promise<AdminStudentRow[]> {
   const supabase = createSupabaseAdminClient();
 
-  // Schema guess: users table has id/email/name; module_progress has completion.
   const { data: usersData } = await supabase
     .from("users")
     .select("id, name, email")
@@ -112,20 +106,9 @@ export async function getAdminStudents(): Promise<AdminStudentRow[]> {
     .from("module_progress")
     .select("user_id, module_id, completed, quiz_score, assignment_submitted, updated_at");
 
-  const users =
-    (usersData as unknown as { id: string; name?: string | null; email?: string | null }[]) ??
-    [];
-  const modules =
-    (modulesData as unknown as { id: string; title: string; order_index: number }[]) ?? [];
-  const progress =
-    (progressData as unknown as {
-      user_id: string;
-      module_id: string;
-      completed: boolean | null;
-      quiz_score?: number | null;
-      assignment_submitted?: boolean | null;
-      updated_at?: string | null;
-    }[]) ?? [];
+  const users = usersData ?? [];
+  const modules = modulesData ?? [];
+  const progress = progressData ?? [];
 
   const moduleById = new Map(modules.map((m) => [m.id, m]));
   const progressByUser = new Map<string, typeof progress>();

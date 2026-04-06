@@ -32,7 +32,7 @@ export default async function AdminLayout({
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean);
 
-  const isAdminByRole = profile && profile.role === "admin";
+  const isAdminByRole = profile && (profile as { role: string | null }).role === "admin";
   const isAdminByEmail =
     user.email && envAdmins.length > 0
       ? envAdmins.includes(user.email.toLowerCase())
