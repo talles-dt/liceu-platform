@@ -1,0 +1,109 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import Link from "next/link";
+import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
+import { ReadingLayout } from "@/components/ReadingLayout";
+import { MinimalButton } from "@/components/MinimalButton";
+
+export default function ForgotPasswordPage() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setSuccess(false);
+    setLoading(true);
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (resetError) {
+        setError(resetError.message);
+        return;
+      }
+      setSuccess(true);
+    } catch {
+      setError("Unable to send reset link. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <ReadingLayout
+      eyebrow="LICEU UNDERGROUND / RECUPERAÇÃO"
+      title="Recuperar senha"
+      subtitle="Enviaremos um link para redefinir sua senha."
+    >
+      <div className="space-y-8">
+        {success ? (
+          <div className="space-y-5 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-5 py-5">
+            <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)]">
+              Link de recuperação enviado. Verifique seu email e clique no link para redefinir sua senha.
+            </p>
+            <p className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
+              Voltar para{" "}
+              <Link
+                href="/login"
+                className="text-[var(--liceu-text)] underline decoration-[var(--liceu-muted)] underline-offset-4 hover:decoration-[var(--liceu-secondary)]"
+              >
+                entrar
+              </Link>
+              .
+            </p>
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-5 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-5 py-5"
+          >
+            <div className="space-y-2">
+              <label htmlFor="reset-email" className="block font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                Email
+              </label>
+              <input
+                id="reset-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full rounded-sm border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-3 py-2 font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] outline-none focus-visible:ring-1 focus-visible:ring-[var(--liceu-secondary)]/55"
+              />
+            </div>
+
+            {error && (
+              <p
+                className="border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-3 py-2 font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]"
+                role="alert"
+              >
+                {error}
+              </p>
+            )}
+
+            <div className="flex items-center justify-end gap-3 border-t border-[var(--liceu-stone)]/70 pt-5">
+              <MinimalButton type="submit" disabled={loading}>
+                {loading ? "Enviando..." : "Enviar link de recuperação"}
+              </MinimalButton>
+            </div>
+          </form>
+        )}
+
+        <p className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
+          Lembrou sua senha?{" "}
+          <Link
+            href="/login"
+            className="text-[var(--liceu-text)] underline decoration-[var(--liceu-muted)] underline-offset-4 hover:decoration-[var(--liceu-secondary)]"
+          >
+            Entrar
+          </Link>
+          .
+        </p>
+      </div>
+    </ReadingLayout>
+  );
+}

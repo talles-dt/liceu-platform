@@ -26,7 +26,7 @@ export default function RegisterPage() {
         setError(signUpError.message);
         return;
       }
-      window.location.href = "/dashboard";
+      window.location.href = "/onboarding";
     } catch {
       setError("Unable to create account. Please try again.");
     } finally {

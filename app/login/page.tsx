@@ -71,6 +71,14 @@ export default function LoginPage() {
               required
               className="w-full rounded-sm border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-3 py-2 font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] outline-none focus-visible:ring-1 focus-visible:ring-[var(--liceu-secondary)]/55"
             />
+            <div className="flex justify-end">
+              <Link
+                href="/forgot-password"
+                className="font-[var(--font-work-sans)] text-[10px] text-[var(--liceu-muted)] underline decoration-[var(--liceu-muted)] underline-offset-4 hover:decoration-[var(--liceu-secondary)]"
+              >
+                Esqueceu a senha?
+              </Link>
+            </div>
           </div>
 
           {error && (

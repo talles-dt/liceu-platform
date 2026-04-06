@@ -9,6 +9,10 @@ import { PurchaseToast } from "@/components/PurchaseToast";
 
 export const revalidate = 60;
 
+type DashboardSearchParams = {
+  purchase?: string;
+};
+
 type DbCourseRow = {
   id: string;
   title: string;
@@ -441,7 +445,12 @@ function BottomStatusBar() {
 
 // --- Main Page ---
 
-export default async function DashboardPage() {
+export default async function DashboardPage(props: { searchParams: Promise<DashboardSearchParams> }) {
+  const searchParams = await props.searchParams;
+  if (searchParams.purchase === "success") {
+    redirect("/onboarding");
+  }
+
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
