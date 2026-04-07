@@ -82,7 +82,7 @@ export default function DiagnosticoResultadoClient() {
       body: JSON.stringify({ email, nome: name, resultado: result }),
     })
       .then(() => setWebhookSent(true))
-      .catch(() => {});
+      .catch((e) => console.error("[diagnostico] webhook email failed", e));
   }, [result, email, name]);
 
   if (!result || !RESULT_MAP[result]) {

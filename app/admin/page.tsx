@@ -1,22 +1,12 @@
 import { MetricBlock } from "@/components/admin/MetricBlock";
 import { ChartContainer } from "@/components/admin/ChartContainer";
-import { BarChart, Heatmap, LineChart } from "@/components/admin/charts";
 import { getAdminMetrics, getAdminStudents } from "@/lib/admin/queries";
-import { seededMatrix, seededSeries } from "@/lib/admin/mock";
 
 export const revalidate = 60;
 
 export default async function AdminCommandCenterPage() {
   const metrics = await getAdminMetrics();
   const students = await getAdminStudents();
-
-  // Charts: start with deterministic series; swap to real aggregates as schema stabilizes.
-  const daily = seededSeries(7_911, 28, 18, 110);
-  const cohorts = ["C1", "C2", "C3", "C4", "C5", "C6"];
-  const cohortValues = seededSeries(12_301, cohorts.length, 6, 48);
-  const heatRows = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"];
-  const heatCols = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  const heat = seededMatrix(99_101, heatRows.length, heatCols.length, 0, 1);
 
   return (
     <div className="p-4 md:p-6 space-y-12">
@@ -261,6 +251,7 @@ export default async function AdminCommandCenterPage() {
           </p>
         </div>
 
+        {/* Metric Blocks */}
         <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-5">
           <MetricBlock
             label="Active students"
@@ -290,53 +281,18 @@ export default async function AdminCommandCenterPage() {
           />
         </div>
 
+        {/* System state */}
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <ChartContainer
-            title="Daily activity"
-            subtitle="Events/day (placeholder series until event log is stabilized)."
-            right={
-              <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
-                28D WINDOW
-              </div>
-            }
-          >
-            <LineChart data={daily} />
-          </ChartContainer>
-
-          <ChartContainer
-            title="Module completion per cohort"
-            subtitle="Counts by cohort (placeholder)."
-            right={
-              <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
-                COHORTS
-              </div>
-            }
-          >
-            <BarChart labels={cohorts} values={cohortValues} />
-          </ChartContainer>
-
-          <ChartContainer
-            title="Student engagement heatmap"
-            subtitle="Intensity by day (placeholder)."
-            right={
-              <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
-                7D PATTERN
-              </div>
-            }
-          >
-            <Heatmap rows={heatRows} cols={heatCols} values={heat} />
-          </ChartContainer>
-
           <ChartContainer
             title="System state"
             subtitle="Basic health signals (best effort)."
           >
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {[
-                { k: "db", v: "connected" },
-                { k: "auth", v: "supabase" },
-                { k: "schema", v: "drifting" },
-                { k: "audit", v: "minimal" },
+                { k: "students", v: students.length.toString() },
+                { k: "modules complete", v: `${metrics.modulesCompletionRate}%` },
+                { k: "quiz pass rate", v: `${metrics.quizSuccessRate}%` },
+                { k: "assignment approval", v: `${metrics.assignmentApprovalRate}%` },
               ].map((r) => (
                 <div
                   key={r.k}
@@ -350,6 +306,20 @@ export default async function AdminCommandCenterPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </ChartContainer>
+
+          <ChartContainer
+            title="Activity charts"
+            subtitle="Daily activity, cohort completion, and engagement heatmaps will appear once event logging is stabilized."
+          >
+            <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface-container)] px-4 py-8 text-center">
+              <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                No activity data yet
+              </div>
+              <p className="mt-2 font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
+                Charts require an event log table. Connect your analytics pipeline to populate them.
+              </p>
             </div>
           </ChartContainer>
         </div>

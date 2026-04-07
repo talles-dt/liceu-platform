@@ -391,11 +391,11 @@ function moduleCopy(title: string) {
       ].join("\n"),
     },
     videoA: {
-      title: "Aula em vídeo (placeholder) — Exposição",
+      title: `Aula em vídeo — Fundamentos de ${title}`,
       video_url: null as string | null,
     },
     videoB: {
-      title: "Aula em vídeo (placeholder) — Demonstração",
+      title: `Aula em vídeo — Aplicação Prática de ${title}`,
       video_url: null as string | null,
     },
     quizTitle: `Quiz — ${title}`,

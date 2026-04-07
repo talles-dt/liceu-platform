@@ -6,10 +6,11 @@ import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 export default async function AdminSystemPage() {
   const supabase = createSupabaseAdminClient();
 
-  const [{ data: users }, { data: progress }, { data: sessions }] = await Promise.all([
+  const [{ data: users }, { data: progress }, { data: sessions }, { data: logsData }] = await Promise.all([
     supabase.from("users").select("id").limit(10000),
     supabase.from("module_progress").select("user_id, updated_at").limit(10000),
     supabase.from("mentorship_sessions").select("id").limit(1),
+    supabase.from("system_logs").select("ts, actor, action, target").order("ts", { ascending: false }).limit(50),
   ]);
 
   const totalUsers = (users as unknown as { id: string }[])?.length ?? 0;
@@ -37,11 +38,12 @@ export default async function AdminSystemPage() {
 
   const mentorshipTable = Array.isArray(sessions) ? "present" : "unknown";
 
-  const logs: LogRow[] = [
-    { ts: "—", actor: "system", action: "render", target: "/admin/system" },
-    { ts: "—", actor: "system", action: "probe", target: "module_progress" },
-    { ts: "—", actor: "system", action: "probe", target: "users" },
-  ];
+  const logs: LogRow[] = (logsData as unknown as { ts?: string | null; actor: string; action: string; target?: string | null }[] | null)?.map((r) => ({
+    ts: r.ts?.slice(0, 19).replace("T", " ") ?? "—",
+    actor: r.actor,
+    action: r.action,
+    target: r.target ?? "—",
+  })) ?? [];
 
   return (
     <div className="p-4 md:p-6">

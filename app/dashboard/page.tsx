@@ -145,10 +145,9 @@ function Sidebar({ user, activeNav }: { user: { email: string }; activeNav: stri
         {navItems.map((item) => {
           const isActive = activeNav === item.id;
           return (
-            <a
+            <button
               key={item.id}
-              href="#"
-              className={`flex items-center gap-3 px-4 py-3 font-mono text-xs uppercase tracking-widest transition-colors
+              className={`flex w-full items-center gap-3 px-4 py-3 font-mono text-xs uppercase tracking-widest transition-colors
                 ${isActive
                   ? "bg-[#201F1F] text-[var(--liceu-accent)] border-l-4 border-[var(--liceu-primary)]"
                   : "text-[var(--liceu-muted)] border-l-4 border-transparent hover:text-[var(--liceu-text)] hover:bg-[#201F1F]/50"
@@ -156,7 +155,7 @@ function Sidebar({ user, activeNav }: { user: { email: string }; activeNav: stri
             >
               <span className="text-sm">{item.icon}</span>
               {item.label}
-            </a>
+            </button>
           );
         })}
       </nav>
@@ -188,17 +187,6 @@ function TopAppBar({ title }: { title: string }) {
           The Training Grounds
         </div>
       </div>
-      <nav className="flex items-center gap-6">
-        <a href="#" className="font-mono text-xs uppercase tracking-widest text-[var(--liceu-muted)] hover:text-[var(--liceu-accent)] transition-colors">
-          Archives
-        </a>
-        <a href="#" className="font-mono text-xs uppercase tracking-widest text-[var(--liceu-muted)] hover:text-[var(--liceu-accent)] transition-colors">
-          Codex
-        </a>
-        <a href="#" className="font-mono text-xs uppercase tracking-widest text-[var(--liceu-muted)] hover:text-[var(--liceu-accent)] transition-colors">
-          Protocol
-        </a>
-      </nav>
     </header>
   );
 }
