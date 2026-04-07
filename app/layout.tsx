@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Noto_Serif, Work_Sans, Space_Grotesk, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Analytics } from "@/components/Analytics";
 import * as Sentry from "@sentry/nextjs";
 
 const uiSans = Inter({
@@ -95,6 +96,7 @@ export default function RootLayout({
             Pular para o conteúdo
           </a>
           <SiteHeader />
+          <Analytics />
           <main id="main-content">{children}</main>
         </body>
       </html>

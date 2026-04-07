@@ -6,12 +6,13 @@ type Props = {
   title: string;
   fileUrl?: string | null;
   submissionId?: string;
+  moduleId?: string;
   meta: { k: string; v: string }[];
   text: string;
   aiFeedback?: { score?: number; feedback?: string; status?: string };
 };
 
-export function AssignmentReviewPanel({ title, fileUrl, submissionId, meta, text, aiFeedback }: Props) {
+export function AssignmentReviewPanel({ title, fileUrl, submissionId, moduleId, meta, text, aiFeedback }: Props) {
   const [currentStatus, setCurrentStatus] = useState(aiFeedback?.status ?? "");
   const [notes, setNotes] = useState("");
   const [saving, setSaving] = useState(false);
@@ -29,6 +30,25 @@ export function AssignmentReviewPanel({ title, fileUrl, submissionId, meta, text
       if (res.ok) {
         setCurrentStatus(status);
         setSaved(true);
+
+        // Also create an in-app notification for the student
+        const statusLabel =
+          status === "approved" ? "Aprovado" : status === "revision" ? "Revisao" : "Rejeitado";
+        try {
+          await fetch("/api/notifications", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              type: "assignment_feedback" as const,
+              submission_id: submissionId,
+              title: `Atividade ${statusLabel}`,
+              body: `Sua atividade foi avaliada como "${statusLabel}".${notes ? ` Notas: ${notes}` : ""}`,
+              link: moduleId ? `/modules/${moduleId}` : undefined,
+            }),
+          });
+        } catch {
+          // notification creation failure is non-critical
+        }
       }
     } catch { /* ignore */ }
     finally { setSaving(false); }
