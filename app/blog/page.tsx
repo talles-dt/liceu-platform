@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ReadingLayout } from "@/components/ReadingLayout";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { POSTS } from "@/lib/blog";
 
 export default function BlogIndexPage() {
@@ -29,6 +30,8 @@ export default function BlogIndexPage() {
             ))}
           </ul>
         </div>
+
+        <NewsletterSignup />
       </div>
     </ReadingLayout>
   );

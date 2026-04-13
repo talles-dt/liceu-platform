@@ -523,6 +523,26 @@ export type Database = {
           created_at?: string | null;
         };
       };
+      newsletter_subscribers: {
+        Row: {
+          id: string;
+          email: string;
+          subscribed_at: string | null;
+          active: boolean | null;
+        };
+        Insert: {
+          id?: string;
+          email: string;
+          subscribed_at?: string | null;
+          active?: boolean | null;
+        };
+        Update: {
+          id?: string;
+          email?: string;
+          subscribed_at?: string | null;
+          active?: boolean | null;
+        };
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
