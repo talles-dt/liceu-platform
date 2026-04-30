@@ -37,10 +37,18 @@ export async function POST(req: Request) {
     { moduleId: string; moduleName: string; updatedAt: string }
   >();
 
-  for (const row of inactiveProgress ?? []) {
-    const uid = row.user_id;
-    const existing = userLastActivity.get(uid);
-    const moduleName = (row as any).modules?.title ?? "desconhecido";
+interface InactiveProgressRow {
+  user_id: string;
+  module_id: string;
+  updated_at: string;
+  modules: { title: string } | null;
+}
+
+// ... dentro do for:
+for (const row of inactiveProgress ?? []) {
+  const uid = row.user_id;
+  const existing = userLastActivity.get(uid);
+  const moduleName = row.modules?.title ?? "desconhecido";
     if (!existing || new Date(row.updated_at) > new Date(existing.updatedAt)) {
       userLastActivity.set(uid, {
         moduleId: row.module_id,

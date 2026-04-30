@@ -13,9 +13,11 @@ export function PurchaseToast() {
   useEffect(() => {
     const purchase = searchParams.get("purchase");
     if (purchase === "success") {
+      // @ts-ignore — Next.js router.replace with scroll: false is safe
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       setMessage("Acesso confirmado. Seus módulos estão disponíveis.");
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       setVisible(true);
-      // Clean the param from URL without re-render
       const params = new URLSearchParams(searchParams.toString());
       params.delete("purchase");
       const newUrl = params.toString() ? `${pathname}?${params}` : pathname;

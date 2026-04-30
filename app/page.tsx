@@ -144,7 +144,7 @@ export default function HomePage() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="border border-[var(--liceu-accent)]/20 bg-[var(--liceu-bg)]/80 p-8 text-center backdrop-blur-xl">
                   <p className="font-[var(--font-noto-serif)] text-2xl italic text-[var(--liceu-text)]">
-                    "A inteligência sem estrutura é como uma espada sem cabo."
+                    A inteligência sem estrutura é como uma espada sem cabo.
                   </p>
                 </div>
               </div>
