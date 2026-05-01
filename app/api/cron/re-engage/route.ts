@@ -48,7 +48,7 @@ interface InactiveProgressRow {
 for (const row of inactiveProgress ?? []) {
   const uid = row.user_id;
   const existing = userLastActivity.get(uid);
-  const moduleName = row.modules?.title ?? "desconhecido";
+  const moduleName = row.modules?.[0]?.title ?? "desconhecido";
     if (!existing || new Date(row.updated_at) > new Date(existing.updatedAt)) {
       userLastActivity.set(uid, {
         moduleId: row.module_id,
