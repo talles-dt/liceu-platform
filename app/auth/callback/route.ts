@@ -45,23 +45,24 @@ function createDashboardRedirect(requestUrl: string, success: boolean): Redirect
   return NextResponse.redirect(url.toString());
 }
 
-export async function GET(request: Request): Promise<RedirectResponse> {
+  // --- 1. Extract initial parameters ---
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
+  const type = searchParams.get("type");
   const requestUrl = request.url;
   const redirectRoot = getRedirectRoot(requestUrl);
 
-  // --- 1. Initialize clients ---
+  // --- 2. Initialize clients ---
   const clientSupabase = await createSupabaseServerClient();
   const adminSupabase = createSupabaseAdminClient();
 
   let user = null;
   let authError: Error | null = null;
 
-  // --- 2. Handle either OAuth or magic link flow ---
+  // --- 3. Handle either OAuth or magic link flow ---
   if (code) {
-    // Flow A: OAuth flow (Google, etc.) with code
-    console.log(`${LOG_PREFIX} OAuth flow - code detected`);
+    // Flow A: OAuth/recovery flow with code
+    console.log(`${LOG_PREFIX} OAuth/recovery flow - code detected`, { type });
     const { data: authData, error: exchangeError } = await clientSupabase.auth.exchangeCodeForSession(code);
     
     if (exchangeError || !authData?.user) {
@@ -69,14 +70,20 @@ export async function GET(request: Request): Promise<RedirectResponse> {
         error: exchangeError?.message,
         name: exchangeError?.name,
         status: exchangeError?.status,
+        type,
       });
       authError = exchangeError || new Error("Exchange returned no user");
     } else {
       user = authData.user;
+      // --- RECOVERY DETECTION ---
+      if (type === "recovery") {
+        console.log(`${LOG_PREFIX} Password recovery flow - redirecting to reset page`);
+        return NextResponse.redirect(`${redirectRoot}/reset-password`);
+      }
     }
   } else {
-    // Flow B: Magic link or password reset flow (no code)
-    console.log(`${LOG_PREFIX} Magic link/Recovery flow - no code detected`);
+    // Flow B: Magic link flow (no code)
+    console.log(`${LOG_PREFIX} Magic link flow - no code detected`);
     const { data: { user: currentUser }, error: userError } = await clientSupabase.auth.getUser();
     
     if (userError || !currentUser) {
