@@ -45,6 +45,7 @@ function createDashboardRedirect(requestUrl: string, success: boolean): Redirect
   return NextResponse.redirect(url.toString());
 }
 
+export async function GET(request: Request): Promise<RedirectResponse> {
   // --- 1. Extract initial parameters ---
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
@@ -106,7 +107,7 @@ function createDashboardRedirect(requestUrl: string, success: boolean): Redirect
   const userEmail = user.email?.toLowerCase().trim() ?? null;
   const userId = user.id;
 
-  // --- 3. Verify session persistence ---
+  // --- 4. Verify session persistence ---
   const { data: persistedUser, error: persistenceError } = await clientSupabase.auth.getUser();
   if (persistenceError || !persistedUser.user || persistedUser.user.id !== userId) {
     console.error(`${LOG_PREFIX} Session persistence failed`, {
@@ -120,7 +121,7 @@ function createDashboardRedirect(requestUrl: string, success: boolean): Redirect
   let processingError: Error | null = null;
 
   try {
-    // --- 4. Claim pending purchases (unchanged - atomic RPC) ---
+    // --- 5. Claim pending purchases (unchanged - atomic RPC) ---
     const pendingResult = await adminSupabase
       .from("pending_purchases")
       .select("id, kind, course_id, stripe_session_id")
@@ -191,7 +192,7 @@ function createDashboardRedirect(requestUrl: string, success: boolean): Redirect
     });
   }
 
-  // --- 5. Send confirmation email (best-effort) ---
+  // --- 6. Send confirmation email (best-effort) ---
   if (userEmail) {
     try {
       await sendAccessReadyEmail(userEmail);
@@ -204,6 +205,6 @@ function createDashboardRedirect(requestUrl: string, success: boolean): Redirect
     }
   }
 
-  // --- 6. Determine redirect destination ---
+  // --- 7. Determine redirect destination ---
   return createDashboardRedirect(requestUrl, hasProcessedPurchases);
 }
