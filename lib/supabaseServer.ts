@@ -26,6 +26,17 @@ export async function createSupabaseServerClient(): Promise<SafeClient> {
     throw new Error("Supabase environment variables are not configured.");
   }
 
+  // Production cookie settings
+  const cookieOptions: CookieOptions = {
+    path: "/",
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    domain: process.env.NODE_ENV === "production" 
+      ? ".oliceu.com" // Allow subdomains
+      : undefined,
+    httpOnly: true,
+  };
+
   return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
     cookies: {
       get(name: string) {
@@ -33,16 +44,16 @@ export async function createSupabaseServerClient(): Promise<SafeClient> {
       },
       set(name: string, value: string, options: CookieOptions) {
         try {
-          cookieStore.set({ name, value, ...options });
-        } catch {
-          // intentionally ignored in Server Component context
+          cookieStore.set({ name, value, ...cookieOptions, ...options });
+        } catch (error) {
+          console.error(`[supabaseServer] Failed to set cookie ${name}`, error);
         }
       },
       remove(name: string, options: CookieOptions) {
         try {
-          cookieStore.set({ name, value: "", ...options, maxAge: 0 });
-        } catch {
-          // intentionally ignored in Server Component context
+          cookieStore.set({ name, value: "", ...cookieOptions, ...options, maxAge: 0 });
+        } catch (error) {
+          console.error(`[supabaseServer] Failed to remove cookie ${name}`, error);
         }
       },
     },
