@@ -27,32 +27,51 @@ export default async function AdminLayout({
     .select("role")
     .eq("id", user.id)
     .maybeSingle();
-// Admin email configuration
+// ========== SYSTEM CONFIGURATION CHECK ==========
 const envAdmins = (process.env.ADMIN_EMAILS ?? "")
   .split(",")
   .map((s) => s.trim().toLowerCase())
-  .filter((email) => 
-    email.includes("@") &&
-    email.length > 5 &&
-    /^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(email)
-  );
+  .filter((email) => email.includes("@") && email.length > 5);
 
-// Early exit if no valid admin mechanisms
-if (!profile?.role && envAdmins.length === 0) {
-  console.warn("[SECURITY] No admin protection configured. Assign users.role='admin' or configure ADMIN_EMAILS.");
-  redirect("/");
+// Optional warning for bootstrap
+if (envAdmins.length === 0 && !profile?.role) {
+  console.warn(
+    "[ADMIN_BOOTSTRAP_WARNING] " +
+    "No admin protection configured. " +
+    "Assign users.role='admin' or configure ADMIN_EMAILS."
+  );
 }
 
-// PRIMARY admin check - database role
-export const isAdminByRole = profile?.role === "admin";  
+// ========== USER AUTHORIZATION CHECK ==========
+// PRIMARY check: database role
+const isAdminByRole = profile?.role === "admin";
 
-// FALLBACK admin check - email override (for bootstrap or fallback)
-export const isAdminByEmail = Boolean(user.email) &&
+// FALLBACK check: email override
+const isAdminByEmail = Boolean(user.email) && 
   envAdmins.length > 0 &&
   envAdmins.includes(user.email.toLowerCase());
 
-// Security logging
+// FINAL rule: access granted ONLY if
+// * role is "admin" OR
+// * email is in ADMIN_EMAILS
 if (!isAdminByRole && !isAdminByEmail) {
+  // Audit successful accesses
+  if (isAdminByRole) {
+    console.log("[ADMIN_ACCESS_GRANTED]", {
+      userId: user.id,
+      email: user.email,
+      authMethod: "role",
+      timestamp: new Date().toISOString()
+    });
+  } else if (isAdminByEmail) {
+    console.log("[ADMIN_ACCESS_GRANTED]", {
+      userId: user.id,
+      email: user.email,
+      authMethod: "email_fallback",
+      timestamp: new Date().toISOString()
+    });
+  }
+
   redirect("/");
 }
 

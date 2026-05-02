@@ -21,7 +21,6 @@ async function handleSubmit(e: FormEvent) {
   
   try {
     const supabase = createSupabaseBrowserClient();
-    const isAdminEmail = isPotentialAdminEmail(email);
     
     // Try password login
     const { data, error: signInError } = await supabase.auth.signInWithPassword({
@@ -29,9 +28,8 @@ async function handleSubmit(e: FormEvent) {
       password,
     });
     
-    // Log attempt (both success and failure)
-    const attemptSuccessful = !signInError;
-    await logAdminLoginAttempt(email, attemptSuccessful, isAdminEmail);
+    // ALWAYS log login attempt (server decides importance)
+    await logAdminLoginAttempt(email, !signInError);
     
     if (signInError) {
       handleLoginError(signInError);
@@ -48,7 +46,6 @@ async function handleSubmit(e: FormEvent) {
 }
 
 const handleLoginError = (signInError: any) => {
-  // Custom error for rate limits
   if (signInError.message.toLowerCase().includes("rate") || 
       signInError.message.includes("429") ||
       signInError.status === 429) {
@@ -60,36 +57,20 @@ const handleLoginError = (signInError: any) => {
   }
 };
 
-const logAdminLoginAttempt = async (email: string, success: boolean, isAdmin: boolean) => {
-  if (!isAdmin) return; // Only log admin attempts
-  
+const logAdminLoginAttempt = async (email: string, success: boolean) => {
   try {
     await fetch("/api/admin/login-attempt", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         email,
         success
       }),
     });
   } catch {
     // Silent failure - logging shouldn't break login flow
-  }
-};
-
-const logAdminLoginAttempt = async (email: string) => {
-  try {
-    await fetch("/api/admin/login-attempt", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
-  } catch {
-    // Silently fail - logging shouldn't break login flow
   }
 };
 
