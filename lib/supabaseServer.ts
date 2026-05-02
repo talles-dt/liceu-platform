@@ -26,15 +26,19 @@ export async function createSupabaseServerClient(): Promise<SafeClient> {
     throw new Error("Supabase environment variables are not configured.");
   }
 
-  // Production cookie settings
+  // Production-ready cookie settings (no domain)
   const cookieOptions: CookieOptions = {
     path: "/",
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    domain: process.env.NODE_ENV === "production" 
-      ? ".oliceu.com" // Allow subdomains
-      : undefined,
     httpOnly: true,
+    // Remove domain to support:
+    // - localhost
+    // - preview deployments (Vercel)
+    // - email links opened in different contexts
+    // domain: process.env.NODE_ENV === "production" 
+    //   ? ".oliceu.com"
+    //   : undefined,
   };
 
   return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {

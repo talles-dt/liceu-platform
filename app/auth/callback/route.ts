@@ -8,8 +8,9 @@ import { recordPurchaseAdmin, type PurchaseKind } from "@/lib/purchases";
 import { sendAccessReadyEmail } from "@/lib/email";
 
 // Constants
-const PRODUCTION_ROOT = "https://www.oliceu.com";
 const LOG_PREFIX = "[auth/callback]";
+const DEFAULT_REDIRECT_ROOT = process.env.NEXT_PUBLIC_SITE_URL || 
+  (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://www.oliceu.com");
 
 // Error types
 const enum AuthError {
@@ -22,12 +23,22 @@ const enum AuthError {
 // Response helpers
 type RedirectResponse = NextResponse<unknown>;
 
-function createErrorRedirect(error: AuthError): RedirectResponse {
-  return NextResponse.redirect(`${PRODUCTION_ROOT}/login?error=${error}`);
+function getRedirectRoot(requestUrl: string): string {
+  const url = new URL(requestUrl);
+  // Allow override via environment, but default to request origin
+  return process.env.NEXT_PUBLIC_SITE_URL
+    ? process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "")
+    : url.origin;
 }
 
-function createDashboardRedirect(success: boolean): RedirectResponse {
-  const url = new URL(`${PRODUCTION_ROOT}/dashboard`);
+function createErrorRedirect(requestUrl: string, error: AuthError): RedirectResponse {
+  const root = getRedirectRoot(requestUrl);
+  return NextResponse.redirect(`${root}/login?error=${error}`);
+}
+
+function createDashboardRedirect(requestUrl: string, success: boolean): RedirectResponse {
+  const root = getRedirectRoot(requestUrl);
+  const url = new URL(`${root}/dashboard`);
   if (success) {
     url.searchParams.set("purchase", "success");
   }
@@ -37,53 +48,78 @@ function createDashboardRedirect(success: boolean): RedirectResponse {
 export async function GET(request: Request): Promise<RedirectResponse> {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
-  const origin = PRODUCTION_ROOT; // Always use production root
+  const requestUrl = request.url;
+  const redirectRoot = getRedirectRoot(requestUrl);
 
-  // --- 1. Validate request ---
-  if (!code) {
-    console.error(`${LOG_PREFIX} Missing authorization code`);
-    return createErrorRedirect(AuthError.MISSING_CODE);
-  }
-
-  // --- 2. Initialize clients ---
+  // --- 1. Initialize clients ---
   const clientSupabase = await createSupabaseServerClient();
   const adminSupabase = createSupabaseAdminClient();
 
-  // --- 3. Exchange code for session ---
-  const { data: authData, error: authError } = await clientSupabase.auth.exchangeCodeForSession(code);
+  let user = null;
+  let authError: Error | null = null;
 
-  if (authError || !authData?.user) {
-    console.error(`${LOG_PREFIX} exchangeCodeForSession failed`, {
-      error: authError?.message,
-      name: authError?.name,
-      status: authError?.status,
-    });
-    return createErrorRedirect(AuthError.INVALID_LINK);
+  // --- 2. Handle either OAuth or magic link flow ---
+  if (code) {
+    // Flow A: OAuth flow (Google, etc.) with code
+    console.log(`${LOG_PREFIX} OAuth flow - code detected`);
+    const { data: authData, error: exchangeError } = await clientSupabase.auth.exchangeCodeForSession(code);
+    
+    if (exchangeError || !authData?.user) {
+      console.error(`${LOG_PREFIX} exchangeCodeForSession failed`, {
+        error: exchangeError?.message,
+        name: exchangeError?.name,
+        status: exchangeError?.status,
+      });
+      authError = exchangeError || new Error("Exchange returned no user");
+    } else {
+      user = authData.user;
+    }
+  } else {
+    // Flow B: Magic link or password reset flow (no code)
+    console.log(`${LOG_PREFIX} Magic link/Recovery flow - no code detected`);
+    const { data: { user: currentUser }, error: userError } = await clientSupabase.auth.getUser();
+    
+    if (userError || !currentUser) {
+      console.error(`${LOG_PREFIX} getUser failed`, {
+        error: userError?.message,
+        name: userError?.name,
+        status: userError?.status,
+      });
+      authError = userError || new Error("getUser returned no user");
+    } else {
+      user = currentUser;
+    }
   }
 
-  const user = authData.user;
+  if (authError || !user) {
+    console.error(`${LOG_PREFIX} Auth failed`, { error: authError?.message });
+    return createErrorRedirect(requestUrl, AuthError.INVALID_LINK);
+  }
+
   const userEmail = user.email?.toLowerCase().trim() ?? null;
   const userId = user.id;
 
-  // --- 4. Verify session persistence ---
-  // We'll re-fetch the user after redirect to verify cookies persist
-  const { data: persistedUser } = await clientSupabase.auth.getUser();
-  if (!persistedUser.user || persistedUser.user.id !== userId) {
-    console.error(`${LOG_PREFIX} Session persistence failed`, { originalUserId: userId });
-    return createErrorRedirect(AuthError.SESSION_FAILURE);
+  // --- 3. Verify session persistence ---
+  const { data: persistedUser, error: persistenceError } = await clientSupabase.auth.getUser();
+  if (persistenceError || !persistedUser.user || persistedUser.user.id !== userId) {
+    console.error(`${LOG_PREFIX} Session persistence failed`, {
+      originalUserId: userId,
+      persistenceError: persistenceError?.message
+    });
+    return createErrorRedirect(requestUrl, AuthError.SESSION_FAILURE);
   }
 
   let hasProcessedPurchases = false;
   let processingError: Error | null = null;
 
   try {
-    // --- 5. Claim pending purchases (idempotent) ---
+    // --- 4. Claim pending purchases (unchanged - atomic RPC) ---
     const pendingResult = await adminSupabase
       .from("pending_purchases")
       .select("id, kind, course_id, stripe_session_id")
       .eq("email", userEmail)
       .eq("claimed", false)
-      .limit(50); // Safety limit
+      .limit(50);
 
     if (pendingResult.error) {
       throw new Error(`Failed to fetch pending purchases: ${pendingResult.error.message}`);
@@ -92,7 +128,6 @@ export async function GET(request: Request): Promise<RedirectResponse> {
     const pendingPurchases = pendingResult.data ?? [];
     hasProcessedPurchases = pendingPurchases.length > 0;
 
-    // Process purchases in a transaction to ensure atomicity
     for (const purchase of pendingPurchases) {
       try {
         console.log(`${LOG_PREFIX} Processing purchase`, {
@@ -104,7 +139,6 @@ export async function GET(request: Request): Promise<RedirectResponse> {
           userEmail,
         });
 
-        // Use an RPC function for atomic claim + processing
         const { data: claimResult, error: claimError } = await adminSupabase.rpc(
           "claim_and_process_purchase",
           {
@@ -138,7 +172,6 @@ export async function GET(request: Request): Promise<RedirectResponse> {
           purchaseId: purchase.id,
           error: purchaseError instanceof Error ? purchaseError.message : String(purchaseError),
         });
-        // Continue with next purchase even if one fails
       }
     }
   } catch (err) {
@@ -151,7 +184,7 @@ export async function GET(request: Request): Promise<RedirectResponse> {
     });
   }
 
-  // --- 6. Send confirmation email (best-effort) ---
+  // --- 5. Send confirmation email (best-effort) ---
   if (userEmail) {
     try {
       await sendAccessReadyEmail(userEmail);
@@ -161,11 +194,9 @@ export async function GET(request: Request): Promise<RedirectResponse> {
         userEmail,
         error: emailError instanceof Error ? emailError.message : String(emailError),
       });
-      // Email failure should not prevent successful redirect
     }
   }
 
-  // --- 7. Determine redirect destination ---
-  // Always redirect to dashboard, with success flag only if purchases were processed
-  return createDashboardRedirect(hasProcessedPurchases);
+  // --- 6. Determine redirect destination ---
+  return createDashboardRedirect(requestUrl, hasProcessedPurchases);
 }
