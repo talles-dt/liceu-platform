@@ -75,7 +75,7 @@ export async function POST(req: Request) {
   }
 
   const supabase = createSupabaseAdminClient();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://oliceu.com";
 
   // ----------------------------------------------------------------
   // MENTORING INTERVIEW — R$99 fee

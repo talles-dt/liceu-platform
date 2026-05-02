@@ -28,17 +28,17 @@ export async function POST(req: Request) {
   };
 
   await resend.emails.send({
-    from: "Liceu Underground <noreply@liceu.underground>",
+    from: "Liceu Underground <talles@oliceu.com>",
     to: email,
     subject: tpl.subject,
     html: `
       <p>Olá, ${name}.</p>
       <p>${tpl.intro}</p>
-      <p><a href="https://liceu.underground/checkout">Comece no Liceu →</a></p>
+      <p><a href="https://olice.com/checkout">Comece no Liceu →</a></p>
       <hr/>
       <p style="font-size:12px;color:#888">
         Compartilhe seu resultado:
-        <a href="https://liceu.underground/diagnostico/${share_token}">ver meu arquétipo</a>
+        <a href="https://oliceu.com/diagnostico/${share_token}">ver meu arquétipo</a>
       </p>
     `,
   });
