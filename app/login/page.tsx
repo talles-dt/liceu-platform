@@ -24,27 +24,17 @@ async function handleSubmit(e: FormEvent) {
     const isAdminEmail = isPotentialAdminEmail(email);
     
     // Try password login
-    const { error: signInError } = await supabase.auth.signInWithPassword({
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     
+    // Log attempt (both success and failure)
+    const attemptSuccessful = !signInError;
+    await logAdminLoginAttempt(email, attemptSuccessful, isAdminEmail);
+    
     if (signInError) {
-      // Log admin attempt if applicable
-      if (isAdminEmail) {
-        await logAdminLoginAttempt(email);
-      }
-      
-      // Custom error for rate limits
-      if (signInError.message.toLowerCase().includes("rate") || 
-          signInError.message.includes("429") ||
-          signInError.status === 429) {
-        setError("Muitos pedidos. Por favor espere alguns minutos.");
-      } else if (signInError.message.includes("Email not confirmed")) {
-        setError("Email não verificado. Por favor verifique seu email.");
-      } else {
-        setError(signInError.message);
-      }
+      handleLoginError(signInError);
       return;
     }
     
@@ -56,6 +46,38 @@ async function handleSubmit(e: FormEvent) {
     setLoading(false);
   }
 }
+
+const handleLoginError = (signInError: any) => {
+  // Custom error for rate limits
+  if (signInError.message.toLowerCase().includes("rate") || 
+      signInError.message.includes("429") ||
+      signInError.status === 429) {
+    setError("Muitos pedidos. Por favor espere alguns minutos.");
+  } else if (signInError.message.includes("Email not confirmed")) {
+    setError("Email não verificado. Por favor verifique seu email.");
+  } else {
+    setError(signInError.message);
+  }
+};
+
+const logAdminLoginAttempt = async (email: string, success: boolean, isAdmin: boolean) => {
+  if (!isAdmin) return; // Only log admin attempts
+  
+  try {
+    await fetch("/api/admin/login-attempt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ 
+        email,
+        success
+      }),
+    });
+  } catch {
+    // Silent failure - logging shouldn't break login flow
+  }
+};
 
 const logAdminLoginAttempt = async (email: string) => {
   try {

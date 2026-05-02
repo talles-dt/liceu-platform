@@ -27,38 +27,34 @@ export default async function AdminLayout({
     .select("role")
     .eq("id", user.id)
     .maybeSingle();
-
+// Admin email configuration
 const envAdmins = (process.env.ADMIN_EMAILS ?? "")
   .split(",")
   .map((s) => s.trim().toLowerCase())
   .filter((email) => 
-    email.includes("@") && 
+    email.includes("@") &&
     email.length > 5 &&
-    /^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(email) // Basic email validation
+    /^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(email)
   );
 
-// Early exit if no valid admin emails configured
-if ((!profile || !profile.role) && envAdmins.length === 0) {
-  console.warn("[SECURITY] No admin protection configured. Either assign users.role='admin' or set ADMIN_EMAILS env var.");
+// Early exit if no valid admin mechanisms
+if (!profile?.role && envAdmins.length === 0) {
+  console.warn("[SECURITY] No admin protection configured. Assign users.role='admin' or configure ADMIN_EMAILS.");
   redirect("/");
 }
 
-// Fixed role check to avoid type issues
-const isAdminByRole = profile?.role === "admin";
-const isAdminByEmail = Boolean(user.email) &&
+// PRIMARY admin check - database role
+export const isAdminByRole = profile?.role === "admin";  
+
+// FALLBACK admin check - email override (for bootstrap or fallback)
+export const isAdminByEmail = Boolean(user.email) &&
   envAdmins.length > 0 &&
   envAdmins.includes(user.email.toLowerCase());
 
 // Security logging
-console.log("[ADMIN_ACCESS]", {
-  userId: user.id,
-  email: user.email,
-  roleAuthorized: isAdminByRole,
-  emailAuthorized: isAdminByEmail,
-  ip: headers().get("x-forwarded-for")
-});
-
-  if (!isAdminByRole && !isAdminByEmail) redirect("/");
+if (!isAdminByRole && !isAdminByEmail) {
+  redirect("/");
+}
 
   return (
     <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)]">
