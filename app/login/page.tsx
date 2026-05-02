@@ -12,27 +12,79 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-    try {
-      const supabase = createSupabaseBrowserClient();
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (signInError) {
-        setError(signInError.message);
-        return;
+async function handleSubmit(e: FormEvent) {
+  e.preventDefault();
+  if (loading) return;
+  
+  setError(null);
+  setLoading(true);
+  
+  try {
+    const supabase = createSupabaseBrowserClient();
+    const isAdminEmail = isPotentialAdminEmail(email);
+    
+    // Try password login
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    
+    if (signInError) {
+      // Log admin attempt if applicable
+      if (isAdminEmail) {
+        await logAdminLoginAttempt(email);
       }
-      window.location.href = "/dashboard";
-    } catch {
-      setError("Unable to log in. Please try again.");
-    } finally {
-      setLoading(false);
+      
+      // Custom error for rate limits
+      if (signInError.message.toLowerCase().includes("rate") || 
+          signInError.message.includes("429") ||
+          signInError.status === 429) {
+        setError("Muitos pedidos. Por favor espere alguns minutos.");
+      } else if (signInError.message.includes("Email not confirmed")) {
+        setError("Email não verificado. Por favor verifique seu email.");
+      } else {
+        setError(signInError.message);
+      }
+      return;
     }
+    
+    window.location.href = "/dashboard";
+    
+  } catch (err) {
+    setError("Erro inesperado. Por favor tente novamente.");
+  } finally {
+    setLoading(false);
   }
+}
+
+const logAdminLoginAttempt = async (email: string) => {
+  try {
+    await fetch("/api/admin/login-attempt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+  } catch {
+    // Silently fail - logging shouldn't break login flow
+  }
+};
+
+const isPotentialAdminEmail = (email: string): boolean => {
+  // Check if email domain matches any admin domains
+  const emailDomain = email.split("@")[1]?.toLowerCase();
+  if (!emailDomain) return false;
+  
+  const adminDomains = (process.env.ADMIN_EMAILS ?? "")
+    .split(",")
+    .map(e => e.toLowerCase().trim())
+    .filter(e => e && e.includes("@")) // Only valid emails
+    .map(e => e.split("@")[1])
+    .filter(d => d);
+  
+  return adminDomains.includes(emailDomain);
+};
 
   return (
     <ReadingLayout

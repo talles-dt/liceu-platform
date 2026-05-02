@@ -28,16 +28,35 @@ export default async function AdminLayout({
     .eq("id", user.id)
     .maybeSingle();
 
-  const envAdmins = (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map((s) => s.trim().toLowerCase())
-    .filter(Boolean);
+const envAdmins = (process.env.ADMIN_EMAILS ?? "")
+  .split(",")
+  .map((s) => s.trim().toLowerCase())
+  .filter((email) => 
+    email.includes("@") && 
+    email.length > 5 &&
+    /^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(email) // Basic email validation
+  );
 
-  const isAdminByRole = profile && (profile as { role: string | null }).role === "admin";
-  const isAdminByEmail =
-    user.email && envAdmins.length > 0
-      ? envAdmins.includes(user.email.toLowerCase())
-      : false;
+// Early exit if no valid admin emails configured
+if ((!profile || !profile.role) && envAdmins.length === 0) {
+  console.warn("[SECURITY] No admin protection configured. Either assign users.role='admin' or set ADMIN_EMAILS env var.");
+  redirect("/");
+}
+
+// Fixed role check to avoid type issues
+const isAdminByRole = profile?.role === "admin";
+const isAdminByEmail = Boolean(user.email) &&
+  envAdmins.length > 0 &&
+  envAdmins.includes(user.email.toLowerCase());
+
+// Security logging
+console.log("[ADMIN_ACCESS]", {
+  userId: user.id,
+  email: user.email,
+  roleAuthorized: isAdminByRole,
+  emailAuthorized: isAdminByEmail,
+  ip: headers().get("x-forwarded-for")
+});
 
   if (!isAdminByRole && !isAdminByEmail) redirect("/");
 
