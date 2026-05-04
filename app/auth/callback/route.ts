@@ -42,42 +42,53 @@ function createDashboardRedirect(requestUrl: string, success: boolean): Redirect
 }
 
 export async function GET(request: Request): Promise<RedirectResponse> {
-  // --- 1. Extract initial parameters ---
+  // ============== HARDENING RULE A: Always log entry ==============
+  console.log("[AUTH_CALLBACK_ENTRY]", {
+    url: request.url,
+    timestamp: new Date().toISOString()
+  });
+  
+  // ============== HARDENING RULE B: Extract params safely ==============
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
-  const type = searchParams.get("type");
+  const type = searchParams.get("type");  
   const requestUrl = request.url;
   const redirectRoot = getRedirectRoot(requestUrl);
 
-  // --- 2. Initialize clients ---
+  // ============== HARDENING RULE C: Fail fast if no code ==============
+  if (!code) {
+    console.error("[AUTH_CALLBACK] Missing code", { url: request.url });
+    return createErrorRedirect(requestUrl, AuthError.MISSING_CODE);
+  }
+
+  // --- Initialize clients ---
   const clientSupabase = await createSupabaseServerClient();
   const adminSupabase = createSupabaseAdminClient();
 
-  let user = null;
-  let authError: Error | null = null;
-
-  // --- 3. Handle either OAuth or magic link flow ---
-  if (code) {
-    // Flow A: OAuth/recovery flow with code
-    console.log(`${LOG_PREFIX} OAuth/recovery flow - code detected`, { type });
-    const { data: authData, error: exchangeError } = await clientSupabase.auth.exchangeCodeForSession(code);
-    
-    if (exchangeError || !authData?.user) {
-      console.error(`${LOG_PREFIX} exchangeCodeForSession failed`, {
-        error: exchangeError?.message,
-        name: exchangeError?.name,
-        status: exchangeError?.status,
-        type,
-      });
-      authError = exchangeError || new Error("Exchange returned no user");
-    } else {
-      user = authData.user;
-      // --- RECOVERY DETECTION ---
-      if (type === "recovery") {
-        console.log(`${LOG_PREFIX} Password recovery flow - redirecting to reset page`);
-        return NextResponse.redirect(`${redirectRoot}/reset-password`);
-      }
-    }
+  // ============== HARDENING RULE D: Exchange code for session ==============
+  const { data: authData, error: exchangeError } = await clientSupabase.auth.exchangeCodeForSession(code);
+  
+  // ============== HARDENING RULE E: Handle failure explicitly ==============
+  if (exchangeError || !authData?.user) {
+    console.error("[AUTH_CALLBACK] Exchange failed", {
+      error: exchangeError?.message,
+      type,
+      code
+    });
+    return createErrorRedirect(requestUrl, AuthError.INVALID_LINK);
+  }
+  
+  const user = authData.user;
+  
+  // ============== HARDENING RULE F: Handle recovery flow immediately ==============
+  // THIS MUST HAPPEN RIGHT AFTER SUCCESSFUL EXCHANGE
+  if (type === "recovery") {
+    console.log("[AUTH_CALLBACK] Recovery flow detected", {
+      userId: user.id,
+      email: user.email
+    });
+    return NextResponse.redirect(`${redirectRoot}/reset-password`);
+  }
   } else {
     // Flow B: Magic link flow (no code)
     console.log(`${LOG_PREFIX} Magic link flow - no code detected`);
