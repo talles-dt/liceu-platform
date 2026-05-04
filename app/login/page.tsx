@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import type { AuthError } from "@supabase/supabase-js";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
@@ -23,7 +24,7 @@ async function handleSubmit(e: FormEvent) {
     const supabase = createSupabaseBrowserClient();
     
     // Try password login
-    const { data, error: signInError } = await supabase.auth.signInWithPassword({
+    const { error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -38,14 +39,14 @@ async function handleSubmit(e: FormEvent) {
     
     window.location.href = "/dashboard";
     
-  } catch (err) {
+  } catch {
     setError("Erro inesperado. Por favor tente novamente.");
   } finally {
     setLoading(false);
   }
 }
 
-const handleLoginError = (signInError: any) => {
+const handleLoginError = (signInError: AuthError) => {
   if (signInError.message.toLowerCase().includes("rate") || 
       signInError.message.includes("429") ||
       signInError.status === 429) {
@@ -72,21 +73,6 @@ const logAdminLoginAttempt = async (email: string, success: boolean) => {
   } catch {
     // Silent failure - logging shouldn't break login flow
   }
-};
-
-const isPotentialAdminEmail = (email: string): boolean => {
-  // Check if email domain matches any admin domains
-  const emailDomain = email.split("@")[1]?.toLowerCase();
-  if (!emailDomain) return false;
-  
-  const adminDomains = (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map(e => e.toLowerCase().trim())
-    .filter(e => e && e.includes("@")) // Only valid emails
-    .map(e => e.split("@")[1])
-    .filter(d => d);
-  
-  return adminDomains.includes(emailDomain);
 };
 
   return (
@@ -166,4 +152,3 @@ const isPotentialAdminEmail = (email: string): boolean => {
     </ReadingLayout>
   );
 }
-

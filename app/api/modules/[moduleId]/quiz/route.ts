@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
+import { assertModuleAccess } from "@/lib/routeSecurity";
 
 type Context = { params: Promise<{ moduleId: string }> };
 
@@ -22,6 +23,9 @@ export async function GET(_req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
+  const accessError = await assertModuleAccess(user.id, moduleId);
+  if (accessError) return accessError;
+
   const supabase = await createSupabaseServerClient();
 
   // Resolve quiz_id from module_id
@@ -55,6 +59,9 @@ export async function POST(req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
+  const accessError = await assertModuleAccess(user.id, moduleId);
+  if (accessError) return accessError;
+
   const body = (await req.json().catch(() => ({}))) as {
     answers?: Record<string, string>; // { questionId: selectedOptionId }
   };

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/supabaseServer";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
-import { getUserAccessLevel } from "@/lib/access";
+import { escapeHtml, resolveLessonAccess } from "@/lib/routeSecurity";
 
 type Context = { params: Promise<{ lessonId: string }> };
 
@@ -26,6 +26,9 @@ export async function GET(_req: Request, { params }: Context) {
   if (!user) return new NextResponse("Unauthorized", { status: 401 });
 
   const { lessonId } = await params;
+  const { denial } = await resolveLessonAccess(user.id, lessonId);
+  if (denial) return new NextResponse(denial.statusText || "Forbidden", { status: denial.status });
+
   const supabase = createSupabaseAdminClient();
 
   const { data: lesson } = await supabase
@@ -37,10 +40,6 @@ export async function GET(_req: Request, { params }: Context) {
   if (!lesson) return new NextResponse("Not found", { status: 404 });
   if (!lesson.content) return new NextResponse("No content", { status: 404 });
 
-  const courseId = lesson.modules?.course_id ?? "";
-  const access = await getUserAccessLevel(user.id, courseId);
-  if (access === "none") return new NextResponse("Forbidden", { status: 403 });
-
   const moduleTitle = lesson.modules?.title ?? "Módulo";
   const moduleIndex = (lesson.modules?.order_index ?? 0) + 1;
   const lessonIndex = lesson.order_index + 1;
@@ -51,10 +50,10 @@ export async function GET(_req: Request, { params }: Context) {
     .map((para) => {
       const trimmed = para.trim();
       if (!trimmed) return "";
-      if (trimmed.startsWith("## ")) return `<h2>${trimmed.slice(3)}</h2>`;
-      if (trimmed.startsWith("### ")) return `<h3>${trimmed.slice(4)}</h3>`;
-      if (trimmed.startsWith("> ")) return `<blockquote>${trimmed.slice(2)}</blockquote>`;
-      return `<p>${trimmed
+      if (trimmed.startsWith("## ")) return `<h2>${escapeHtml(trimmed.slice(3))}</h2>`;
+      if (trimmed.startsWith("### ")) return `<h3>${escapeHtml(trimmed.slice(4))}</h3>`;
+      if (trimmed.startsWith("> ")) return `<blockquote>${escapeHtml(trimmed.slice(2))}</blockquote>`;
+      return `<p>${escapeHtml(trimmed)
         .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
         .replace(/\*(.*?)\*/g, "<em>$1</em>")}</p>`;
     })
@@ -65,7 +64,7 @@ export async function GET(_req: Request, { params }: Context) {
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>${lesson.title} — Liceu Underground</title>
+<title>${escapeHtml(lesson.title)} — Liceu Underground</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap');
 
@@ -158,7 +157,7 @@ export async function GET(_req: Request, { params }: Context) {
 </head>
 <body>
   <div class="eyebrow">Liceu Underground — Módulo ${moduleIndex} / Lição ${lessonIndex}</div>
-  <h1>${lesson.title}</h1>
+  <h1>${escapeHtml(lesson.title)}</h1>
 
   ${bodyHtml}
 
@@ -168,7 +167,7 @@ export async function GET(_req: Request, { params }: Context) {
 
   <div class="footer">
     <span>Liceu Underground</span>
-    <span>${moduleTitle}</span>
+    <span>${escapeHtml(moduleTitle)}</span>
     <span>oliceu.com</span>
   </div>
 </body>

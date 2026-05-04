@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
+import { assertModuleAccess } from "@/lib/routeSecurity";
 
 type Context = { params: Promise<{ moduleId: string }> };
 
@@ -16,6 +17,9 @@ export async function GET(_req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
+  const accessError = await assertModuleAccess(user.id, moduleId);
+  if (accessError) return accessError;
+
   const supabase = await createSupabaseServerClient();
 
   const [{ data: assignmentRow }, { data: submissionRow }] = await Promise.all([
@@ -46,6 +50,9 @@ export async function POST(req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
+  const accessError = await assertModuleAccess(user.id, moduleId);
+  if (accessError) return accessError;
+
   const body = (await req.json().catch(() => ({}))) as { content?: string };
 
   if (!body.content?.trim() || body.content.trim().length < 30) {

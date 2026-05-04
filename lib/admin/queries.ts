@@ -1,5 +1,4 @@
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
-import type { Tables } from "@/lib/database.types";
 
 export type AdminMetrics = {
   activeStudents: number;
@@ -160,4 +159,3 @@ export async function getAdminStudents(): Promise<AdminStudentRow[]> {
     };
   });
 }
-

@@ -7,7 +7,6 @@ import { recordPurchaseAdmin, type PurchaseKind } from "@/lib/purchases";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import {
   sendAccessReadyEmail,
-  sendRegistrationEmail,
   sendInterviewSchedulingEmail,
 } from "@/lib/email";
 

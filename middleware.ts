@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
 // Minimal middleware - only redirects unauthenticated admin access
 export const config = {
   matcher: ["/admin/:path*"],
 };
 
-export function middleware(request: NextRequest) {
+export function middleware() {
   // Optional: Add IP allowlisting if needed
   // const ALLOWED_IPS = process.env.ADMIN_IPS?.split(",") || [];
   // const ip = request.ip ?? request.headers.get("x-forwarded-for");

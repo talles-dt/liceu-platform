@@ -1,7 +1,23 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
+import { assertModuleAccess } from "@/lib/routeSecurity";
 
 type Context = { params: Promise<{ moduleId: string }> };
+
+const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+const ALLOWED_UPLOAD_TYPES = new Set([
+  "application/pdf",
+  "text/plain",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+]);
+
+const EXT_BY_TYPE: Record<string, string> = {
+  "application/pdf": "pdf",
+  "text/plain": "txt",
+  "application/msword": "doc",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+};
 
 /**
  * GET — returns the prompt for this module + the user's latest submission.
@@ -14,6 +30,9 @@ export async function GET(_req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
+  const accessError = await assertModuleAccess(user.id, moduleId);
+  if (accessError) return accessError;
+
   const supabase = await createSupabaseServerClient();
 
   const [{ data: assignmentRow }, { data: submissionRow }] = await Promise.all([
@@ -44,6 +63,9 @@ export async function POST(req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
+  const accessError = await assertModuleAccess(user.id, moduleId);
+  if (accessError) return accessError;
+
   const contentType = req.headers.get("content-type") ?? "";
 
   let textContent = "";
@@ -57,6 +79,14 @@ export async function POST(req: Request, { params }: Context) {
     textContent = formData.get("content")?.toString() ?? "";
     const file = formData.get("file") as File | null;
     if (file) {
+      if (file.size > MAX_UPLOAD_BYTES) {
+        return NextResponse.json({ error: "Arquivo excede 10 MB." }, { status: 400 });
+      }
+
+      if (!ALLOWED_UPLOAD_TYPES.has(file.type)) {
+        return NextResponse.json({ error: "Tipo de arquivo não permitido." }, { status: 400 });
+      }
+
       fileBuffer = await file.arrayBuffer();
       fileName = file.name;
       fileType = file.type;
@@ -81,7 +111,7 @@ export async function POST(req: Request, { params }: Context) {
   // Upload file to Supabase Storage if provided
   let fileUrl: string | null = null;
   if (fileBuffer && fileName) {
-    const ext = fileName.split(".").pop() ?? "bin";
+    const ext = fileType ? EXT_BY_TYPE[fileType] : "bin";
     const path = `${user.id}/${moduleId}/${Date.now()}.${ext}`;
 
     const { error: uploadError } = await supabase.storage

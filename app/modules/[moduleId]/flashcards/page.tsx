@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
@@ -37,28 +37,37 @@ export default function FlashcardsPage() {
   const [flipped, setFlipped] = useState(false);
   const [grading, setGrading] = useState(false);
   const [results, setResults] = useState<{ grade: number }[]>([]);
+  const [reloadKey, setReloadKey] = useState(0);
 
-  const load = useCallback(async () => {
-    setState("loading");
-    try {
-      const res = await fetch(`/api/modules/${moduleId}/flashcards`);
-      if (!res.ok) {
-        setState("error");
-        return;
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadDeck() {
+      try {
+        const res = await fetch(`/api/modules/${moduleId}/flashcards`);
+        if (!res.ok) {
+          if (!cancelled) setState("error");
+          return;
+        }
+
+        const data = await res.json() as { title: string; cards: Card[] };
+        if (cancelled) return;
+        setTitle(data.title);
+        setCards(data.cards);
+        setIdx(0);
+        setFlipped(false);
+        setResults([]);
+        setState("ready");
+      } catch {
+        if (!cancelled) setState("error");
       }
-      const data = await res.json() as { title: string; cards: Card[] };
-      setTitle(data.title);
-      setCards(data.cards);
-      setIdx(0);
-      setFlipped(false);
-      setResults([]);
-      setState("ready");
-    } catch {
-      setState("error");
     }
-  }, [moduleId]);
 
-  useEffect(() => { load(); }, [load]);
+    void loadDeck();
+    return () => {
+      cancelled = true;
+    };
+  }, [moduleId, reloadKey]);
 
   async function grade(g: number) {
     if (grading || !flipped) return;
@@ -147,7 +156,14 @@ export default function FlashcardsPage() {
             </div>
           </div>
           <div className="flex gap-3">
-            <MinimalButton onClick={load}>Novo conjunto</MinimalButton>
+            <MinimalButton
+              onClick={() => {
+                setState("loading");
+                setReloadKey((key) => key + 1);
+              }}
+            >
+              Novo conjunto
+            </MinimalButton>
             <MinimalButton variant="quiet" onClick={() => window.history.back()}>
               Voltar ao módulo
             </MinimalButton>

@@ -456,7 +456,6 @@ export default async function DashboardPage(props: { searchParams: Promise<Dashb
 
   const mentoringStatus = (applicationData as { status?: string } | null)?.status ?? null;
   const mentorshipModuleUnlocked = progress.some((p) => p.mentorshipUnlocked);
-  const mentorshipAvailable = mentorshipModuleUnlocked;
 
   // Build per-course view data
   const courseViews = courses.map((course) => {

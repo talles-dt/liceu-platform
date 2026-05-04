@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import type { Route } from "next";
 
 export type NotificationItem = {
   id: string;
@@ -81,20 +81,7 @@ export function NotificationBell() {
     // Navigate if there's a link
     if (notification.link) {
       setOpen(false);
-      router.push(notification.link as any);
-    }
-  }
-
-  function formatStatusBadge(status: string): string {
-    switch (status) {
-      case "approved":
-        return "Aprovado";
-      case "revision":
-        return "Revisao";
-      case "rejected":
-        return "Rejeitado";
-      default:
-        return status;
+      router.push(notification.link as Route);
     }
   }
 

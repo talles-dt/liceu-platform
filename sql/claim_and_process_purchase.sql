@@ -68,4 +68,9 @@ BEGIN
     'recorded', record_success
   );
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_temp;
+
+REVOKE ALL ON FUNCTION claim_and_process_purchase(uuid, text) FROM PUBLIC;
+REVOKE ALL ON FUNCTION claim_and_process_purchase(uuid, text) FROM anon;
+REVOKE ALL ON FUNCTION claim_and_process_purchase(uuid, text) FROM authenticated;
+GRANT EXECUTE ON FUNCTION claim_and_process_purchase(uuid, text) TO service_role;

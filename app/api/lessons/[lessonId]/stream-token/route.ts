@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/supabaseServer";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
+import { getUserAccessLevel } from "@/lib/access";
+import { resolveLessonAccess } from "@/lib/routeSecurity";
 
 type Context = { params: Promise<{ lessonId: string }> };
 
@@ -20,6 +22,13 @@ export async function GET(_req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { lessonId } = await params;
+  const { access, denial } = await resolveLessonAccess(user.id, lessonId);
+  if (denial) return denial;
+
+  const accessLevel = await getUserAccessLevel(user.id, access.courseId);
+  if (accessLevel === "ebook") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
 
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const keyId = process.env.CLOUDFLARE_STREAM_KEY_ID;

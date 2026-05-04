@@ -114,7 +114,7 @@ export async function POST(req: Request, { params }: Context) {
 }
 
 /** DELETE — remove a question */
-export async function DELETE(req: Request, { params }: Context) {
+export async function DELETE(req: Request) {
   const user = await assertAdmin();
   if (!user) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 

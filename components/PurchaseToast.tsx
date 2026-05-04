@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import type { Route } from "next";
 
 export function PurchaseToast() {
   const searchParams = useSearchParams();
@@ -13,15 +14,14 @@ export function PurchaseToast() {
   useEffect(() => {
     const purchase = searchParams.get("purchase");
     if (purchase === "success") {
-      // @ts-ignore — Next.js router.replace with scroll: false is safe
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      setMessage("Acesso confirmado. Seus módulos estão disponíveis.");
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      setVisible(true);
+      window.setTimeout(() => {
+        setMessage("Acesso confirmado. Seus módulos estão disponíveis.");
+        setVisible(true);
+      }, 0);
       const params = new URLSearchParams(searchParams.toString());
       params.delete("purchase");
       const newUrl = params.toString() ? `${pathname}?${params}` : pathname;
-      router.replace(newUrl as any, { scroll: false });
+      router.replace(newUrl as Route, { scroll: false });
     }
   }, [searchParams, router, pathname]);
 

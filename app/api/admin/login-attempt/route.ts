@@ -10,8 +10,9 @@ interface RequestBody {
 export async function POST(request: Request) {
   try {
     const { email, success }: RequestBody = await request.json();
-    const ip = headers().get("x-forwarded-for") || "unknown";
-    const userAgent = headers().get("user-agent") || "unknown";
+    const headerStore = await headers();
+    const ip = headerStore.get("x-forwarded-for") || "unknown";
+    const userAgent = headerStore.get("user-agent") || "unknown";
     
     // Validate input
     if (!email || !email.includes("@") || email.length < 5) {

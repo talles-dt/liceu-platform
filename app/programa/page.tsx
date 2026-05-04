@@ -1,6 +1,5 @@
 import { ReadingLayout } from "@/components/ReadingLayout";
 import Link from "next/link";
-import { MinimalButton } from "@/components/MinimalButton";
 
 const MODULES = [
   {

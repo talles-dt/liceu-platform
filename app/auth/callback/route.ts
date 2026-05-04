@@ -3,14 +3,10 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
-import { ensureCourseProgressForUserAdmin } from "@/lib/provisioning";
-import { recordPurchaseAdmin, type PurchaseKind } from "@/lib/purchases";
 import { sendAccessReadyEmail } from "@/lib/email";
 
 // Constants
 const LOG_PREFIX = "[auth/callback]";
-const DEFAULT_REDIRECT_ROOT = process.env.NEXT_PUBLIC_SITE_URL || 
-  (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://www.oliceu.com");
 
 // Error types
 const enum AuthError {

@@ -65,7 +65,7 @@ export default function ForgotPasswordPage() {
       setSent(true);
       setCooldown(60); // Start 60s cooldown
       
-    } catch (err) {
+    } catch {
       setError("Erro inesperado. Por favor tente novamente mais tarde.");
     } finally {
       setLoading(false);

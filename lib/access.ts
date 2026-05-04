@@ -13,13 +13,23 @@ export async function getUserAccessLevel(
   userId: string,
   courseId: string,
 ): Promise<AccessLevel> {
+  if (!courseId) return "none";
+
   const supabase = await createSupabaseServerClient();
 
-  // Check module_progress rows — provisioned on purchase
+  const { data: modules } = await supabase
+    .from("modules")
+    .select("id")
+    .eq("course_id", courseId);
+
+  const moduleIds = (modules ?? []).map((m: { id: string }) => m.id);
+  if (moduleIds.length === 0) return "none";
+
   const { data: progress } = await supabase
     .from("module_progress")
     .select("module_id")
     .eq("user_id", userId)
+    .in("module_id", moduleIds)
     .limit(1);
 
   // If user has any progress rows for this course, they have at least ebook access.
@@ -29,7 +39,8 @@ export async function getUserAccessLevel(
   const { data: purchases } = await supabase
     .from("purchases")
     .select("kind")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .eq("course_id", courseId);
 
   if (!purchases || purchases.length === 0) return "none";
 

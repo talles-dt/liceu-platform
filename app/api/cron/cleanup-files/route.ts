@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
+import { requireCronSecret } from "@/lib/routeSecurity";
 
 const BUCKET_NAME = "assignment-files";
 const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
@@ -11,9 +12,8 @@ const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
  * older than 90 days. Protected by CRON_SECRET bearer token.
  */
 export async function POST(req: Request) {
-  if (req.headers.get("authorization") !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const cronError = requireCronSecret(req);
+  if (cronError) return cronError;
 
   const supabase = createSupabaseAdminClient();
   const cutoffDate = new Date(Date.now() - NINETY_DAYS_MS);

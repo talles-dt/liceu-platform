@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { sendReEngagementEmail } from "@/lib/email/reEngagement";
+import { requireCronSecret } from "@/lib/routeSecurity";
 
 /**
  * POST /api/cron/re-engage
@@ -9,9 +10,8 @@ import { sendReEngagementEmail } from "@/lib/email/reEngagement";
  * row in the last 7 days. Protected by CRON_SECRET bearer token.
  */
 export async function POST(req: Request) {
-  if (req.headers.get("authorization") !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const cronError = requireCronSecret(req);
+  if (cronError) return cronError;
 
   const supabase = createSupabaseAdminClient();
   const sevenDaysAgo = new Date();
@@ -37,15 +37,7 @@ export async function POST(req: Request) {
     { moduleId: string; moduleName: string; updatedAt: string }
   >();
 
-interface InactiveProgressRow {
-  user_id: string;
-  module_id: string;
-  updated_at: string;
-  modules: { title: string } | null;
-}
-
-// ... dentro do for:
-for (const row of inactiveProgress ?? []) {
+  for (const row of inactiveProgress ?? []) {
   const uid = row.user_id;
   const existing = userLastActivity.get(uid);
   const moduleName = row.modules?.[0]?.title ?? "desconhecido";

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
+import { resolveLessonAccess } from "@/lib/routeSecurity";
 
 type Context = { params: Promise<{ lessonId: string }> };
 
@@ -12,6 +13,9 @@ export async function GET(_req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { lessonId } = await params;
+  const { denial } = await resolveLessonAccess(user.id, lessonId);
+  if (denial) return denial;
+
   const supabase = await createSupabaseServerClient();
 
   const { data, error } = await supabase
@@ -40,6 +44,9 @@ export async function POST(req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { lessonId } = await params;
+  const { denial } = await resolveLessonAccess(user.id, lessonId);
+  if (denial) return denial;
+
   const body = (await req.json().catch(() => ({}))) as {
     answers?: Record<string, string>;
   };
