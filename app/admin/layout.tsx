@@ -49,7 +49,7 @@ const isAdminByRole = profile?.role === "admin";
 // FALLBACK check: email override
 const isAdminByEmail = Boolean(user.email) && 
   envAdmins.length > 0 &&
-  envAdmins.includes(user.email.toLowerCase());
+  envAdmins.includes(user.email!.toLowerCase());
 
 // FINAL rule: access granted ONLY if
 // * role is "admin" OR
