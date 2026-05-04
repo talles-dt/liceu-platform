@@ -88,13 +88,13 @@ export async function GET(request: Request): Promise<RedirectResponse> {
     console.log("[AUTH_CALLBACK] Recovery flow detected");
     return NextResponse.redirect(`${redirectRoot}/reset-password`);
   }
-
-  // --- Final auth check ---
-  const { data: { user: persistedUser }, error: persistenceError } = await clientSupabase.auth.getUser();
-  if (persistenceError || !persistedUser.user || persistedUser.user.id !== user.id) {
-    console.error("[AUTH_CALLBACK] Session persistence failed");
-    return createErrorRedirect(requestUrl, AuthError.SESSION_FAILURE);
-  }
+    // --- Final auth check ---
+    const { data: { user: persistedUser }, error: persistenceError } = await clientSupabase.auth.getUser();
+    
+    if (persistenceError || !persistedUser || persistedUser.id !== user.id) {
+      console.error("[AUTH_CALLBACK] Session persistence failed");
+      return createErrorRedirect(requestUrl, AuthError.SESSION_FAILURE);
+    }
 
   const userEmail = user.email?.toLowerCase().trim() ?? null;
   const userId = user.id;

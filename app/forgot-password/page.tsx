@@ -34,43 +34,42 @@ export default function ForgotPasswordPage() {
   }, [cooldown, sent]);
 
 async function handleSubmit(e: FormEvent) {
-  e.preventDefault();
-  
-  // Prevent duplicate submits
-  if (loading || sent) return;
-  
-  setLoading(true);
-  setError(null);
-  
-  try {
-    const supabase = createSupabaseBrowserClient();
-    const redirectTo = `${window.location.origin}/auth/callback`;
-    
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo
-    });
-    
-    if (error) {
-      // Handle rate limiting specifically
-      if (error.message.toLowerCase().includes("rate") || 
-          error.message.includes("429")) {
-        setError("Muitos pedidos. Por favor espere alguns minutos antes de tentar novamente.");
-      } else {
-        setError(error.message);
-      }
-      return;
-    }
-    
-    setSent(true);
-    setCooldown(60);
-    
-  } catch (err) {
-    setError("Erro inesperado. Por favor tente novamente.");
-  } finally {
-    setLoading(false);
-  }
+ e.preventDefault();
+ 
+ // Prevent duplicate submits
+ if (loading || sent) return;
+ 
+ setLoading(true);
+ setError(null);
+ 
+ try {
+ const supabase = createSupabaseBrowserClient();
+ const redirectTo = `${window.location.origin}/auth/callback`;
+ 
+ const { error } = await supabase.auth.resetPasswordForEmail(email, {
+ redirectTo
+ });
+ 
+ if (error) {
+ // Handle rate limiting specifically
+ if (error.message.toLowerCase().includes("rate") || 
+ error.message.includes("429")) {
+ setError("Muitos pedidos. Por favor espere alguns minutos antes de tentar novamente.");
+ } else {
+ setError(error.message);
+ }
+ return;
+ }
+ 
+ setSent(true);
+ setCooldown(60);
+ 
+ } catch (err) {
+ setError("Erro inesperado. Por favor tente novamente.");
+ } finally {
+ setLoading(false);
+ }
 }
-  }
 
   // Format cooldown time
   const formatCooldown = () => {

@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
@@ -7,8 +6,7 @@ import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 
-// Google Login Handler
-export const handleGoogleLogin = async (setError: (error: string) => void) => {
+const handleGoogleLogin = async (setError: (error: string) => void) => {
   setError("");
   try {
     const supabase = createSupabaseBrowserClient();
@@ -30,68 +28,65 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: FormEvent) {
-
-async function handleSubmit(e: FormEvent) {
-  e.preventDefault();
-  if (loading) return;
-  
-  setError(null);
-  setLoading(true);
-  
-  try {
-    const supabase = createSupabaseBrowserClient();
+    e.preventDefault();
+    if (loading) return;
     
-    // Try password login
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    setError(null);
+    setLoading(true);
     
-    // ALWAYS log login attempt (server decides importance)
-    await logAdminLoginAttempt(email, !signInError);
-    
-    if (signInError) {
-      handleLoginError(signInError);
-      return;
-    }
-    
-    window.location.href = "/dashboard";
-    
-  } catch {
-    setError("Erro inesperado. Por favor tente novamente.");
-  } finally {
-    setLoading(false);
-  }
-}
-
-const handleLoginError = (signInError: AuthError) => {
-  if (signInError.message.toLowerCase().includes("rate") || 
-      signInError.message.includes("429") ||
-      signInError.status === 429) {
-    setError("Muitos pedidos. Por favor espere alguns minutos.");
-  } else if (signInError.message.includes("Email not confirmed")) {
-    setError("Email não verificado. Por favor verifique seu email.");
-  } else {
-    setError(signInError.message);
-  }
-};
-
-const logAdminLoginAttempt = async (email: string, success: boolean) => {
-  try {
-    await fetch("/api/admin/login-attempt", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    try {
+      const supabase = createSupabaseBrowserClient();
+      
+      // Try password login
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
-        success
-      }),
-    });
-  } catch {
-    // Silent failure - logging shouldn't break login flow
+        password,
+      });
+      
+      // ALWAYS log login attempt (server decides importance)
+      await logAdminLoginAttempt(email, !signInError);
+      
+      if (signInError) {
+        handleLoginError(signInError);
+        return;
+      }
+      
+      window.location.href = "/dashboard";
+      
+    } catch {
+      setError("Erro inesperado. Por favor tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   }
-};
+
+  const handleLoginError = (signInError: any) => {
+    if (signInError.message.toLowerCase().includes("rate") || 
+        signInError.message.includes("429")) {
+      setError("Muitos pedidos. Por favor espere alguns minutos.");
+    } else if (signInError.message.includes("Email not confirmed")) {
+      setError("Email não verificado. Por favor verifique seu email.");
+    } else {
+      setError(signInError.message);
+    }
+  };
+
+  const logAdminLoginAttempt = async (email: string, success: boolean) => {
+    try {
+      await fetch("/api/admin/login-attempt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          success
+        }),
+      });
+    } catch {
+      // Silent failure - logging shouldn't break login flow
+    }
+  };
 
   return (
     <ReadingLayout
@@ -184,5 +179,4 @@ const logAdminLoginAttempt = async (email: string, success: boolean) => {
         </p>
       </div>
     </ReadingLayout>
-  );
-}
+  );}
