@@ -3,10 +3,14 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
+import { ensureCourseProgressForUserAdmin } from "@/lib/provisioning";
+import { recordPurchaseAdmin, type PurchaseKind } from "@/lib/purchases";
 import { sendAccessReadyEmail } from "@/lib/email";
 
 // Constants
 const LOG_PREFIX = "[auth/callback]";
+const DEFAULT_REDIRECT_ROOT = process.env.NEXT_PUBLIC_SITE_URL || 
+  (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://www.oliceu.com");
 
 // Error types
 const enum AuthError {
@@ -42,22 +46,21 @@ function createDashboardRedirect(requestUrl: string, success: boolean): Redirect
 }
 
 export async function GET(request: Request): Promise<RedirectResponse> {
-  // ============== HARDENING RULE A: Always log entry ==============
-  console.log("[AUTH_CALLBACK_ENTRY]", {
+  // ============== STEP 1: Extract params safely ==============
+  console.log("[AUTH_CALLBACK]", {
     url: request.url,
     timestamp: new Date().toISOString()
   });
   
-  // ============== HARDENING RULE B: Extract params safely ==============
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
-  const type = searchParams.get("type");  
+  const type = searchParams.get("type");
   const requestUrl = request.url;
   const redirectRoot = getRedirectRoot(requestUrl);
 
-  // ============== HARDENING RULE C: Fail fast if no code ==============
+  // ============== STEP 2: FAIL FAST if no code ==============
   if (!code) {
-    console.error("[AUTH_CALLBACK] Missing code", { url: request.url });
+    console.error("[AUTH_CALLBACK] Missing code");
     return createErrorRedirect(requestUrl, AuthError.MISSING_CODE);
   }
 
@@ -65,10 +68,10 @@ export async function GET(request: Request): Promise<RedirectResponse> {
   const clientSupabase = await createSupabaseServerClient();
   const adminSupabase = createSupabaseAdminClient();
 
-  // ============== HARDENING RULE D: Exchange code for session ==============
+  // ============== STEP 3: Exchange session ==============
   const { data: authData, error: exchangeError } = await clientSupabase.auth.exchangeCodeForSession(code);
   
-  // ============== HARDENING RULE E: Handle failure explicitly ==============
+  // ============== STEP 4: HANDLE FAILURE ==============
   if (exchangeError || !authData?.user) {
     console.error("[AUTH_CALLBACK] Exchange failed", {
       error: exchangeError?.message,
@@ -77,58 +80,30 @@ export async function GET(request: Request): Promise<RedirectResponse> {
     });
     return createErrorRedirect(requestUrl, AuthError.INVALID_LINK);
   }
-  
+
   const user = authData.user;
   
-  // ============== HARDENING RULE F: Handle recovery flow immediately ==============
-  // THIS MUST HAPPEN RIGHT AFTER SUCCESSFUL EXCHANGE
+  // ============== STEP 5: RECOVERY FLOW (IMMEDIATE EXIT) ==============
   if (type === "recovery") {
-    console.log("[AUTH_CALLBACK] Recovery flow detected", {
-      userId: user.id,
-      email: user.email
-    });
+    console.log("[AUTH_CALLBACK] Recovery flow detected");
     return NextResponse.redirect(`${redirectRoot}/reset-password`);
   }
-  } else {
-    // Flow B: Magic link flow (no code)
-    console.log(`${LOG_PREFIX} Magic link flow - no code detected`);
-    const { data: { user: currentUser }, error: userError } = await clientSupabase.auth.getUser();
-    
-    if (userError || !currentUser) {
-      console.error(`${LOG_PREFIX} getUser failed`, {
-        error: userError?.message,
-        name: userError?.name,
-        status: userError?.status,
-      });
-      authError = userError || new Error("getUser returned no user");
-    } else {
-      user = currentUser;
-    }
-  }
 
-  if (authError || !user) {
-    console.error(`${LOG_PREFIX} Auth failed`, { error: authError?.message });
-    return createErrorRedirect(requestUrl, AuthError.INVALID_LINK);
+  // --- Final auth check ---
+  const { data: { user: persistedUser }, error: persistenceError } = await clientSupabase.auth.getUser();
+  if (persistenceError || !persistedUser.user || persistedUser.user.id !== user.id) {
+    console.error("[AUTH_CALLBACK] Session persistence failed");
+    return createErrorRedirect(requestUrl, AuthError.SESSION_FAILURE);
   }
 
   const userEmail = user.email?.toLowerCase().trim() ?? null;
   const userId = user.id;
 
-  // --- 4. Verify session persistence ---
-  const { data: persistedUser, error: persistenceError } = await clientSupabase.auth.getUser();
-  if (persistenceError || !persistedUser.user || persistedUser.user.id !== userId) {
-    console.error(`${LOG_PREFIX} Session persistence failed`, {
-      originalUserId: userId,
-      persistenceError: persistenceError?.message
-    });
-    return createErrorRedirect(requestUrl, AuthError.SESSION_FAILURE);
-  }
-
+  // --- Purchase processing ---
   let hasProcessedPurchases = false;
   let processingError: Error | null = null;
 
   try {
-    // --- 5. Claim pending purchases (unchanged - atomic RPC) ---
     const pendingResult = await adminSupabase
       .from("pending_purchases")
       .select("id, kind, course_id, stripe_session_id")
@@ -145,13 +120,9 @@ export async function GET(request: Request): Promise<RedirectResponse> {
 
     for (const purchase of pendingPurchases) {
       try {
-        console.log(`${LOG_PREFIX} Processing purchase`, {
+        console.log("[AUTH_CALLBACK] Processing purchase", {
           purchaseId: purchase.id,
           kind: purchase.kind,
-          courseId: purchase.course_id,
-          stripeSessionId: purchase.stripe_session_id,
-          userId,
-          userEmail,
         });
 
         const { data: claimResult, error: claimError } = await adminSupabase.rpc(
@@ -163,27 +134,14 @@ export async function GET(request: Request): Promise<RedirectResponse> {
         );
 
         if (claimError) {
-          throw new Error(`RPC claim_and_process_purchase failed: ${claimError.message}`);
+          throw new Error(`RPC failed: ${claimError.message}`);
         }
 
         if (!claimResult) {
           throw new Error("RPC returned no result");
         }
-
-        const { processed, provisioned, recorded } = claimResult;
-
-        console.log(`${LOG_PREFIX} Purchase processing result`, {
-          purchaseId: purchase.id,
-          processed,
-          provisioned,
-          recorded,
-        });
-
-        if (!processed) {
-          console.warn(`${LOG_PREFIX} Purchase not processed`, { purchaseId: purchase.id });
-        }
       } catch (purchaseError) {
-        console.error(`${LOG_PREFIX} Failed to process purchase`, {
+        console.error("[AUTH_CALLBACK] Purchase processing error", {
           purchaseId: purchase.id,
           error: purchaseError instanceof Error ? purchaseError.message : String(purchaseError),
         });
@@ -191,27 +149,26 @@ export async function GET(request: Request): Promise<RedirectResponse> {
     }
   } catch (err) {
     processingError = err instanceof Error ? err : new Error(String(err));
-    console.error(`${LOG_PREFIX} Purchase processing failed`, {
+    console.error("[AUTH_CALLBACK] Purchase processing failed", {
       error: processingError.message,
-      stack: processingError.stack,
       userId,
       hasProcessedPurchases,
     });
   }
 
-  // --- 6. Send confirmation email (best-effort) ---
+  // --- Email confirmation ---
   if (userEmail) {
     try {
       await sendAccessReadyEmail(userEmail);
-      console.log(`${LOG_PREFIX} Confirmation email sent`, { userEmail });
+      console.log("[AUTH_CALLBACK] Confirmation email sent", { userEmail });
     } catch (emailError) {
-      console.error(`${LOG_PREFIX} Failed to send confirmation email`, {
+      console.error("[AUTH_CALLBACK] Failed to send confirmation email", {
         userEmail,
         error: emailError instanceof Error ? emailError.message : String(emailError),
       });
     }
   }
 
-  // --- 7. Determine redirect destination ---
+  // ============== STEP 6: DEFAULT FLOW ==============
   return createDashboardRedirect(requestUrl, hasProcessedPurchases);
 }

@@ -3,52 +3,11 @@
 import Link from "next/link";
 import { MinimalButton } from "@/components/MinimalButton";
 import { POSTS } from "@/lib/blog";
-import { redirect } from "next/navigation";
 
-export default function HomePage({
-  searchParams,
-}: {
-  searchParams: { code?: string; type?: string };
-}) {
-  // Handle auth code fallback
-  if (searchParams?.code) {
-    const type = searchParams.type ?? "magiclink";
-    return redirect(`/auth/callback?code=${searchParams.code}&type=${type}`);
-  }
-
+export default function HomePage() {
   return (
     <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)]">
       {/* Top App Bar */}
-      <header className="sticky top-0 z-40 h-20 border-b border-[var(--liceu-stone)] border-l-4 border-l-[var(--liceu-accent)] bg-[var(--liceu-surface)]">
-        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
-          <Link
-            href="/"
-            className="font-[var(--font-noto-serif)] text-2xl font-black uppercase tracking-tight text-[var(--liceu-accent)]"
-          >
-            Liceu Underground
-          </Link>
-
-          <nav className="flex items-center gap-6">
-            {([
-              { href: "/metodo", label: "Método" },
-              { href: "/programa", label: "Programa" },
-              { href: "/mentoria", label: "Mentoria" },
-            ] as const).map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] transition-colors hover:text-[var(--liceu-accent)]"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </header>
-      {/* ... rest of existing homepage content ... */}
-    </div>
-  );
-}
       <header className="sticky top-0 z-40 h-20 border-b border-[var(--liceu-stone)] border-l-4 border-l-[var(--liceu-accent)] bg-[var(--liceu-surface)]">
         <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
           <Link
@@ -87,13 +46,11 @@ export default function HomePage({
             </div>
 
             <h1 className="font-[var(--font-noto-serif)] text-5xl font-black uppercase tracking-tighter leading-none md:text-7xl lg:text-8xl">
-              Você é inteligente.{" "}
-              <span className="text-[var(--liceu-accent)]">Sob pressão, não parece.</span>
+              Você é inteligente. <span className="text-[var(--liceu-accent)]">Sob pressão, não parece.</span>
             </h1>
 
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-[var(--liceu-muted)]">
-              Uma escola de pensamento aplicado à fala. Fundada na retórica clássica.
-              Construída para quem colapsa onde mais importa.
+              Uma escola de pensamento aplicado à fala. Fundada na retórica clássica. Construída para quem colapsa onde mais importa.
             </p>
 
             <div className="mt-12 flex flex-col items-center gap-6">

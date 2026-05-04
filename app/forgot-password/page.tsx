@@ -33,43 +33,43 @@ export default function ForgotPasswordPage() {
     }
   }, [cooldown, sent]);
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
+async function handleSubmit(e: FormEvent) {
+  e.preventDefault();
+  
+  // Prevent duplicate submits
+  if (loading || sent) return;
+  
+  setLoading(true);
+  setError(null);
+  
+  try {
+    const supabase = createSupabaseBrowserClient();
+    const redirectTo = `${window.location.origin}/auth/callback`;
     
-    // Prevent duplicate submits
-    if (loading || sent) return;
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo
+    });
     
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const supabase = createSupabaseBrowserClient();
-      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${siteUrl}/auth/callback`,
-      });
-      
-      if (resetError) {
-        // Handle rate limiting specifically
-        if (resetError.message.toLowerCase().includes("rate") || 
-            resetError.message.includes("429") ||
-            resetError.status === 429) {
-          setError("Muitos pedidos. Por favor espere alguns minutos antes de tentar novamente.");
-          setCooldown(60); // Start 60s cooldown
-        } else {
-          setError(resetError.message);
-        }
-        return;
+    if (error) {
+      // Handle rate limiting specifically
+      if (error.message.toLowerCase().includes("rate") || 
+          error.message.includes("429")) {
+        setError("Muitos pedidos. Por favor espere alguns minutos antes de tentar novamente.");
+      } else {
+        setError(error.message);
       }
-      
-      // Success state
-      setSent(true);
-      setCooldown(60); // Start 60s cooldown
-      
-    } catch {
-      setError("Erro inesperado. Por favor tente novamente mais tarde.");
-    } finally {
-      setLoading(false);
+      return;
     }
+    
+    setSent(true);
+    setCooldown(60);
+    
+  } catch (err) {
+    setError("Erro inesperado. Por favor tente novamente.");
+  } finally {
+    setLoading(false);
+  }
+}
   }
 
   // Format cooldown time
