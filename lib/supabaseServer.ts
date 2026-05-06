@@ -1,74 +1,60 @@
+import { createClient } from '@supabase/supabase-js';
 import { cookies } from "next/headers";
-import { createServerClient } from "@supabase/ssr";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/database.types";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type SafeClient = SupabaseClient<any, string, any>;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-type CookieOptions = {
-  domain?: string;
-  expires?: Date;
-  httpOnly?: boolean;
-  maxAge?: number;
-  path?: string;
-  sameSite?: "lax" | "strict" | "none";
-  secure?: boolean;
-};
+export function createSupabaseServerClient() {
+ if (!supabaseUrl || !supabaseKey) {
+ throw new Error('Missing Supabase environment variables');
+ }
 
-export async function createSupabaseServerClient(): Promise<SafeClient> {
-  const cookieStore = await cookies();
+ const cookieStore = cookies();
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error("Supabase environment variables are not configured.");
-  }
-
-  // Production-ready cookie settings (no domain)
-  const cookieOptions: CookieOptions = {
-    path: "/",
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    httpOnly: true,
-    // Remove domain to support:
-    // - localhost
-    // - preview deployments (Vercel)
-    // - email links opened in different contexts
-    // domain: process.env.NODE_ENV === "production" 
-    //   ? ".oliceu.com"
-    //   : undefined,
-  };
-
-  return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value;
-      },
-      set(name: string, value: string, options: CookieOptions) {
-        try {
-          cookieStore.set({ name, value, ...cookieOptions, ...options });
-        } catch (error) {
-          console.error(`[supabaseServer] Failed to set cookie ${name}`, error);
-        }
-      },
-      remove(name: string, options: CookieOptions) {
-        try {
-          cookieStore.set({ name, value: "", ...cookieOptions, ...options, maxAge: 0 });
-        } catch (error) {
-          console.error(`[supabaseServer] Failed to remove cookie ${name}`, error);
-        }
-      },
-    },
-  }) as SafeClient;
+ return createClient<Database>(
+ supabaseUrl,
+ supabaseKey,
+ {
+ cookies: {
+ get(name) {
+ return cookieStore.get(name)?.value;
+ },
+ set(name, value, options) {
+ try {
+ cookieStore.set({ name, value, ...options });
+ } catch (error) {
+ // The `set` method was called from a Server Component.
+ // This can be ignored if next.js >= 13.4.0 as it sets the cookie automatically.
+ }
+ },
+ remove(name, options) {
+ try {
+ cookieStore.set({ name, value: '', ...options });
+ } catch (error) {
+ // The `delete` method was called from a Server Component.
+ // This can be ignored if next.js >= 13.4.0 as it deletes the cookie automatically.
+ }
+ }
+ }
+ }
+ );
 }
 
 export async function getCurrentUser() {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user;
+ const supabase = createSupabaseServerClient();
+ const {
+ data: { user },
+ error,
+ } = await supabase.auth.getUser();
+ 
+ if (!user || error) {
+ return null;
+ }
+ 
+ return {
+ ...user,
+ email: user.email?.toLowerCase().trim(),
+ };
 }
-
