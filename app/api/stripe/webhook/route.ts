@@ -284,6 +284,7 @@ export async function POST(req: Request) {
             kind,
             course_id: courseId,
             stripe_session_id: session.id,
+            user_id: userId, // Store OAuth client ID if available
             claimed: false,
           },
           { onConflict: "stripe_session_id" },

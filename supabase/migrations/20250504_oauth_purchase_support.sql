@@ -1,7 +1,31 @@
+--- Add user_id column to pending_purchases
+-- Also add user_id column to purchases table for consistency
+
+BEGIN;
+
+-- Add user_id to pending_purchases table
+ALTER TABLE pending_purchases ADD COLUMN IF NOT EXISTS user_id text;
+ALTER TABLE pending_purchases ALTER COLUMN user_id DROP NOT NULL;
+COMMENT ON COLUMN pending_purchases.user_id IS 'Optional reference to the purchasing user (pre-auth) from Stripe metadata';
+
+-- Add foreign key constraint without enforcing it (optional)
+-- ALTER TABLE pending_purchases ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE SET NULL;
+
+-- Add user_id to purchases table for consistency
+ALTER TABLE purchases ADD COLUMN IF NOT EXISTS user_id text;
+ALTER TABLE purchases ALTER COLUMN user_id DROP NOT NULL;
+UPDATE purchases SET user_id = created_by WHERE user_id IS NULL;
+COMMENT ON COLUMN purchases.user_id IS 'Reference to the purchasing user (post-auth)';
+
+-- Update the RPC function signature
+DROP FUNCTION IF EXISTS claim_and_process_purchase(uuid, text);
+DROP FUNCTION IF EXISTS claim_and_process_purchase(uuid, text, text);
+
+-- Create the final function
 CREATE OR REPLACE FUNCTION claim_and_process_purchase(
  p_purchase_id uuid,
  p_user_id text,
- p_user_email text
+ p_user_email text DEFAULT NULL
 ) RETURNS json AS $$
 DECLARE
  purchase_record RECORD;
@@ -119,3 +143,5 @@ REVOKE ALL ON FUNCTION claim_and_process_purchase(uuid, text, text) FROM PUBLIC;
 REVOKE ALL ON FUNCTION claim_and_process_purchase(uuid, text, text) FROM anon;
 REVOKE ALL ON FUNCTION claim_and_process_purchase(uuid, text, text) FROM authenticated;
 GRANT EXECUTE ON FUNCTION claim_and_process_purchase(uuid, text, text) TO service_role;
+
+COMMIT;

@@ -99,16 +99,16 @@ export async function GET(request: Request): Promise<RedirectResponse> {
   const userEmail = user.email?.toLowerCase().trim() ?? null;
   const userId = user.id;
 
-  // --- Purchase processing ---
+  // --- Purchase processing with OAuth support ---
   let hasProcessedPurchases = false;
   let processingError: Error | null = null;
 
   try {
+    // Search by BOTH email AND user_id for OAuth users
     const pendingResult = await adminSupabase
       .from("pending_purchases")
       .select("id, kind, course_id, stripe_session_id")
-      .eq("email", userEmail)
-      .eq("claimed", false)
+      .or(`and(email.eq.${userEmail},claimed.eq.false),and(user_id.eq.${userId},claimed.eq.false)`)
       .limit(50);
 
     if (pendingResult.error) {
@@ -130,6 +130,7 @@ export async function GET(request: Request): Promise<RedirectResponse> {
           {
             p_purchase_id: purchase.id,
             p_user_id: userId,
+            p_user_email: userEmail,
           }
         );
 

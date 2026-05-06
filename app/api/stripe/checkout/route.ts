@@ -90,12 +90,12 @@ export async function POST(request: Request) {
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${origin}/dashboard?purchase=success`,
     cancel_url: `${origin}/programa?purchase=cancel`,
-    customer_email: user?.email ?? undefined,
-    metadata: {
-      user_id: user?.id ?? "",
-      purchase_kind: kind,
-      course_id: resolvedCourseId,
-    },
+      customer_email: user?.email ?? undefined,
+      metadata: {
+        user_id: user?.id ?? "", // Store client ID if authenticated
+        purchase_kind: kind,
+        course_id: resolvedCourseId,
+      },
   });
 
   return NextResponse.json({ url: session.url });
