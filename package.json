@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@sentry/nextjs": "^10.47.0",
+    "@supabase/ssr": "^0.10.2",
     "@supabase/supabase-js": "^2.49.1",
     "gray-matter": "^4.0.3",
     "isomorphic-dompurify": "^3.7.1",
