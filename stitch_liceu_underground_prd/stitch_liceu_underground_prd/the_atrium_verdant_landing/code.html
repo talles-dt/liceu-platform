@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Verdant Scriptorium | The Atrium</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Space+Grotesk:wght@300;500;700&amp;family=Work+Sans:wght@300;400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#551f1d",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-highest": "#353534",
+                        "on-surface": "#e5e2e1",
+                        "secondary-container": "#756901",
+                        "on-secondary-fixed": "#201c00",
+                        "primary-fixed-dim": "#93d5b0",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#fbea7e",
+                        "tertiary-fixed": "#ffdad7",
+                        "secondary": "#d8c860",
+                        "outline-variant": "#404943",
+                        "primary": "#93d5b0",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-dim": "#131313",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "tertiary": "#ffb3af",
+                        "on-tertiary-container": "#ec9994",
+                        "on-surface-variant": "#bfc9c1",
+                        "on-primary-container": "#7cbd9a",
+                        "background": "#131313",
+                        "outline": "#89938c",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-fixed-variant": "#504700",
+                        "secondary-fixed-dim": "#d8c860",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#353534",
+                        "surface": "#131313",
+                        "surface-bright": "#3a3939",
+                        "error": "#ffb4ab",
+                        "on-background": "#e5e2e1",
+                        "secondary-fixed": "#f5e479",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-tint": "#93d5b0",
+                        "on-tertiary-fixed": "#3a0a0a",
+                        "on-tertiary-fixed-variant": "#713432",
+                        "on-secondary": "#373100",
+                        "on-primary-fixed-variant": "#075136",
+                        "inverse-primary": "#296a4c",
+                        "primary-container": "#004d32",
+                        "on-primary": "#003823",
+                        "surface-container": "#201f1f",
+                        "primary-fixed": "#aef1cc",
+                        "tertiary-container": "#6c302e",
+                        "on-primary-fixed": "#002113",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0rem",
+                        "lg": "0rem",
+                        "xl": "0rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Work Sans"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    vertical-align: middle
+    }
+.no-scrollbar::-webkit-scrollbar {
+    display: none
+    }
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none
+    }
+.parchment-texture {
+    background-color: #201f1f;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCmtM7UzU6New0fU4GH-OeCwoltejrLBKuCjLv2_HW5Hlf8vdmEbXwHWBS38wyPC8cKgn6U56O7AoEZsSSgSsC_1Z17ce0hlnaUIi4Rfd3ac19V_7kjQlLzb6dGAgQ7bUwsBrqf3Q0gCLeRAqa_287C8jNZKYlIUDjBmR2xRSzIyBxyRocSeXAhPRBb0LrGuZq5iMR4PgQ2Sz3rQwTGIlAttkCNokGs8gDUsm9JRgtk1PnUtWxMiZN12nxbkZ5B3vQjsxsh0HYdPpzK)
+    }</style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30">
+<!-- TopAppBar -->
+<nav class="bg-[#131313] docked full-width top-0 border-l-4 border-[#93D5B0] flex justify-between items-center w-full px-8 h-20 fixed z-50">
+<div class="text-2xl font-bold font-serif text-[#93D5B0]">The Verdant Scriptorium</div>
+<div class="hidden md:flex items-center space-x-10">
+<a class="font-serif tracking-tight leading-none text-2xl uppercase text-[#93D5B0] border-b-2 border-[#D8C860] transition-colors duration-300" href="#">Archives</a>
+<a class="font-serif tracking-tight leading-none text-2xl uppercase text-[#89938C] hover:bg-[#353534] transition-colors duration-300" href="#">Theorum</a>
+<a class="font-serif tracking-tight leading-none text-2xl uppercase text-[#89938C] hover:bg-[#353534] transition-colors duration-300" href="#">Codex</a>
+</div>
+<div class="flex items-center space-x-6 text-[#93D5B0]">
+<button class="hover:bg-[#353534] p-2 transition-colors duration-300 transform active:scale-95 duration-100">
+<span class="material-symbols-outlined">account_balance</span>
+</button>
+<button class="hover:bg-[#353534] p-2 transition-colors duration-300 transform active:scale-95 duration-100">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</nav>
+<!-- SideNavBar (Hidden on Landing per UX logic, but structure maintained if needed for dashboard) -->
+<main class="pt-20">
+<!-- Hero Section: The Monolith -->
+<section class="relative h-[921px] flex items-center overflow-hidden bg-surface-container-lowest">
+<div class="absolute inset-0 z-0 opacity-40">
+<img alt="" class="w-full h-full object-cover grayscale contrast-125" data-alt="A dark, moody classical library with towering obsidian shelves and climbing dark green ivy, shafts of moonlight illuminating dust motes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3qLV2aPXnIKmjhZ3KP2T_Lzn2tdyQST2JwaguzK4wO9IOCyUboWSXqefcWa8tizHfA8p0Om_QFc5syLeQBtsvq1v4_9kO6GgMwbUpbjthgl8Ws6XkW9l4koLKHFaYiNwshNt4JxJD-2HVQnaAso5huD9wwCXJej00HVo-zROFWe-6_MIZOMPxsPZI-5V7oHFNDXir3xRlXDZLkx7ey6AskRdWRdxjjLuF2EaCUGWeq6eWzOdZYbmyZxVJBW8apG7CthVRyKXSS9vq"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 px-8 md:px-20 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-12">
+<div class="max-w-3xl">
+<div class="inline-block bg-primary-container text-on-primary-container px-4 py-1 font-label text-xs tracking-[0.3em] uppercase mb-8">
+                        The Brutalist Archive
+                    </div>
+<h1 class="font-headline text-6xl md:text-8xl font-bold tracking-tighter leading-none text-on-surface mb-8">
+                        FORGED IN <span class="text-primary">GREEN</span>,<br/>
+                        TEMPERED IN THOUGHT.
+                    </h1>
+<p class="font-body text-xl text-outline max-w-xl leading-relaxed">
+                        Intellectual strength is not found in leisure. It is extracted through high-performance discipline and the systematic loading of the mind. Enter the Scriptorium.
+                    </p>
+</div>
+<div class="flex flex-col items-start gap-4 mb-12">
+<div class="w-16 h-1 bg-secondary mb-2"></div>
+<span class="font-label text-xs tracking-widest text-secondary uppercase">Access Required</span>
+<button class="bg-primary-container text-on-primary-container px-10 py-5 font-label font-bold uppercase tracking-widest hover:bg-primary transition-colors duration-300">
+                        Begin Drill
+                    </button>
+</div>
+</div>
+</section>
+<!-- Metrics Bar -->
+<div class="w-full bg-surface-container-high border-y border-outline-variant/15 py-12 px-8">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+<div class="flex flex-col">
+<span class="font-label text-xs text-outline tracking-widest uppercase">Total Intellectual Load Moved</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-5xl font-bold text-primary">842,901</span>
+<span class="font-label text-primary-container font-bold text-xl uppercase">Terra-Synapses</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-8 w-full md:w-auto">
+<div class="flex flex-col">
+<span class="font-label text-[10px] text-outline-variant tracking-tighter uppercase">Archives Synced</span>
+<span class="font-label text-lg font-bold text-on-surface">99.8%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label text-[10px] text-outline-variant tracking-tighter uppercase">Active Scholars</span>
+<span class="font-label text-lg font-bold text-on-surface">12,402</span>
+</div>
+<div class="flex flex-col col-span-2 md:col-span-1">
+<span class="font-label text-[10px] text-outline-variant tracking-tighter uppercase">Current Stability</span>
+<span class="font-label text-lg font-bold text-secondary">MAXIMUM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 1: The Three Pillars -->
+<section class="py-32 px-8 max-w-7xl mx-auto">
+<div class="mb-24 flex items-baseline gap-6">
+<span class="font-label text-6xl font-bold text-surface-container-highest">01</span>
+<h2 class="font-headline text-5xl uppercase tracking-tight">The Architectural Pillars</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+<!-- Pillar 1: Discipline -->
+<div class="group relative bg-surface-container p-12 border-l border-outline-variant/15 hover:bg-surface-container-high transition-colors duration-500">
+<div class="absolute top-0 left-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-700"></div>
+<span class="material-symbols-outlined text-4xl text-primary mb-8" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<h3 class="font-headline text-3xl font-bold mb-6 uppercase">Discipline</h3>
+<p class="font-body text-outline leading-relaxed mb-12">
+                        The ritualization of thought. Without the rigid framework of routine, the mind dissipates. We provide the structure; you provide the adherence.
+                    </p>
+<div class="font-label text-[10px] text-primary tracking-widest uppercase mt-auto">Constraint is Freedom</div>
+</div>
+<!-- Pillar 2: Load -->
+<div class="group relative bg-surface-container-low p-12 border-l border-outline-variant/15 hover:bg-surface-container transition-colors duration-500 md:-translate-y-8">
+<div class="absolute top-0 left-0 w-1 h-0 bg-secondary group-hover:h-full transition-all duration-700"></div>
+<span class="material-symbols-outlined text-4xl text-secondary mb-8" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<h3 class="font-headline text-3xl font-bold mb-6 uppercase">Load</h3>
+<p class="font-body text-outline leading-relaxed mb-12">
+                        Resistance defines strength. We apply cognitive weight through dense archives and complex syntheses, forcing the intellect to adapt or fracture.
+                    </p>
+<div class="font-label text-[10px] text-secondary tracking-widest uppercase">Growth through Tension</div>
+</div>
+<!-- Pillar 3: Practice -->
+<div class="group relative bg-surface-container p-12 border-l border-r border-outline-variant/15 hover:bg-surface-container-high transition-colors duration-500">
+<div class="absolute top-0 left-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-700"></div>
+<span class="material-symbols-outlined text-4xl text-primary mb-8" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<h3 class="font-headline text-3xl font-bold mb-6 uppercase">Practice</h3>
+<p class="font-body text-outline leading-relaxed mb-12">
+                        The iterative grind of transcription and analysis. True understanding is a physical act of persistence performed daily within these walls.
+                    </p>
+<div class="font-label text-[10px] text-primary tracking-widest uppercase">Perseverance is Truth</div>
+</div>
+</div>
+</section>
+<!-- Section 2: The Diagnostic CTA -->
+<section class="bg-surface-container-lowest py-32 px-8 overflow-hidden relative">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-20">
+<div class="w-full md:w-1/2 parchment-texture p-12 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 font-label text-[10px] opacity-20 rotate-90 origin-top-right whitespace-nowrap">CLASSIFIED_SC-012</div>
+<h2 class="font-headline text-4xl font-bold mb-8 text-on-surface-variant uppercase">The Diagnostic Test</h2>
+<p class="font-body text-on-surface mb-8 leading-relaxed">
+                        Before entry to the inner Codex is granted, one's intellectual capacity must be mapped. The Diagnostic is not an exam—it is a baseline for your future load.
+                    </p>
+<ul class="space-y-4 mb-12 font-label text-xs uppercase tracking-widest text-outline">
+<li class="flex items-center gap-3"><span class="w-2 h-2 bg-primary"></span> 40-Minute Duration</li>
+<li class="flex items-center gap-3"><span class="w-2 h-2 bg-primary"></span> Recursive Logic Mapping</li>
+<li class="flex items-center gap-3"><span class="w-2 h-2 bg-primary"></span> Cognitive Endurance Metric</li>
+</ul>
+<button class="w-full bg-secondary-container text-on-secondary-container py-6 font-label font-bold uppercase tracking-[0.3em] hover:bg-secondary transition-colors duration-300">
+                        Initiate Protocol
+                    </button>
+</div>
+<div class="w-full md:w-1/2 relative aspect-square border-l-4 border-primary">
+<img alt="" class="w-full h-full object-cover grayscale brightness-50 contrast-125" data-alt="An open ancient manuscript with dense black-letter calligraphy and dark botanical sketches, resting on a heavy stone desk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLxLayZF6HasIeT9t4U5Q5Ykh8oB6cmOaPQ7wU469W7T-rgTOKMi-vbkOdA4ASexBOJ_ftF1OGcpSWkCrjF9zSep1icbWD_OaXSRC0b_fwzvmU7yPNnotpFqjo_fnGilo1yk9AXhjkKygpg3_wgNKy51hl2KozkYJf7nBL7YhZ27xHwzhagIYXKZePTFMvJWM3517EtlNx_ZLEAFbN2y1Ju1O2i9Luh_MpLw4r0eyHiEU5sgleSpQIyMdNjFvfxBol5246Z-0EGVzR"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="p-12 border border-primary/20 bg-background/80 backdrop-blur-xl text-center">
+<span class="font-headline text-xl text-primary italic mb-2 block italic">"The mind is a muscle that must be broken to be built."</span>
+<span class="font-label text-[10px] uppercase text-outline">Exordium, Chapter IV</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: The Archives Preview (Bento Grid) -->
+<section class="py-32 px-8 max-w-7xl mx-auto">
+<div class="mb-16">
+<h2 class="font-headline text-5xl uppercase tracking-tight mb-4">Current Repository</h2>
+<div class="w-24 h-1 bg-primary"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[800px]">
+<div class="md:col-span-2 md:row-span-2 bg-surface-container relative group overflow-hidden">
+<img alt="" class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-700" data-alt="Dozens of dark green books stacked in an imposing geometric formation against a dark concrete wall." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfCB_dSEeUmiZIXNJk3UH1z5hHPH40HlMmF3OJobd2s9yKM9USl0H5h4gkkeP6MsGQabtoxtjsSRAUsQyF-f7RlrjY0lqOGvjtjFCNCI8UxpK7K7VKhxeKEs5MAxC5SvBKffACqh9mY0LIeyO2dC5SiE7bHbs1RJsP9ToIMYpJd9wlcGmmcscuS-2BQcx348DiLl8U1G1THTe9ekYLbcUNKWSGvw-FYIDTO7IEQDQ1vmpbZ15IzWzc75geTtMzUcOziOTcUBXzXT9a"/>
+<div class="absolute bottom-0 left-0 p-12">
+<h4 class="font-headline text-4xl font-bold uppercase mb-4">The Great Transcriptions</h4>
+<p class="font-body text-outline max-w-sm mb-6">Access the core 800 texts required for foundational fluency.</p>
+<a class="font-label text-xs uppercase tracking-widest text-primary hover:text-secondary transition-colors inline-flex items-center gap-2" href="#">Explore Codex <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+</div>
+<div class="md:col-span-2 bg-surface-container-high p-12 flex flex-col justify-center">
+<span class="font-label text-[10px] text-secondary uppercase mb-4 tracking-widest">Active Research</span>
+<h4 class="font-headline text-2xl font-bold uppercase mb-4 italic text-on-surface-variant">The Architecture of Memory</h4>
+<p class="font-body text-outline mb-8">Spatial mnemonic structures for large-scale data retention.</p>
+<div class="mt-auto h-1 w-full bg-surface-container">
+<div class="h-full bg-secondary w-[84%]"></div>
+</div>
+<div class="flex justify-between mt-2 font-label text-[10px] uppercase">
+<span>Loading...</span>
+<span>84% Complete</span>
+</div>
+</div>
+<div class="bg-surface-container p-8 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary text-5xl mb-4">lock</span>
+<h5 class="font-label text-xs font-bold uppercase tracking-widest">Theorum Access</h5>
+<span class="text-outline-variant text-[10px] uppercase mt-2">Level 4 Clearance Required</span>
+</div>
+<div class="bg-primary-container p-8 flex flex-col justify-end">
+<h5 class="font-label text-lg font-bold text-on-primary-container uppercase leading-tight mb-4">Intellectual<br/>Drill: 092</h5>
+<button class="bg-on-primary-container text-primary-container px-4 py-2 font-label text-[10px] uppercase font-bold tracking-widest self-start">
+                        Start
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<footer class="bg-[#0E0E0E] fixed bottom-0 w-full h-8 z-50 flex justify-around items-center px-4 bg-[#131313] border-t border-[#404943]/15">
+<div class="flex items-center gap-2 text-[#404943] font-mono text-[10px] tracking-tighter">
+<span class="material-symbols-outlined text-xs">sensors</span>
+<span>Latency: 12ms</span>
+</div>
+<div class="flex items-center gap-2 text-[#93D5B0] font-mono text-[10px] tracking-tighter">
+<span class="material-symbols-outlined text-xs">psychology</span>
+<span>Cognitive Sync: Active</span>
+</div>
+<div class="flex items-center gap-2 text-[#404943] font-mono text-[10px] tracking-tighter">
+<span class="material-symbols-outlined text-xs">shield</span>
+<span>Clearance: Level 4</span>
+</div>
+</footer>
+</body></html>

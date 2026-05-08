@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Verdant Scriptorium - Module 02</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Space+Grotesk:wght@300;500;700&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#551f1d",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-highest": "#353534",
+                        "on-surface": "#e5e2e1",
+                        "secondary-container": "#756901",
+                        "on-secondary-fixed": "#201c00",
+                        "primary-fixed-dim": "#93d5b0",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#fbea7e",
+                        "tertiary-fixed": "#ffdad7",
+                        "secondary": "#d8c860",
+                        "outline-variant": "#404943",
+                        "primary": "#93d5b0",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-dim": "#131313",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "tertiary": "#ffb3af",
+                        "on-tertiary-container": "#ec9994",
+                        "on-surface-variant": "#bfc9c1",
+                        "on-primary-container": "#7cbd9a",
+                        "background": "#131313",
+                        "outline": "#89938c",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-fixed-variant": "#504700",
+                        "secondary-fixed-dim": "#d8c860",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#353534",
+                        "surface": "#131313",
+                        "surface-bright": "#3a3939",
+                        "error": "#ffb4ab",
+                        "on-background": "#e5e2e1",
+                        "secondary-fixed": "#f5e479",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-tint": "#93d5b0",
+                        "on-tertiary-fixed": "#3a0a0a",
+                        "on-tertiary-fixed-variant": "#713432",
+                        "on-secondary": "#373100",
+                        "on-primary-fixed-variant": "#075136",
+                        "inverse-primary": "#296a4c",
+                        "primary-container": "#004d32",
+                        "on-primary": "#003823",
+                        "surface-container": "#201f1f",
+                        "primary-fixed": "#aef1cc",
+                        "tertiary-container": "#6c302e",
+                        "on-primary-fixed": "#002113",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Work Sans"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .serif-display { font-family: 'Noto Serif', serif; }
+        .mono-label { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#131313] text-[#93D5B0] font-serif tracking-tight leading-none text-2xl uppercase docked full-width top-0 border-l-4 border-[#93D5B0] flex justify-between items-center w-full px-8 h-20 sticky z-50">
+<div class="text-2xl font-bold font-serif text-[#93D5B0]">The Verdant Scriptorium</div>
+<nav class="hidden md:flex items-center gap-8 h-full">
+<a class="text-[#89938C] hover:bg-[#353534] transition-colors duration-300 h-full flex items-center px-4" href="#">Archives</a>
+<a class="text-[#93D5B0] border-b-2 border-[#D8C860] hover:bg-[#353534] transition-colors duration-300 h-full flex items-center px-4" href="#">Theorum</a>
+<a class="text-[#89938C] hover:bg-[#353534] transition-colors duration-300 h-full flex items-center px-4" href="#">Codex</a>
+</nav>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined cursor-pointer hover:bg-[#353534] p-2 transition-all duration-100 scale-95" data-icon="account_balance">account_balance</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-[#353534] p-2 transition-all duration-100 scale-95" data-icon="settings">settings</span>
+</div>
+</header>
+<div class="flex min-h-screen">
+<!-- SideNavBar (Suppressed for focused module view on small screens, fixed on desktop) -->
+<aside class="hidden lg:flex flex-col h-[calc(100vh-5rem)] w-64 bg-[#0E0E0E] text-[#93D5B0] font-mono text-xs tracking-widest uppercase docked left-0 border-r border-[#404943]/15 shadow-[20px_0_50px_rgba(0,0,0,0.5)] sticky top-20">
+<div class="p-6 border-b border-[#404943]/15">
+<div class="text-lg font-serif text-[#FBEA7E] mb-1">ARCHIVE_01</div>
+<div class="text-[10px] text-outline">Intellectual Load: 84%</div>
+</div>
+<nav class="flex-1 py-4">
+<div class="px-2 space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 text-[#404943] hover:text-[#FBEA7E] hover:bg-[#1C1B1B] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Exordium</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 bg-[#201F1F] text-[#93D5B0] border-l-4 border-[#004D32] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>Narratio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#404943] hover:text-[#FBEA7E] hover:bg-[#1C1B1B] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Partitio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#404943] hover:text-[#FBEA7E] hover:bg-[#1C1B1B] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span>Confirmatio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#404943] hover:text-[#FBEA7E] hover:bg-[#1C1B1B] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span>Peroratio</span>
+</a>
+</div>
+</nav>
+<div class="p-4">
+<button class="w-full bg-primary-container text-on-primary-container py-3 font-bold hover:bg-primary transition-colors duration-300">
+                    BEGIN DRILL
+                </button>
+</div>
+<div class="mt-auto border-t border-[#404943]/15 p-4 space-y-2">
+<div class="flex items-center gap-3 px-4 py-2 text-[#404943]">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span>Security</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-2 text-[#404943]">
+<span class="material-symbols-outlined text-sm" data-icon="analytics">analytics</span>
+<span>Telemetry</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col md:flex-row">
+<!-- Module Header & Reading Area -->
+<section class="flex-1 p-8 md:p-16 max-w-4xl mx-auto">
+<header class="mb-16">
+<div class="mono-label text-secondary tracking-[0.3em] text-sm mb-4">CURRENT MODULE // SEQUENCE 02</div>
+<h1 class="serif-display text-5xl md:text-7xl font-bold leading-tight tracking-tighter text-on-surface">Module 02: The Architecture of Persuasion</h1>
+<div class="w-24 h-1 bg-primary-container mt-8"></div>
+</header>
+<article class="serif-display text-xl leading-relaxed text-on-surface-variant space-y-12 selection:bg-primary-container selection:text-primary">
+<p class="first-letter:text-7xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-primary">
+                        To command the room is not to shout, but to sculpt the very air through which your voice travels. In the brutalist tradition of rhetoric, we treat words as structural elements—piers, lintels, and load-bearing walls of logic.
+                    </p>
+<blockquote class="border-l-4 border-secondary bg-surface-container-low p-8 italic text-2xl text-on-surface">
+                        "The truth is not a light that illuminates; it is a weight that anchors the listener to the floor of your reality."
+                    </blockquote>
+<p>
+                        Consider the <span class="text-primary border-b border-primary/30">Cadence of the Monolith</span>. When delivering a core axiom, the tempo must slow to a glacial crawl. Each syllable should drop like a stone into a dark well. This is not mere dramatic flair; it is the physiological imposition of importance upon the recipient's neural pathways.
+                    </p>
+<!-- Inline Drill -->
+<div class="bg-surface-container border-t-4 border-primary p-8 my-12">
+<div class="mono-label text-primary text-xs mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-base" data-icon="bolt">bolt</span>
+                            ACTIVE DRILL: CADENCE ANALYSIS
+                        </div>
+<p class="serif-display text-lg mb-6">Read the following sentence aloud and identify the primary 'Anchor Word' that requires a two-second pause after delivery.</p>
+<div class="p-6 bg-surface-container-lowest border border-outline-variant/15 font-serif italic text-2xl text-center mb-6">
+                            "Civilization is a fragile parchment, held together by the ink of our shared discipline."
+                        </div>
+<div class="grid grid-cols-2 gap-4">
+<button class="bg-surface-container-highest py-4 mono-label hover:bg-primary hover:text-on-primary transition-colors duration-200">PARCHMENT</button>
+<button class="bg-surface-container-highest py-4 mono-label hover:bg-primary hover:text-on-primary transition-colors duration-200">DISCIPLINE</button>
+</div>
+</div>
+<p>
+                        Moving beyond the exordium, we enter the phase of <em>Narratio</em>. Here, the architect of speech must build a narrative foundation that can support the heavy structural steel of the <em>Confirmatio</em>. If the foundation is porous—built on sentiment rather than structural fact—the entire edifice of your argument will collapse under the weight of even a single scrutiny.
+                    </p>
+<!-- Visual Section with Image -->
+<div class="relative h-[400px] w-full my-16 overflow-hidden">
+<img alt="Brutalist concrete library interior with sharp angles and dramatic shadows" class="w-full h-full object-cover grayscale opacity-60" data-alt="Monolithic brutalist concrete architecture with sharp geometric angles, dramatic high-contrast shadows, and a solitary beam of natural light hitting a textured wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiTtHN0x5ysl1kkTclxF7Ae15aGnQNr3xrAuaJKKO2sRke4tAxqDeAR7XfiNpT0dPuajo-G5q919mzrfhO5J8KF68NmvnsY0a8TFpDcnytNIc14ZCPokTpOEpjF16-JFZzMylGs1Adgj5UEvLGCW-9sIGXssNzfWWxMfhlMhkG5FzdipFuajFJ0eMgcS_dPszL4nt5FL1lTPcGbabwck8Ei5jI6UHeGL0t_ihC4Mlwwxp9bvth6vDE8I3LZV3g0XBiKgS1YIqbRgSa"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-8 left-8 right-8">
+<h3 class="serif-display text-3xl font-bold">The Solid State</h3>
+<p class="mono-label text-xs uppercase tracking-widest text-primary">Spatial Rhetoric Case Study 04</p>
+</div>
+</div>
+</article>
+</section>
+<!-- Master's Notes Sidebar -->
+<aside class="w-full md:w-80 bg-surface-container-lowest p-8 border-l border-outline-variant/10">
+<div class="sticky top-28">
+<h2 class="mono-label text-sm font-bold tracking-[0.2em] text-[#FBEA7E] border-b border-[#FBEA7E]/20 pb-4 mb-8">MASTER'S_NOTES.TXT</h2>
+<div class="space-y-10">
+<div class="group">
+<div class="flex items-center justify-between mb-2">
+<span class="mono-label text-[10px] text-primary">PROTOCOL 01</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="record_voice_over">record_voice_over</span>
+</div>
+<h4 class="serif-display font-bold text-lg mb-2 group-hover:text-primary transition-colors">Cadence Control</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Ensure your terminal consonants are sharp. A 'T' or 'K' at the end of a sentence should sound like the closing of a vault door.</p>
+</div>
+<div class="group">
+<div class="flex items-center justify-between mb-2">
+<span class="mono-label text-[10px] text-primary">PROTOCOL 02</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="vocal_removes">remove</span>
+</div>
+<h4 class="serif-display font-bold text-lg mb-2 group-hover:text-primary transition-colors">Vocal Resonance</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Speak from the solar plexus. The resonance should vibrate in the listener's chest, not just their ears. Aim for a frequency of 110Hz.</p>
+</div>
+<div class="group">
+<div class="flex items-center justify-between mb-2">
+<span class="mono-label text-[10px] text-primary">PROTOCOL 03</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="visibility">visibility</span>
+</div>
+<h4 class="serif-display font-bold text-lg mb-2 group-hover:text-primary transition-colors">The Unblinking Gaze</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Hold eye contact for 1.5 seconds longer than comfortable. This asserts the weight of your presence as an immovable object.</p>
+</div>
+<!-- Progress Module -->
+<div class="bg-surface-container p-6 border-l-4 border-secondary">
+<div class="mono-label text-[10px] mb-4">MODULE RETENTION</div>
+<div class="flex items-end gap-1 h-12 mb-2">
+<div class="w-2 bg-primary-container h-full"></div>
+<div class="w-2 bg-primary-container h-[80%]"></div>
+<div class="w-2 bg-primary-container h-[90%]"></div>
+<div class="w-2 bg-primary h-[40%]"></div>
+<div class="w-2 bg-outline-variant h-[20%]"></div>
+</div>
+<div class="text-[10px] text-on-surface-variant">SYNC: 62.4%</div>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</div>
+<!-- BottomNavBar -->
+<footer class="md:hidden fixed bottom-0 w-full h-12 z-50 bg-[#0E0E0E] flex justify-around items-center px-4 border-t border-[#404943]/15">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-[#404943] text-lg" data-icon="sensors">sensors</span>
+<span class="font-mono text-[8px] tracking-tighter text-[#404943]">Latency: 12ms</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-[#93D5B0] text-lg" data-icon="psychology">psychology</span>
+<span class="font-mono text-[8px] tracking-tighter text-[#93D5B0]">Cognitive Sync: Active</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-[#404943] text-lg" data-icon="shield">shield</span>
+<span class="font-mono text-[8px] tracking-tighter text-[#404943]">Clearance: Level 4</span>
+</div>
+</footer>
+<!-- Desktop Bottom Status Bar (Simplified Version of BottomNavBar) -->
+<div class="hidden md:flex fixed bottom-0 w-full h-8 z-50 bg-[#131313] justify-end items-center px-8 border-t border-[#404943]/15 gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-[#404943]" data-icon="sensors">sensors</span>
+<span class="font-mono text-[10px] tracking-tighter text-[#404943]">LATENCY: 12MS</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-[#93D5B0]" data-icon="psychology">psychology</span>
+<span class="font-mono text-[10px] tracking-tighter text-[#93D5B0]">COGNITIVE SYNC: ACTIVE</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-[#404943]" data-icon="shield">shield</span>
+<span class="font-mono text-[10px] tracking-tighter text-[#404943]">CLEARANCE: LEVEL 4</span>
+</div>
+</div>
+</body></html>

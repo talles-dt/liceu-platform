@@ -1,0 +1,339 @@
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Space+Grotesk:wght@300;500;700&amp;family=Work+Sans:wght@300;400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#6c302e",
+            "primary-fixed-dim": "#93d5b0",
+            "surface-bright": "#3a3939",
+            "primary-fixed": "#aef1cc",
+            "surface-container-high": "#2a2a2a",
+            "on-secondary-container": "#fbea7e",
+            "surface-container-low": "#1c1b1b",
+            "surface-container-highest": "#353534",
+            "on-error": "#690005",
+            "on-primary-fixed-variant": "#075136",
+            "secondary-fixed-dim": "#d8c860",
+            "primary-container": "#004d32",
+            "tertiary-fixed-dim": "#ffb3af",
+            "secondary": "#d8c860",
+            "tertiary": "#ffb3af",
+            "outline-variant": "#404943",
+            "on-primary-container": "#7cbd9a",
+            "outline": "#89938c",
+            "on-primary": "#003823",
+            "error-container": "#93000a",
+            "on-secondary-fixed-variant": "#504700",
+            "tertiary-fixed": "#ffdad7",
+            "surface-dim": "#131313",
+            "inverse-primary": "#296a4c",
+            "error": "#ffb4ab",
+            "on-tertiary-fixed-variant": "#713432",
+            "primary": "#93d5b0",
+            "background": "#131313",
+            "on-surface": "#e5e2e1",
+            "surface-variant": "#353534",
+            "surface": "#131313",
+            "secondary-fixed": "#f5e479",
+            "secondary-container": "#756901",
+            "on-tertiary": "#551f1d",
+            "on-tertiary-container": "#ec9994",
+            "surface-container": "#201f1f",
+            "on-secondary": "#373100",
+            "on-error-container": "#ffdad6",
+            "surface-tint": "#93d5b0",
+            "inverse-on-surface": "#313030",
+            "on-primary-fixed": "#002113",
+            "on-tertiary-fixed": "#3a0a0a",
+            "surface-container-lowest": "#0e0e0e",
+            "inverse-surface": "#e5e2e1",
+            "on-background": "#e5e2e1",
+            "on-secondary-fixed": "#201c00",
+            "on-surface-variant": "#bfc9c1"
+          },
+          "borderRadius": {
+            "none": "0px",
+            "DEFAULT": "0px",
+            "lg": "0px",
+            "xl": "0px",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Noto Serif"],
+            "body": ["Work Sans"],
+            "label": ["Space Grotesk"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0e0e0e;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #404943;
+    }
+    .brutalist-grid {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(147, 213, 176, 0.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(147, 213, 176, 0.05) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body brutalist-grid min-h-screen">
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col z-40 bg-[#0E0E0E] dark:bg-[#0E0E0E] w-64 shadow-[0px_20px_50px_rgba(0,0,0,0.5)]">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="gavel">gavel</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-[#93D5B0] font-label">RHETORICAL CORE</h2>
+<p class="text-[10px] tracking-widest text-outline uppercase font-label">SYSTEM ACTIVE</p>
+</div>
+</div>
+<nav class="space-y-1">
+<!-- Active Tab: Exordium -->
+<a class="flex items-center gap-4 px-4 py-3 bg-[#004D32] text-[#7CBD9A] font-bold border-l-4 border-[#D8C860] translate-x-1 group transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="font-label uppercase tracking-widest text-xs">Exordium</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#89938C] hover:bg-[#201F1F] group transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label uppercase tracking-widest text-xs">Narratio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#89938C] hover:bg-[#201F1F] group transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="rebase_edit">rebase_edit</span>
+<span class="font-label uppercase tracking-widest text-xs">Partitio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#89938C] hover:bg-[#201F1F] group transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span class="font-label uppercase tracking-widest text-xs">Confirmatio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#89938C] hover:bg-[#201F1F] group transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="priority_high">priority_high</span>
+<span class="font-label uppercase tracking-widest text-xs">Peroratio</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 space-y-4">
+<button class="w-full bg-primary-container text-on-primary-container py-3 font-label text-xs font-bold tracking-tighter hover:bg-primary transition-colors duration-200">
+        INITIATE DISCOURSE
+      </button>
+<div class="space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 text-[#89938C] hover:bg-[#201F1F] text-xs font-label uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="settings">settings</span> Settings
+        </a>
+<a class="flex items-center gap-4 px-4 py-2 text-[#89938C] hover:bg-[#201F1F] text-xs font-label uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span> Log Out
+        </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- Top Bar -->
+<header class="bg-[#131313] flex justify-between items-center w-full px-8 py-6 border-l-4 border-[#93D5B0] sticky top-0 z-30">
+<h1 class="text-2xl font-bold tracking-tighter text-[#93D5B0] font-headline uppercase">THE ARCHIVE</h1>
+<div class="flex items-center gap-8">
+<div class="hidden md:flex gap-6 font-label text-xs uppercase tracking-widest">
+<a class="text-[#89938C] hover:text-[#93D5B0] transition-colors" href="#">Atrium</a>
+<a class="text-[#93D5B0] border-b-2 border-[#D8C860] pb-1" href="#">Training Grounds</a>
+<a class="text-[#89938C] hover:text-[#93D5B0] transition-colors" href="#">Scriptorium</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#89938C] cursor-pointer hover:text-primary transition-colors" data-icon="search">search</span>
+<div class="w-8 h-8 bg-surface-container-highest flex items-center justify-center border border-outline-variant/20 overflow-hidden">
+<img class="w-full h-full object-cover grayscale opacity-80" data-alt="portrait of a focused scholar with intense eyes in low dramatic lighting, dark academic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyuBse0R_75gYcnrkvnxiyZlzvL2yhJ9AUI8L1uinurbd7soEN9GvHyfpqo7iQh96NGx5Fv7UBtS-WjbWeUgU4b6SPyvIrGwElnYpDsPN037pzH1duWAPaH5gqfpSHiyWDA-kxwfLgTiHvbCr3uQkUTe7TISUrafNoILU9_0zpkzH_Mc4MFt81kJUygHjd1g5zMSk8YEX3xcWeIgOAMFzl850WgzGh1SGH32iZdk9U8zj1B2FOj4YtxF62F6pYYLQ_V1eZIoBKPrR-"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex-1 p-8 grid grid-cols-12 gap-6">
+<!-- LHS: Progress & System Status (The Monolith) -->
+<div class="col-span-12 lg:col-span-3 space-y-6">
+<div class="bg-surface-container-highest border-l-4 border-primary p-6">
+<p class="font-label text-[10px] uppercase tracking-[0.3em] text-primary mb-2">Operational Context</p>
+<h2 class="font-headline text-2xl font-bold leading-tight">DRILL TERMINAL: EXORDIUM</h2>
+<p class="text-sm text-outline mt-4 font-body leading-relaxed">Establish ethos and secure the audience's goodwill. Time is a resource; precision is the weapon.</p>
+</div>
+<div class="bg-surface-container p-6 space-y-8">
+<div>
+<div class="flex justify-between items-end mb-3">
+<p class="font-label text-[10px] uppercase tracking-widest text-outline">Speech Phase</p>
+<p class="font-label text-xs text-secondary">20% Complete</p>
+</div>
+<div class="h-1 bg-surface-container-lowest w-full relative">
+<div class="absolute left-0 top-0 h-full bg-secondary w-1/5 shadow-[0_0_10px_rgba(216,200,96,0.3)]"></div>
+</div>
+<ul class="mt-6 space-y-4 font-label text-[10px] uppercase tracking-widest">
+<li class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+                Exordium (Active)
+              </li>
+<li class="flex items-center gap-3 text-outline/40">
+<span class="material-symbols-outlined text-xs" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+                Narratio
+              </li>
+<li class="flex items-center gap-3 text-outline/40">
+<span class="material-symbols-outlined text-xs" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+                Confirmatio
+              </li>
+<li class="flex items-center gap-3 text-outline/40">
+<span class="material-symbols-outlined text-xs" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+                Peroratio
+              </li>
+</ul>
+</div>
+<div class="border-t border-outline-variant/10 pt-6">
+<p class="font-label text-[10px] uppercase tracking-widest text-outline mb-4">Prompt Parameters</p>
+<div class="space-y-3">
+<div class="flex justify-between text-xs">
+<span class="text-outline">Mode:</span>
+<span class="text-on-surface font-label">High-Stakes</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-outline">Target:</span>
+<span class="text-on-surface font-label">The Senate</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-outline">Constraint:</span>
+<span class="text-on-surface font-label">No Anaphora</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CENTER: The Terminal -->
+<div class="col-span-12 lg:col-span-6 flex flex-col space-y-6">
+<!-- Timer & HUD -->
+<div class="bg-surface-container-lowest p-4 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 bg-error animate-pulse"></div>
+<p class="font-label text-xs uppercase tracking-widest text-error">Recording Discourse...</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="timer">timer</span>
+<span class="font-label text-2xl font-bold text-secondary tracking-tighter">04:52</span>
+</div>
+</div>
+<!-- Central Terminal Input -->
+<div class="flex-1 bg-surface-container relative p-8 group">
+<div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-primary/30"></div>
+<div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-primary/30"></div>
+<div class="h-full flex flex-col">
+<div class="mb-6">
+<span class="font-label text-[10px] uppercase tracking-widest text-primary/60 block mb-2">Source Material</span>
+<p class="font-headline text-lg italic text-on-surface-variant border-l border-outline-variant/30 pl-4 py-2">
+                "The shadows of the past must not lengthen over our future. Begin your appeal by establishing your authority as a guardian of the Archive."
+              </p>
+</div>
+<textarea class="w-full flex-1 bg-transparent border-none focus:ring-0 font-body text-xl leading-relaxed text-on-surface placeholder:text-outline/20 resize-none custom-scrollbar" placeholder="Commence your transcription here..."></textarea>
+<div class="mt-6 pt-6 border-t border-outline-variant/10 flex justify-between items-center">
+<p class="font-label text-[10px] text-outline uppercase">428 Characters | 64 Words</p>
+<button class="bg-primary text-on-primary px-8 py-3 font-label text-xs font-black tracking-widest hover:bg-primary-fixed-dim transition-all active:scale-95">
+                SUBMIT TRANSCRIPT
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- RHS: Indicators & Live Metrics -->
+<div class="col-span-12 lg:col-span-3 space-y-6">
+<!-- Metric: Syntactic Precision -->
+<div class="bg-surface-container p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 opacity-5">
+<span class="material-symbols-outlined text-8xl" data-icon="architecture">architecture</span>
+</div>
+<p class="font-label text-[10px] uppercase tracking-widest text-outline mb-4">Syntactic Precision</p>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-4xl font-label font-bold text-primary">88</span>
+<span class="text-xs text-primary/60 mb-1">/100</span>
+</div>
+<div class="flex gap-1 h-8 items-end">
+<div class="w-full bg-primary h-4"></div>
+<div class="w-full bg-primary h-6"></div>
+<div class="w-full bg-primary h-5"></div>
+<div class="w-full bg-primary h-8"></div>
+<div class="w-full bg-primary h-7"></div>
+<div class="w-full bg-surface-container-highest h-2"></div>
+<div class="w-full bg-surface-container-highest h-4"></div>
+</div>
+<p class="text-[10px] font-body text-outline mt-4 italic">Stable parallelism detected in clause structures.</p>
+</div>
+<!-- Metric: Logical Strength -->
+<div class="bg-surface-container p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 opacity-5">
+<span class="material-symbols-outlined text-8xl" data-icon="account_tree">account_tree</span>
+</div>
+<p class="font-label text-[10px] uppercase tracking-widest text-outline mb-4">Logical Strength</p>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-4xl font-label font-bold text-secondary">62</span>
+<span class="text-xs text-secondary/60 mb-1">/100</span>
+</div>
+<div class="grid grid-cols-5 gap-1 h-2">
+<div class="bg-secondary"></div>
+<div class="bg-secondary"></div>
+<div class="bg-secondary"></div>
+<div class="bg-surface-container-highest"></div>
+<div class="bg-surface-container-highest"></div>
+</div>
+<p class="text-[10px] font-body text-error mt-4 italic">Warning: Premise 2 lacks sufficient evidentiary grounding.</p>
+</div>
+<!-- System Logs -->
+<div class="bg-surface-container-lowest p-6 flex-1">
+<p class="font-label text-[10px] uppercase tracking-widest text-outline mb-4">Archive Logs</p>
+<div class="space-y-4 font-label text-[9px] tracking-tight text-outline/60 leading-tight">
+<div class="flex gap-3">
+<span class="text-primary">[14:02]</span>
+<span>SYNTAX ANALYZER INITIALIZED</span>
+</div>
+<div class="flex gap-3">
+<span class="text-primary">[14:03]</span>
+<span>USER BEGAN TRANSCRIPTION PHASE 1</span>
+</div>
+<div class="flex gap-3">
+<span class="text-secondary">[14:05]</span>
+<span>DETECTION: HEAVY USE OF PASSIVE VOICE</span>
+</div>
+<div class="flex gap-3">
+<span class="text-outline">[14:07]</span>
+<span>RECALIBRATING ETHOS METRIC...</span>
+</div>
+</div>
+</div>
+<div class="bg-tertiary-container/20 p-4 border-l-4 border-tertiary">
+<p class="text-[10px] font-label text-tertiary uppercase tracking-widest font-bold">Threat Level: High</p>
+<p class="text-[10px] font-body text-on-tertiary-container mt-1">Mistakes in the Exordium will permanently reduce your 'Audience Goodwill' cap for this session.</p>
+</div>
+</div>
+</div>
+<!-- Footer Aesthetic -->
+<footer class="mt-auto px-8 py-4 bg-surface-container-lowest flex justify-between items-center text-[10px] font-label tracking-widest text-outline/40">
+<div>LIC_CORE_V.2.0.4 // SYSTEM_STATUS: NOMINAL</div>
+<div class="flex gap-6">
+<span>ENCRYPTION: AES-BRUTAL</span>
+<span>LATENCY: 14MS</span>
+<span>© THE ARCHIVE 2024</span>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB (Only on specific screens, suppressed here by intent logic if needed, but keeping for discourse focus) -->
+<button class="fixed bottom-12 right-12 w-16 h-16 bg-secondary text-on-secondary shadow-2xl flex items-center justify-center group hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-3xl font-variation-settings: 'FILL' 1;" data-icon="record_voice_over" style="font-variation-settings: 'FILL' 1;">record_voice_over</span>
+</button>
+</body></html>

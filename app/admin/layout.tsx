@@ -23,7 +23,7 @@ export default async function AdminLayout({
   const { data: profile } = await supabase
     .from("users")
     .select("role")
-    .eq("id", user.id)
+    .eq("id" as never, user.id)
     .maybeSingle();
 
   const envAdmins = (process.env.ADMIN_EMAILS ?? "")

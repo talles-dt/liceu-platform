@@ -1,0 +1,122 @@
+# Design System & CSS Specification: The Verdant Scriptorium
+
+This document defines the precise visual and technical implementation for **Liceu Underground**, a platform of intellectual grit and rhetorical discipline.
+
+## 1. Creative North Star: "The Brutalist Archive"
+The aesthetic is a collision between a medieval scriptorium and an industrial command center. It must feel ancient, solid, and technically rigorous.
+
+---
+
+## 2. Core Color Palette (CSS Variables)
+
+```css
+:root {
+  /* Primary Neutrals */
+  --color-base-black: #0A0A0A;       /* Deepest background */
+  --color-surface-dark: #131313;     /* Secondary surfaces / Cards */
+  --color-surface-raised: #1C1B1B;   /* Active nav / Headers */
+  
+  /* The Verdant Core */
+  --color-primary-verdant: #004D32;  /* Deep Leaf Green (The Load) */
+  --color-primary-light: #7CBD9A;    /* For readability on green */
+  --color-accent-emerald: #00A86B;   /* For "Success" or "Optimal" states */
+  
+  /* Functional Colors */
+  --color-text-authoritative: #E5E2E1; /* Primary Typography */
+  --color-text-muted: #89938C;       /* Secondary / Technical labels */
+  --color-border-subtle: #404943;    /* 15% opacity dividers */
+  --color-critical-red: #D32F2F;     /* Fallacies / Stress / Alerts */
+  --color-gold-accent: #D8C860;      /* For "Theorum" or high-rank markers */
+}
+```
+
+---
+
+## 3. Typography Strategy
+
+### **Headlines (The Authority)**
+- **Font:** `Noto Serif`, `Georgia`, serif
+- **Style:** Bold, tracking-tighter
+- **CSS:**
+```css
+h1, h2, .text-headline {
+  font-family: 'Noto Serif', serif;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--color-text-authoritative);
+  text-transform: uppercase; /* For main headers */
+}
+```
+
+### **Technical Data & UI Labels (The Terminal)**
+- **Font:** `Roboto Mono`, `Space Grotesk`, monospace
+- **Style:** All-caps, tracking-widest
+- **CSS:**
+```css
+.text-label, .text-mono {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+```
+
+---
+
+## 4. Textures & Surfaces
+
+### **The "Parchment" Overlay**
+To avoid a flat digital look, a subtle grain or parchment texture should be applied to primary containers at 5% opacity.
+
+```css
+.surface-scriptorium {
+  background-color: var(--color-surface-dark);
+  background-image: url('https://www.transparenttextures.com/patterns/black-linen.png'); /* Or similar subtle grain */
+  border: 1px solid var(--color-border-subtle);
+}
+```
+
+### **The "Load" Bar (Progress Tracking)**
+Used for "Intellectual Load" and "Logic Cohesion" charts.
+
+```css
+.progress-container {
+  height: 4px;
+  background: var(--color-surface-raised);
+}
+.progress-fill {
+  background: var(--color-primary-verdant);
+  box-shadow: 0 0 15px rgba(0, 77, 50, 0.4);
+}
+```
+
+---
+
+## 5. Global Layout Structure
+
+1.  **Sidebar (The Archive Nave):** Width: 260px. Fixed. Background: `var(--color-surface-raised)`. 
+2.  **Top Bar (The Lexicon):** Height: 64px. Fixed. Background: `var(--color-base-black)` with bottom border.
+3.  **Main Viewport:** Background: `var(--color-base-black)`. Content centered or left-aligned depending on page type (Landing vs. Terminal).
+
+---
+
+## 6. Interaction Model
+
+- **Hover States:** Transition from `var(--color-text-muted)` to `var(--color-primary-light)` over 150ms.
+- **Active Navigation:** Left border 4px wide, color: `var(--color-primary-verdant)`, background: `var(--color-surface-dark)`.
+- **Button (The Directive):**
+  - Solid: `var(--color-primary-verdant)` with `var(--color-text-authoritative)`.
+  - Outline: 1px border `var(--color-primary-verdant)`, no fill.
+
+---
+
+## 7. Responsive Breakpoints
+
+- **Desktop (Standard):** 1440px
+- **Terminal View:** Optimized for 1920px (The Arena)
+- **Mobile (Emergency Access):** 375px (Focus on text-only 'Cables')
+
+---
+
+*End of Specification*
