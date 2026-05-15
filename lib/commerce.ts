@@ -13,12 +13,17 @@ export function getCommerceConfig() {
     process.env.NEXT_PUBLIC_STRIPE_PRICE_MENTORING ??
     process.env.STRIPE_PRICE_MENTORING ??
     "";
+  const mentoringProgramPriceId =
+    process.env.MENTORING_PROGRAM_PRICE_ID ??
+    process.env.STRIPE_PRICE_MENTORING_INTERVIEW ??
+    "";
 
   return {
     courseId,
     ebookPriceId,
     videoPriceId,
     mentoringPriceId,
+    mentoringProgramPriceId, // Added
     webhookSecret,
   };
 }
