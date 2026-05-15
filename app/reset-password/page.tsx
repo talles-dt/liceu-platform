@@ -9,7 +9,7 @@ export default function ResetPasswordPage({
 }: {
   searchParams: { [key: string]: string };
 }) {
-  const supabase = createSupabaseClient();
+  const supabase = createSupabaseBrowserClient();
   const router = useRouter();
   const [code, setCode] = useState<string | null>(null);
   const [password, setPassword] = useState("");
