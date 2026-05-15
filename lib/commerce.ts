@@ -1,5 +1,4 @@
 export function getCommerceConfig() {
-export function getCommerceConfig() {
   const courseId = process.env.NEXT_PUBLIC_COURSE_ID ?? process.env.COURSE_ID ?? "";
   const ebookCourseId = process.env.EBOOK_COURSE_ID ?? "";
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET ?? "";
