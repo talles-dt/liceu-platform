@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { ReadingLayout } from "@/components/ReadingLayout";
-import { Spinner } from "@/components/Spinner";
+const Spinner = () => (
+  <div className="animate-spin inline-block w-6 h-6 border-stone-400 border-b-transparent rounded-full"></div>
+);
 
 export default function ResetPasswordPage({
   searchParams,
