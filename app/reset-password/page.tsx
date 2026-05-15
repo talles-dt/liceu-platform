@@ -38,6 +38,7 @@ export default function ResetPasswordPage({
   async function verifyCode(token: string) {
     const { error } = await supabase.auth.verifyOtp({
       type: "recovery",
+      email: "", // Supabase now requires email for recovery OTP
       token,
     });
     if (error) {
