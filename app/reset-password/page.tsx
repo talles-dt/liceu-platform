@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import { ReadingLayout } from "@/components/ReadingLayout";
+import { Spinner } from "@/components/Spinner";
 
 export default function ResetPasswordPage({
   searchParams,
