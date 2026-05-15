@@ -1,5 +1,10 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "@/lib/database.types";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SafeClient = SupabaseClient<any, string, any>;
 
 type CookieOptions = {
   domain?: string;
@@ -11,7 +16,7 @@ type CookieOptions = {
   secure?: boolean;
 };
 
-export async function createSupabaseServerClient() {
+export async function createSupabaseServerClient(): Promise<SafeClient> {
   const cookieStore = await cookies();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -21,19 +26,42 @@ export async function createSupabaseServerClient() {
     throw new Error("Supabase environment variables are not configured.");
   }
 
-  return createServerClient(supabaseUrl, supabaseAnonKey, {
+  // Production-ready cookie settings (no domain)
+  const cookieOptions: CookieOptions = {
+    path: "/",
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+    // Remove domain to support:
+    // - localhost
+    // - preview deployments (Vercel)
+    // - email links opened in different contexts
+    // domain: process.env.NODE_ENV === "production" 
+    //   ? ".oliceu.com"
+    //   : undefined,
+  };
+
+  return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
     cookies: {
       get(name: string) {
         return cookieStore.get(name)?.value;
       },
       set(name: string, value: string, options: CookieOptions) {
-        cookieStore.set({ name, value, ...options });
+        try {
+          cookieStore.set({ name, value, ...cookieOptions, ...options });
+        } catch (error) {
+          console.error(`[supabaseServer] Failed to set cookie ${name}`, error);
+        }
       },
       remove(name: string, options: CookieOptions) {
-        cookieStore.set({ name, value: "", ...options, maxAge: 0 });
+        try {
+          cookieStore.set({ name, value: "", ...cookieOptions, ...options, maxAge: 0 });
+        } catch (error) {
+          console.error(`[supabaseServer] Failed to remove cookie ${name}`, error);
+        }
       },
     },
-  });
+  }) as SafeClient;
 }
 
 export async function getCurrentUser() {

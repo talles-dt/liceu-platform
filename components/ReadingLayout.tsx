@@ -18,16 +18,16 @@ export function ReadingLayout({
   return (
     <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)]">
       <div className="mx-auto min-h-screen max-w-5xl px-6 py-10 md:px-10">
-        <header className="mb-10 flex items-start justify-between gap-8 border-b border-[var(--liceu-stone)]/70 pb-6">
+        <header className="mb-10 flex items-start justify-between gap-8 border-b border-[var(--liceu-stone)] pb-6">
           <div className="space-y-3">
-            <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+            <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-accent)]">
               {eyebrow}
             </div>
-            <h1 className="max-w-[var(--liceu-maxw)] font-serif text-[28px] leading-[1.35] tracking-tight">
+            <h1 className="max-w-[var(--liceu-maxw)] font-[var(--font-noto-serif)] text-[32px] leading-[1.2] tracking-tight uppercase">
               {title}
             </h1>
             {subtitle && (
-              <p className="max-w-[var(--liceu-maxw)] font-[var(--font-liceu-sans)] text-sm leading-relaxed text-[var(--liceu-muted)]">
+              <p className="max-w-[var(--liceu-maxw)] font-[var(--font-work-sans)] text-sm leading-relaxed text-[var(--liceu-muted)]">
                 {subtitle}
               </p>
             )}

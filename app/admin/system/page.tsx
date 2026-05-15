@@ -1,22 +1,16 @@
-import { DataTable } from "@/components/admin/DataTable";
 import { MetricBlock } from "@/components/admin/MetricBlock";
 import { ChartContainer } from "@/components/admin/ChartContainer";
-import { createSupabaseServerClient } from "@/lib/supabaseServer";
-
-type LogRow = {
-  ts: string;
-  actor: string;
-  action: string;
-  target: string;
-};
+import { SystemLogsTable, type LogRow } from "@/components/admin/tables/SystemLogsTable";
+import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
 export default async function AdminSystemPage() {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseAdminClient();
 
-  const [{ data: users }, { data: progress }, { data: sessions }] = await Promise.all([
+  const [{ data: users }, { data: progress }, { data: sessions }, { data: logsData }] = await Promise.all([
     supabase.from("users").select("id").limit(10000),
     supabase.from("module_progress").select("user_id, updated_at").limit(10000),
-    supabase.from("mentorship_sessions").select("id").limit(1), // existence probe
+    supabase.from("mentorship_sessions").select("id").limit(1),
+    supabase.from("system_logs").select("ts, actor, action, target").order("ts", { ascending: false }).limit(50),
   ]);
 
   const totalUsers = (users as unknown as { id: string }[])?.length ?? 0;
@@ -24,7 +18,6 @@ export default async function AdminSystemPage() {
   const progressRows =
     (progress as unknown as { user_id: string; updated_at?: string | null }[]) ?? [];
 
-  // Reference time derived from data (keeps render deterministic).
   const referenceMs = progressRows.reduce((max, r) => {
     const t = r.updated_at ? new Date(r.updated_at).getTime() : NaN;
     if (!Number.isFinite(t)) return max;
@@ -45,38 +38,23 @@ export default async function AdminSystemPage() {
 
   const mentorshipTable = Array.isArray(sessions) ? "present" : "unknown";
 
-  // Minimal local "logs" (until an audit table exists).
-  const logs: LogRow[] = [
-    {
-      ts: "—",
-      actor: "system",
-      action: "render",
-      target: "/admin/system",
-    },
-    {
-      ts: "—",
-      actor: "system",
-      action: "probe",
-      target: "module_progress",
-    },
-    {
-      ts: "—",
-      actor: "system",
-      action: "probe",
-      target: "users",
-    },
-  ];
+  const logs: LogRow[] = (logsData as unknown as { ts?: string | null; actor: string; action: string; target?: string | null }[] | null)?.map((r) => ({
+    ts: r.ts?.slice(0, 19).replace("T", " ") ?? "—",
+    actor: r.actor,
+    action: r.action,
+    target: r.target ?? "—",
+  })) ?? [];
 
   return (
     <div className="p-4 md:p-6">
       <header className="border-b border-[var(--liceu-stone)]/70 pb-4">
-        <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+        <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
           /admin/system
         </div>
-        <div className="mt-2 font-serif text-[22px] leading-tight text-[var(--liceu-text)]">
+        <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] leading-tight text-[var(--liceu-text)]">
           System state
         </div>
-        <div className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
+        <div className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
           Minimal UI. Pure function. Health, counts, and action logs.
         </div>
       </header>
@@ -104,12 +82,12 @@ export default async function AdminSystemPage() {
             ].map((r) => (
               <div
                 key={r.k}
-                className="flex items-baseline justify-between gap-4 border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-4 py-3"
+                className="flex items-baseline justify-between gap-4 border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-4 py-3"
               >
-                <div className="font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+                <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                   {r.k}
                 </div>
-                <div className="font-[var(--font-liceu-mono)] text-[12px] tabular-nums text-[var(--liceu-text)]">
+                <div className="font-[var(--font-space-grotesk)] text-[12px] tabular-nums text-[var(--liceu-text)]">
                   {r.v}
                 </div>
               </div>
@@ -121,51 +99,9 @@ export default async function AdminSystemPage() {
           title="Operator logs"
           subtitle="Replace with an audit table when available."
         >
-          <DataTable
-            rows={logs}
-            rowKey={(r) => `${r.ts}-${r.action}-${r.target}`}
-            columns={[
-              {
-                key: "ts",
-                header: "ts",
-                render: (r) => (
-                  <span className="font-[var(--font-liceu-mono)] tabular-nums text-[var(--liceu-muted)]">
-                    {r.ts}
-                  </span>
-                ),
-              },
-              {
-                key: "actor",
-                header: "actor",
-                render: (r) => (
-                  <span className="font-[var(--font-liceu-mono)] text-[11px]">
-                    {r.actor}
-                  </span>
-                ),
-              },
-              {
-                key: "action",
-                header: "action",
-                render: (r) => (
-                  <span className="font-[var(--font-liceu-mono)] text-[11px]">
-                    {r.action}
-                  </span>
-                ),
-              },
-              {
-                key: "target",
-                header: "target",
-                render: (r) => (
-                  <span className="font-[var(--font-liceu-mono)] text-[11px] text-[var(--liceu-text)]">
-                    {r.target}
-                  </span>
-                ),
-              },
-            ]}
-          />
+          <SystemLogsTable rows={logs} />
         </ChartContainer>
       </div>
     </div>
   );
 }
-

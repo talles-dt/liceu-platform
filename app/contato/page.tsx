@@ -8,12 +8,12 @@ export default function ContatoPage() {
       title="Contato"
       subtitle="Canal único. Respostas sóbrias."
     >
-      <div className="space-y-4 font-serif text-[15px] leading-[1.95] text-[var(--liceu-text)]">
+      <div className="space-y-4 font-[var(--font-noto-serif)] text-[15px] leading-[1.95] text-[var(--liceu-text)]">
         <p>
           Envie um email para{" "}
           <Link
             href="mailto:contato@liceu.example"
-            className="underline decoration-[var(--liceu-stone)] underline-offset-4 hover:decoration-[var(--liceu-accent)]"
+            className="underline decoration-[var(--liceu-stone)] underline-offset-4 hover:decoration-[var(--liceu-secondary)]"
           >
             contato@liceu.example
           </Link>

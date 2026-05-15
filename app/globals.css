@@ -1,15 +1,101 @@
 @import "tailwindcss";
 
+@theme {
+  /* Colors - Verdant Scriptorium Design System (Material 3 Dark) */
+  --color-primary: #93d5b0;
+  --color-primary-container: #004D32;
+  --color-primary-light: #7CBD9A;
+  --color-accent-emerald: #00A86B;
+  
+  --color-secondary: #d8c860;
+  --color-secondary-container: #756901;
+  
+  --color-tertiary: #ffb3af;
+  --color-error: #ffb4ab;
+  --color-critical: #D32F2F;
+  
+  /* Surface Elevation (Material 3) */
+  --color-base-black: #0A0A0A;
+  --color-surface: #131313;
+  --color-surface-dark: #131313;
+  --color-surface-raised: #1C1B1B;
+  --color-surface-container: #201F1F;
+  --color-surface-container-low: #1a1919;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353534;
+  
+  /* Outlines & Borders */
+  --color-outline: #89938c;
+  --color-outline-variant: #404943;
+  --color-border-subtle: #404943;
+  
+  /* Text Colors */
+  --color-text-authoritative: #E5E2E1;
+  --color-text-muted: #89938C;
+  --color-on-primary: #003D27;
+  --color-on-primary-container: #E5E2E1;
+  --color-on-secondary: #3d3600;
+  --color-on-secondary-container: #E5E2E1;
+  
+  /* Legacy Aliases */
+  --color-liceu-bg: #0A0A0A;
+  --color-liceu-neutral: #0A0A0A;
+  --color-liceu-surface: #131313;
+  --color-liceu-text: #E5E2E1;
+  --color-liceu-muted: #89938C;
+  --color-liceu-accent: #93d5b0;
+  --color-liceu-stone: #404943;
+  --color-liceu-primary: #004D32;
+  --color-liceu-secondary: #d8c860;
+  --color-liceu-on-primary: #E5E2E1;
+
+  /* Spacing */
+  --spacing-liceu: 2;
+
+  /* Border Radius - BRUTALIST: Zero everywhere */
+  --radius-liceu: 0;
+
+  /* Fonts */
+  --font-noto-serif: var(--font-noto-serif);
+  --font-work-sans: var(--font-work-sans);
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-roboto-mono: var(--font-roboto-mono);
+  --font-serif: var(--font-noto-serif), Georgia, serif;
+  --font-sans: var(--font-work-sans), system-ui, sans-serif;
+  --font-mono: var(--font-space-grotesk), var(--font-roboto-mono), monospace;
+}
+
 :root {
-  /* Liceu Underground identity */
-  --liceu-bg: #0f0f0f;
-  --liceu-surface: #1a1a1a;
-  --liceu-text: #eaeaea;
-  --liceu-muted: #a1a1a1;
-  --liceu-accent: #c6a96b; /* subtle gold */
-  --liceu-stone: #2f2f2f;
+  /* Liceu Design System - Verdant Scriptorium (Material 3 Dark) */
+  --liceu-primary: #004D32;
+  --liceu-secondary: #d8c860;
+  --liceu-neutral: #0A0A0A;
+
+  /* Surface Elevation (Material 3) */
+  --liceu-primary-container: #004D32;
+  --liceu-secondary-container: #756901;
+  --liceu-surface-container: #201F1F;
+  --liceu-surface-container-low: #1a1919;
+  --liceu-surface-container-lowest: #0A0A0A;
+  --liceu-surface-container-high: #2a2a2a;
+  --liceu-surface-container-highest: #353534;
+
+  /* Legacy compatibility */
+  --liceu-bg: #0A0A0A;
+  --liceu-surface: #131313;
+  --liceu-text: #E5E2E1;
+  --liceu-muted: #89938C;
+  --liceu-accent: #93d5b0;
+  --liceu-stone: #404943;
 
   --liceu-maxw: 720px;
+
+  /* Spacing unit: 2 (Normal) */
+  --liceu-spacing: 2;
+
+  /* Border radius: 0 (Sharp, angular - BRUTALIST) */
+  --liceu-radius: 0;
+
   color-scheme: dark;
 }
 
@@ -31,10 +117,24 @@ body {
   color: var(--liceu-text);
 }
 
-/* Typography defaults */
+/* Typography defaults - Verdant Scriptorium */
 body {
-  font-family: var(--font-liceu-sans), system-ui, -apple-system, "Segoe UI",
+  font-family: var(--font-work-sans), system-ui, -apple-system, "Segoe UI",
     sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-noto-serif), Georgia, serif;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+/* Terminal/Technical labels */
+label, .label, small, .text-xs, .text-\[10px\], .text-\[11px\], .text-\[12px\] {
+  font-family: var(--font-space-grotesk), var(--font-roboto-mono), monospace;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 a {
@@ -49,5 +149,133 @@ textarea {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--liceu-accent) 35%, transparent);
+  background: color-mix(in oklab, var(--liceu-accent) 30%, transparent);
+}
+
+/* Verdant Scriptorium Utilities */
+.surface-scriptorium {
+  background-color: var(--liceu-surface);
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  border: 1px solid var(--liceu-stone);
+}
+
+.progress-verdant {
+  height: 4px;
+  background: var(--liceu-surface-raised);
+}
+
+.progress-verdant-fill {
+  background: var(--liceu-primary);
+  box-shadow: 0 0 15px rgba(0, 77, 50, 0.4);
+}
+
+.text-headline {
+  font-family: var(--font-noto-serif);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--liceu-text);
+}
+
+.text-label {
+  font-family: var(--font-space-grotesk), var(--font-roboto-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--liceu-muted);
+}
+
+.grayscale-image {
+  filter: grayscale(100%) contrast(125%);
+  opacity: 0.4;
+  transition: all 150ms ease;
+}
+
+.grayscale-image:hover {
+  filter: grayscale(0%) contrast(100%);
+  opacity: 0.6;
+}
+
+/* BRUTALIST: Enforce zero border-radius globally */
+*, *::before, *::after {
+  border-radius: 0 !important;
+}
+
+/* Markdown prose styles for blog posts */
+.prose-liceu {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  line-height: 2;
+  color: var(--liceu-text);
+}
+
+.prose-liceu p {
+  margin: 0 0 1.4em;
+}
+
+.prose-liceu h2 {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.35;
+  margin: 2em 0 0.6em;
+  color: var(--liceu-text);
+}
+
+.prose-liceu h3 {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 1.6em 0 0.5em;
+  color: var(--liceu-text);
+}
+
+.prose-liceu strong {
+  font-weight: 600;
+  color: var(--liceu-text);
+}
+
+.prose-liceu em {
+  font-style: italic;
+}
+
+.prose-liceu blockquote {
+  border-left: 2px solid color-mix(in oklab, var(--liceu-accent) 45%, transparent);
+  margin: 1.6em 0;
+  padding: 0 0 0 1.2em;
+  color: var(--liceu-muted);
+}
+
+.prose-liceu ul,
+.prose-liceu ol {
+  margin: 0 0 1.4em;
+  padding-left: 1.4em;
+}
+
+.prose-liceu li {
+  margin-bottom: 0.4em;
+}
+
+.prose-liceu hr {
+  border: none;
+  border-top: 1px solid var(--liceu-stone);
+  margin: 2.4em 0;
+}
+
+.prose-liceu a {
+  color: var(--liceu-text);
+  text-decoration: underline;
+  text-decoration-color: var(--liceu-stone);
+  text-underline-offset: 4px;
+}
+
+.prose-liceu a:hover {
+  text-decoration-color: var(--liceu-accent);
+}
+
+.prose-liceu code {
+  font-family: var(--font-liceu-mono), monospace;
+  font-size: 13px;
+  background: var(--liceu-surface);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
 }

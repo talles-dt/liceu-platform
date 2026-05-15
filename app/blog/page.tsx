@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ReadingLayout } from "@/components/ReadingLayout";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { POSTS } from "@/lib/blog";
 
 export default function BlogIndexPage() {
@@ -17,11 +18,11 @@ export default function BlogIndexPage() {
                 <div className="flex flex-wrap items-baseline justify-between gap-4">
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="font-serif text-[18px] text-[var(--liceu-text)] underline decoration-[var(--liceu-stone)] underline-offset-4 hover:decoration-[var(--liceu-accent)]"
+                    className="font-[var(--font-noto-serif)] text-[18px] text-[var(--liceu-text)] underline decoration-[var(--liceu-stone)] underline-offset-4 hover:decoration-[var(--liceu-secondary)]"
                   >
                     {post.title}
                   </Link>
-                  <div className="font-[var(--font-liceu-mono)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
+                  <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)]">
                     {post.date}
                   </div>
                 </div>
@@ -29,6 +30,8 @@ export default function BlogIndexPage() {
             ))}
           </ul>
         </div>
+
+        <NewsletterSignup />
       </div>
     </ReadingLayout>
   );

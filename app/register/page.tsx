@@ -26,7 +26,7 @@ export default function RegisterPage() {
         setError(signUpError.message);
         return;
       }
-      window.location.href = "/dashboard";
+      window.location.href = "/onboarding";
     } catch {
       setError("Unable to create account. Please try again.");
     } finally {
@@ -46,34 +46,40 @@ export default function RegisterPage() {
           className="space-y-5 border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-5 py-5"
         >
           <div className="space-y-2">
-            <label className="block font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+            <label htmlFor="register-email" className="block font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
               Email
             </label>
             <input
+              id="register-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full rounded-sm border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-3 py-2 font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-text)] outline-none focus-visible:ring-1 focus-visible:ring-[var(--liceu-accent)]/55"
+              className="w-full rounded-sm border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-3 py-2 font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] outline-none focus-visible:ring-1 focus-visible:ring-[var(--liceu-secondary)]/55"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="block font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+            <label htmlFor="register-password" className="block font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
               Senha
             </label>
             <input
+              id="register-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full rounded-sm border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-3 py-2 font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-text)] outline-none focus-visible:ring-1 focus-visible:ring-[var(--liceu-accent)]/55"
+              minLength={6}
+              className="w-full rounded-sm border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-3 py-2 font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] outline-none focus-visible:ring-1 focus-visible:ring-[var(--liceu-secondary)]/55"
             />
+            <p className="font-[var(--font-work-sans)] text-[10px] text-[var(--liceu-muted)]">
+              Mínimo 6 caracteres.
+            </p>
           </div>
 
           {error && (
             <p
-              className="border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-3 py-2 font-[var(--font-liceu-sans)] text-xs text-[var(--liceu-muted)]"
+              className="border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-3 py-2 font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]"
               role="alert"
             >
               {error}
@@ -87,11 +93,11 @@ export default function RegisterPage() {
           </div>
         </form>
 
-        <p className="font-[var(--font-liceu-sans)] text-[11px] text-[var(--liceu-muted)]">
+        <p className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
           Já tem conta?{" "}
           <Link
             href="/login"
-            className="text-[var(--liceu-text)] underline decoration-[var(--liceu-muted)] underline-offset-4 hover:decoration-[var(--liceu-accent)]"
+            className="text-[var(--liceu-text)] underline decoration-[var(--liceu-muted)] underline-offset-4 hover:decoration-[var(--liceu-secondary)]"
           >
             Entrar
           </Link>

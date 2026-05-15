@@ -1,20 +1,21 @@
 "use client";
 
 type Props = {
-  url: string;
-  title?: string;
+  url?: string;
 };
 
-export function TypebotEmbed({ url, title = "Diagnóstico (Typebot)" }: Props) {
+export function TypebotEmbed({ url }: Props) {
+  const src = url || "https://typebot.co/diag-liceu-v2-vmc59ej";
+  
   return (
-    <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-bg)]">
+    <div className="border border-[var(--liceu-stone)]">
       <iframe
-        src={url}
-        title={title}
-        className="h-[72vh] w-full"
+        title="Typebot"
+        src={src}
+        style={{ border: "none", width: "100%", height: "600px" }}
         allow="microphone; clipboard-read; clipboard-write"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
       />
     </div>
   );
 }
-

@@ -5,16 +5,17 @@ import { getCommerceConfig } from "@/lib/commerce";
 import { ensureCourseProgressForUserAdmin } from "@/lib/provisioning";
 import { recordPurchaseAdmin, type PurchaseKind } from "@/lib/purchases";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
+import {
+  sendAccessReadyEmail,
+  sendInterviewSchedulingEmail,
+} from "@/lib/email";
 
 export async function POST(req: Request) {
   const stripe = getStripeClient();
-  const { webhookSecret } = getCommerceConfig();
-  const adminSupabase = createSupabaseAdminClient(); // ðŸ‘ˆ Added
+  const { webhookSecret, calInterviewLink } = getCommerceConfig();
+
   if (!webhookSecret) {
-    return NextResponse.json(
-      { error: "Missing STRIPE_WEBHOOK_SECRET" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Missing STRIPE_WEBHOOK_SECRET" }, { status: 500 });
   }
 
   const signature = (await headers()).get("stripe-signature") ?? "";
@@ -28,85 +29,293 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
-if (event.type === "checkout.session.completed") {
-  const session = event.data.object as {
-    id: string;
-    metadata?: { user_id?: string; course_id?: string; purchase_kind?: string };
-    payment_status?: string;
-    amount_total?: number | null;
-    currency?: string | null;
-    customer?: string;
-  };
-
-  // ðŸ‘‡ Idempotency via composite key
-  const stripeSession = await stripe.checkout.sessions.retrieve(session.id);
-  const customerId = stripeSession.customer as string;
-
-  // Check idempotency
-  const { data: existingPurchase } = await adminSupabase
-    .from("purchases")
-    .select()
-    .eq("stripe_session_id", stripeSession.id)
-    .eq("customer_id", customerId)
-    .maybeSingle();
-
-  if (existingPurchase?.status === "claimed") {
+  if (event.type !== "checkout.session.completed") {
     return NextResponse.json({ received: true });
   }
 
-  // Insert if not exists
-  if (!existingPurchase) {
-    await adminSupabase.from("purchases").insert({
-      stripe_session_id: stripeSession.id,
-      customer_id: customerId,
-      user_id: null,
-      product_id: stripeSession.metadata?.product_id || "mentorship",
-      status: "pending",
-    });
+  const session = event.data.object as {
+    id: string;
+    customer_email?: string | null;
+    customer_details?: { email?: string | null } | null;
+    metadata?: {
+      user_id?: string;
+      course_id?: string;
+      purchase_kind?: string;
+    };
+    payment_status?: string;
+    amount_total?: number | null;
+    currency?: string | null;
+  };
+
+  if (session.payment_status !== "paid") {
+    return NextResponse.json({ received: true });
   }
 
-  // Claim via REST
-  const claimResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/purchases/claim`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        stripe_session_id: stripeSession.id,
-        customer_id: customerId,
-        user_id: existingPurchase?.user_id,
-      }),
-    },
+  const kind = (session.metadata?.purchase_kind ?? "video") as PurchaseKind;
+  const userId = session.metadata?.user_id ?? "";
+  const buyerEmail =
+    session.customer_details?.email ?? session.customer_email ?? "";
+
+  // If course_id is missing from metadata (e.g. raw Stripe Payment Link with
+  // no metadata), fall back to the env vars based on kind.
+  const { courseId: videoCourseId, ebookCourseId, mentoringCourseId } = getCommerceConfig();
+  const metadataCourseId = session.metadata?.course_id ?? "";
+  const courseId = metadataCourseId || (
+    kind === "ebook"
+      ? ebookCourseId
+      : kind === "mentoring_program"
+        ? mentoringCourseId
+        : videoCourseId
   );
 
-  if (!claimResponse.ok) {
-    await adminSupabase
-      .from("purchases")
-      .update({ status: "failed" })
-      .eq("stripe_session_id", stripeSession.id)
-      .eq("customer_id", customerId);
+  if (!buyerEmail) {
+    console.error("[webhook] No buyer email in session", session.id);
+    return NextResponse.json({ received: true });
   }
 
-  // ðŸ‘‡ Keep original logic for now
-  const userId = session.metadata?.user_id ?? "";
-  const courseId = session.metadata?.course_id ?? "";
-  const kind = (session.metadata?.purchase_kind ?? "video") as PurchaseKind;
+  const supabase = createSupabaseAdminClient();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://oliceu.com";
 
-  if (session.payment_status === "paid" && userId) {
+  // ----------------------------------------------------------------
+  // MENTORING INTERVIEW — R$99 fee
+  // Creates a mentoring_application and sends scheduling email.
+  // No course provisioning yet.
+  // ----------------------------------------------------------------
+  if (kind === "mentoring_interview") {
+    // Idempotency
+    const { data: existing } = await supabase
+      .from("mentoring_applications")
+      .select("id")
+      .eq("interview_stripe_session_id", session.id)
+      .maybeSingle();
+
+    if (existing) return NextResponse.json({ received: true });
+
+    // Resolve user_id if available
+    let resolvedUserId = userId || null;
+    if (!resolvedUserId) {
+      const { data: users } = await supabase.auth.admin.listUsers();
+      const match = users?.users?.find(
+        (u) => u.email?.toLowerCase() === buyerEmail.toLowerCase(),
+      );
+      if (match) resolvedUserId = match.id;
+    }
+
+    await supabase.from("mentoring_applications").insert({
+      email: buyerEmail.toLowerCase(),
+      user_id: resolvedUserId,
+      status: "pending_interview",
+      interview_stripe_session_id: session.id,
+    });
+
     await recordPurchaseAdmin({
-      userId,
+      userId: resolvedUserId ?? buyerEmail, // fallback to email if no user yet
+      kind,
+      stripeSessionId: session.id,
+      amountTotal: session.amount_total ?? null,
+      currency: session.currency ?? null,
+    }).catch((e) => console.error("[webhook] recordPurchaseAdmin (video) failed", e)); // non-fatal
+
+    await sendInterviewSchedulingEmail(buyerEmail, calInterviewLink).catch((e) =>
+      console.error("[webhook] sendInterviewSchedulingEmail failed", e),
+    );
+
+    return NextResponse.json({ received: true });
+  }
+
+  // ----------------------------------------------------------------
+  // MENTORING PROGRAM — R$4.999 (sent via approve route checkout)
+  // Activates the application and provisions the mentoring course.
+  // ----------------------------------------------------------------
+  if (kind === "mentoring_program") {
+    const { data: existing } = await supabase
+      .from("mentoring_applications")
+      .select("id")
+      .eq("program_stripe_session_id", session.id)
+      .maybeSingle();
+
+    if (existing?.id) {
+      // Already processed
+      return NextResponse.json({ received: true });
+    }
+
+    // Find the application by email to activate it
+    const { data: application } = await supabase
+      .from("mentoring_applications")
+      .select("id, user_id")
+      .eq("email", buyerEmail.toLowerCase())
+      .eq("status", "approved_pending_payment")
+      .maybeSingle();
+
+    if (!application) {
+      console.error("[webhook] No approved application found for", buyerEmail);
+      return NextResponse.json({ received: true });
+    }
+
+    let resolvedUserId = application.user_id ?? userId ?? "";
+
+    // Resolve user if we don't have them yet
+    if (!resolvedUserId) {
+      const { data: users } = await supabase.auth.admin.listUsers();
+      const match = users?.users?.find(
+        (u) => u.email?.toLowerCase() === buyerEmail.toLowerCase(),
+      );
+      if (match) resolvedUserId = match.id;
+    }
+
+    // Update application to active
+    await supabase
+      .from("mentoring_applications")
+      .update({
+        status: "active",
+        program_stripe_session_id: session.id,
+        user_id: resolvedUserId || null,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", application.id);
+
+    if (resolvedUserId) {
+      const { mentoringCourseId } = getCommerceConfig();
+      if (mentoringCourseId) {
+        await ensureCourseProgressForUserAdmin(resolvedUserId, mentoringCourseId);
+      }
+      await recordPurchaseAdmin({
+        userId: resolvedUserId,
+        kind,
+        stripeSessionId: session.id,
+        amountTotal: session.amount_total ?? null,
+        currency: session.currency ?? null,
+      }).catch((e) => console.error("[webhook] recordPurchaseAdmin (ebook) failed", e));
+      await sendAccessReadyEmail(buyerEmail).catch((e) =>
+        console.error("[webhook] sendAccessReadyEmail (mentoring) failed", e),
+      );
+    } else {
+      // No account yet — create one via magic link invite and provision
+      const { data: inviteData, error: inviteError } =
+        await supabase.auth.admin.inviteUserByEmail(buyerEmail, {
+          redirectTo: `${siteUrl}/login`,
+          data: { name: buyerEmail.split("@")[0] },
+        });
+
+      if (inviteError) {
+        console.error("[webhook] inviteUserByEmail (mentoring) failed", inviteError);
+        return NextResponse.json({ received: true });
+      }
+
+      resolvedUserId = inviteData.user.id;
+
+      // Provision course for mentoring
+      const { mentoringCourseId } = getCommerceConfig();
+      if (mentoringCourseId) {
+        await ensureCourseProgressForUserAdmin(resolvedUserId, mentoringCourseId);
+      }
+      await recordPurchaseAdmin({
+        userId: resolvedUserId,
+        kind,
+        stripeSessionId: session.id,
+        amountTotal: session.amount_total ?? null,
+        currency: session.currency ?? null,
+      }).catch((e) => console.error("[webhook] recordPurchaseAdmin (mentoring) failed", e));
+
+      await sendAccessReadyEmail(buyerEmail).catch((e) =>
+        console.error("[webhook] sendAccessReadyEmail (mentoring) failed", e),
+      );
+    }
+
+    return NextResponse.json({ received: true });
+  }
+
+  // ----------------------------------------------------------------
+  // EBOOK / VIDEO — existing logic
+  // ----------------------------------------------------------------
+  const { data: existingPending } = await supabase
+    .from("pending_purchases")
+    .select("id, claimed")
+    .eq("stripe_session_id", session.id)
+    .maybeSingle();
+
+  if (existingPending?.claimed) {
+    return NextResponse.json({ received: true });
+  }
+
+  let resolvedUserId = userId;
+  if (!resolvedUserId) {
+    const { data: users } = await supabase.auth.admin.listUsers();
+    const match = users?.users?.find(
+      (u) => u.email?.toLowerCase() === buyerEmail.toLowerCase(),
+    );
+    if (match) resolvedUserId = match.id;
+  }
+
+  if (resolvedUserId) {
+    await recordPurchaseAdmin({
+      userId: resolvedUserId,
+      kind,
+      stripeSessionId: session.id,
+      amountTotal: session.amount_total ?? null,
+      currency: session.currency ?? null,
+    });
+    if (courseId) {
+      await ensureCourseProgressForUserAdmin(resolvedUserId, courseId);
+    }
+    await supabase
+      .from("pending_purchases")
+      .update({ claimed: true })
+      .eq("stripe_session_id", session.id);
+    await sendAccessReadyEmail(buyerEmail).catch((e) =>
+      console.error("[webhook] sendAccessReadyEmail failed", e),
+    );
+  } else {
+    // No account yet — create one via magic link invite and provision immediately
+    const { data: inviteData, error: inviteError } =
+      await supabase.auth.admin.inviteUserByEmail(buyerEmail, {
+        redirectTo: `${siteUrl}/login`,
+        data: { purchase_kind: kind, course_id: courseId },
+      });
+
+    if (inviteError) {
+      console.error("[webhook] inviteUserByEmail failed", inviteError);
+      // Fallback: store as pending so auth/callback can claim later
+      await supabase
+        .from("pending_purchases")
+        .upsert(
+          {
+            email: buyerEmail.toLowerCase(),
+            kind,
+            course_id: courseId,
+            stripe_session_id: session.id,
+            claimed: false,
+          },
+          { onConflict: "stripe_session_id" },
+        );
+      return NextResponse.json({ received: true });
+    }
+
+    resolvedUserId = inviteData.user.id;
+
+    // Record purchase + provision course for the newly created user
+    await recordPurchaseAdmin({
+      userId: resolvedUserId,
       kind,
       stripeSessionId: session.id,
       amountTotal: session.amount_total ?? null,
       currency: session.currency ?? null,
     });
 
-    if (kind === "video" && courseId) {
-      await ensureCourseProgressForUserAdmin(userId, courseId);
+    if (courseId) {
+      await ensureCourseProgressForUserAdmin(resolvedUserId, courseId);
     }
-  }
+
+    // Mark any stale pending purchase as claimed
+    await supabase
+      .from("pending_purchases")
+      .update({ claimed: true })
+      .eq("stripe_session_id", session.id);
+
+    await sendAccessReadyEmail(buyerEmail).catch((e) =>
+      console.error("[webhook] sendAccessReadyEmail failed", e),
+    );
   }
 
   return NextResponse.json({ received: true });
 }
-

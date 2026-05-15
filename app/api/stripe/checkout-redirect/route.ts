@@ -16,7 +16,7 @@ export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const kind = (searchParams.get("kind") ?? "video") as PurchaseKind;
 
-  const validKinds: PurchaseKind[] = ["ebook", "video", "mentoring", "mentoring_interview"];
+  const validKinds: PurchaseKind[] = ["ebook", "video", "mentoring_interview"];
   if (!validKinds.includes(kind)) {
     return NextResponse.redirect(`${origin}/programa?error=invalid_kind`);
   }

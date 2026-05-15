@@ -206,6 +206,7 @@ export async function completeModuleForUser(
     .from("module_progress")
     .update({
       completed: true,
+      completed_at: new Date().toISOString(),
       mentorship_unlocked: shouldUnlockMentorship
         ? true
         : moduleProgressRow.mentorship_unlocked,
@@ -258,7 +259,7 @@ export async function ensureCourseProgressForUser(
   const moduleIds = (modules ?? []).map((m: { id: string }) => m.id);
   if (moduleIds.length === 0) return { createdOrUpdated: 0 };
 
-  const rows = moduleIds.map((moduleId) => ({
+  const rows = moduleIds.map((moduleId: string) => ({
     user_id: userId,
     module_id: moduleId,
     completed: false,
