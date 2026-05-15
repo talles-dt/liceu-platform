@@ -26,6 +26,7 @@ export function getCommerceConfig() {
     videoPriceId,
     mentoringPriceId,
     mentoringProgramPriceId,
+    mentoringInterviewPriceId: mentoringProgramPriceId, // Alias
     webhookSecret,
   };
 }
