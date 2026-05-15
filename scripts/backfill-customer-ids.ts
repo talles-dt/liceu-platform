@@ -1,4 +1,6 @@
-import { createSupabaseAdminClient } from "../../lib/supabaseAdmin";
+"use server";
+
+import { createSupabaseAdminClient } from "../lib/supabaseAdmin";
 import Stripe from "stripe";
 
 const supabaseAdmin = createSupabaseAdminClient();
@@ -7,64 +9,43 @@ const supabaseAdmin = createSupabaseAdminClient();
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error("Missing STRIPE_SECRET_KEY");
 }
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-06-20',
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function backfillCustomerIds() {
-  // Fetch unbackfilled purchases
-  const { data: purchases, error } = await supabaseAdmin
+  // Get pending purchases
+  const { data: pendingPurchases } = await supabaseAdmin
     .from("purchases")
-    .select("id, stripe_session_id, user_id")
-    .is("customer_id", null);
+    .select("*")
+    .is("customer_id", null)
+    .eq("status", "pending");
 
-  if (error) {
-    console.error("[BACKFILL ERROR] Fetch failed:", error);
-    return { success: false, error };
+  if (!pendingPurchases?.length) {
+    console.log("[BACKFILL COMPLETE] No pending purchases to process.");
+    return;
   }
 
-  if (!purchases || purchases.length === 0) {
-    return { success: true, processed: 0 };
-  }
-
-  // Batch update
-  const updates = await Promise.all(
-    purchases.map(async (purchase) => {
-      // Fetch Stripe session via Stripe API
-      const stripeSession = await stripe.checkout.sessions.retrieve(
+  // Process each
+  for (const purchase of pendingPurchases) {
+    try {
+      const session = await stripe.checkout.sessions.retrieve(
         purchase.stripe_session_id,
       );
-      const customerId = stripeSession.customer as string;
+      const customerId = session.customer as string;
 
-      if (!customerId) {
-        console.warn("[BACKFILL SKIP] No customer_id for:", purchase.id);
-        return null;
-      }
-
-      // Update in Supabase
-      const { error: updateError } = await supabaseAdmin
+      // Update with customer_id
+      await supabaseAdmin
         .from("purchases")
-        .update({ customer_id: customerId })
-        .eq("id", purchase.id);
+        .update({ customer_id: customerId, status: "claimed" })
+        .eq("stripe_session_id", purchase.stripe_session_id);
 
-      if (updateError) {
-        console.error("[BACKFILL ERROR] Update failed for:", purchase.id, updateError);
-        return null;
-      }
+      console.log(`[UPDATED] Session ${purchase.stripe_session_id} → ${customerId}`);
+    } catch (err) {
+      console.error(`[ERROR] Session ${purchase.stripe_session_id}:`, err);
+    }
+  }
 
-      return { id: purchase.id, customer_id: customerId };
-    }),
-  );
-
-  const successfulUpdates = updates.filter(Boolean);
-  return {
-    success: true,
-    processed: successfulUpdates.length,
-    total: purchases.length,
-  };
+  console.log("[BACKFILL COMPLETE] All processed.");
 }
 
-// Run immediately
-backfillCustomerIds().then((result) => {
-  console.log("[BACKFILL COMPLETE]", result);
-});
+// Run
+backfillCustomerIds();
