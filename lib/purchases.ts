@@ -1,6 +1,6 @@
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
-export type PurchaseKind = "ebook" | "video" | "mentoring";
+export type PurchaseKind = "ebook" | "video" | "mentoring" | "mentoring_interview";
 
 /**
  * Best-effort purchase recording.
