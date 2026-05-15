@@ -81,7 +81,7 @@ export default function ResetPasswordPage({
       });
       if (error) throw error;
       setState("success");
-      setTimeout(() => router.push("/account"), 3000);
+      setTimeout(() => router.push("/account" as never), 3000);
     } catch (err) {
       setError("Ocorreu um erro. Tente novamente.");
       setState("error");
