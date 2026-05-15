@@ -4,6 +4,7 @@ import { getStripeClient } from "@/lib/stripe";
 import { getCommerceConfig } from "@/lib/commerce";
 import { ensureCourseProgressForUserAdmin } from "@/lib/provisioning";
 import { recordPurchaseAdmin, type PurchaseKind } from "@/lib/purchases";
+import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
 export async function POST(req: Request) {
   const stripe = getStripeClient();
