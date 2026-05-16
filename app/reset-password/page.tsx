@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
@@ -11,18 +11,13 @@ const verifyCode = async (code: string) => {
   const supabase = createSupabaseBrowserClient();
   const { error } = await supabase.auth.verifyOtp({
     type: "recovery",
-    email: "", // Supabase now requires email for recovery OTP
+    email: "", // Supabase requires email for recovery OTP
     token: code,
   });
   return error;
 };
 
-
-export default function ResetPasswordPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string };
-}) {
+function ResetPasswordContent() {
   const params = useSearchParams();
   const code = params.get("code");
   const [newPassword, setNewPassword] = useState("");
@@ -32,38 +27,6 @@ export default function ResetPasswordPage({
   const [validSession, setValidSession] = useState<boolean | null>(null);
   const [codeVerified, setCodeVerified] = useState<boolean>(false);
   const router = useRouter();
-
-  useEffect(() => {
-    async function checkAndVerify() {
-      const supabase = createSupabaseBrowserClient();
-      let sessionExists = false;
-
-      // Check for existing session
-      const { data: { session } } = await supabase.auth.getSession();
-      sessionExists = !!session;
-
-      if (sessionExists) {
-        setValidSession(true);
-        return;
-      }
-
-      // If no session but code exists, verify it
-      if (code) {
-        const verifyError = await verifyCode(code);
-        if (verifyError) {
-          console.log("[reset-password] verification failed:", verifyError);
-          setValidSession(false); // Code is invalid
-        } else {
-          setCodeVerified(true);
-          setValidSession(true); // Code is valid
-        }
-      } else {
-        setValidSession(false); // No code provided
-      }
-    }
-
-    checkAndVerify();
-  }, [code]);
 
   useEffect(() => {
     async function checkAndVerify() {
@@ -218,5 +181,25 @@ export default function ResetPasswordPage({
         )}
       </div>
     </ReadingLayout>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={(
+      <ReadingLayout
+        eyebrow="LICEU UNDERGROUND / RECUPERAÇÃO"
+        title="Redefinir senha"
+        subtitle="Carregando..."
+      >
+        <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-5 py-5">
+          <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
+            Carregando interface...
+          </p>
+        </div>
+      </ReadingLayout>
+    )}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }
