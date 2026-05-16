@@ -11,8 +11,8 @@ const verifyCode = async (code: string) => {
   const supabase = createSupabaseBrowserClient();
   const { error } = await supabase.auth.verifyOtp({
     type: "recovery",
-    email: "", // Supabase requires email for recovery OTP
     token: code,
+    // NOTE: email/phone should NOT be provided for recovery OTP
   });
   return error;
 };

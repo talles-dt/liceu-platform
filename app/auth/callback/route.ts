@@ -86,7 +86,16 @@ export async function GET(request: Request): Promise<RedirectResponse> {
   // ============== STEP 5: RECOVERY FLOW (IMMEDIATE EXIT) ==============
   if (type === "recovery") {
     console.log("[AUTH_CALLBACK] Recovery flow detected");
-    return NextResponse.redirect(`${redirectRoot}/reset-password?code=${code}`);
+    // Return HTML redirect to ensure client-side navigation
+    return new NextResponse(
+      `<html>
+        <head>
+          <meta http-equiv="refresh" content="0; url=${redirectRoot}/reset-password?code=${encodeURIComponent(code)}">
+        </head>
+        <body></body>
+      </html>`,
+      { headers: { 'Content-Type': 'text/html' } },
+    );
   }
     // --- Final auth check ---
     const { data: { user: persistedUser }, error: persistenceError } = await clientSupabase.auth.getUser();
