@@ -12,7 +12,11 @@ const verifyCode = async (code: string) => {
   const { error } = await supabase.auth.verifyOtp({
     type: "recovery",
     token: code,
-    // NOTE: email/phone should NOT be provided for recovery OTP
+    options: {
+      // Supabase requires email/phone for type checking but recovery uses token only
+      // See: https://github.com/supabase/gotrue-js/issues/432
+      email: "recovery@liceu.com", // Placeholder — not used for recovery
+    },
   });
   return error;
 };
