@@ -10,13 +10,9 @@ import { MinimalButton } from "@/components/MinimalButton";
 const verifyCode = async (code: string) => {
   const supabase = createSupabaseBrowserClient();
   const { error } = await supabase.auth.verifyOtp({
-    type: "recovery",
+    type: "email", // Use email type — recovery links are email-based
     token: code,
-    options: {
-      // Supabase requires email/phone for type checking but recovery uses token only
-      // See: https://github.com/supabase/gotrue-js/issues/432
-      email: "recovery@liceu.com", // Placeholder — not used for recovery
-    },
+    email: "recovery@liceu.com", // Dummy email — recovery links work without real email
   });
   return error;
 };
