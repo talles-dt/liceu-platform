@@ -1,30 +1,62 @@
-"use client";
+import { useSearchParams } from "next/navigation";
 
-import { FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
-import { ReadingLayout } from "@/components/ReadingLayout";
-import { MinimalButton } from "@/components/MinimalButton";
+const verifyCode = async (code: string) => {
+  const supabase = createSupabaseBrowserClient();
+  const { error } = await supabase.auth.verifyOtp({
+    type: "recovery",
+    email: "", // Supabase now requires email for recovery OTP
+    token: code,
+  });
+  return error;
+};
 
-export default function ResetPasswordPage() {
+
+export default function ResetPasswordPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string };
+}) {
+  const params = useSearchParams();
+  const code = params.get("code");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [validSession, setValidSession] = useState<boolean | null>(null);
+  const [codeVerified, setCodeVerified] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
-    async function checkSession() {
+    async function checkAndVerify() {
       const supabase = createSupabaseBrowserClient();
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      setValidSession(!!session);
+      let sessionExists = false;
+
+      // Check for existing session
+      const { data: { session } } = await supabase.auth.getSession();
+      sessionExists = !!session;
+
+      if (sessionExists) {
+        setValidSession(true);
+        return;
+      }
+
+      // If no session but code exists, verify it
+      if (code) {
+        const verifyError = await verifyCode(code);
+        if (verifyError) {
+          console.log("[reset-password] verification failed:", verifyError);
+          setValidSession(false); // Code is invalid
+        } else {
+          setCodeVerified(true);
+          setValidSession(true); // Code is valid
+        }
+      } else {
+        setValidSession(false); // No code provided
+      }
     }
-    checkSession();
-  }, []);
+
+    checkAndVerify();
+  }, [code]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -43,16 +75,20 @@ export default function ResetPasswordPage() {
     setLoading(true);
     try {
       const supabase = createSupabaseBrowserClient();
+      let userError = null;
+      if (code && !codeVerified) {
+        // Verify code again if needed
+        const verifyError = await verifyCode(code);
+        if (verifyError) throw new Error(verifyError.message);
+      }
+      // Update password
       const { error: updateError } = await supabase.auth.updateUser({
         password: newPassword,
       });
-      if (updateError) {
-        setError(updateError.message);
-        return;
-      }
+      if (updateError) throw updateError;
       router.push("/login?message=Senha atualizada com sucesso");
-    } catch {
-      setError("Unable to reset password. Please try again.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to reset password. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -62,7 +98,7 @@ export default function ResetPasswordPage() {
     <ReadingLayout
       eyebrow="LICEU UNDERGROUND / RECUPERAÇÃO"
       title="Redefinir senha"
-      subtitle={validSession === false ? "Link inválido ou expirado." : "Defina uma nova senha."}
+      subtitle={validSession === false ? "Link inválido ou expirado." : codeVerified ? "Defina uma nova senha." : "Verificando link..."}
     >
       <div className="space-y-8">
         {validSession === false ? (
