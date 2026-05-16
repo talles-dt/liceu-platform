@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
 
 const verifyCode = async (code: string) => {
   const supabase = createSupabaseBrowserClient();
@@ -27,6 +28,38 @@ export default function ResetPasswordPage({
   const [validSession, setValidSession] = useState<boolean | null>(null);
   const [codeVerified, setCodeVerified] = useState<boolean>(false);
   const router = useRouter();
+
+  useEffect(() => {
+    async function checkAndVerify() {
+      const supabase = createSupabaseBrowserClient();
+      let sessionExists = false;
+
+      // Check for existing session
+      const { data: { session } } = await supabase.auth.getSession();
+      sessionExists = !!session;
+
+      if (sessionExists) {
+        setValidSession(true);
+        return;
+      }
+
+      // If no session but code exists, verify it
+      if (code) {
+        const verifyError = await verifyCode(code);
+        if (verifyError) {
+          console.log("[reset-password] verification failed:", verifyError);
+          setValidSession(false); // Code is invalid
+        } else {
+          setCodeVerified(true);
+          setValidSession(true); // Code is valid
+        }
+      } else {
+        setValidSession(false); // No code provided
+      }
+    }
+
+    checkAndVerify();
+  }, [code]);
 
   useEffect(() => {
     async function checkAndVerify() {
