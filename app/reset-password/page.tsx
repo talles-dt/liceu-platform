@@ -1,7 +1,11 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { FormEvent, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
+import { ReadingLayout } from "@/components/ReadingLayout";
+import { MinimalButton } from "@/components/MinimalButton";
 
 const verifyCode = async (code: string) => {
   const supabase = createSupabaseBrowserClient();
