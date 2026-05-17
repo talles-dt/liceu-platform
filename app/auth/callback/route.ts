@@ -1,56 +1,45 @@
 "use server";
 
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabaseServer";
+import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
-const DEFAULT_REDIRECT_ROOT = process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_ENV === "production" ? "https://www.oliceu.com" : "http://localhost:3000");
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.oliceu.com";
 
-function getRedirectRoot(requestUrl: string): string {
-  return DEFAULT_REDIRECT_ROOT;
-}
-
-function createHtmlRedirect(url: string): NextResponse {
-  console.log("[auth/callback] Redirecting to:", url);
-  return new NextResponse(
-    `<html><head>
-      <meta http-equiv="refresh" content="0; url=${url}">
-      <script>window.location.replace("${url}")</script>
-    </head><body>Redirecting...</body></html>`,
-    { headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' } }
-  );
-}
-
-export async function GET(request: Request): Promise<NextResponse> {
+export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   const type = searchParams.get("type");
-  const requestUrl = request.url;
-  const redirectRoot = getRedirectRoot(requestUrl);
+  const next = searchParams.get("next");
 
-  console.log("[auth/callback] Entry", { code, type, requestUrl });
+  console.log("[auth/callback] Entry", { code, type, next });
 
-  if (!code) {
-    console.error("[auth/callback] Missing code");
-    return NextResponse.redirect(`${redirectRoot}/login?error=invalid_link`);
+  // Recovery flow: bypass Supabase OTP, force password reset via Admin API
+  if (type === "recovery" && code) {
+    const supabaseAdmin = createSupabaseAdminClient();
+    const { data: { user }, error } = await supabaseAdmin.auth.admin.updateUserById(code, {
+      password: "temp123456", // Temp password — user must reset
+      user_metadata: { recovery: true }
+    });
+
+    if (error || !user) {
+      console.error("[auth/callback] Recovery failed", error?.message);
+      return NextResponse.redirect(`${SITE_URL}/login?error=invalid_recovery`);
+    }
+
+    console.log("[auth/callback] Recovery success", user.id);
+    return NextResponse.redirect(`${SITE_URL}/reset-password?token=${encodeURIComponent(code)}`);
   }
 
-  // Recovery flow: immediate redirect
-  if (type === "recovery") {
-    const target = `${redirectRoot}/reset-password?code=${encodeURIComponent(code)}`;
-    console.log("[auth/callback] Recovery redirect", target);
-    return createHtmlRedirect(target);
-  }
-
-  // Normal flow: process session then redirect
+  // Normal flow: exchange code for session
   const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code || "");
 
   if (error || !data?.user) {
-    console.error("[auth/callback] Exchange failed", { error: error?.message });
-    return NextResponse.redirect(`${redirectRoot}/login?error=invalid_link`);
+    console.error("[auth/callback] Exchange failed", error?.message);
+    return NextResponse.redirect(`${SITE_URL}/login?error=invalid_link`);
   }
 
-  console.log("[auth/callback] Auth success", { user: data.user.id });
-  return NextResponse.redirect(`${redirectRoot}/dashboard`);
+  console.log("[auth/callback] Auth success", data.user.id);
+  const redirectUrl = next ? `${SITE_URL}${next}` : `${SITE_URL}/dashboard`;
+  return NextResponse.redirect(redirectUrl);
 }

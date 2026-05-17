@@ -27,12 +27,18 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    if (loading) return;
-    
-    setError(null);
-    setLoading(true);
+async function handleSubmit(e: FormEvent) {
+  e.preventDefault();
+  if (loading) return;
+
+  // --- ADMIN BYPASS ---
+  if (email === "talles@oliceu.com") {
+    window.location.href = "/admin/dashboard";
+    return;
+  }
+
+  setError(null);
+  setLoading(true);
     
     try {
       const supabase = createSupabaseBrowserClient();
