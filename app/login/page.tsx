@@ -48,16 +48,12 @@ async function handleSubmit(e: FormEvent) {
   } finally {
     setLoading(false);
   }
+  window.location.href = "/dashboard";
+} catch (err) {
+  setError(err instanceof Error ? err.message : "Erro inesperado. Por favor tente novamente.");
+} finally {
+  setLoading(false);
 }
-      }
-      
-      window.location.href = "/dashboard";
-      
-  } catch (err) {
-    setError(err instanceof Error ? err.message : "Erro inesperado. Por favor tente novamente.");
-  } finally {
-    setLoading(false);
-  }
   }
 
   const handleLoginError = (signInError: any) => {
