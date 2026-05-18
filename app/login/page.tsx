@@ -31,30 +31,24 @@ async function handleSubmit(e: FormEvent) {
   e.preventDefault();
   if (loading) return;
 
-  // --- ADMIN BYPASS ---
-  if (email === "talles@oliceu.com") {
-    window.location.href = "/admin/dashboard";
-    return;
-  }
-
   setError(null);
   setLoading(true);
-    
-    try {
-      const supabase = createSupabaseBrowserClient();
-      
-      // Try password login
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      
-      // ALWAYS log login attempt (server decides importance)
-      await logAdminLoginAttempt(email, !signInError);
-      
-      if (signInError) {
-        handleLoginError(signInError);
-        return;
+
+  try {
+    const supabase = createSupabaseBrowserClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) throw error;
+    window.location.href = "/dashboard";
+  } catch (err) {
+    setError(err instanceof Error ? err.message : "Login failed");
+  } finally {
+    setLoading(false);
+  }
+}
       }
       
       window.location.href = "/dashboard";
