@@ -53,11 +53,11 @@ async function handleSubmit(e: FormEvent) {
       
       window.location.href = "/dashboard";
       
-    } catch {
-      setError("Erro inesperado. Por favor tente novamente.");
-    } finally {
-      setLoading(false);
-    }
+  } catch (err) {
+    setError(err instanceof Error ? err.message : "Erro inesperado. Por favor tente novamente.");
+  } finally {
+    setLoading(false);
+  }
   }
 
   const handleLoginError = (signInError: any) => {
