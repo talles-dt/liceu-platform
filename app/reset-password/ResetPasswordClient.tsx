@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { ReadingLayout } from "@/components/ReadingLayout";
 
-function ResetPasswordContent() {
+export default function ResetPasswordClient() {
   const params = useSearchParams();
   const token = params.get("token");
   const [newPassword, setNewPassword] = useState("");
@@ -98,20 +98,5 @@ function ResetPasswordContent() {
         </form>
       )}
     </ReadingLayout>
-  );
-}
-
-
-export default function ResetPasswordPage() {
-  return (
-    <Suspense fallback={(
-      <ReadingLayout eyebrow="LICEU UNDERGROUND / RECUPERAÇÃO" title="Carregando...">
-        <div className="border border-stone-200 bg-surface px-5 py-5">
-          <p className="text-sm text-muted">Carregando interface...</p>
-        </div>
-      </ReadingLayout>
-    )}>
-      <ResetPasswordContent />
-    </Suspense>
   );
 }

@@ -1,8 +1,3 @@
-import dynamic from 'next/dynamic';
+import ResetPasswordClient from './ResetPasswordClient';
 
-const ResetPasswordPage = dynamic(
-  () => import('./ResetPasswordPageContent'),
-  { ssr: false }
-);
-
-export default ResetPasswordPage;
+export default ResetPasswordClient;
