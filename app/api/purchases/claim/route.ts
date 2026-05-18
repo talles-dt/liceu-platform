@@ -1,10 +1,21 @@
 "use server";
 
 import { createSupabaseAdminClient } from "../../../../lib/supabaseAdmin";
+import { requireCronSecret } from "@/lib/routeSecurity";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+  const authError = requireCronSecret(request);
+  if (authError) return authError;
+
   const { stripe_session_id, customer_id, user_id } = await request.json();
+  if (!stripe_session_id || !customer_id || !user_id) {
+    return NextResponse.json(
+      { success: false, error: "stripe_session_id, customer_id and user_id are required" },
+      { status: 400 },
+    );
+  }
+
   const supabaseAdmin = createSupabaseAdminClient();
 
   // Idempotency check
@@ -40,6 +51,8 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error("[purchases/claim] claim failed", error);
+
     // Mark as failed
     await supabaseAdmin
       .from("purchases")
@@ -48,7 +61,7 @@ export async function POST(request: Request) {
       .eq("customer_id", customer_id);
 
     return NextResponse.json(
-      { success: false, error: "Purchase claiming failed", details: error },
+      { success: false, error: "Purchase claiming failed" },
       { status: 500 },
     );
   }

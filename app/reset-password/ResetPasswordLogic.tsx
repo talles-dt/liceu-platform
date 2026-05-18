@@ -1,29 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
+import { useRouter } from "next/navigation";
 import { ReadingLayout } from "@/components/ReadingLayout";
 
 export default function ResetPasswordLogic() {
-  const params = useSearchParams();
-  const token = params.get("token");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
-
-  if (!token) {
-    return (
-      <div className="border border-red-200 bg-red-50 px-5 py-5">
-        <p className="text-sm text-red-600">Missing token. Request a new recovery link.</p>
-      </div>
-    );
-  }
-
-  const tokenString = token as string;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -41,11 +28,19 @@ export default function ResetPasswordLogic() {
 
     setLoading(true);
     try {
-      const supabaseAdmin = createSupabaseAdminClient();
-      const { error } = await supabaseAdmin.auth.admin.updateUserById(tokenString, {
-        password: newPassword,
+      const response = await fetch("/api/auth/reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: newPassword }),
       });
-      if (error) throw new Error(error.message);
+      const result = (await response.json().catch(() => ({}))) as {
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(result.error ?? "Failed to reset password");
+      }
+
       setSuccess(true);
       setTimeout(() => router.push("/login"), 3000);
     } catch (err) {

@@ -1,6 +1,7 @@
 "use server";
 
 import { createSupabaseAdminClient } from "../../../../lib/supabaseAdmin";
+import { requireCronSecret } from "@/lib/routeSecurity";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -8,6 +9,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-06-20",
 });
 export async function POST(request: Request) {
+  const cronError = requireCronSecret(request);
+  if (cronError) return cronError;
+
   const supabaseAdmin = createSupabaseAdminClient();
 
   // Reprocess failed purchases only
@@ -40,7 +44,10 @@ export async function POST(request: Request) {
         `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/purchases/claim`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.CRON_SECRET}`,
+          },
           body: JSON.stringify({
             stripe_session_id: purchase.stripe_session_id,
             customer_id: purchase.customer_id,

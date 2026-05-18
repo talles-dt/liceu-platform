@@ -4,13 +4,12 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "../../../../lib/supabaseServer";
 
 interface ResetRequest {
-  code: string;
   password: string;
 }
 
 export async function POST(request: Request) {
   const supabase = await createSupabaseServerClient();
-  const { code, password } = (await request.json()) as ResetRequest;
+  const { password } = (await request.json()) as ResetRequest;
 
   // Validate password strength
   if (password.length < 8) {
@@ -32,7 +31,19 @@ export async function POST(request: Request) {
     );
   }
 
-  // Update password via Supabase
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return NextResponse.json(
+      { success: false, error: "Link de recuperação inválido ou expirado." },
+      { status: 403 },
+    );
+  }
+
+  // Update password for the authenticated recovery session.
   const { error } = await supabase.auth.updateUser({
     password,
   });
