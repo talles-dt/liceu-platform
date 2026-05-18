@@ -4,7 +4,6 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { ReadingLayout } from "@/components/ReadingLayout";
-import { MinimalButton } from "@/components/MinimalButton";
 
 function ResetPasswordContent() {
   const params = useSearchParams();
@@ -16,14 +15,17 @@ function ResetPasswordContent() {
   const [success, setSuccess] = useState(false);
   const router = useRouter();
 
+  if (!token) {
+    return (
+      <div className="border border-red-200 bg-red-50 px-5 py-5">
+        <p className="text-sm text-red-600">Missing token. Request a new recovery link.</p>
+      </div>
+    );
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-
-    if (!token) {
-      setError("Missing token");
-      return;
-    }
 
     if (newPassword !== confirmPassword) {
       setError("Passwords don't match");
@@ -58,13 +60,13 @@ function ResetPasswordContent() {
       subtitle={success ? "Senha atualizada!" : "Defina uma nova senha"}
     >
       {success ? (
-        <div className="border border-stone-200 bg-surface px-5 py-5">
-          <p className="text-sm text-muted">Redirecionando...</p>
+        <div className="border border-green-200 bg-green-50 px-5 py-5">
+          <p className="text-sm text-green-600">Redirecionando...</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5 border border-stone-200 bg-surface/40 px-5 py-5">
           <div className="space-y-2">
-            <label className="block text-xs uppercase tracking-widest text-muted">Nova senha</label>
+            <label className="block text-xs uppercase tracking-wider text-muted">Nova senha</label>
             <input
               type="password"
               value={newPassword}
@@ -75,7 +77,7 @@ function ResetPasswordContent() {
             />
           </div>
           <div className="space-y-2">
-            <label className="block text-xs uppercase tracking-widest text-muted">Confirmar senha</label>
+            <label className="block text-xs uppercase tracking-wider text-muted">Confirmar senha</label>
             <input
               type="password"
               value={confirmPassword}
@@ -85,11 +87,11 @@ function ResetPasswordContent() {
               className="w-full rounded-sm border border-stone-200 bg-neutral px-3 py-2 text-sm"
             />
           </div>
-          {error && <div className="bg-neutral px-3 py-2 text-xs text-red-500">{error}</div>}
+          {error && <div className="bg-red-50 px-3 py-2 text-xs text-red-600">{error}</div>}
           <div className="flex justify-end pt-5">
-            <MinimalButton type="submit" disabled={loading}>
+            <button type="submit" disabled={loading} className="rounded-sm bg-secondary px-4 py-2 text-sm text-white disabled:opacity-50">
               {loading ? "Atualizando..." : "Redefinir senha"}
-            </MinimalButton>
+            </button>
           </div>
         </form>
       )}
@@ -99,13 +101,7 @@ function ResetPasswordContent() {
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={(
-      <ReadingLayout eyebrow="LICEU UNDERGROUND / RECUPERAÇÃO" title="Carregando...">
-        <div className="border border-stone-200 bg-surface px-5 py-5">
-          <p className="text-sm text-muted">Carregando interface...</p>
-        </div>
-      </ReadingLayout>
-    )}>
+    <Suspense fallback={<ReadingLayout title="Carregando..." />}>
       <ResetPasswordContent />
     </Suspense>
   );

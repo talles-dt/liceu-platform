@@ -14,20 +14,9 @@ export async function GET(request: Request) {
 
   console.log("[auth/callback] Entry", { code, type, next });
 
-  // Recovery flow: bypass Supabase OTP, force password reset via Admin API
+  // Recovery flow: redirect immediately to reset-password
   if (type === "recovery" && code) {
-    const supabaseAdmin = createSupabaseAdminClient();
-    const { data: { user }, error } = await supabaseAdmin.auth.admin.updateUserById(code, {
-      password: "temp123456", // Temp password — user must reset
-      user_metadata: { recovery: true }
-    });
-
-    if (error || !user) {
-      console.error("[auth/callback] Recovery failed", error?.message);
-      return NextResponse.redirect(`${SITE_URL}/login?error=invalid_recovery`);
-    }
-
-    console.log("[auth/callback] Recovery success", user.id);
+    console.log("[auth/callback] Recovery redirect", code);
     return NextResponse.redirect(`${SITE_URL}/reset-password?token=${encodeURIComponent(code)}`);
   }
 
