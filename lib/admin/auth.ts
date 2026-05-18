@@ -1,4 +1,5 @@
-import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
+import { getCurrentUser } from "@/lib/supabaseServer";
+import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
 /**
  * Asserts that the current user is an admin.
@@ -9,7 +10,7 @@ export async function assertAdmin() {
   const user = await getCurrentUser();
   if (!user) return null;
 
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseAdminClient();
   const { data: profile } = await supabase
     .from("users")
     .select("role")

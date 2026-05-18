@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
+import { getCurrentUser } from "@/lib/supabaseServer";
+import { assertAdmin } from "@/lib/admin/auth";
 
 const NAV = [
   { href: "/admin" as const, label: "command" },
@@ -21,59 +22,8 @@ export default async function AdminLayout({
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const supabase = await createSupabaseServerClient();
-  const { data: profile } = await supabase
-    .from("users")
-    .select("role")
-    .eq("id", user.id)
-    .maybeSingle();
-// ========== SYSTEM CONFIGURATION CHECK ==========
-const envAdmins = (process.env.ADMIN_EMAILS ?? "")
-  .split(",")
-  .map((s) => s.trim().toLowerCase())
-  .filter((email) => email.includes("@") && email.length > 5);
-
-// Optional warning for bootstrap
-if (envAdmins.length === 0 && !profile?.role) {
-  console.warn(
-    "[ADMIN_BOOTSTRAP_WARNING] " +
-    "No admin protection configured. " +
-    "Assign users.role='admin' or configure ADMIN_EMAILS."
-  );
-}
-
-// ========== USER AUTHORIZATION CHECK ==========
-// PRIMARY check: database role
-const isAdminByRole = profile?.role === "admin";
-
-// FALLBACK check: email override
-const isAdminByEmail = Boolean(user.email) && 
-  envAdmins.length > 0 &&
-  envAdmins.includes(user.email!.toLowerCase());
-
-// FINAL rule: access granted ONLY if
-// * role is "admin" OR
-// * email is in ADMIN_EMAILS
-if (!isAdminByRole && !isAdminByEmail) {
-  // Audit successful accesses
-  if (isAdminByRole) {
-    console.log("[ADMIN_ACCESS_GRANTED]", {
-      userId: user.id,
-      email: user.email,
-      authMethod: "role",
-      timestamp: new Date().toISOString()
-    });
-  } else if (isAdminByEmail) {
-    console.log("[ADMIN_ACCESS_GRANTED]", {
-      userId: user.id,
-      email: user.email,
-      authMethod: "email_fallback",
-      timestamp: new Date().toISOString()
-    });
-  }
-
-  redirect("/");
-}
+  const admin = await assertAdmin();
+  if (!admin) redirect("/");
 
   return (
     <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)]">
@@ -137,4 +87,3 @@ if (!isAdminByRole && !isAdminByEmail) {
     </div>
   );
 }
-

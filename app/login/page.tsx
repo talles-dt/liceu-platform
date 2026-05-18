@@ -3,7 +3,6 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
-import { useRouter } from "next/navigation";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 
@@ -17,7 +16,7 @@ const handleGoogleLogin = async (setError: (error: string) => void) => {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
-  } catch (err) {
+  } catch {
     setError("Falha ao iniciar login com Google. Tente novamente.");
   }
 };
@@ -27,7 +26,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -39,7 +37,7 @@ export default function LoginPage() {
     try {
       const supabase = createSupabaseBrowserClient();
       const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
+        email: email.trim().toLowerCase(),
         password,
       });
 

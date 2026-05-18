@@ -19,10 +19,13 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${SITE_URL}/login?error=invalid_link`);
   }
 
+  if (next?.startsWith("/") && !next.startsWith("//")) {
+    return NextResponse.redirect(`${SITE_URL}${next}`);
+  }
+
   if (type === "recovery") {
     return NextResponse.redirect(`${SITE_URL}/reset-password`);
   }
 
-  const redirectUrl = next ? `${SITE_URL}${next}` : `${SITE_URL}/dashboard`;
-  return NextResponse.redirect(redirectUrl);
+  return NextResponse.redirect(`${SITE_URL}/dashboard`);
 }

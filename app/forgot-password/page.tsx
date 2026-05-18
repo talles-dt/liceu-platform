@@ -12,12 +12,6 @@ export default function ForgotPasswordPage() {
  const [sent, setSent] = useState(false);
  const [error, setError] = useState<string | null>(null);
  const [cooldown, setCooldown] = useState<number>(0);
- const [siteUrl, setSiteUrl] = useState("");
-
- // Set site URL once on client side
- useEffect(() => {
- setSiteUrl(window.location.origin);
- }, []);
 
  // Cooldown effect
  useEffect(() => {
@@ -44,9 +38,9 @@ async function handleSubmit(e: FormEvent) {
  
  try {
  const supabase = createSupabaseBrowserClient();
- const redirectTo = `${window.location.origin}/auth/callback`;
+ const redirectTo = `${window.location.origin}/auth/callback?type=recovery&next=/reset-password`;
  
- const { error } = await supabase.auth.resetPasswordForEmail(email, {
+ const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
  redirectTo
  });
  
@@ -64,7 +58,7 @@ async function handleSubmit(e: FormEvent) {
  setSent(true);
  setCooldown(60);
  
- } catch (err) {
+ } catch {
  setError("Erro inesperado. Por favor tente novamente.");
  } finally {
  setLoading(false);
