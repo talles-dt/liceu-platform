@@ -1,16 +1,68 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ReadingLayout } from "@/components/ReadingLayout";
+import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
 
 export default function ResetPasswordLogic() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checkingSession, setCheckingSession] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    async function prepareRecoverySession() {
+      const supabase = createSupabaseBrowserClient();
+      const url = new URL(window.location.href);
+      const code = url.searchParams.get("code");
+      const hashParams = new URLSearchParams(window.location.hash.slice(1));
+      const hashError = hashParams.get("error_description");
+
+      if (hashError) {
+        setError(hashError);
+        setCheckingSession(false);
+        return;
+      }
+
+      try {
+        if (code) {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+          if (exchangeError) throw exchangeError;
+          window.history.replaceState({}, document.title, url.pathname);
+        } else {
+          const accessToken = hashParams.get("access_token");
+          const refreshToken = hashParams.get("refresh_token");
+
+          if (accessToken && refreshToken) {
+            const { error: sessionError } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            });
+            if (sessionError) throw sessionError;
+            window.history.replaceState({}, document.title, url.pathname);
+          }
+        }
+
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (!session) {
+          setError("Abra esta página pelo link de recuperação enviado por email.");
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Link de recuperação inválido ou expirado.");
+      } finally {
+        setCheckingSession(false);
+      }
+    }
+
+    prepareRecoverySession();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -28,18 +80,14 @@ export default function ResetPasswordLogic() {
 
     setLoading(true);
     try {
-      const response = await fetch("/api/auth/reset", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: newPassword }),
+      const supabase = createSupabaseBrowserClient();
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword,
       });
-      const result = (await response.json().catch(() => ({}))) as {
-        error?: string;
-      };
 
-      if (!response.ok) {
-        throw new Error(result.error ?? "Failed to reset password");
-      }
+      if (updateError) throw updateError;
+
+      await supabase.auth.signOut();
 
       setSuccess(true);
       setTimeout(() => router.push("/login"), 3000);
@@ -56,7 +104,11 @@ export default function ResetPasswordLogic() {
       title="REDEFINIR SENHA"
       subtitle={success ? "Senha atualizada!" : "Defina uma nova senha"}
     >
-      {success ? (
+      {checkingSession ? (
+        <div className="border border-stone-200 bg-surface px-5 py-5">
+          <p className="text-sm text-muted">Validando link de recuperação...</p>
+        </div>
+      ) : success ? (
         <div className="border border-green-200 bg-green-50 px-5 py-5">
           <p className="text-sm text-green-600">Redirecionando...</p>
         </div>

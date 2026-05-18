@@ -38,7 +38,7 @@ async function handleSubmit(e: FormEvent) {
  
  try {
  const supabase = createSupabaseBrowserClient();
- const redirectTo = `${window.location.origin}/auth/callback?type=recovery&next=/reset-password`;
+ const redirectTo = `${window.location.origin}/reset-password`;
  
  const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
  redirectTo
