@@ -20,6 +20,9 @@ function ResetPasswordContent() {
     return;
   }
 
+  // Force token type (runtime + TypeScript)
+  const tokenString = token as string;
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
@@ -37,7 +40,7 @@ function ResetPasswordContent() {
     setLoading(true);
     try {
       const supabaseAdmin = createSupabaseAdminClient();
-      const { error } = await supabaseAdmin.auth.admin.updateUserById(token, {
+      const { error } = await supabaseAdmin.auth.admin.updateUserById(tokenString, {
         password: newPassword,
       });
       if (error) throw new Error(error.message);
