@@ -99,7 +99,13 @@ function ResetPasswordContent() {
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={<ReadingLayout title="Carregando..." />}>
+    <Suspense fallback={(
+      <ReadingLayout eyebrow="LICEU UNDERGROUND / RECUPERAÇÃO" title="Carregando...">
+        <div className="border border-stone-200 bg-surface px-5 py-5">
+          <p className="text-sm text-muted">Carregando interface...</p>
+        </div>
+      </ReadingLayout>
+    )}>
       <ResetPasswordContent />
     </Suspense>
   );
