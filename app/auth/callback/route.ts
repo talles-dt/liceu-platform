@@ -32,7 +32,7 @@ export async function GET(request: Request) {
   }
 
   // Normal flow: exchange code for session
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.exchangeCodeForSession(code || "");
 
   if (error || !data?.user) {
