@@ -2,6 +2,7 @@
 
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
+import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.oliceu.com";
 
@@ -31,7 +32,7 @@ export async function GET(request: Request) {
   }
 
   // Normal flow: exchange code for session
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseServerClient();
   const { data, error } = await supabase.auth.exchangeCodeForSession(code || "");
 
   if (error || !data?.user) {
