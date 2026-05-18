@@ -16,11 +16,8 @@ function ResetPasswordContent() {
   const router = useRouter();
 
   if (!token) {
-    return (
-      <div className="border border-red-200 bg-red-50 px-5 py-5">
-        <p className="text-sm text-red-600">Missing token. Request a new recovery link.</p>
-      </div>
-    );
+    setError("Missing token");
+    return;
   }
 
   async function handleSubmit(e: React.FormEvent) {
