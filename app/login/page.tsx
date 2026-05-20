@@ -54,8 +54,23 @@ export default function LoginPage() {
         // Continue anyway
       }
 
-      // Redirect on success
-      window.location.href = "/dashboard";
+      // Redirect: admins → /admin, everyone else → /dashboard
+      // We need to check role client-side since server auth was already done by signInWithPassword
+      const browserClient = createSupabaseBrowserClient();
+      const { data: { user } } = await browserClient.auth.getUser();
+      const envAdmins = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "")
+        .split(/[,;\s]+/)
+        .map((s) => s.trim().toLowerCase())
+        .filter((s) => s.length > 0 && s.includes("@"));
+      const isAdminEmail = user?.email
+        ? envAdmins.includes(user.email.toLowerCase())
+        : false;
+
+      if (isAdminEmail) {
+        window.location.href = "/admin";
+      } else {
+        window.location.href = "/dashboard";
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro inesperado. Tente novamente.");
     } finally {

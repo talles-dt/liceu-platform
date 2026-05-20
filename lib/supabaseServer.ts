@@ -64,11 +64,17 @@ export async function createSupabaseServerClient(): Promise<SafeClient> {
   }) as SafeClient;
 }
 
+/**
+ * Get the currently authenticated user from the session cookie.
+ * Uses getSession() (local cookie read) instead of getUser() (network call to Supabase).
+ * getSession() is more resilient — it doesn't fail if Supabase is temporarily unreachable.
+ * Token refresh (if needed) happens automatically on the next server request.
+ */
 export async function getCurrentUser() {
   const supabase = await createSupabaseServerClient();
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user;
+    data: { session },
+  } = await supabase.auth.getSession();
+  return session?.user ?? null;
 }
 
