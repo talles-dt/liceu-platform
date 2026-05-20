@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
+import { syncCurrentUserProfile } from "@/lib/actions";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 
@@ -43,6 +44,14 @@ export default function LoginPage() {
 
       if (signInError) {
         throw signInError;
+      }
+
+      // Sync user to public.users (ensures admin role for env-listed admins)
+      try {
+        await syncCurrentUserProfile();
+      } catch (syncErr) {
+        console.error("[login] Failed to sync user profile:", syncErr);
+        // Continue anyway
       }
 
       // Redirect on success

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/supabaseServer";
 import { assertAdmin } from "@/lib/admin/auth";
+import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
 const NAV = [
   { href: "/admin" as const, label: "command" },
@@ -22,8 +23,51 @@ export default async function AdminLayout({
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const admin = await assertAdmin();
-  if (!admin) redirect("/");
+  // Try admin check; if it fails but user is authenticated, try to sync profile
+  let admin = await assertAdmin();
+  if (!admin) {
+    // Attempt to create the user profile in public.users (for env-admin emails)
+    // Then retry the admin check
+    const adminClient = createSupabaseAdminClient(); // Local import from the top
+    const { data: existing } = await adminClient
+      .from("users")
+      .select("id, role")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (!existing) {
+      // User is authenticated in auth.users but missing from public.users
+      // Auto-create the profile
+      const envAdmins = (process.env.ADMIN_EMAILS ?? "")
+        .split(/[,;\s]+/)
+        .map((s) => s.trim().toLowerCase())
+        .filter((s) => s.length > 0 && s.includes("@"));
+      const isAdminEmail = user.email ? envAdmins.includes(user.email.toLowerCase()) : false;
+
+      const { error: insertError } = await adminClient.from("users").insert({
+        id: user.id,
+        name:
+          (user.user_metadata?.full_name as string) ||
+          (user.user_metadata?.name as string) ||
+          user.email?.split("@")[0] ||
+          "User",
+        email: user.email,
+        role: isAdminEmail ? "admin" : "student",
+      });
+
+      if (insertError) {
+        console.error("[admin/layout] Failed to auto-create user profile:", insertError.message);
+      } else {
+        // Retry admin assertion
+        admin = await assertAdmin();
+      }
+    }
+  }
+
+  // Final check
+  if (!admin) {
+    redirect("/");
+  }
 
   return (
     <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)]">
