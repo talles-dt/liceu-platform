@@ -19,6 +19,7 @@ export default function ResetPasswordLogic() {
       const supabase = createSupabaseBrowserClient();
       const url = new URL(window.location.href);
       const code = url.searchParams.get("code");
+      const token = url.searchParams.get("token");
       const hashParams = new URLSearchParams(window.location.hash.slice(1));
       const hashError = hashParams.get("error_description");
 
@@ -30,10 +31,20 @@ export default function ResetPasswordLogic() {
 
       try {
         if (code) {
+          // PKCE flow: Supabase redirects here with ?code=xxx&type=recovery
           const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
           if (exchangeError) throw exchangeError;
           window.history.replaceState({}, document.title, url.pathname);
+        } else if (token) {
+          // Implicit flow: token in query string (?token=xxx&type=recovery)
+          const { error: sessionError } = await supabase.auth.setSession({
+            access_token: token,
+            refresh_token: hashParams.get("refresh_token") || "",
+          });
+          if (sessionError) throw sessionError;
+          window.history.replaceState({}, document.title, url.pathname);
         } else {
+          // Fallback: tokens in URL hash fragment
           const accessToken = hashParams.get("access_token");
           const refreshToken = hashParams.get("refresh_token");
 

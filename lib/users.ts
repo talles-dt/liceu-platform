@@ -72,7 +72,7 @@ export function isAdminEmail(email: string | null | undefined): boolean {
   if (!email) return false;
   const envAdmins = (process.env.ADMIN_EMAILS ?? "")
     .split(/[,;\s]+/)
-    .map((s) => s.trim().toLowerCase())
+    .map((s) => s.trim().replace(/^["']+|["']+$/g, "").toLowerCase())
     .filter(Boolean);
   return envAdmins.includes(email.toLowerCase());
 }
