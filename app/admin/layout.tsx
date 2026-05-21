@@ -21,7 +21,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const user = await getCurrentUser();
-  if (!user) redirect("/admin/login");
+  if (!user) redirect("/login");
 
   // Try admin check; if it fails but user is authenticated, try to sync profile
   let admin = await assertAdmin();
