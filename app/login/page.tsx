@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
-import { syncCurrentUserProfile } from "@/lib/actions";
+import { syncCurrentUserProfile, getRedirectUrl } from "@/lib/actions";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 
@@ -55,22 +55,9 @@ export default function LoginPage() {
       }
 
       // Redirect: admins → /admin, everyone else → /dashboard
-      // We need to check role client-side since server auth was already done by signInWithPassword
-      const browserClient = createSupabaseBrowserClient();
-      const { data: { user } } = await browserClient.auth.getUser();
-      const envAdmins = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "")
-        .split(/[,;\s]+/)
-        .map((s) => s.trim().toLowerCase())
-        .filter((s) => s.length > 0 && s.includes("@"));
-      const isAdminEmail = user?.email
-        ? envAdmins.includes(user.email.toLowerCase())
-        : false;
-
-      if (isAdminEmail) {
-        window.location.href = "/admin";
-      } else {
-        window.location.href = "/dashboard";
-      }
+      // Server action checks ADMIN_EMAILS (not NEXT_PUBLIC_) so no public env var needed
+      const redirectUrl = await getRedirectUrl();
+      window.location.href = redirectUrl;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro inesperado. Tente novamente.");
     } finally {

@@ -2,7 +2,52 @@
 
 import { createSupabaseServerClient } from "./supabaseServer";
 import { createSupabaseAdminClient } from "./supabaseAdmin";
-import type { User } from "@supabase/supabase-js";
+
+/**
+ * Returns the correct post-login redirect URL based on admin status.
+ * Uses server-side ADMIN_EMAILS (not NEXT_PUBLIC_) so no public env var needed.
+ * Checks public.users role first, then falls back to ADMIN_EMAILS env var.
+ */
+export async function getRedirectUrl(): Promise<"/admin" | "/dashboard"> {
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.user) {
+    return "/dashboard"; // Not logged in, fallback
+  }
+
+  const user = session.user;
+
+  // 1. Check public.users role
+  const adminClient = createSupabaseAdminClient();
+  const { data: profile } = await adminClient
+    .from("users")
+    .select("role")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (profile?.role === "admin") {
+    return "/admin";
+  }
+
+  // 2. Fall back to ADMIN_EMAILS env var
+  const envAdmins = (process.env.ADMIN_EMAILS ?? "")
+    .split(/[,;\s]+/)
+    .map((s) => s.trim().toLowerCase())
+    .filter((s) => s.length > 0 && s.includes("@"));
+
+  if (user.email && envAdmins.includes(user.email.toLowerCase())) {
+    // Promote to admin in DB if not already
+    if (profile && profile.role !== "admin") {
+      await adminClient.from("users").update({ role: "admin" }).eq("id", user.id);
+    }
+    return "/admin";
+  }
+
+  return "/dashboard";
+}
 
 /**
  * Sync the current authenticated user to the public.users table.
@@ -12,11 +57,11 @@ import type { User } from "@supabase/supabase-js";
 export async function syncCurrentUserProfile() {
   const supabase = await createSupabaseServerClient();
   const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (error || !user) {
+  const user = session?.user;
+  if (!user) {
     return { success: false, error: "Not authenticated" };
   }
 
