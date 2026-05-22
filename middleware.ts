@@ -1,17 +1,20 @@
 import { NextResponse } from "next/server";
 
-// Minimal middleware - only redirects unauthenticated admin access
+// Middleware: sets x-pathname so server components can know the current route
 export const config = {
   matcher: ["/admin/:path*"],
 };
 
-export function middleware() {
-  // Optional: Add IP allowlisting if needed
-  // const ALLOWED_IPS = process.env.ADMIN_IPS?.split(",") || [];
-  // const ip = request.ip ?? request.headers.get("x-forwarded-for");
-  // if (ALLOWED_IPS.length > 0 && !ALLOWED_IPS.includes(ip)) {
-  //  return NextResponse.redirect(new URL("/unauthorized", request.url));
-  // }
-  
-  return NextResponse.next();
+export function middleware(request: Request) {
+  // Pass current pathname to server components so admin/layout can suppress
+  // redirect for /admin/login without full auth
+  const requestHeaders = new Headers(request.headers);
+  const url = new URL(request.url);
+  requestHeaders.set("x-pathname", url.pathname);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }

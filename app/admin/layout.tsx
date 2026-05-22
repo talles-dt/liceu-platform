@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { getCurrentUser } from "@/lib/supabaseServer";
 import { assertAdmin } from "@/lib/admin/auth";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
@@ -21,6 +22,19 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const user = await getCurrentUser();
+
+  // Detect if we're on the admin login page. It must render without the
+  // auth-gated sidebar so that unauthenticated admins can reach the form.
+  const pathname = (await headers()).get("x-pathname") || "";
+  const isLoginPage = pathname === "/admin/login";
+
+  // ── ADMIN LOGIN PAGE (exempt from auth-redirect) ──
+  if (isLoginPage) {
+    // Unauthenticated users may enter; authenticated users too (no-op pass-through)
+    return children;
+  }
+
+  // ── ALL OTHER /admin/* ROUTES ──
   if (!user) redirect("/login");
 
   // Try admin check; if it fails but user is authenticated, try to sync profile
