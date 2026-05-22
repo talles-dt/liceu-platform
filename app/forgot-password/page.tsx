@@ -2,9 +2,9 @@
 
 import { FormEvent, useState, useEffect } from "react";
 import Link from "next/link";
-import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
+import { sendRecoveryLink } from "./actions";
 
 export default function ForgotPasswordPage() {
  const [email, setEmail] = useState("");
@@ -28,44 +28,30 @@ export default function ForgotPasswordPage() {
  }, [cooldown, sent]);
 
 async function handleSubmit(e: FormEvent) {
- e.preventDefault();
- 
- // Prevent duplicate submits
- if (loading || sent) return;
- 
- setLoading(true);
- setError(null);
- 
-  try {
-    const supabase = createSupabaseBrowserClient();
-    const redirectTo = `${process.env.NEXT_PUBLIC_SITE_URL || window.location.origin}/reset-password`;
-    // eslint-disable-next-line no-console
-    console.log("[forgot-password] redirectTo:", redirectTo);
- 
- const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
- redirectTo
- });
- 
- if (error) {
- // Handle rate limiting specifically
- if (error.message.toLowerCase().includes("rate") || 
- error.message.includes("429")) {
- setError("Muitos pedidos. Por favor espere alguns minutos antes de tentar novamente.");
- } else {
- setError(error.message);
- }
- return;
- }
- 
- setSent(true);
- setCooldown(60);
- 
- } catch {
- setError("Erro inesperado. Por favor tente novamente.");
- } finally {
- setLoading(false);
- }
-}
+    e.preventDefault();
+
+    // Prevent duplicate submits
+    if (loading || sent) return;
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await sendRecoveryLink(email.trim().toLowerCase());
+
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
+
+      setSent(true);
+      setCooldown(60);
+    } catch {
+      setError("Erro inesperado. Por favor tente novamente.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
  // Format cooldown time
  const formatCooldown = () => {

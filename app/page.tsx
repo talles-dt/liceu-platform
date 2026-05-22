@@ -1,31 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { MinimalButton } from "@/components/MinimalButton";
 import { POSTS } from "@/lib/blog";
+import RecoveryRedirect from "./RecoveryRedirect";
 
 export default function HomePage() {
-  // Recovery redirect workaround: Supabase may strip the path from redirectTo.
-  const router = useRouter();
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-    const token = params.get("token");
-    const type = params.get("type");
-
-    if (type === "recovery") {
-      if (code) {
-        router.replace(`/reset-password?code=${code}`);
-      } else if (token) {
-        router.replace(`/reset-password?token=${token}`);
-      }
-    }
-  }, [router]);
   return (
     <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)]">
+      <RecoveryRedirect />
       {/* Top App Bar */}
       <header className="sticky top-0 z-40 h-20 border-b border-[var(--liceu-stone)] border-l-4 border-l-[var(--liceu-accent)] bg-[var(--liceu-surface)]">
         <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
