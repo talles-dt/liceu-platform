@@ -30,6 +30,8 @@ export default function ResetPasswordLogic() {
       const token = searchParams.get("token");
       const hashParams = new URLSearchParams(window.location.hash.slice(1));
       const hashError = hashParams.get("error_description");
+      // Dashboard resend sends #token= — read from hash as well
+      const hashToken = hashParams.get("token");
 
       if (hashError) {
         setError(hashError);
@@ -56,10 +58,12 @@ export default function ResetPasswordLogic() {
             }
             throw exchangeError;
           }
-        } else if (token) {
-          // Legacy implicit flow: token in query string (?token=xxx&type=recovery)
+        } else if (token || hashToken) {
+          // Legacy implicit flow: token in query string (?token=xxx) or hash (#token=xxx)
+          // Dashboard resend sends #token=...
+          const accessToken = token || hashToken || "";
           const { error: sessionError } = await supabase.auth.setSession({
-            access_token: token,
+            access_token: accessToken,
             refresh_token: hashParams.get("refresh_token") || "",
           });
           if (sessionError) throw sessionError;

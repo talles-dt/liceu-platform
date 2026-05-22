@@ -36,9 +36,11 @@ async function handleSubmit(e: FormEvent) {
  setLoading(true);
  setError(null);
  
- try {
- const supabase = createSupabaseBrowserClient();
- const redirectTo = `${window.location.origin}/reset-password`;
+  try {
+    const supabase = createSupabaseBrowserClient();
+    const redirectTo = `${process.env.NEXT_PUBLIC_SITE_URL || window.location.origin}/reset-password`;
+    // eslint-disable-next-line no-console
+    console.log("[forgot-password] redirectTo:", redirectTo);
  
  const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
  redirectTo
