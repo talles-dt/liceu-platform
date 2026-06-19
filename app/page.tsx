@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { MinimalButton } from "@/components/MinimalButton";
 import { POSTS } from "@/lib/blog";
+import { Magnetic } from "@/components/Magnetic";
+import { TextReveal } from "@/components/TextReveal";
+import { ParallaxLayer } from "@/components/ParallaxLayer";
 import RecoveryRedirect from "./RecoveryRedirect";
 
 export default function HomePage() {
@@ -25,48 +28,78 @@ export default function HomePage() {
               { href: "/programa", label: "Programa" },
               { href: "/mentoria", label: "Mentoria" },
             ] as const).map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] transition-colors hover:text-[var(--liceu-accent)]"
-              >
-                {item.label}
-              </Link>
+              <Magnetic key={item.href} strength={0.15}>
+                <Link
+                  href={item.href}
+                  className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] transition-colors hover:text-[var(--liceu-accent)]"
+                >
+                  {item.label}
+                </Link>
+              </Magnetic>
             ))}
           </nav>
         </div>
       </header>
 
       <main>
-        {/* Hero Section - The Monolith */}
-        <section className="relative flex min-h-[92vh] flex-col items-center justify-center bg-[var(--liceu-surface-container-low)] px-6 py-32">
+        {/* Hero Section — The Monolith */}
+        <section className="relative flex min-h-[92vh] flex-col items-center justify-center bg-[var(--liceu-surface-container-low)] px-6 py-32 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--liceu-bg)] via-transparent to-transparent" />
 
+          <ParallaxLayer speed={-8} className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[var(--liceu-primary)]/5 blur-3xl" />
+            <div className="absolute bottom-1/3 right-1/4 w-48 h-48 rounded-full bg-[var(--liceu-secondary)]/5 blur-3xl" />
+          </ParallaxLayer>
+
           <div className="relative z-10 flex max-w-4xl flex-col items-center text-center">
-            <div className="mb-8 bg-[var(--liceu-primary-container)] px-4 py-1 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.3em] text-[var(--liceu-text)]">
+            <div
+              className="mb-8 bg-[var(--liceu-primary-container)] px-4 py-1 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.3em] text-[var(--liceu-text)]"
+              style={{ animation: "qa-rise 0.8s ease-out 0.1s both" }}
+            >
               The Brutalist Archive
             </div>
 
-            <h1 className="font-[var(--font-noto-serif)] text-5xl font-black uppercase tracking-tighter leading-none md:text-7xl lg:text-8xl">
-              Você é inteligente. <span className="text-[var(--liceu-accent)]">Sob pressão, não parece.</span>
-            </h1>
+            <TextReveal
+              text="Você é inteligente."
+              as="h1"
+              className="font-[var(--font-noto-serif)] text-5xl font-black uppercase tracking-tighter leading-none md:text-7xl lg:text-8xl"
+              staggerDelay={0.04}
+            />
+            <TextReveal
+              text="Sob pressão, não parece."
+              as="h1"
+              className="font-[var(--font-noto-serif)] text-5xl font-black uppercase tracking-tighter leading-none md:text-7xl lg:text-8xl text-[var(--liceu-accent)]"
+              staggerDelay={0.04}
+              delay={0.5}
+            />
 
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-[var(--liceu-muted)]">
-              Uma escola de pensamento aplicado à fala. Fundada na retórica clássica. Construída para quem colapsa onde mais importa.
+            <p
+              className="mt-8 max-w-xl text-lg leading-relaxed text-[var(--liceu-muted)]"
+              style={{ animation: "qa-rise 0.8s ease-out 1s both", opacity: 0 }}
+            >
+              Uma escola de pensamento aplicado à fala. Fundada na retórica clássica.
+              Construída para quem colapsa onde mais importa.
             </p>
 
-            <div className="mt-12 flex flex-col items-center gap-6">
+            <div
+              className="mt-12 flex flex-col items-center gap-6"
+              style={{ animation: "qa-rise 0.8s ease-out 1.3s both", opacity: 0 }}
+            >
               <div className="h-1 w-16 bg-[var(--liceu-secondary)]" />
               <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                 Access Required
               </div>
               <div className="flex gap-4">
-                <Link href="/diagnostico">
-                  <MinimalButton variant="primary">Iniciar diagnóstico</MinimalButton>
-                </Link>
-                <Link href="/manifesto">
-                  <MinimalButton variant="quiet">Ler manifesto</MinimalButton>
-                </Link>
+                <Magnetic strength={0.2}>
+                  <Link href="/diagnostico">
+                    <MinimalButton variant="primary">Iniciar diagnóstico</MinimalButton>
+                  </Link>
+                </Magnetic>
+                <Magnetic strength={0.2}>
+                  <Link href="/manifesto">
+                    <MinimalButton variant="quiet">Ler manifesto</MinimalButton>
+                  </Link>
+                </Magnetic>
               </div>
             </div>
           </div>
@@ -82,16 +115,26 @@ export default function HomePage() {
               },
               {
                 title: "É",
-                items: ["Treinamento de estrutura lógica", "Pressão progressiva controlada", "Retórica clássica aplicada", "Método — não performance"],
+                items: [
+                  "Treinamento de estrutura lógica",
+                  "Pressão progressiva controlada",
+                  "Retórica clássica aplicada",
+                  "Método — não performance",
+                ],
               },
               {
                 title: "Para quem",
-                items: ["Colapsa sob interrupção", "Sabe mais do que consegue defender", "Perde terreno para quem blafa", "Quer a estrutura, não o carisma"],
+                items: [
+                  "Colapsa sob interrupção",
+                  "Sabe mais do que consegue defender",
+                  "Perde terreno para quem blafa",
+                  "Quer a estrutura, não o carisma",
+                ],
               },
             ].map((col, idx) => (
               <div
                 key={col.title}
-                className={`group relative bg-[var(--liceu-surface-container)] p-12 transition-colors hover:bg-[var(--liceu-surface-container-high)] ${
+                className={`group relative bg-[var(--liceu-surface-container)] p-12 transition-all duration-300 hover:bg-[var(--liceu-surface-container-high)] ${
                   idx === 1 ? "md:-translate-y-8" : ""
                 } border-l border-[var(--liceu-stone)]/15`}
               >
@@ -101,7 +144,10 @@ export default function HomePage() {
                 </div>
                 <ul className="mt-6 space-y-4">
                   {col.items.map((item) => (
-                    <li key={item} className="font-[var(--font-noto-serif)] text-[13px] leading-snug text-[var(--liceu-text)]">
+                    <li
+                      key={item}
+                      className="font-[var(--font-noto-serif)] text-[13px] leading-snug text-[var(--liceu-text)]"
+                    >
                       {item}
                     </li>
                   ))}
@@ -134,11 +180,13 @@ export default function HomePage() {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link href="/diagnostico">
-                  <button className="bg-[var(--liceu-secondary-container)] px-8 py-4 font-[var(--font-space-grotesk)] text-xs font-black uppercase tracking-[0.3em] text-[var(--liceu-text)] transition-colors hover:bg-[var(--liceu-secondary)] hover:text-[var(--liceu-on-secondary-container)]">
-                    Iniciar diagnóstico
-                  </button>
-                </Link>
+                <Magnetic strength={0.2}>
+                  <Link href="/diagnostico">
+                    <button className="bg-[var(--liceu-secondary-container)] px-8 py-4 font-[var(--font-space-grotesk)] text-xs font-black uppercase tracking-[0.3em] text-[var(--liceu-text)] transition-colors hover:bg-[var(--liceu-secondary)] hover:text-[var(--liceu-on-secondary-container)]">
+                      Iniciar diagnóstico
+                    </button>
+                  </Link>
+                </Magnetic>
               </div>
             </div>
 
@@ -181,19 +229,20 @@ export default function HomePage() {
                   desc: "Correção ao vivo. Seis sessões.",
                 },
               ] as const).map((p) => (
-                <Link
-                  key={p.href}
-                  href={p.href}
-                  className="group block border border-[var(--liceu-stone)] border-l-4 border-l-[var(--liceu-stone)] bg-[var(--liceu-surface-container)] p-8 transition-all hover:border-l-[var(--liceu-accent)] hover:bg-[var(--liceu-surface-container-high)]"
-                >
-                  <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
-                    {p.tag}
-                  </div>
-                  <div className="mt-4 font-[var(--font-noto-serif)] text-xl uppercase text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)]">
-                    {p.title}
-                  </div>
-                  <p className="mt-2 text-sm text-[var(--liceu-muted)]">{p.desc}</p>
-                </Link>
+                <Magnetic key={p.href} strength={0.1}>
+                  <Link
+                    href={p.href}
+                    className="group block border border-[var(--liceu-stone)] border-l-4 border-l-[var(--liceu-stone)] bg-[var(--liceu-surface-container)] p-8 transition-all duration-300 hover:border-l-[var(--liceu-accent)] hover:bg-[var(--liceu-surface-container-high)] hover:translate-y-[-2px]"
+                  >
+                    <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
+                      {p.tag}
+                    </div>
+                    <div className="mt-4 font-[var(--font-noto-serif)] text-xl uppercase text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors duration-300">
+                      {p.title}
+                    </div>
+                    <p className="mt-2 text-sm text-[var(--liceu-muted)]">{p.desc}</p>
+                  </Link>
+                </Magnetic>
               ))}
             </div>
           </div>
@@ -219,9 +268,9 @@ export default function HomePage() {
                   <Link
                     key={post.slug}
                     href={`/blog/${post.slug}`}
-                    className="group block border border-[var(--liceu-stone)] bg-[var(--liceu-surface-container-high)] p-8 transition-colors hover:bg-[var(--liceu-surface-container)]"
+                    className="group block border border-[var(--liceu-stone)] bg-[var(--liceu-surface-container-high)] p-8 transition-all duration-300 hover:bg-[var(--liceu-surface-container)] hover:translate-y-[-2px]"
                   >
-                    <div className="font-[var(--font-noto-serif)] text-lg uppercase text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)]">
+                    <div className="font-[var(--font-noto-serif)] text-lg uppercase text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors duration-300">
                       {post.title}
                     </div>
                     <div className="mt-4 font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.18em] text-[var(--liceu-muted)]">

@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono, Noto_Serif, Work_Sans, Space_Grotesk, Roboto_Mon
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Analytics } from "@/components/Analytics";
+import { GrainOverlay } from "@/components/GrainOverlay";
+import { ScrollProgress } from "@/components/ScrollProgress";
 import * as Sentry from "@sentry/nextjs";
 
 const uiSans = Inter({
@@ -96,6 +98,8 @@ export default function RootLayout({
             Pular para o conteúdo
           </a>
           <SiteHeader />
+          <ScrollProgress />
+          <GrainOverlay />
           <Analytics />
           <main id="main-content">{children}</main>
         </body>
