@@ -14,7 +14,8 @@ const NAV = [
   { href: "/admin/mentorship" as const, label: "mentorship" },
   { href: "/admin/content" as const, label: "content" },
   { href: "/admin/system" as const, label: "system" },
-] as const;
+  { href: "/admin/zernio" as const, label: "zernio" },
+] as const satisfies ReadonlyArray<{ readonly href: string; readonly label: string }>;
 
 export default async function AdminLayout({
   children,

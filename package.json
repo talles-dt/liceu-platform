@@ -14,6 +14,7 @@
     "@sentry/nextjs": "^10.47.0",
     "@supabase/ssr": "^0.5.1",
     "@supabase/supabase-js": "^2.49.1",
+    "@zernio/node": "^0.2.419",
     "gray-matter": "^4.0.3",
     "isomorphic-dompurify": "^3.7.1",
     "marked": "^17.0.5",
