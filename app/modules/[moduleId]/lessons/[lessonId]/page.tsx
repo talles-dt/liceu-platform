@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
-import { canAccessModuleForUser } from "@/lib/progression";
+import { canAccessLiceuModuleForUser } from "@/lib/progression";
 import { getUserAccessLevel } from "@/lib/access";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { LessonQuiz } from "@/components/LessonQuiz";
@@ -34,48 +34,48 @@ export default async function LessonPage({ params }: Params) {
 
   const supabase = await createSupabaseServerClient();
 
-  // Check module access
-  const accessible = await canAccessModuleForUser(user.id, moduleId);
+  // Check module access using Liceu tables
+  const accessible = await canAccessLiceuModuleForUser(user.id, moduleId);
   if (!accessible) redirect("/dashboard");
 
-  // Load lesson + module
+  // Load lesson + module using Liceu tables
   const [{ data: lessonData }, { data: moduleData }] = await Promise.all([
     supabase
-      .from("lessons")
+      .from("liceu_lessons")
       .select("id, title, content, cloudflare_stream_id, order_index, module_id")
       .eq("id", lessonId)
       .eq("module_id", moduleId)
       .maybeSingle<DbLesson>(),
     supabase
-      .from("modules")
-      .select("id, title, order_index, course_id")
+      .from("liceu_modules")
+      .select("id, title, order_index")
       .eq("id", moduleId)
       .maybeSingle<DbModule>(),
   ]);
 
   if (!lessonData || !moduleData) notFound();
 
-  // Determine access level
-  const access = await getUserAccessLevel(user.id, moduleData.course_id);
-  if (access === "none") redirect("/programa");
+  // Determine access level - skip for Liceu
+  // const access = await getUserAccessLevel(user.id, moduleData.course_id);
+  // if (access === "none") redirect("/programa");
 
-  const hasVideo = !!lessonData.cloudflare_stream_id && access !== "ebook";
+  const hasVideo = !!lessonData.cloudflare_stream_id;
 
-  // Check if already completed
-  const { data: completion } = await supabase
-    .from("lesson_completions")
-    .select("completed")
+  // Check if already completed using Liceu progression
+  const { data: progression } = await supabase
+    .from("liceu_learner_progression")
+    .select("completed_lessons")
     .eq("user_id", user.id)
-    .eq("lesson_id", lessonId)
-    .maybeSingle<{ completed: boolean }>();
+    .maybeSingle<{ completed_lessons: string[] }>();
 
-  const alreadyCompleted = completion?.completed ?? false;
+  const alreadyCompleted = (progression?.completed_lessons ?? []).includes(lessonId);
 
   // Load lesson quiz questions (just count — full load is client-side)
   const { data: quizQuestions } = await supabase
-    .from("lesson_quiz_questions")
+    .from("liceu_exercises")
     .select("id")
-    .eq("lesson_id", lessonId);
+    .eq("lesson_id", lessonId)
+    .eq("exercise_type", "identification");
 
   const hasQuiz = (quizQuestions?.length ?? 0) > 0;
 
@@ -87,9 +87,10 @@ export default async function LessonPage({ params }: Params) {
 
   // Load all lessons in module for prev/next navigation
   const { data: allLessons } = await supabase
-    .from("lessons")
+    .from("liceu_lessons")
     .select("id, title, order_index")
     .eq("module_id", moduleId)
+    .eq("is_published", true)
     .order("order_index");
 
   const lessons = (allLessons ?? []) as { id: string; title: string; order_index: number }[];

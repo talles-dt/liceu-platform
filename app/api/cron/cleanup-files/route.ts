@@ -12,7 +12,7 @@ const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
  * older than 90 days. Protected by CRON_SECRET bearer token.
  */
 export async function POST(req: Request) {
-  const cronError = requireCronSecret(req);
+  const cronError = await requireCronSecret(req);
   if (cronError) return cronError;
 
   const supabase = createSupabaseAdminClient();

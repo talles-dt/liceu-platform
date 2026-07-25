@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/supabaseServer";
-import { canAccessModuleForUser } from "@/lib/progression";
+import { canAccessLiceuModuleForUser } from "@/lib/progression";
 
 type Context = {
   params: Promise<{
@@ -15,7 +15,7 @@ export async function GET(_request: Request, { params }: Context) {
   }
 
   const { moduleId } = await params;
-  const canAccess = await canAccessModuleForUser(user.id, moduleId);
+  const canAccess = await canAccessLiceuModuleForUser(user.id, moduleId);
 
   return NextResponse.json({ moduleId, canAccess });
 }

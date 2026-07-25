@@ -10,7 +10,7 @@ import { requireCronSecret } from "@/lib/routeSecurity";
  * row in the last 7 days. Protected by CRON_SECRET bearer token.
  */
 export async function POST(req: Request) {
-  const cronError = requireCronSecret(req);
+  const cronError = await requireCronSecret(req);
   if (cronError) return cronError;
 
   const supabase = createSupabaseAdminClient();

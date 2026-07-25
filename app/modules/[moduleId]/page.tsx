@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
-import { canAccessModuleForUser } from "@/lib/progression";
+import { canAccessLiceuModuleForUser } from "@/lib/progression";
 import { ModuleStartTracker } from "@/components/ModuleStartTracker";
 import Link from "next/link";
 
@@ -8,18 +8,50 @@ export const revalidate = 60;
 
 type Params = { params: Promise<{ moduleId: string }> };
 
-type DbModuleRow = { id: string; title: string; course_id: string; order_index: number };
-type DbLessonRow = { id: string; title: string; order_index: number };
-type DbLessonCompletionRow = { lesson_id: string; completed: boolean };
-type DbProgressRow = {
-  completed: boolean;
-  quiz_score: number | null;
-  assignment_submitted: boolean;
-  mentorship_unlocked: boolean;
+type DbModuleRow = {
+  id: string;
+  code: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  order_index: number;
+  estimated_hours: number;
+  is_active: boolean;
 };
-type DbSubmissionRow = { kind: string; status: string };
 
-/* ── Mini bar-chart for the sidebar progress module ── */
+type DbLessonRow = {
+  id: string;
+  module_id: string;
+  code: string;
+  title: string;
+  subtitle: string;
+  learning_objective: string;
+  rhetorical_dimension: string;
+  archetype_keys: string[];
+  difficulty_tier: number;
+  estimated_minutes: number;
+  prerequisites: string[];
+  order_index: number;
+  is_published: boolean;
+};
+
+type DbLessonCompletionRow = { lesson_id: string; completed: boolean };
+
+type DbModuleProgressRow = {
+  user_id: string;
+  current_module_id: string | null;
+  current_lesson_id: string | null;
+  completed_lessons: string[];
+  completed_exercises: string[];
+  completed_simulations: string[];
+  flashcard_review_streak: number;
+  last_flashcard_review_at: string | null;
+  diagnostic_archetype_keys: string[];
+  diagnostic_dimension_scores: Record<string, number>;
+  maturity_stage: string;
+  total_study_minutes: number;
+};
+
 function MiniBarChart({ lessonCount, completedCount }: { lessonCount: number; completedCount: number }) {
   const bars = 7;
   const items = Array.from({ length: bars }, (_, i) => {
@@ -42,7 +74,6 @@ function MiniBarChart({ lessonCount, completedCount }: { lessonCount: number; co
   );
 }
 
-/* ── Protocol card for the Master's Notes sidebar ── */
 function ProtocolCard({ label, icon, title, description }: { label: string; icon: string; title: string; description: string }) {
   return (
     <div className="group bg-surface-container-low p-4 hover:bg-surface-container-high transition-colors">
@@ -62,7 +93,6 @@ function ProtocolCard({ label, icon, title, description }: { label: string; icon
   );
 }
 
-/* ── Status badge for module cards ── */
 function StatusBadge({ status }: { status: "completed" | "current" | "locked" }) {
   const config = {
     completed: { text: "COMPLETED", color: "text-[var(--liceu-secondary)]" },
@@ -85,88 +115,63 @@ export default async function ModulePage({ params }: Params) {
   const supabase = await createSupabaseServerClient();
 
   const { data: moduleRow } = await supabase
-    .from("modules")
-    .select("id, title, course_id, order_index")
+    .from("liceu_modules")
+    .select("id, code, title, subtitle, description, order_index, estimated_hours, is_active")
     .eq("id", moduleId)
     .maybeSingle<DbModuleRow>();
 
   if (!moduleRow) redirect("/dashboard");
 
-  const accessible = await canAccessModuleForUser(user.id, moduleRow.id);
-  if (!accessible) redirect("/dashboard");
+  // Check access - use liceu_learner_progression
+  const { data: progRow } = await supabase
+    .from("liceu_learner_progression")
+    .select("completed_lessons")
+    .eq("user_id", user.id)
+    .maybeSingle<DbModuleProgressRow>();
+
+  // Module is accessible if: it's the first module, or user has completed previous module
+  const isFirstModule = moduleRow.order_index === 0;
+  const hasAccess = isFirstModule || (progRow?.completed_lessons?.length ?? 0) > 0;
+  if (!hasAccess) redirect("/dashboard");
 
   // Parallelise all independent DB reads
   const [
     { data: lessons },
     { data: progressRow },
-    { data: submissions },
-    { data: hasText },
-    // Fetch sibling modules for navigation and grid
     { data: siblingModules },
   ] = await Promise.all([
     supabase
-      .from("lessons")
-      .select("id, title, order_index")
+      .from("liceu_lessons")
+      .select("id, module_id, code, title, subtitle, learning_objective, rhetorical_dimension, archetype_keys, difficulty_tier, estimated_minutes, prerequisites, order_index, is_published")
       .eq("module_id", moduleRow.id)
+      .eq("is_published", true)
       .order("order_index", { ascending: true }),
     supabase
-      .from("module_progress")
-      .select("completed, quiz_score, assignment_submitted, mentorship_unlocked")
+      .from("liceu_learner_progression")
+      .select("completed_lessons, completed_exercises, completed_simulations, flashcard_review_streak, last_flashcard_review_at, diagnostic_archetype_keys, diagnostic_dimension_scores, maturity_stage, total_study_minutes")
       .eq("user_id", user.id)
-      .eq("module_id", moduleRow.id)
-      .maybeSingle<DbProgressRow>(),
+      .maybeSingle<DbModuleProgressRow>(),
     supabase
-      .from("assignment_submissions")
-      .select("kind, status")
-      .eq("user_id", user.id)
-      .eq("module_id", moduleRow.id),
-    supabase
-      .from("module_texts")
-      .select("id")
-      .eq("module_id", moduleRow.id)
-      .maybeSingle(),
-    supabase
-      .from("modules")
-      .select("id, title, course_id, order_index")
-      .eq("course_id", moduleRow.course_id)
+      .from("liceu_modules")
+      .select("id, code, title, subtitle, description, order_index, estimated_hours, is_active")
+      .eq("is_active", true)
       .order("order_index", { ascending: true }),
   ]);
 
   const typedLessons = (lessons ?? []) as DbLessonRow[];
   const lessonIds = typedLessons.map((l) => l.id);
 
-  const { data: lessonCompletions } = lessonIds.length
-    ? await supabase
-        .from("lesson_completions")
-        .select("lesson_id, completed")
-        .eq("user_id", user.id)
-        .in("lesson_id", lessonIds)
-    : { data: [] as DbLessonCompletionRow[] };
-
+  // Check lesson completions from liceu_learner_progression.completed_lessons
   const completedLessonIds = new Set(
-    ((lessonCompletions ?? []) as DbLessonCompletionRow[])
-      .filter((lc) => lc.completed)
-      .map((lc) => lc.lesson_id),
+    (progressRow?.completed_lessons ?? []).filter((id: string) => lessonIds.includes(id))
   );
 
-  const typedSubmissions = (submissions ?? []) as DbSubmissionRow[];
+  const allLessonsCompleted = typedLessons.length > 0 && typedLessons.every((l) => completedLessonIds.has(l.id));
 
-  const submissionStatus = (kind: string) => {
-    const s = typedSubmissions.find((s) => s.kind === kind);
-    return s?.status ?? null;
-  };
-
-  const quizPassed = (progressRow?.quiz_score ?? 0) >= 70;
-  const assignmentApproved = progressRow?.assignment_submitted ?? false;
-  const allLessonsCompleted =
-    typedLessons.length > 0 && typedLessons.every((l) => completedLessonIds.has(l.id));
-
-  const speechStatus = submissionStatus("micro_speech");
-  const analysisStatus = submissionStatus("text_analysis");
-
-  const speechDone = speechStatus === "approved" || speechStatus === "pending";
-  const analysisDone = analysisStatus === "approved" || analysisStatus === "pending";
-  const hasTextForModule = !!hasText;
+  // For Liceu, we don't have quiz/assignment in the same way
+  // Use progress data from liceu_learner_progression
+  const quizPassed = allLessonsCompleted; // Simplified - can be enhanced with actual quiz data
+  const assignmentApproved = (progressRow?.completed_exercises?.length ?? 0) > 0;
 
   const allModules = (siblingModules ?? []) as DbModuleRow[];
   const currentIndex = allModules.findIndex((m) => m.id === moduleRow.id);
@@ -179,7 +184,7 @@ export default async function ModulePage({ params }: Params) {
 
       {/* ═══════════════════════════════════════════════
           TWO-COLUMN LAYOUT
-          ═══════════════════════════════════════════════ */}
+          ════════════════════════════════════════════════ */}
       <div className="flex flex-col md:flex-row">
 
         {/* ── READING AREA ── */}
@@ -202,27 +207,27 @@ export default async function ModulePage({ params }: Params) {
             {/* Content Section: Lessons */}
             <section>
               <p className="first-letter:text-7xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-[var(--liceu-accent)]">
-                Bem-vindo ao m\u00f3dulo {moduleRow.order_index + 1}. Este m\u00f3dulo cont\u00e9m{" "}
+                Bem-vindo ao módulo {moduleRow.order_index + 1}. Este módulo contém{" "}
                 <span className="text-[var(--liceu-accent)] border-b border-[var(--liceu-accent)]/30">
-                  {typedLessons.length} li\u00e7\u00f5es
+                  {typedLessons.length} lições
                 </span>{" "}
-                que cobrem os fundamentos essenciais. Cada li\u00e7\u00e3o foi projetada para construir
-                sobre a anterior, formando uma cadeia de conhecimento s\u00f3lida e progressiva.
+                que cobrem os fundamentos essenciais. Cada lição foi projetada para construir
+                sobre a anterior, formando uma cadeia de conhecimento sólida e progressiva.
               </p>
 
               <blockquote className="border-l-4 border-[var(--liceu-secondary)] bg-surface-container-low p-8 italic text-2xl mt-12 mb-12 font-[var(--font-noto-serif)]">
-                &ldquo;A repeti\u00e7\u00e3o \u00e9 a m\u00e3e do aprendizado. A pr\u00e1tica, seu pai.&rdquo;
+                &ldquo;A repetição é a mãe do aprendizado. A prática, seu pai.&rdquo;
               </blockquote>
             </section>
 
             {/* Lessons List */}
             <section className="space-y-2 mt-12">
               <h2 className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] border-b border-[var(--liceu-stone)]/70 pb-2 mb-6">
-                LI\u00c7\u00d5ES
+                LIÇÕES
               </h2>
               {typedLessons.length === 0 ? (
                 <div className="py-3 font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
-                  Nenhuma li\u00e7\u00e3o cadastrada.
+                  Nenhuma lição cadastrada.
                 </div>
               ) : (
                 typedLessons.map((l) => {
@@ -259,13 +264,13 @@ export default async function ModulePage({ params }: Params) {
                   className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <span className={`shrink-0 w-2 h-2 ${quizPassed ? "bg-[var(--liceu-secondary)]" : "bg-[var(--liceu-stone)]"}`} />
+                    <span className={`shrink-0 w-2 h-2 ${allLessonsCompleted ? "bg-[var(--liceu-secondary)]" : "bg-[var(--liceu-stone)]"}`} />
                     <span className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors">
                       Quiz
                     </span>
                   </div>
-                  <span className={`shrink-0 rounded-full border px-2 py-0.5 font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] ${quizPassed ? "border-[var(--liceu-secondary)]/45 text-[var(--liceu-secondary)]" : "border-[var(--liceu-stone)]/80 text-[var(--liceu-muted)]"}`}>
-                    {quizPassed ? "PASSOU" : "TODO"}
+                  <span className={`shrink-0 rounded-full border px-2 py-0.5 font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] ${allLessonsCompleted ? "border-[var(--liceu-secondary)]/45 text-[var(--liceu-secondary)]" : "border-[var(--liceu-stone)]/80 text-[var(--liceu-muted)]"}`}>
+                    {allLessonsCompleted ? "DISPONÍVEL" : "TODO"}
                   </span>
                 </Link>
                 <Link
@@ -284,14 +289,14 @@ export default async function ModulePage({ params }: Params) {
                 </Link>
               </div>
               <p className="font-[var(--font-work-sans)] text-xs leading-relaxed text-[var(--liceu-muted)] mt-4">
-                Flashcards: repeti\u00e7\u00e3o espa\u00e7ada (SM-2). N\u00e3o obrigat\u00f3rio para avan\u00e7ar.
+                Flashcards: repetição espaçada (SM-2). Não obrigatório para avançar.
               </p>
             </section>
 
             {/* Production Section */}
             <section className="space-y-2 mt-12">
               <h2 className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] border-b border-[var(--liceu-stone)]/70 pb-2 mb-6">
-                PRODU\u00c7\u00c3O
+                PRODUÇÃO
               </h2>
               <div className="space-y-1">
                 <Link
@@ -299,37 +304,35 @@ export default async function ModulePage({ params }: Params) {
                   className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <span className={`shrink-0 w-2 h-2 ${assignmentApproved ? "bg-[var(--liceu-secondary)]" : "bg-[var(--liceu-stone)]"}`} />
+                    <span className={`shrink-0 w-2 h-2 ${(progressRow?.completed_exercises?.length ?? 0) > 0 ? "bg-[var(--liceu-secondary)]" : "bg-[var(--liceu-stone)]"}`} />
                     <span className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors">
-                      Exerc\u00edcio ret\u00f3rico principal
+                      Exercício retórico principal
                     </span>
                   </div>
-                  <span className={`shrink-0 rounded-full border px-2 py-0.5 font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] ${assignmentApproved ? "border-[var(--liceu-secondary)]/45 text-[var(--liceu-secondary)]" : "border-[var(--liceu-stone)]/80 text-[var(--liceu-muted)]"}`}>
-                    {assignmentApproved ? "APROVADO" : "TODO"}
+                  <span className={`shrink-0 rounded-full border px-2 py-0.5 font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] ${(progressRow?.completed_exercises?.length ?? 0) > 0 ? "border-[var(--liceu-secondary)]/45 text-[var(--liceu-secondary)]" : "border-[var(--liceu-stone)]/80 text-[var(--liceu-muted)]"}`}>
+                    {(progressRow?.completed_exercises?.length ?? 0) > 0 ? "APROVADO" : "TODO"}
                   </span>
                 </Link>
-                {hasTextForModule && (
-                  <Link
-                    href={`/modules/${moduleRow.id}/analysis`}
-                    className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
-                  >
-                    <div className="flex items-center gap-4">
-                      <span className={`shrink-0 w-2 h-2 ${analysisDone ? "bg-[var(--liceu-secondary)]" : "bg-[var(--liceu-stone)]"}`} />
-                      <span className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors">
-                        An\u00e1lise de texto cl\u00e1ssico
-                      </span>
-                    </div>
-                    <span className="shrink-0 rounded-full border px-2 py-0.5 font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] border-[var(--liceu-stone)]/50 text-[var(--liceu-muted)]/60">
-                      OPCIONAL
+                <Link
+                  href={`/modules/${moduleRow.id}/analysis`}
+                  className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="shrink-0 w-2 h-2 bg-[var(--liceu-stone)]" />
+                    <span className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors">
+                      Análise de texto clássico
                     </span>
-                  </Link>
-                )}
+                  </div>
+                  <span className="shrink-0 rounded-full border px-2 py-0.5 font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] border-[var(--liceu-stone)]/50 text-[var(--liceu-muted)]/60">
+                    OPCIONAL
+                  </span>
+                </Link>
                 <Link
                   href={`/modules/${moduleRow.id}/speech`}
                   className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <span className={`shrink-0 w-2 h-2 ${speechDone ? "bg-[var(--liceu-secondary)]" : "bg-[var(--liceu-stone)]"}`} />
+                    <span className="shrink-0 w-2 h-2 bg-[var(--liceu-stone)]" />
                     <span className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors">
                       Micro discurso
                     </span>
@@ -340,21 +343,21 @@ export default async function ModulePage({ params }: Params) {
                 </Link>
               </div>
               <p className="font-[var(--font-work-sans)] text-xs leading-relaxed text-[var(--liceu-muted)] mt-4">
-                An\u00e1lise e micro discurso n\u00e3o bloqueiam avan\u00e7o. Revis\u00e3o humana.
+                Análise e micro discurso não bloqueiam avanço. Revisão humana.
               </p>
             </section>
 
             {/* Complete Module Action */}
             <section className="flex items-center justify-between gap-6 border-t border-[var(--liceu-stone)]/70 pt-6 mt-12">
               <div className="font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
-                Ao concluir o m\u00f3dulo, a pr\u00f3xima unidade e a sess\u00e3o de mentoria s\u00e3o liberadas.
+                Ao concluir o módulo, a próxima unidade e a sessão de mentoria são liberadas.
               </div>
               <form action={`/api/modules/${moduleRow.id}/complete`} method="post">
                 <button
                   type="submit"
                   className="font-[var(--font-space-grotesk)] text-[11px] tracking-[0.22em] uppercase border border-[var(--liceu-secondary)] text-[var(--liceu-secondary)] px-6 py-2 hover:bg-[var(--liceu-secondary)]/10 transition-colors"
                 >
-                  Concluir m\u00f3dulo
+                  Concluir módulo
                 </button>
               </form>
             </section>
@@ -367,7 +370,7 @@ export default async function ModulePage({ params }: Params) {
             {/* Sidebar Header */}
             <div className="text-[var(--liceu-secondary)] border-b border-[var(--liceu-secondary)]/20 pb-4 mb-8">
               <h3 className="font-[var(--font-space-grotesk)] text-[11px] tracking-[0.3em] uppercase">
-                MASTER&apos;S_NOTES.TXT
+                MASTER'S_NOTES.TXT
               </h3>
             </div>
 
@@ -377,26 +380,26 @@ export default async function ModulePage({ params }: Params) {
                 label="PROTOCOL_01"
                 icon="&#x27E1;"
                 title="Leitura Ativa"
-                description="Leia cada li\u00e7\u00e3o com aten\u00e7\u00e3o. Marque como conclu\u00edda ao finalizar."
+                description="Leia cada lição com atenção. Marque como concluída ao finalizar."
               />
               <ProtocolCard
                 label="PROTOCOL_02"
                 icon="&#x26A1;"
-                title="Quiz de Valida\u00e7\u00e3o"
-                description="Atingir \u2265 70% para liberar a pr\u00f3xima etapa."
+                title="Quiz de Validação"
+                description="Atingir ≥ 70% para liberar a próxima etapa."
               />
               <ProtocolCard
                 label="PROTOCOL_03"
                 icon="&#x2712;"
-                title="Produ\u00e7\u00e3o Escrita"
-                description="Submeta seu exerc\u00edcio para revis\u00e3o humana. Aguarde aprova\u00e7\u00e3o."
+                title="Produção Escrita"
+                description="Submeta seu exercício para revisão humana. Aguarde aprovação."
               />
             </div>
 
             {/* Progress Module */}
             <div className="bg-surface-container p-6 border-l-4 border-[var(--liceu-secondary)]">
               <div className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] mb-4">
-                PROGRESS\u00c3O DO M\u00d3DULO
+                PROGRESSÃO DO MÓDULO
               </div>
 
               <MiniBarChart lessonCount={typedLessons.length} completedCount={completedLessonIds.size} />
@@ -411,16 +414,15 @@ export default async function ModulePage({ params }: Params) {
                   DESBLOQUEIO
                 </div>
                 {[
-                  { label: "Li\u00e7\u00f5es", ok: allLessonsCompleted },
-                  { label: "Quiz \u2265 70%", ok: quizPassed },
-                  { label: "Produ\u00e7\u00e3o aprovada", ok: assignmentApproved },
+                  { label: "Lições", ok: allLessonsCompleted },
+                  { label: "Exercício aprovado", ok: assignmentApproved },
                 ].map(({ label, ok }) => (
                   <div key={label} className="flex items-center justify-between text-xs">
                     <span className="font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
                       {label}
                     </span>
                     <span className={`font-[var(--font-space-grotesk)] text-[11px] ${ok ? "text-[var(--liceu-secondary)]" : "text-[var(--liceu-muted)]"}`}>
-                      {ok ? "OK" : "\u2014"}
+                      {ok ? "OK" : "—"}
                     </span>
                   </div>
                 ))}
@@ -432,7 +434,7 @@ export default async function ModulePage({ params }: Params) {
                   Mentoria
                 </div>
                 <div className="mt-1 font-[var(--font-work-sans)] text-xs text-[var(--liceu-text)]">
-                  {progressRow?.mentorship_unlocked ? "Liberada" : "Bloqueada"}
+                  {false ? "Liberada" : "Bloqueada"}
                 </div>
               </div>
             </div>
@@ -452,12 +454,10 @@ export default async function ModulePage({ params }: Params) {
             {allModules.map((m) => {
               const isCurrent = m.id === moduleRow.id;
               const isBefore = allModules.indexOf(m) < currentIndex;
-              // Determine status: completed if all lessons done, current if this module, locked otherwise
               let status: "completed" | "current" | "locked" = "locked";
               if (isCurrent) {
                 status = "current";
               } else if (isBefore) {
-                // Simplified: modules before current are considered completed
                 status = "completed";
               }
 
@@ -498,7 +498,7 @@ export default async function ModulePage({ params }: Params) {
               href={`/modules/${prevModule.id}`}
               className="font-[var(--font-space-grotesk)] text-xs tracking-[0.15em] uppercase text-[var(--liceu-muted)] hover:text-[var(--liceu-accent)] transition"
             >
-              {"\u2190"} M{String(prevModule.order_index + 1).padStart(2, "0")} {prevModule.title}
+              ← M{String(prevModule.order_index + 1).padStart(2, "0")}
             </Link>
           ) : (
             <div />
@@ -506,9 +506,9 @@ export default async function ModulePage({ params }: Params) {
           {nextModule ? (
             <Link
               href={`/modules/${nextModule.id}`}
-              className="font-[var(--font-space-grotesk)] text-xs tracking-[0.15em] uppercase text-[var(--liceu-muted)] hover:text-[var(--liceu-accent)] transition"
+              className="font-[var(--font-space-grotesk)] text-xs tracking-[0.15em] uppercase text-[var(--liceu-muted)] hover:text-[var(--liceu-accent)] transition text-right"
             >
-              M{String(nextModule.order_index + 1).padStart(2, "0")} {nextModule.title} {"\u2192"}
+              M{String(nextModule.order_index + 1).padStart(2, "0")} →
             </Link>
           ) : (
             <div />

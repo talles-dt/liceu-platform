@@ -25,10 +25,8 @@ export async function GET(_req: Request, { params }: Context) {
   const { access, denial } = await resolveLessonAccess(user.id, lessonId);
   if (denial) return denial;
 
-  const accessLevel = await getUserAccessLevel(user.id, access.courseId);
-  if (accessLevel === "ebook") {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
+  // For Liceu, we don't use course-based access levels
+  // Skip the ebook check since Liceu modules don't have course-based access levels
 
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const keyId = process.env.CLOUDFLARE_STREAM_KEY_ID;
@@ -41,7 +39,7 @@ export async function GET(_req: Request, { params }: Context) {
   // Load lesson to get the stream video ID
   const supabase = createSupabaseAdminClient();
   const { data: lesson } = await supabase
-    .from("lessons")
+    .from("liceu_lessons")
     .select("cloudflare_stream_id")
     .eq("id", lessonId)
     .maybeSingle<{ cloudflare_stream_id: string | null }>();

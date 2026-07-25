@@ -5,7 +5,7 @@ import { requireCronSecret } from "@/lib/routeSecurity";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const authError = requireCronSecret(request);
+  const authError = await requireCronSecret(request);
   if (authError) return authError;
 
   const { stripe_session_id, customer_id, user_id } = await request.json();

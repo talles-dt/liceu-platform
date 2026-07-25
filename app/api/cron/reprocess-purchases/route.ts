@@ -8,8 +8,9 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-06-20",
 });
+
 export async function POST(request: Request) {
-  const cronError = requireCronSecret(request);
+  const cronError = await requireCronSecret(request);
   if (cronError) return cronError;
 
   const supabaseAdmin = createSupabaseAdminClient();

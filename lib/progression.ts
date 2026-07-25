@@ -1,52 +1,35 @@
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
-import {
-  isModuleCompleted,
-  canUnlockMentorship,
-  type Lesson,
-  type LessonCompletion,
-  type ModuleProgress,
-} from "@/lib/domain";
 
 type DbModuleRow = {
   id: string;
-  course_id: string;
+  code: string;
   order_index: number;
 };
 
 type DbModuleProgressRow = {
   user_id: string;
-  module_id: string;
-  completed: boolean;
-  quiz_score: number | null;
-  assignment_submitted: boolean;
-  mentorship_unlocked: boolean;
-};
-
-type DbLessonRow = {
-  id: string;
-  module_id: string;
-  order_index: number;
-  title: string;
-};
-
-type DbLessonCompletionRow = {
-  user_id: string;
-  lesson_id: string;
-  completed: boolean;
+  current_module_id: string | null;
+  current_lesson_id: string | null;
+  completed_lessons: string[];
+  completed_exercises: string[];
+  completed_simulations: string[];
+  flashcard_review_streak: number;
+  last_flashcard_review_at: string | null;
+  diagnostic_archetype_keys: string[];
+  diagnostic_dimension_scores: Record<string, number>;
+  maturity_stage: string;
+  total_study_minutes: number;
 };
 
 /**
- * Check if a user can access a given module for study/mentorship scheduling.
+ * Check if a user can access a given Liceu module for study.
  *
  * Rules:
- * - First module in a course is always accessible.
- * - ALL previous modules must be completed (quiz >= 70 + assignment approved).
- *
- * This matches the domain.ts canAccessModule logic. Checking only the
- * immediately-previous module is insufficient: a gap anywhere in the chain
- * would be invisible.
+ * - First module (order_index === 0) is always accessible.
+ * - Subsequent modules require user to have completed at least one lesson from previous module.
+ * - Uses liceu_learner_progression table for progress tracking.
  */
-export async function canAccessModuleForUser(
+export async function canAccessLiceuModuleForUser(
   userId: string,
   moduleId: string,
 ): Promise<boolean> {
@@ -54,8 +37,8 @@ export async function canAccessModuleForUser(
 
   // Load target module
   const { data: module, error: moduleError } = await supabase
-    .from("modules")
-    .select("id, course_id, order_index")
+    .from("liceu_modules")
+    .select("id, code, order_index")
     .eq("id", moduleId)
     .maybeSingle<DbModuleRow>();
 
@@ -64,11 +47,11 @@ export async function canAccessModuleForUser(
   // First module is always accessible
   if (module.order_index === 0) return true;
 
-  // Load ALL modules in the same course that come before this one
+  // Load ALL modules that come before this one
   const { data: previousModules, error: prevError } = await supabase
-    .from("modules")
-    .select("id, course_id, order_index")
-    .eq("course_id", module.course_id)
+    .from("liceu_modules")
+    .select("id, code, order_index")
+    .eq("is_active", true)
     .lt("order_index", module.order_index)
     .order("order_index", { ascending: true });
 
@@ -76,206 +59,191 @@ export async function canAccessModuleForUser(
     return false;
   }
 
-  const previousIds = (previousModules as DbModuleRow[]).map((m) => m.id);
+  const previousIds = previousModules.map((m) => m.id);
 
-  // Load progress rows for all previous modules in one query
-  const { data: progressRows, error: progressError } = await supabase
-    .from("module_progress")
-    .select(
-      "user_id, module_id, completed, quiz_score, assignment_submitted, mentorship_unlocked",
-    )
+  // Load progress for user
+  const { data: progRow, error: progressError } = await supabase
+    .from("liceu_learner_progression")
+    .select("completed_lessons, current_module_id")
     .eq("user_id", userId)
-    .in("module_id", previousIds);
+    .maybeSingle<DbModuleProgressRow>();
 
   if (progressError) return false;
 
-  const progressByModule = new Map(
-    (progressRows as DbModuleProgressRow[]).map((p) => [p.module_id, p]),
-  );
-
-  // Every previous module must be fully completed
-  return (previousModules as DbModuleRow[]).every((m) => {
-    const p = progressByModule.get(m.id);
-    if (!p) return false;
-    if (!p.completed) return false;
-    if (p.quiz_score === null || p.quiz_score < 70) return false;
-    if (!p.assignment_submitted) return false;
-    return true;
-  });
-}
-
-/**
- * Mark a module as completed for a user, if all conditions are satisfied.
- *
- * Rules:
- * - Previous module (if any) must be completed (same criteria as canAccessModuleForUser).
- * - Current module is completed only if:
- *   - all lessons in the module are completed by the user
- *   - quiz score >= 70
- *   - assignment is approved
- */
-export async function completeModuleForUser(
-  userId: string,
-  moduleId: string,
-): Promise<ModuleProgress | null> {
-  const supabase = await createSupabaseServerClient();
-
-  // Ensure access based on previous module completion
-  const canAccess = await canAccessModuleForUser(userId, moduleId);
-  if (!canAccess) {
-    return null;
-  }
-
-  // Load lessons for this module
-  const { data: lessonRows, error: lessonsError } = await supabase
-    .from("lessons")
-    .select("id, module_id, order_index, title")
-    .eq("module_id", moduleId)
-    .order("order_index", { ascending: true });
-
-  if (lessonsError) {
-    return null;
-  }
-
-  const lessons: Lesson[] =
-    lessonRows?.map((l: DbLessonRow) => ({
-      id: l.id,
-      moduleId: l.module_id,
-      index: l.order_index,
-      title: l.title,
-    })) ?? [];
-
-  // Load lesson completion for the user
-  const { data: lessonCompletionRows, error: lessonCompletionError } =
-    await supabase
-      .from("lesson_completions")
-      .select("user_id, lesson_id, completed")
-      .eq("user_id", userId)
-      .in(
-        "lesson_id",
-        lessons.map((l) => l.id),
-      );
-
-  if (lessonCompletionError) {
-    return null;
-  }
-
-  const lessonCompletions: LessonCompletion[] =
-    lessonCompletionRows?.map((lc: DbLessonCompletionRow) => ({
-      lessonId: lc.lesson_id,
-      completed: lc.completed,
-    })) ?? [];
-
-  // Load existing module progress (for quiz score + assignment)
-  const { data: moduleProgressRow, error: moduleProgressError } = await supabase
-    .from("module_progress")
-    .select(
-      "user_id, module_id, completed, quiz_score, assignment_submitted, mentorship_unlocked",
-    )
-    .eq("user_id", userId)
-    .eq("module_id", moduleId)
-    .maybeSingle<DbModuleProgressRow>();
-
-  if (moduleProgressError || !moduleProgressRow) {
-    return null;
-  }
-
-  const moduleIsCompleted = isModuleCompleted({
-    moduleId,
-    lessons,
-    lessonCompletions,
-    quizScore: moduleProgressRow.quiz_score,
-    assignmentApproved: moduleProgressRow.assignment_submitted,
-  });
-
-  if (!moduleIsCompleted) {
-    return null;
-  }
-
-  const candidateProgress: ModuleProgress = {
-    moduleId,
-    completed: true,
-    quizScore: moduleProgressRow.quiz_score,
-    assignmentApproved: moduleProgressRow.assignment_submitted,
-    mentorshipUnlocked: moduleProgressRow.mentorship_unlocked,
-  };
-
-  const shouldUnlockMentorship = canUnlockMentorship(candidateProgress);
-
-  const { data: updated, error: updateError } = await supabase
-    .from("module_progress")
-    .update({
-      completed: true,
-      completed_at: new Date().toISOString(),
-      mentorship_unlocked: shouldUnlockMentorship
-        ? true
-        : moduleProgressRow.mentorship_unlocked,
-    })
-    .eq("user_id", userId)
-    .eq("module_id", moduleId)
-    .select(
-      "module_id, completed, quiz_score, assignment_submitted, mentorship_unlocked",
-    )
-    .maybeSingle<DbModuleProgressRow>();
-
-  if (updateError || !updated) {
-    return null;
-  }
-
-  const result: ModuleProgress = {
-    moduleId: updated.module_id,
-    completed: updated.completed,
-    quizScore: updated.quiz_score,
-    assignmentApproved: updated.assignment_submitted,
-    mentorshipUnlocked: updated.mentorship_unlocked,
-  };
-
-  return result;
-}
-
-/**
- * Provision `module_progress` rows for a user after purchasing a course.
- *
- * Intended usage: call this from your payment webhook / purchase handler once
- * you have (userId, courseId).
- *
- * Idempotent: safe to call multiple times.
- */
-export async function ensureCourseProgressForUser(
-  userId: string,
-  courseId: string,
-): Promise<{ createdOrUpdated: number }> {
-  const supabase = await createSupabaseServerClient();
-
-  const { data: modules, error: modulesError } = await supabase
-    .from("modules")
+  // User has access if they have completed any lessons from previous modules
+  const completedLessonIds = progRow?.completed_lessons ?? [];
+  
+  // Check which lessons belong to previous modules
+  const { data: prevModuleLessons } = await supabase
+    .from("liceu_lessons")
     .select("id")
-    .eq("course_id", courseId);
+    .in("module_id", previousIds);
 
-  if (modulesError) {
-    return { createdOrUpdated: 0 };
-  }
-
-  const moduleIds = (modules ?? []).map((m: { id: string }) => m.id);
-  if (moduleIds.length === 0) return { createdOrUpdated: 0 };
-
-  const rows = moduleIds.map((moduleId: string) => ({
-    user_id: userId,
-    module_id: moduleId,
-    completed: false,
-    quiz_score: null,
-    assignment_submitted: false,
-    mentorship_unlocked: false,
-  }));
-
-  const { error: upsertError } = await supabase
-    .from("module_progress")
-    .upsert(rows, { onConflict: "user_id,module_id" });
-
-  if (upsertError) {
-    return { createdOrUpdated: 0 };
-  }
-
-  return { createdOrUpdated: rows.length };
+  const prevModuleLessonIds = new Set((prevModuleLessons ?? []).map(l => l.id));
+  
+  // User has access if they've completed at least one lesson from previous modules
+  return completedLessonIds.some(id => prevModuleLessonIds.has(id));
 }
 
+/**
+ * Update a user's lesson completion in liceu_learner_progression.
+ * This is called when a user completes a lesson.
+ */
+export async function markLiceuLessonComplete(
+  userId: string,
+  lessonId: string,
+): Promise<boolean> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data: existing, error: fetchError } = await supabase
+    .from("liceu_learner_progression")
+    .select("completed_lessons")
+    .eq("user_id", userId)
+    .maybeSingle<DbModuleProgressRow>();
+
+  if (fetchError) return false;
+
+  const completedLessons = new Set(existing?.completed_lessons ?? []);
+  completedLessons.add(lessonId);
+
+  const { error: updateError } = await supabase
+    .from("liceu_learner_progression")
+    .upsert({
+      user_id: userId,
+      completed_lessons: Array.from(completedLessons),
+    }, {
+      onConflict: "user_id",
+    });
+
+  return !updateError;
+}
+
+/**
+ * Update a user's exercise completion in liceu_learner_progression.
+ */
+export async function markLiceuExerciseComplete(
+  userId: string,
+  exerciseId: string,
+): Promise<boolean> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data: existing, error: fetchError } = await supabase
+    .from("liceu_learner_progression")
+    .select("completed_exercises")
+    .eq("user_id", userId)
+    .maybeSingle<DbModuleProgressRow>();
+
+  if (fetchError) return false;
+
+  const completedExercises = new Set(existing?.completed_exercises ?? []);
+  completedExercises.add(exerciseId);
+
+  const { error: updateError } = await supabase
+    .from("liceu_learner_progression")
+    .upsert({
+      user_id: userId,
+      completed_exercises: Array.from(completedExercises),
+    }, {
+      onConflict: "user_id",
+    });
+
+  return !updateError;
+}
+
+/**
+ * Update a user's simulation completion in liceu_learner_progression.
+ */
+export async function markLiceuSimulationComplete(
+  userId: string,
+  simulationId: string,
+): Promise<boolean> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data: existing, error: fetchError } = await supabase
+    .from("liceu_learner_progression")
+    .select("completed_simulations")
+    .eq("user_id", userId)
+    .maybeSingle<DbModuleProgressRow>();
+
+  if (fetchError) return false;
+
+  const completedSimulations = new Set(existing?.completed_simulations ?? []);
+  completedSimulations.add(simulationId);
+
+  const { error: updateError } = await supabase
+    .from("liceu_learner_progression")
+    .upsert({
+      user_id: userId,
+      completed_simulations: Array.from(completedSimulations),
+    }, {
+      onConflict: "user_id",
+    });
+
+  return !updateError;
+}
+
+/**
+ * Initialize a new user's Liceu progression record.
+ */
+export async function initLiceuProgression(userId: string): Promise<boolean> {
+  const supabase = await createSupabaseServerClient();
+
+  const { error } = await supabase
+    .from("liceu_learner_progression")
+    .upsert({
+      user_id: userId,
+      current_module_id: null,
+      current_lesson_id: null,
+      completed_lessons: [],
+      completed_exercises: [],
+      completed_simulations: [],
+      flashcard_review_streak: 0,
+      last_flashcard_review_at: null,
+      diagnostic_archetype_keys: [],
+      diagnostic_dimension_scores: {},
+      maturity_stage: "novice",
+      total_study_minutes: 0,
+    }, {
+      onConflict: "user_id",
+      ignoreDuplicates: true,
+    });
+
+  return !error;
+}
+
+/**
+ * Get a user's current Liceu progression.
+ */
+export async function getLiceuProgression(userId: string) {
+  const supabase = await createSupabaseServerClient();
+
+  const { data, error } = await supabase
+    .from("liceu_learner_progression")
+    .select("*")
+    .eq("user_id", userId)
+    .maybeSingle<DbModuleProgressRow>();
+
+  if (error) return null;
+  return data;
+}
+
+/**
+ * Set current module for a user.
+ */
+export async function setLiceuCurrentModule(
+  userId: string,
+  moduleId: string | null,
+): Promise<boolean> {
+  const supabase = await createSupabaseServerClient();
+
+  const { error } = await supabase
+    .from("liceu_learner_progression")
+    .upsert({
+      user_id: userId,
+      current_module_id: moduleId,
+    }, {
+      onConflict: "user_id",
+    });
+
+  return !error;
+}
