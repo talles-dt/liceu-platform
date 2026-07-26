@@ -77,8 +77,7 @@ CREATE TABLE IF NOT EXISTS public.access_grants (
 );
 
 CREATE INDEX idx_access_grants_user_id ON public.access_grants(user_id);
-CREATE INDEX idx_access_grants_active ON public.access_grants(user_id, granted_at) 
-  WHERE revoked_at IS NULL AND (expires_at IS NULL OR expires_at > NOW());
+CREATE INDEX idx_access_grants_active ON public.access_grants(user_id, granted_at);
 CREATE INDEX idx_access_grants_source ON public.access_grants(source_id, source_type);
 
 -- ─── PARTNERSHIPS ───────────────────────────────────────────────────────────
@@ -330,8 +329,8 @@ CREATE OR REPLACE FUNCTION public.grant_user_access(
   p_expires_at TIMESTAMPTZ DEFAULT NULL,
   p_source_id UUID DEFAULT NULL,
   p_source_type TEXT DEFAULT 'manual',
-  p_granted_by UUID,
-  p_metadata JSONB DEFAULT '{}'::jsonb
+  p_metadata JSONB DEFAULT '{}'::jsonb,
+  p_granted_by UUID
 )
 RETURNS UUID LANGUAGE plpgsql SECURITY DEFINER AS $$
 DECLARE
@@ -379,7 +378,7 @@ $$;
 CREATE OR REPLACE FUNCTION public.revoke_user_access(
   p_grant_id UUID,
   p_revoked_by UUID,
-  p_reason TEXT DEFAULT NULL
+  p_reason TEXT
 )
 RETURNS VOID LANGUAGE plpgsql SECURITY DEFINER AS $$
 DECLARE
@@ -418,12 +417,12 @@ $$;
 -- Log audit event
 CREATE OR REPLACE FUNCTION public.log_audit(
   p_action audit_action,
-  p_target_type TEXT DEFAULT NULL,
-  p_target_id UUID DEFAULT NULL,
-  p_target_identifier TEXT DEFAULT NULL,
-  p_old_values JSONB DEFAULT NULL,
-  p_new_values JSONB DEFAULT NULL,
-  p_metadata JSONB DEFAULT '{}'::jsonb
+  p_target_type TEXT,
+  p_target_id UUID,
+  p_target_identifier TEXT,
+  p_old_values JSONB,
+  p_new_values JSONB,
+  p_metadata JSONB
 )
 RETURNS VOID LANGUAGE plpgsql SECURITY DEFINER AS $$
 DECLARE
