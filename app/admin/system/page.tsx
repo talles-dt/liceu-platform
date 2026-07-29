@@ -6,44 +6,50 @@ import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 export default async function AdminSystemPage() {
   const supabase = createSupabaseAdminClient();
 
-  const [{ data: users }, { data: progress }, { data: sessions }, { data: logsData }] = await Promise.all([
-    supabase.from("users").select("id").limit(10000),
-    supabase.from("module_progress").select("user_id, updated_at").limit(10000),
-    supabase.from("mentorship_sessions").select("id").limit(1),
-    supabase.from("system_logs").select("ts, actor, action, target").order("ts", { ascending: false }).limit(50),
+  const [{ data: users }, { data: progress }] = await Promise.all([
+    supabase.from("users").select("id, last_login_at, created_at, role").limit(10000),
+    supabase.from("module_progress").select("user_id, completed, started_at, completed_at, updated_at").limit(10000),
   ]);
 
-  const totalUsers = (users as unknown as { id: string }[])?.length ?? 0;
-
+  const allUsers = (users as unknown as { id: string; last_login_at?: string | null; created_at?: string | null; role?: string | null }[]) ?? [];
   const progressRows =
-    (progress as unknown as { user_id: string; updated_at?: string | null }[]) ?? [];
+    (progress as unknown as { user_id: string; completed?: boolean | null; started_at?: string | null; completed_at?: string | null; updated_at?: string | null }[]) ?? [];
 
-  const referenceMs = progressRows.reduce((max, r) => {
-    const t = r.updated_at ? new Date(r.updated_at).getTime() : NaN;
-    if (!Number.isFinite(t)) return max;
-    return Math.max(max, t);
-  }, 0);
+  const totalUsers = allUsers.length;
+  const now = Date.now();
+  const daysAgo = (iso?: string | null) => {
+    if (!iso) return 999;
+    const t = new Date(iso).getTime();
+    if (!Number.isFinite(t)) return 999;
+    return Math.floor((now - t) / (1000 * 60 * 60 * 24));
+  };
 
-  const activeUsers =
+  const activeUsers = new Set(
     progressRows
       .filter((r) => {
-        const t = r.updated_at ? new Date(r.updated_at).getTime() : NaN;
-        if (!Number.isFinite(t)) return false;
-        return referenceMs > 0 && referenceMs - t <= 1000 * 60 * 60 * 24 * 7;
+        const latest = r.updated_at || r.completed_at || r.started_at;
+        return latest ? daysAgo(latest) <= 7 : false;
       })
-      .reduce((set, r) => set.add(r.user_id), new Set<string>()).size ?? 0;
+      .map((r) => r.user_id),
+  ).size;
 
-  const dbHealth =
-    totalUsers > 0 ? "ok" : (progress as unknown as unknown[])?.length ? "ok" : "unknown";
+  const dbHealth = totalUsers > 0 || progressRows.length > 0 ? "ok" : "unknown";
 
-  const mentorshipTable = Array.isArray(sessions) ? "present" : "unknown";
+  const recentActivity = progressRows
+    .map((r) => ({
+      user_id: r.user_id,
+      updated_at: r.updated_at || r.completed_at || r.started_at,
+    }))
+    .filter((r) => r.updated_at)
+    .sort((a, b) => (b.updated_at ?? "").localeCompare(a.updated_at ?? ""))
+    .slice(0, 50);
 
-  const logs: LogRow[] = (logsData as unknown as { ts?: string | null; actor: string; action: string; target?: string | null }[] | null)?.map((r) => ({
-    ts: r.ts?.slice(0, 19).replace("T", " ") ?? "—",
-    actor: r.actor,
-    action: r.action,
-    target: r.target ?? "—",
-  })) ?? [];
+  const logs: LogRow[] = recentActivity.map((r) => ({
+    ts: r.updated_at!.slice(0, 19).replace("T", " "),
+    actor: r.user_id,
+    action: "module_progress",
+    target: "—",
+  }));
 
   return (
     <div className="p-4 md:p-6">
@@ -63,7 +69,7 @@ export default async function AdminSystemPage() {
         <MetricBlock label="total users" value={totalUsers} />
         <MetricBlock label="active (7d)" value={activeUsers} highlight />
         <MetricBlock label="db health" value={dbHealth} />
-        <MetricBlock label="mentorship table" value={mentorshipTable} />
+        <MetricBlock label="module_progress" value={`${progressRows.length} rows`} />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -76,9 +82,8 @@ export default async function AdminSystemPage() {
               { k: "users", v: totalUsers ? "read ok" : "empty/unknown" },
               {
                 k: "module_progress",
-                v: (progress as unknown as unknown[])?.length ? "read ok" : "empty/unknown",
+                v: progressRows.length ? "read ok" : "empty/unknown",
               },
-              { k: "mentorship_sessions", v: mentorshipTable },
             ].map((r) => (
               <div
                 key={r.k}

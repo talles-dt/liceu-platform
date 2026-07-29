@@ -36,13 +36,13 @@ export default async function AdminAssignmentsPage() {
   ]);
 
   const { data: modulesData } = await supabase
-    .from("modules")
+    .from("liceu_modules")
     .select("id, title, order_index");
 
   const users =
     (usersData as unknown as { id: string; name?: string | null; email?: string | null }[]) ?? [];
   const assignments =
-    (assignmentsData as unknown as { id: string; module_id?: string | null; title?: string | null }[]) ?? [];
+    (assignmentsData as unknown as { id: string; module_id?: string | null; prompt?: string | null }[]) ?? [];
   const modules =
     (modulesData as unknown as { id: string; title: string; order_index: number }[]) ?? [];
 
