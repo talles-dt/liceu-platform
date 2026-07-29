@@ -9,31 +9,53 @@ export default async function AdminProgressPage() {
   const supabase = createSupabaseAdminClient();
 
   const { data: modulesData } = await supabase
-    .from("modules")
-    .select("id, title, order_index")
+    .from("liceu_modules")
+    .select("id, title, code, order_index")
     .order("order_index", { ascending: true });
 
-  const { data: progressData } = await supabase
-    .from("module_progress")
-    .select("module_id, completed, updated_at");
+  const { data: progressionData } = await supabase
+    .from("liceu_learner_progression")
+    .select("user_id, completed_lessons, updated_at");
+
+  const { data: lessonsData } = await supabase
+    .from("liceu_lessons")
+    .select("id, module_id, is_published")
+    .eq("is_published", true);
 
   const modules =
-    (modulesData as unknown as { id: string; title: string; order_index: number }[]) ?? [];
-  const progress =
-    (progressData as unknown as {
-      module_id: string;
-      completed: boolean | null;
+    (modulesData as unknown as { id: string; title: string; code: string; order_index: number }[]) ?? [];
+  const progression =
+    (progressionData as unknown as {
+      user_id: string;
+      completed_lessons: string[];
       updated_at: string | null;
     }[]) ?? [];
+  const lessons =
+    (lessonsData as unknown as { id: string; module_id: string }[]) ?? [];
+
+  const lessonsByModule = new Map<string, string[]>();
+  for (const l of lessons) {
+    const arr = lessonsByModule.get(l.module_id) ?? [];
+    arr.push(l.id);
+    lessonsByModule.set(l.module_id, arr);
+  }
 
   const byModule = new Map<string, { total: number; completed: number; lastUpdate: string | null }>();
-  for (const p of progress) {
-    const cur = byModule.get(p.module_id) ?? { total: 0, completed: 0, lastUpdate: null };
-    cur.total += 1;
-    if (p.completed === true) cur.completed += 1;
-    if (p.updated_at && (!cur.lastUpdate || p.updated_at > cur.lastUpdate))
-      cur.lastUpdate = p.updated_at;
-    byModule.set(p.module_id, cur);
+  for (const p of progression) {
+    for (const [moduleId, lessonIds] of lessonsByModule.entries()) {
+      const moduleLessons = lessonIds ?? [];
+      const moduleCompletedLessons = p.completed_lessons.filter(lessonId => moduleLessons.includes(lessonId));
+      const moduleCompletionPct = moduleLessons.length > 0 ? (moduleCompletedLessons.length / moduleLessons.length) : 0;
+      
+      if (moduleCompletionPct > 0) {
+        const cur = byModule.get(moduleId) ?? { total: 0, completed: 0, lastUpdate: null };
+        cur.total += 1;
+        if (moduleCompletionPct === 1) cur.completed += 1;
+        if (p.updated_at && (!cur.lastUpdate || p.updated_at > cur.lastUpdate))
+          cur.lastUpdate = p.updated_at;
+        byModule.set(moduleId, cur);
+      }
+    }
   }
 
   const rows: ProgressRow[] = modules.map((m) => {

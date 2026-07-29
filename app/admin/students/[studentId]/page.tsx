@@ -24,81 +24,78 @@ export default async function AdminStudentDetailPage({ params }: Props) {
 
   if (!userRow) notFound();
 
-  const [{ data: modules }, { data: progress }] = await Promise.all([
+  const [{ data: modules }, { data: progress }, { data: lessons }] = await Promise.all([
     supabase
-      .from("modules")
-      .select("id, title, order_index")
+      .from("liceu_modules")
+      .select("id, title, code, order_index")
       .order("order_index", { ascending: true }),
     supabase
-      .from("module_progress")
-      .select("module_id, completed, quiz_score, assignment_submitted, mentorship_unlocked, updated_at")
-      .eq("user_id", studentId),
+      .from("liceu_learner_progression")
+      .select("completed_lessons, current_module_id, updated_at")
+      .eq("user_id", studentId)
+      .maybeSingle(),
+    supabase
+      .from("liceu_lessons")
+      .select("id, module_id, title, is_published")
+      .eq("is_published", true),
   ]);
 
   const moduleById = new Map(
-    ((modules as unknown as { id: string; title: string; order_index: number }[]) ?? []).map(
+    ((modules as unknown as { id: string; title: string; code: string; order_index: number }[]) ?? []).map(
       (m) => [m.id, m],
     ),
   );
 
-  const prog =
-    (progress as unknown as {
-      module_id: string;
-      completed: boolean | null;
-      quiz_score: number | null;
-      assignment_submitted: boolean | null;
-      mentorship_unlocked: boolean | null;
-      updated_at: string | null;
-    }[]) ?? [];
+  const lessonsByModule = new Map<string, Array<{ id: string; title: string }>>();
+  for (const l of (lessons as unknown as { id: string; module_id: string; title: string }[]) ?? []) {
+    const arr = lessonsByModule.get(l.module_id) ?? [];
+    arr.push({ id: l.id, title: l.title });
+    lessonsByModule.set(l.module_id, arr);
+  }
 
-  const total = Math.max(1, prog.length);
-  const done = prog.filter((r) => r.completed === true).length;
+  const completedLessons = (progress as unknown as { completed_lessons: string[] })?.completed_lessons ?? [];
+  const currentModuleId = (progress as unknown as { current_module_id: string | null })?.current_module_id ?? null;
+  const lastActivity = (progress as unknown as { updated_at: string | null })?.updated_at ?? null;
+
+  const total = (lessons as unknown as { id: string }[])?.length ?? 1;
+  const done = completedLessons.length;
   const completionPct = Math.round((done / total) * 100);
 
-  const failures = {
-    quiz: prog.filter((r) => (r.quiz_score ?? 0) > 0 && (r.quiz_score ?? 0) < 70).length,
-    assignment: prog.filter((r) => r.assignment_submitted === false).length,
-  };
+  const currentModule = currentModuleId && moduleById.get(currentModuleId);
+  const currentModuleTitle = currentModule ? `${currentModule.code}. ${currentModule.title}` : "—";
 
-  const last = prog
-    .map((r) => r.updated_at ?? null)
-    .filter(Boolean)
-    .sort()
-    .at(-1) as string | undefined;
+  const last = lastActivity;
 
   const user = userRow as unknown as { name?: string | null; email?: string | null };
   const name = user.name?.trim() || user.email?.trim() || studentId.slice(0, 8);
 
   const diagnosis = [
     {
-      k: "failing",
-      v:
-        failures.quiz > 0
-          ? "quiz < 70%"
-          : failures.assignment > 0
-            ? "assignment pending"
-            : "none detected",
+      k: "current module",
+      v: currentModuleTitle,
     },
-    { k: "slow", v: "derive from time-per-module (next iteration)" },
+    { k: "slow", v: "derive from time-per-lesson (next iteration)" },
   ];
 
-  const progressRows: StudentProgressRow[] = prog
-    .slice()
-    .sort((a, b) => {
-      const ma = moduleById.get(a.module_id)?.order_index ?? 999;
-      const mb = moduleById.get(b.module_id)?.order_index ?? 999;
-      return ma - mb;
-    })
-    .map((r) => ({
-      ...r,
-      title: moduleById.get(r.module_id)?.title ?? r.module_id,
-      order: moduleById.get(r.module_id)?.order_index ?? 999,
-    }));
+  const progressRows: StudentProgressRow[] = (modules as unknown as { id: string; title: string; code: string; order_index: number }[])?.map((m) => {
+    const moduleLessons = lessonsByModule.get(m.id) ?? [];
+    const moduleCompletedLessons = completedLessons.filter(lessonId => moduleLessons.some((l: { id: string }) => l.id === lessonId));
+    const moduleCompletionPct = moduleLessons.length > 0 ? Math.round((moduleCompletedLessons.length / moduleLessons.length) * 100) : 0;
+    
+    return {
+      module_id: m.id,
+      title: `${m.code}. ${m.title}`,
+      completed: moduleCompletionPct === 100,
+      quiz_score: null,
+      assignment_submitted: null,
+      mentorship_unlocked: null,
+      updated_at: lastActivity,
+      order: m.order_index,
+      completion_pct: moduleCompletionPct,
+    };
+  }) ?? [];
 
-  const quizRows: StudentQuizRow[] = prog.map((r) => ({
-    module: moduleById.get(r.module_id)?.title ?? r.module_id,
-    score: r.quiz_score ?? null,
-  }));
+  const quizRows: StudentQuizRow[] = [];
 
   return (
     <div className="p-4 md:p-6">
@@ -120,9 +117,9 @@ export default async function AdminStudentDetailPage({ params }: Props) {
           emphasis={diagnosis}
           rows={[
             { k: "completion", v: `${completionPct}%` },
-            { k: "modules completed", v: `${done}/${total}` },
+            { k: "lessons completed", v: `${done}/${total}` },
             { k: "last activity", v: last ? last.slice(0, 10) : "—" },
-            { k: "mentorship", v: prog.some((r) => r.mentorship_unlocked) ? "unlocked" : "locked" },
+            { k: "mentorship", v: "pending instrumentation" },
           ]}
         />
 

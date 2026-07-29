@@ -10,12 +10,46 @@ export default async function MentorshipPage() {
   const supabase = await createSupabaseServerClient();
 
   const { data: unlocked } = await supabase
-    .from("module_progress")
-    .select("module_id, mentorship_unlocked")
+    .from("liceu_learner_progression")
+    .select("completed_lessons")
     .eq("user_id", user.id)
-    .eq("mentorship_unlocked", true);
+    .maybeSingle();
 
-  const available = (unlocked ?? []).length > 0;
+  const { data: lessonsData } = await supabase
+    .from("liceu_lessons")
+    .select("id, module_id, is_published");
+
+  const { data: modulesData } = await supabase
+    .from("liceu_modules")
+    .select("id, order_index");
+
+  const lessons = (lessonsData as unknown as { id: string; module_id: string }[]) ?? [];
+  const modules = (modulesData as unknown as { id: string; order_index: number }[]) ?? [];
+
+  const lessonsByModule = new Map<string, string[]>();
+  for (const l of lessons) {
+    const arr = lessonsByModule.get(l.module_id) ?? [];
+    arr.push(l.id);
+    lessonsByModule.set(l.module_id, arr);
+  }
+
+  const completedLessons = (unlocked as unknown as { completed_lessons: string[] })?.completed_lessons ?? [];
+
+  let available = false;
+  for (const [moduleId, lessonIds] of lessonsByModule.entries()) {
+    const moduleLessons = lessonIds ?? [];
+    const moduleCompletedLessons = completedLessons.filter(lessonId => moduleLessons.includes(lessonId));
+    const moduleCompletionPct = moduleLessons.length > 0 ? (moduleCompletedLessons.length / moduleLessons.length) : 0;
+    
+    if (moduleCompletionPct === 1) {
+      // Check if this module is the first one (Fundamentos)
+      const module = modules.find(m => m.id === moduleId);
+      if (module && module.order_index === 0) {
+        available = true;
+        break;
+      }
+    }
+  }
 
   return (
     <ReadingLayout

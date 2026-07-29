@@ -85,7 +85,7 @@ async function loadDashboardData(userId: string) {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function Sidebar({ user, activeNav }: { user: { email: string }; activeNav: string }) {
+function Sidebar({ user, activeNav, firstCurrentModule }: { user: { email: string }; activeNav: string; firstCurrentModule: { id: string } | null }) {
   const navItems = [
     { id: "overview", label: "Overview", icon: "◈" },
     { id: "courses", label: "Módulos", icon: "◉" },
@@ -134,20 +134,20 @@ function Sidebar({ user, activeNav }: { user: { email: string }; activeNav: stri
             return <a key={item.id} href="/dashboard" className={classes}>{el}</a>;
           }
           if (item.id === "drills") {
-            return <a key={item.id} href="/exercicios" className={classes}>{el}</a>;
+            return <a key={item.id} href={firstCurrentModule ? `/modules/${firstCurrentModule.id}/flashcards` : "/dashboard"} className={classes}>{el}</a>;
           }
           if (item.id === "logs") {
-            return <a key={item.id} href="/registros" className={classes}>{el}</a>;
+            return <a key={item.id} href="/admin/progress" className={classes}>{el}</a>;
           }
           if (item.id === "mentoring") {
-            return <a key={item.id} href="/mentoria" className={classes}>{el}</a>;
+            return <a key={item.id} href="/mentorship" className={classes}>{el}</a>;
           }
           return <div key={item.id} className={classes}>{el}</div>;
         })}
       </nav>
       <div className="border-t border-[var(--liceu-stone)]/30 px-4 py-4 space-y-3">
         <a
-          href="/exercicios"
+          href={firstCurrentModule ? `/modules/${firstCurrentModule.id}/flashcards` : "/dashboard"}
           className="w-full rounded border border-[var(--liceu-accent)]/30 bg-[var(--liceu-accent)]/10 px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-[var(--liceu-accent)] hover:bg-[var(--liceu-accent)]/20 transition-colors"
         >
           Iniciar Exercício →
@@ -435,7 +435,7 @@ export default async function DashboardPage(props: { searchParams: Promise<Dashb
       </Suspense>
 
       <div className="min-h-screen bg-[var(--liceu-surface-container-low)] pb-8">
-        <Sidebar user={{ email: user.email ?? "user" }} activeNav="overview" />
+        <Sidebar user={{ email: user.email ?? "user" }} activeNav="overview" firstCurrentModule={firstCurrentModule} />
 
         <TopAppBar title="Liceu Underground" />
 
