@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
 
 export default async function LessonPage(props: { params: Promise<{ moduleId: string; lessonId: string }> }) {
@@ -26,7 +25,7 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
 
   const contentMd = (theory as { content_markdown?: string } | null)?.content_markdown ?? null;
   const contentHtml = contentMd
-    ? DOMPurify.sanitize(await marked(contentMd, { breaks: true }))
+    ? await marked(contentMd, { breaks: true })
     : null;
 
   // Progress
