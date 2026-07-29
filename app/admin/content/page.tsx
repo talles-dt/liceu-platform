@@ -92,7 +92,7 @@ type DbExcerpt = {
   is_published: boolean;
 };
 
-type AdminModuleData = {
+type ModuleData = {
   id: string;
   code: string;
   title: string;
@@ -147,8 +147,6 @@ type AdminModuleData = {
       estimated_minutes: number;
       is_published: boolean;
     }>;
-    assignment: { assignment_prompt: string; speech_prompt: string } | null;
-    text: { title: string; author: string | null; content: string } | null;
   }>;
   simulations: Array<{
     module_id: string;
@@ -177,8 +175,6 @@ type AdminModuleData = {
     translation_ref: string;
     is_published: boolean;
   }>;
-  assignment: { assignment_prompt: string; speech_prompt: string } | null;
-  text: { title: string; author: string | null; content: string } | null;
 };
 
 export default async function AdminContentPage() {
@@ -268,7 +264,7 @@ export default async function AdminContentPage() {
     excerptsByLesson.get(x.lesson_id)!.push(x);
   }
 
-  const moduleData: AdminModuleData[] = modules.map((m) => ({
+  const moduleData: ModuleData[] = modules.map((m) => ({
     id: m.id,
     code: m.code,
     title: m.title,
@@ -282,13 +278,9 @@ export default async function AdminContentPage() {
       theory: theoryByLesson.get(l.id) ?? [],
       flashcards: flashcardsByLesson.get(l.id) ?? [],
       exercises: exercisesByLesson.get(l.id) ?? [],
-      assignment: null,
-      text: null,
     })),
     simulations: simulationsByModule.get(m.id) ?? [],
     excerpts: [], // Module-level excerpts would go here if any
-    assignment: null,
-    text: null,
   }));
 
   return (

@@ -13,8 +13,8 @@ export async function GET(_req: Request, { params }: Context) {
   const supabase = createSupabaseAdminClient();
 
   const { data, error } = await supabase
-    .from("lessons")
-    .select("id, title, content, cloudflare_stream_id, order_index")
+    .from("liceu_lessons")
+    .select("id, module_id, code, title, subtitle, learning_objective, rhetorical_dimension, archetype_keys, difficulty_tier, estimated_minutes, prerequisites, order_index, is_published")
     .eq("module_id", moduleId)
     .order("order_index");
 
@@ -48,11 +48,11 @@ export async function POST(req: Request, { params }: Context) {
     return NextResponse.json({ error: "Nothing to update" }, { status: 400 });
 
   const { data, error } = await supabase
-    .from("lessons")
+    .from("liceu_lessons")
     .update(updates)
     .eq("id", body.lesson_id)
     .eq("module_id", moduleId)
-    .select("id, title, content, cloudflare_stream_id, order_index")
+    .select("id, module_id, code, title, subtitle, learning_objective, rhetorical_dimension, archetype_keys, difficulty_tier, estimated_minutes, prerequisites, order_index, is_published")
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
