@@ -14,10 +14,13 @@ type Params = { params: Promise<{ moduleId: string; lessonId: string }> };
 type DbLesson = {
   id: string;
   title: string;
-  content: string | null;
-  cloudflare_stream_id: string | null;
+  subtitle: string;
+  learning_objective: string;
   order_index: number;
   module_id: string;
+  difficulty_tier: number;
+  estimated_minutes: number;
+  rhetorical_dimension: string;
 };
 
 type DbModule = {
@@ -38,11 +41,11 @@ export default async function LessonPage({ params }: Params) {
   const accessible = await canAccessLiceuModuleForUser(user.id, moduleId);
   if (!accessible) redirect("/dashboard");
 
-  // Load lesson + module using Liceu tables
-  const [{ data: lessonData }, { data: moduleData }] = await Promise.all([
+  // Load lesson + module + theory content using Liceu tables
+  const [{ data: lessonData }, { data: moduleData }, { data: theoryData }] = await Promise.all([
     supabase
       .from("liceu_lessons")
-      .select("id, title, content, cloudflare_stream_id, order_index, module_id")
+      .select("id, title, subtitle, learning_objective, order_index, module_id, difficulty_tier, estimated_minutes, rhetorical_dimension")
       .eq("id", lessonId)
       .eq("module_id", moduleId)
       .maybeSingle<DbLesson>(),
@@ -51,15 +54,19 @@ export default async function LessonPage({ params }: Params) {
       .select("id, title, order_index")
       .eq("id", moduleId)
       .maybeSingle<DbModule>(),
+    supabase
+      .from("liceu_theoretical_content")
+      .select("content_markdown, title")
+      .eq("lesson_id", lessonId)
+      .order("section_order")
+      .limit(1)
+      .maybeSingle<{ content_markdown: string; title: string }>(),
   ]);
 
   if (!lessonData || !moduleData) notFound();
 
-  // Determine access level - skip for Liceu
-  // const access = await getUserAccessLevel(user.id, moduleData.course_id);
-  // if (access === "none") redirect("/programa");
-
-  const hasVideo = !!lessonData.cloudflare_stream_id;
+  const hasVideo = false; // No cloudflare_stream_id in Liceu schema
+  const contentMarkdown = theoryData?.content_markdown ?? null;
 
   // Check if already completed using Liceu progression
   const { data: progression } = await supabase
@@ -79,9 +86,9 @@ export default async function LessonPage({ params }: Params) {
 
   const hasQuiz = (quizQuestions?.length ?? 0) > 0;
 
-  // Render markdown content
-  const rawHtml = lessonData.content
-    ? await marked(lessonData.content, { breaks: true })
+  // Render markdown content from theoretical_content table
+  const rawHtml = contentMarkdown
+    ? await marked(contentMarkdown, { breaks: true })
     : null;
   const contentHtml = rawHtml ? DOMPurify.sanitize(rawHtml) : null;
 

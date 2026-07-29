@@ -2,160 +2,184 @@ import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
 export type AdminMetrics = {
   activeStudents: number;
-  modulesCompletionRate: number; // 0..100
-  quizSuccessRate: number; // 0..100
-  assignmentApprovalRate: number; // 0..100
-  mentorshipUtilization: number; // 0..100
+  modulesCompletionRate: number;
+  quizSuccessRate: number;
+  assignmentApprovalRate: number;
+  mentorshipUtilization: number;
 };
 
 export async function getAdminMetrics(): Promise<AdminMetrics> {
   const supabase = createSupabaseAdminClient();
 
-  const out: AdminMetrics = {
-    activeStudents: 0,
-    modulesCompletionRate: 0,
-    quizSuccessRate: 0,
-    assignmentApprovalRate: 0,
-    mentorshipUtilization: 0,
+  // Active students from liceu_learner_progression
+  const { count: activeCount } = await supabase
+    .from("liceu_learner_progression")
+    .select("*", { count: "exact", head: true });
+
+  // Module total count
+  const { count: moduleCount } = await supabase
+    .from("liceu_modules")
+    .select("*", { count: "exact", head: true })
+    .eq("is_active", true);
+
+  // Lesson total count
+  const { count: lessonCount } = await supabase
+    .from("liceu_lessons")
+    .select("*", { count: "exact", head: true })
+    .eq("is_published", true);
+
+  // Completed lessons across all users
+  const { data: allProg } = await supabase
+    .from("liceu_learner_progression")
+    .select("completed_lessons");
+
+  let totalCompleted = 0;
+  let totalLessonsAssigned = 0;
+  for (const p of allProg ?? []) {
+    totalCompleted += (p.completed_lessons?.length ?? 0);
+    totalLessonsAssigned += lessonCount ?? 0;
+  }
+
+  const modulesCompletionRate = totalLessonsAssigned > 0 ? Math.round((totalCompleted / totalLessonsAssigned) * 100) : 0;
+
+  return {
+    activeStudents: activeCount ?? 0,
+    modulesCompletionRate,
+    quizSuccessRate: 0, // No quiz table yet
+    assignmentApprovalRate: 0, // Not implemented
+    mentorshipUtilization: 0, // Not implemented
   };
-
-  // Active students (distinct users in module_progress)
-  {
-    const { data, error } = await supabase
-      .from("module_progress")
-      .select("user_id");
-
-    if (!error && data) {
-      const set = new Set<string>();
-      for (const r of data) set.add(r.user_id);
-      out.activeStudents = set.size;
-    }
-  }
-
-  // Modules completion rate: completed / total module_progress rows
-  {
-    const { data, error } = await supabase
-      .from("module_progress")
-      .select("completed");
-
-    if (!error && data && data.length > 0) {
-      const done = data.filter((r) => r.completed === true).length;
-      out.modulesCompletionRate = Math.round((done / data.length) * 100);
-    }
-  }
-
-  // Quiz success rate: passed attempts / total quiz_attempts
-  {
-    const { data, error } = await supabase.from("quiz_attempts").select("passed");
-    if (!error && data && data.length > 0) {
-      const ok = data.filter((r) => r.passed === true).length;
-      out.quizSuccessRate = Math.round((ok / data.length) * 100);
-    }
-  }
-
-  // Assignment approval rate: approved / total submissions
-  {
-    const { data, error } = await supabase
-      .from("assignment_submissions")
-      .select("status");
-    if (!error && data && data.length > 0) {
-      const approved = data.filter((r) => r.status === "approved").length;
-      out.assignmentApprovalRate = Math.round((approved / data.length) * 100);
-    }
-  }
-
-  // Mentorship utilization: completed sessions / total
-  {
-    const { data, error } = await supabase
-      .from("mentorship_sessions")
-      .select("status");
-    if (!error && data && data.length > 0) {
-      const total = data.length;
-      const completed = data.filter((r) => r.status === "completed").length;
-      out.mentorshipUtilization = Math.round((completed / total) * 100);
-    }
-  }
-
-  return out;
 }
 
 export type AdminStudentRow = {
   id: string;
   name: string;
+  email: string;
   currentModule: string;
+  completedLessons: number;
+  totalLessons: number;
   completionPct: number;
   lastActivity: string;
   status: "active" | "stuck" | "inactive";
+  accessGrants: Array<{ moduleId: string; moduleTitle: string; grantType: string; expiresAt: string | null }>;
 };
 
 export async function getAdminStudents(): Promise<AdminStudentRow[]> {
   const supabase = createSupabaseAdminClient();
 
+  // Users from auth.users
   const { data: usersData } = await supabase
     .from("users")
     .select("id, name, email")
     .limit(200);
 
+  // All modules
   const { data: modulesData } = await supabase
-    .from("modules")
+    .from("liceu_modules")
     .select("id, title, order_index")
-    .order("order_index", { ascending: true });
+    .eq("is_active", true)
+    .order("order_index");
 
-  const { data: progressData } = await supabase
-    .from("module_progress")
-    .select("user_id, module_id, completed, quiz_score, assignment_submitted, updated_at");
+  // All lessons grouped by module
+  const { data: lessonsData } = await supabase
+    .from("liceu_lessons")
+    .select("id, module_id")
+    .eq("is_published", true);
+
+  // All progression data
+  const { data: progData } = await supabase
+    .from("liceu_learner_progression")
+    .select("user_id, completed_lessons, updated_at");
+
+  // All access grants
+  const { data: grantsData } = await supabase
+    .from("access_grants")
+    .select("user_id, modules, grant_type, expires_at")
+    .is("revoked_at", null)
+    .or("expires_at.is.null,expires_at.gt.now()");
 
   const users = usersData ?? [];
   const modules = modulesData ?? [];
-  const progress = progressData ?? [];
+  const lessons = lessonsData ?? [];
+  const allProg = progData ?? [];
+  const allGrants = grantsData ?? [];
+
+  // Build lookup maps
+  const lessonsByModule = new Map<string, string[]>();
+  for (const l of lessons) {
+    const arr = lessonsByModule.get(l.module_id) ?? [];
+    arr.push(l.id);
+    lessonsByModule.set(l.module_id, arr);
+  }
 
   const moduleById = new Map(modules.map((m) => [m.id, m]));
-  const progressByUser = new Map<string, typeof progress>();
-  for (const p of progress) {
-    const arr = progressByUser.get(p.user_id) ?? [];
-    arr.push(p);
-    progressByUser.set(p.user_id, arr);
+  const progByUser = new Map<string, { completed_lessons: string[]; updated_at: string | null }>();
+  for (const p of allProg) {
+    progByUser.set(p.user_id, {
+      completed_lessons: p.completed_lessons ?? [],
+      updated_at: p.updated_at ?? null,
+    });
+  }
+  const grantsByUser = new Map<string, typeof allGrants>();
+  for (const g of allGrants) {
+    const arr = grantsByUser.get(g.user_id) ?? [];
+    arr.push(g);
+    grantsByUser.set(g.user_id, arr);
   }
 
   const now = Date.now();
-  const days = (iso?: string | null) => {
+  const daysAgo = (iso?: string | null) => {
     if (!iso) return 999;
     const t = new Date(iso).getTime();
     if (!Number.isFinite(t)) return 999;
     return Math.floor((now - t) / (1000 * 60 * 60 * 24));
   };
 
+  const totalLessonCount = lessons.length;
+
   return users.map((u) => {
-    const rows = progressByUser.get(u.id) ?? [];
-    const total = Math.max(1, rows.length);
-    const done = rows.filter((r) => r.completed === true).length;
-    const completionPct = Math.round((done / total) * 100);
+    const prog = progByUser.get(u.id);
+    const completed = prog?.completed_lessons?.length ?? 0;
+    const completionPct = totalLessonCount > 0 ? Math.round((completed / totalLessonCount) * 100) : 0;
 
-    // current module = lowest order_index not completed
-    const incomplete = rows
-      .filter((r) => r.completed !== true)
-      .map((r) => moduleById.get(r.module_id))
-      .filter(Boolean) as { id: string; title: string; order_index: number }[];
-    incomplete.sort((a, b) => a.order_index - b.order_index);
-    const currentModule = incomplete[0]?.title ?? "—";
-
-    const last = rows
-      .map((r) => r.updated_at ?? null)
-      .filter(Boolean)
-      .sort()
-      .at(-1) as string | undefined;
-
-    const d = days(last);
+    const d = daysAgo(prog?.updated_at);
     const status: AdminStudentRow["status"] =
       d <= 7 ? "active" : d <= 21 ? "stuck" : "inactive";
+
+    // Current module — find first module with incomplete lessons
+    let currentModule = "—";
+    for (const m of modules) {
+      const modLessons = lessonsByModule.get(m.id) ?? [];
+      const hasIncomplete = modLessons.some((lid) => !prog?.completed_lessons?.includes(lid));
+      if (hasIncomplete) {
+        currentModule = `${m.title}`;
+        break;
+      }
+    }
+
+    // Access grants
+    const userGrants = grantsByUser.get(u.id) ?? [];
+    const accessGrants = userGrants.flatMap((g: Record<string, unknown>) => {
+      const moduleIds: string[] = Array.isArray(g.modules) ? g.modules as string[] : [];
+      return moduleIds.map((mid) => ({
+        moduleId: mid,
+        moduleTitle: moduleById.get(mid)?.title ?? mid.slice(0, 8),
+        grantType: (g.grant_type as string) ?? "manual",
+        expiresAt: g.expires_at ? new Date(g.expires_at as string).toISOString().slice(0, 10) : null,
+      }));
+    });
 
     return {
       id: u.id,
       name: (u.name?.trim() || u.email?.trim() || u.id.slice(0, 8)) as string,
+      email: u.email ?? "",
       currentModule,
+      completedLessons: completed,
+      totalLessons: totalLessonCount,
       completionPct,
-      lastActivity: last ? new Date(last).toISOString().slice(0, 10) : "—",
+      lastActivity: prog?.updated_at ? new Date(prog.updated_at).toISOString().slice(0, 10) : "—",
       status,
+      accessGrants,
     };
   });
 }

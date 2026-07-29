@@ -4,6 +4,8 @@ import Link from "next/link";
 import { DataTable } from "@/components/admin/DataTable";
 import type { AdminStudentRow } from "@/lib/admin/queries";
 
+function compactId(id: string) { return id.slice(0, 8); }
+
 export function StudentsTable({ rows }: { rows: AdminStudentRow[] }) {
   return (
     <DataTable
@@ -24,6 +26,15 @@ export function StudentsTable({ rows }: { rows: AdminStudentRow[] }) {
           ),
         },
         {
+          key: "email",
+          header: "email",
+          render: (r) => (
+            <span className="font-[var(--font-space-grotesk)] text-[11px] text-[var(--liceu-muted)]">
+              {r.email}
+            </span>
+          ),
+        },
+        {
           key: "module",
           header: "current module",
           render: (r) => (
@@ -33,20 +44,50 @@ export function StudentsTable({ rows }: { rows: AdminStudentRow[] }) {
           ),
         },
         {
-          key: "pct",
-          header: "completion",
+          key: "progress",
+          header: "progress",
           className: "text-right",
           render: (r) => (
-            <span className="font-[var(--font-space-grotesk)] tabular-nums">
-              {r.completionPct}%
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[12px]">
+              {r.completedLessons}/{r.totalLessons}
+              <span className="text-[var(--liceu-muted)] ml-1">({r.completionPct}%)</span>
             </span>
           ),
         },
         {
-          key: "last",
-          header: "last activity",
+          key: "grants",
+          header: "access",
           render: (r) => (
-            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[var(--liceu-muted)]">
+            <div className="space-y-0.5">
+              {r.accessGrants.length === 0 ? (
+                <span className="font-[var(--font-space-grotesk)] text-[10px] text-[var(--liceu-muted)]/50">
+                  none
+                </span>
+              ) : (
+                r.accessGrants.map((g, i) => (
+                  <div key={i} className="flex items-center gap-1.5">
+                    <span className="font-[var(--font-space-grotesk)] text-[9px] uppercase tracking-[0.12em] text-[var(--liceu-accent)]/70">
+                      {g.grantType}
+                    </span>
+                    <span className="font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)] truncate max-w-[180px]">
+                      {g.moduleTitle}
+                    </span>
+                    {g.expiresAt && (
+                      <span className="font-[var(--font-space-grotesk)] text-[9px] text-[var(--liceu-muted)]/50">
+                        até {g.expiresAt}
+                      </span>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          ),
+        },
+        {
+          key: "last",
+          header: "last active",
+          render: (r) => (
+            <span className="font-[var(--font-space-grotesk)] tabular-nums text-[var(--liceu-muted)] text-[11px]">
               {r.lastActivity}
             </span>
           ),
