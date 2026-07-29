@@ -7,9 +7,8 @@ import { UserTable } from "@/components/admin/UserTable";
 import { AccessGrantDialog } from "@/components/admin/AccessGrantDialog";
 import { PartnershipManager } from "@/components/admin/PartnershipManager";
 import { AuditLogViewer } from "@/components/admin/AuditLogViewer";
-import { ContentEditor } from "@/components/admin/ContentEditor";
 
-type AdminTab = "overview" | "users" | "access" | "partnerships" | "audit" | "content";
+type AdminTab = "overview" | "users" | "access" | "partnerships" | "audit";
 
 interface User {
   id: string;
@@ -89,8 +88,8 @@ interface AdminMetrics {
   mentorshipUtilization: number;
 }
 
-export default async function AdminCommandCenterPage() {
-  // In real implementation, these would be fetched from the server
+export default function AdminCommandCenterPage() {
+  // Metrics & static data — admin/content route handles live curriculum data
   const metrics: AdminMetrics = {
     activeStudents: 127,
     modulesCompletionRate: 68,
@@ -169,7 +168,6 @@ function AdminTabs({
     { id: "access", label: "Access Control", icon: <AccessIcon /> },
     { id: "partnerships", label: "Partnerships", icon: <PartnershipsIcon /> },
     { id: "audit", label: "Audit Logs", icon: <AuditIcon /> },
-    { id: "content", label: "Content", icon: <ContentIcon /> },
   ];
 
   return (
@@ -257,9 +255,6 @@ function AdminTabs({
       {activeTab === "audit" && (
         <AuditLogViewer logs={mockAuditLogs} users={students} />
       )}
-      {activeTab === "content" && (
-        <ContentEditor modules={[]} />
-      )}
     </div>
   );
 }
@@ -270,7 +265,6 @@ function UsersIcon() { return <svg className="w-4 h-4" fill="none" stroke="curre
 function AccessIcon() { return <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>; }
 function PartnershipsIcon() { return <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20l-2-2m10 0l2-2" /></svg>; }
 function AuditIcon() { return <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>; }
-function ContentIcon() { return <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>; }
 
 // Overview tab component
 function AdminOverview({ metrics, students }: { metrics: AdminMetrics; students: User[] }) {

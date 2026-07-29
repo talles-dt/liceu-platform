@@ -1,5 +1,4 @@
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
-import { ContentEditor } from "@/components/admin/ContentEditor";
 
 type DbModule = {
   id: string;
@@ -19,269 +18,50 @@ type DbLesson = {
   title: string;
   subtitle: string;
   learning_objective: string;
-  rhetorical_dimension: string;
-  archetype_keys: string[];
-  difficulty_tier: number;
-  estimated_minutes: number;
-  prerequisites: string[];
   order_index: number;
-  is_published: boolean;
-};
-
-type DbTheoreticalContent = {
-  lesson_id: string;
-  section_order: number;
-  title: string;
-  content_markdown: string;
-  key_concepts: string[];
-  rhetorical_references: unknown;
-};
-
-type DbFlashcard = {
-  lesson_id: string;
-  front: string;
-  back: string;
-  concept: string;
-  rhetorical_dimension: string;
-  archetype_keys: string[];
-  difficulty_tier: number;
-  tags: string[];
-  source_location: string;
-  is_published: boolean;
-};
-
-type DbExercise = {
-  lesson_id: string;
-  exercise_type: string;
-  title: string;
-  prompt_markdown: string;
-  expected_answer: unknown;
-  rhetorical_dimension: string;
-  archetype_keys: string[];
   difficulty_tier: number;
   estimated_minutes: number;
   is_published: boolean;
-};
-
-type DbSimulation = {
-  module_id: string;
-  title: string;
-  scenario_markdown: string;
-  simulation_constraint: string;
-  success_criteria: unknown;
-  simulation_type: string;
-  related_lessons: string[];
-  rhetorical_dimensions: string[];
-  archetype_keys: string[];
-  difficulty_tier: number;
-  estimated_minutes: number;
-  is_published: boolean;
-};
-
-type DbExcerpt = {
-  lesson_id: string;
-  author: string;
-  work: string;
-  book: string;
-  section: string;
-  quote: string;
-  paraphrase: string;
-  concept_illustrated: string;
-  language: string;
-  translation_ref: string;
-  is_published: boolean;
-};
-
-type ModuleData = {
-  id: string;
-  code: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  order_index: number;
-  estimated_hours: number;
-  is_active: boolean;
-  lessons: Array<{
-    id: string;
-    module_id: string;
-    code: string;
-    title: string;
-    subtitle: string;
-    learning_objective: string;
-    rhetorical_dimension: string;
-    archetype_keys: string[];
-    difficulty_tier: number;
-    estimated_minutes: number;
-    prerequisites: string[];
-    order_index: number;
-    is_published: boolean;
-    theory: Array<{
-      lesson_id: string;
-      section_order: number;
-      title: string;
-      content_markdown: string;
-      key_concepts: string[];
-      rhetorical_references: unknown;
-    }>;
-    flashcards: Array<{
-      lesson_id: string;
-      front: string;
-      back: string;
-      concept: string;
-      rhetorical_dimension: string;
-      archetype_keys: string[];
-      difficulty_tier: number;
-      tags: string[];
-      source_location: string;
-      is_published: boolean;
-    }>;
-    exercises: Array<{
-      lesson_id: string;
-      exercise_type: string;
-      title: string;
-      prompt_markdown: string;
-      expected_answer: unknown;
-      rhetorical_dimension: string;
-      archetype_keys: string[];
-      difficulty_tier: number;
-      estimated_minutes: number;
-      is_published: boolean;
-    }>;
-  }>;
-  simulations: Array<{
-    module_id: string;
-    title: string;
-    scenario_markdown: string;
-    simulation_constraint: string;
-    success_criteria: unknown;
-    simulation_type: string;
-    related_lessons: string[];
-    rhetorical_dimensions: string[];
-    archetype_keys: string[];
-    difficulty_tier: number;
-    estimated_minutes: number;
-    is_published: boolean;
-  }>;
-  excerpts: Array<{
-    lesson_id: string;
-    author: string;
-    work: string;
-    book: string;
-    section: string;
-    quote: string;
-    paraphrase: string;
-    concept_illustrated: string;
-    language: string;
-    translation_ref: string;
-    is_published: boolean;
-  }>;
 };
 
 export default async function AdminContentPage() {
   const supabase = createSupabaseAdminClient();
 
-  const [
-    { data: modulesData },
-    { data: lessonsData },
-    { data: theoryData },
-    { data: flashcardsData },
-    { data: exercisesData },
-    { data: simulationsData },
-    { data: excerptsData },
-  ] = await Promise.all([
-    supabase
-      .from("liceu_modules")
-      .select("id, code, title, subtitle, description, order_index, estimated_hours, is_active")
-      .order("order_index"),
-    supabase
-      .from("liceu_lessons")
-      .select("id, module_id, code, title, subtitle, learning_objective, rhetorical_dimension, archetype_keys, difficulty_tier, estimated_minutes, prerequisites, order_index, is_published")
-      .order("order_index"),
-    supabase
-      .from("liceu_theoretical_content")
-      .select("lesson_id, section_order, title, content_markdown, key_concepts, rhetorical_references")
-      .order("section_order"),
-    supabase
-      .from("liceu_flashcards")
-      .select("lesson_id, front, back, concept, rhetorical_dimension, archetype_keys, difficulty_tier, tags, source_location, is_published")
-      .eq("is_published", true),
-    supabase
-      .from("liceu_exercises")
-      .select("lesson_id, exercise_type, title, prompt_markdown, expected_answer, rhetorical_dimension, archetype_keys, difficulty_tier, estimated_minutes, is_published")
-      .eq("is_published", true),
-    supabase
-      .from("liceu_simulations")
-      .select("module_id, title, scenario_markdown, simulation_constraint, success_criteria, simulation_type, related_lessons, rhetorical_dimensions, archetype_keys, difficulty_tier, estimated_minutes, is_published")
-      .eq("is_published", true),
-    supabase
-      .from("liceu_rhetorical_excerpts")
-      .select("lesson_id, author, work, book, section, quote, paraphrase, concept_illustrated, language, translation_ref, is_published")
-      .eq("is_published", true),
-  ]);
+  const [{ data: modules }, { data: lessons }, { data: theory }, { data: flashcards }, { data: exercises }, { data: simulations }, { data: excerpts }] =
+    await Promise.all([
+      supabase.from("liceu_modules").select("id, code, title, subtitle, description, order_index, estimated_hours, is_active").order("order_index"),
+      supabase.from("liceu_lessons").select("id, module_id, code, title, subtitle, learning_objective, order_index, difficulty_tier, estimated_minutes, is_published").order("order_index"),
+      supabase.from("liceu_theoretical_content").select("lesson_id, section_order, title, content_markdown").order("section_order"),
+      supabase.from("liceu_flashcards").select("lesson_id, front, back, concept").eq("is_published", true),
+      supabase.from("liceu_exercises").select("lesson_id, title, exercise_type").eq("is_published", true),
+      supabase.from("liceu_simulations").select("module_id, title").eq("is_published", true),
+      supabase.from("liceu_rhetorical_excerpts").select("lesson_id, author, work").eq("is_published", true),
+    ]);
 
-  const modules = (modulesData as DbModule[]) ?? [];
-  const lessons = (lessonsData as DbLesson[]) ?? [];
-  const theory = (theoryData as DbTheoreticalContent[]) ?? [];
-  const flashcards = (flashcardsData as DbFlashcard[]) ?? [];
-  const exercises = (exercisesData as DbExercise[]) ?? [];
-  const simulations = (simulationsData as DbSimulation[]) ?? [];
-  const excerpts = (excerptsData as DbExcerpt[]) ?? [];
+  const mods = (modules as DbModule[]) ?? [];
+  const lssns = (lessons as DbLesson[]) ?? [];
+  const theoryList = (theory as { lesson_id: string; section_order: number; title: string; content_markdown: string }[]) ?? [];
+  const flashcardList = (flashcards as { lesson_id: string }[]) ?? [];
+  const exerciseList = (exercises as { lesson_id: string }[]) ?? [];
+  const simulationList = (simulations as { module_id: string }[]) ?? [];
+  const excerptList = (excerpts as { lesson_id: string }[]) ?? [];
 
-  // Group data by module/lesson
+  // Group by module
   const lessonsByModule = new Map<string, DbLesson[]>();
-  for (const l of lessons) {
+  for (const l of lssns) {
     if (!lessonsByModule.has(l.module_id)) lessonsByModule.set(l.module_id, []);
     lessonsByModule.get(l.module_id)!.push(l);
   }
-
-  const theoryByLesson = new Map<string, DbTheoreticalContent[]>();
-  for (const t of theory) {
-    if (!theoryByLesson.has(t.lesson_id)) theoryByLesson.set(t.lesson_id, []);
-    theoryByLesson.get(t.lesson_id)!.push(t);
-  }
-
-  const flashcardsByLesson = new Map<string, DbFlashcard[]>();
-  for (const f of flashcards) {
-    if (!flashcardsByLesson.has(f.lesson_id)) flashcardsByLesson.set(f.lesson_id, []);
-    flashcardsByLesson.get(f.lesson_id)!.push(f);
-  }
-
-  const exercisesByLesson = new Map<string, DbExercise[]>();
-  for (const e of exercises) {
-    if (!exercisesByLesson.has(e.lesson_id)) exercisesByLesson.set(e.lesson_id, []);
-    exercisesByLesson.get(e.lesson_id)!.push(e);
-  }
-
-  const simulationsByModule = new Map<string, DbSimulation[]>();
-  for (const s of simulations) {
-    if (!simulationsByModule.has(s.module_id)) simulationsByModule.set(s.module_id, []);
-    simulationsByModule.get(s.module_id)!.push(s);
-  }
-
-  const excerptsByLesson = new Map<string, DbExcerpt[]>();
-  for (const x of excerpts) {
-    if (!excerptsByLesson.has(x.lesson_id)) excerptsByLesson.set(x.lesson_id, []);
-    excerptsByLesson.get(x.lesson_id)!.push(x);
-  }
-
-  const moduleData: ModuleData[] = modules.map((m) => ({
-    id: m.id,
-    code: m.code,
-    title: m.title,
-    subtitle: m.subtitle,
-    description: m.description,
-    order_index: m.order_index,
-    estimated_hours: m.estimated_hours,
-    is_active: m.is_active,
-    lessons: (lessonsByModule.get(m.id) ?? []).map((l) => ({
-      ...l,
-      theory: theoryByLesson.get(l.id) ?? [],
-      flashcards: flashcardsByLesson.get(l.id) ?? [],
-      exercises: exercisesByLesson.get(l.id) ?? [],
-    })),
-    simulations: simulationsByModule.get(m.id) ?? [],
-    excerpts: [], // Module-level excerpts would go here if any
-  }));
+  const theoryByLesson = new Map<string, number>();
+  for (const t of theoryList) theoryByLesson.set(t.lesson_id, (theoryByLesson.get(t.lesson_id) ?? 0) + 1);
+  const flashcardsByLesson = new Map<string, number>();
+  for (const f of flashcardList) flashcardsByLesson.set(f.lesson_id, (flashcardsByLesson.get(f.lesson_id) ?? 0) + 1);
+  const exercisesByLesson = new Map<string, number>();
+  for (const e of exerciseList) exercisesByLesson.set(e.lesson_id, (exercisesByLesson.get(e.lesson_id) ?? 0) + 1);
+  const simulationsByModule = new Map<string, number>();
+  for (const s of simulationList) simulationsByModule.set(s.module_id, (simulationsByModule.get(s.module_id) ?? 0) + 1);
+  const excerptsByLesson = new Map<string, number>();
+  for (const e of excerptList) excerptsByLesson.set(e.lesson_id, (excerptsByLesson.get(e.lesson_id) ?? 0) + 1);
 
   return (
     <div className="p-4 md:p-6">
@@ -293,12 +73,88 @@ export default async function AdminContentPage() {
           Conteúdo do Liceu Underground
         </div>
         <div className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
-          {modules.length} módulos, {lessons.length} lições, {theory.length} textos teóricos, {flashcards.length} flashcards, {exercises.length} exercícios, {simulations.length} simulações
+          {mods.length} módulos &middot; {lssns.length} lições &middot; {theoryList.length} textos teóricos &middot; {flashcardList.length} flashcards &middot; {exerciseList.length} exercícios &middot; {simulationList.length} simulações &middot; {excerptList.length} excertos
         </div>
       </header>
 
-      <div className="mt-6">
-        <ContentEditor modules={moduleData} />
+      <div className="mt-6 space-y-8">
+        {mods.map((m, mi) => {
+          const moduleLessons = lessonsByModule.get(m.id) ?? [];
+          const moduleSims = simulationsByModule.get(m.id) ?? 0;
+          return (
+            <section key={m.id} className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/20">
+              <div className="border-b border-[var(--liceu-stone)]/70 px-5 py-4">
+                <div className="font-[var(--font-liceu-mono)] text-[9px] uppercase tracking-[0.15em] text-[var(--liceu-muted)]">
+                  Módulo {mi + 1}
+                </div>
+                <div className="mt-1 font-serif text-[18px] text-[var(--liceu-text)]">
+                  {m.code}. {m.title}
+                </div>
+                {m.subtitle && (
+                  <div className="mt-1 font-serif text-[14px] italic text-[var(--liceu-muted)]">
+                    {m.subtitle}
+                  </div>
+                )}
+                <div className="mt-2 flex gap-3 font-[var(--font-liceu-mono)] text-[9px] uppercase tracking-[0.12em] text-[var(--liceu-muted)]/60">
+                  <span>{moduleLessons.length} lições</span>
+                  <span>{m.estimated_hours}h</span>
+                  {moduleSims > 0 && <span>{moduleSims} simulações</span>}
+                  <span className={m.is_active ? "text-green-600" : "text-red-600"}>
+                    {m.is_active ? "ativo" : "inativo"}
+                  </span>
+                </div>
+              </div>
+              <div className="p-5">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="border-b border-[var(--liceu-stone)]/40">
+                      <th className="pb-2 pr-4 font-[var(--font-liceu-mono)] text-[9px] uppercase tracking-[0.12em] text-[var(--liceu-muted)] w-12">#</th>
+                      <th className="pb-2 pr-4 font-[var(--font-liceu-mono)] text-[9px] uppercase tracking-[0.12em] text-[var(--liceu-muted)]">Lição</th>
+                      <th className="pb-2 pr-4 font-[var(--font-liceu-mono)] text-[9px] uppercase tracking-[0.12em] text-[var(--liceu-muted)] w-16">Dific.</th>
+                      <th className="pb-2 pr-4 font-[var(--font-liceu-mono)] text-[9px] uppercase tracking-[0.12em] text-[var(--liceu-muted)] w-16">Min.</th>
+                      <th className="pb-2 font-[var(--font-liceu-mono)] text-[9px] uppercase tracking-[0.12em] text-[var(--liceu-muted)]">Conteúdo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {moduleLessons.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="pt-4 font-[var(--font-liceu-sans)] text-[12px] text-[var(--liceu-muted)]">
+                          Nenhuma lição cadastrada.
+                        </td>
+                      </tr>
+                    ) : (
+                      moduleLessons.map((l) => {
+                        const tCount = theoryByLesson.get(l.id) ?? 0;
+                        const fCount = flashcardsByLesson.get(l.id) ?? 0;
+                        const eCount = exercisesByLesson.get(l.id) ?? 0;
+                        const xCount = excerptsByLesson.get(l.id) ?? 0;
+                        const parts: string[] = [];
+                        if (tCount > 0) parts.push(`${tCount} textos`);
+                        if (fCount > 0) parts.push(`${fCount} flashcards`);
+                        if (eCount > 0) parts.push(`${eCount} exercícios`);
+                        if (xCount > 0) parts.push(`${xCount} excertos`);
+                        return (
+                          <tr key={l.id} className="border-b border-[var(--liceu-stone)]/20 last:border-0">
+                            <td className="py-2 pr-4 font-[var(--font-liceu-mono)] text-[10px] text-[var(--liceu-muted)]">{l.order_index + 1}</td>
+                            <td className="py-2 pr-4">
+                              <div className="font-serif text-[13px] text-[var(--liceu-text)]">{l.title}</div>
+                              {l.subtitle && <div className="font-serif text-[11px] italic text-[var(--liceu-muted)]/70">{l.subtitle}</div>}
+                            </td>
+                            <td className="py-2 pr-4 font-[var(--font-liceu-mono)] text-[10px] tabular-nums text-[var(--liceu-muted)]">{l.difficulty_tier}/5</td>
+                            <td className="py-2 pr-4 font-[var(--font-liceu-mono)] text-[10px] tabular-nums text-[var(--liceu-muted)]">{l.estimated_minutes}</td>
+                            <td className="py-2 font-[var(--font-liceu-mono)] text-[9px] text-[var(--liceu-muted)]/70">
+                              {parts.length > 0 ? parts.join(" · ") : l.is_published ? "—" : "não publicado"}
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          );
+        })}
       </div>
     </div>
   );
