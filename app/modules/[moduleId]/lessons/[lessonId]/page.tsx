@@ -10,32 +10,21 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
 
   const supabase = await createSupabaseServerClient();
 
-  // Load lesson + module + theory
   const [{ data: lesson }, { data: mod }, { data: theory }] = await Promise.all([
-    supabase.from("liceu_lessons")
-      .select("id, title, subtitle, learning_objective, order_index, module_id, difficulty_tier, estimated_minutes, rhetorical_dimension")
-      .eq("id", lessonId).eq("module_id", moduleId).maybeSingle(),
-    supabase.from("liceu_modules")
-      .select("id, title, order_index").eq("id", moduleId).maybeSingle(),
-    supabase.from("liceu_theoretical_content")
-      .select("content_markdown, title").eq("lesson_id", lessonId).order("section_order").limit(1).maybeSingle(),
+    supabase.from("liceu_lessons").select("id, title, subtitle, learning_objective, order_index, module_id, difficulty_tier, estimated_minutes, rhetorical_dimension").eq("id", lessonId).eq("module_id", moduleId).maybeSingle(),
+    supabase.from("liceu_modules").select("id, title, order_index").eq("id", moduleId).maybeSingle(),
+    supabase.from("liceu_theoretical_content").select("content_markdown, title").eq("lesson_id", lessonId).order("section_order").limit(1).maybeSingle(),
   ]);
 
   if (!lesson || !mod) notFound();
 
   const contentMd = (theory as { content_markdown?: string } | null)?.content_markdown ?? null;
-  const contentHtml = contentMd
-    ? await marked(contentMd, { breaks: true })
-    : null;
+  const contentHtml = contentMd ? await marked(contentMd, { breaks: true }) : null;
 
-  // Progress
-  const { data: prog } = await supabase.from("liceu_learner_progression")
-    .select("completed_lessons").eq("user_id", user.id).maybeSingle();
+  const { data: prog } = await supabase.from("liceu_learner_progression").select("completed_lessons").eq("user_id", user.id).maybeSingle();
   const completed = ((prog as { completed_lessons?: string[] } | null)?.completed_lessons ?? []).includes(lessonId);
 
-  // All lessons for nav
-  const { data: allLessons } = await supabase.from("liceu_lessons")
-    .select("id, title, order_index").eq("module_id", moduleId).eq("is_published", true).order("order_index");
+  const { data: allLessons } = await supabase.from("liceu_lessons").select("id, title, order_index").eq("module_id", moduleId).eq("is_published", true).order("order_index");
   const lessons = (allLessons ?? []) as { id: string; title: string; order_index: number }[];
   const idx = lessons.findIndex(l => l.id === lessonId);
   const prev = idx > 0 ? lessons[idx - 1] : null;
@@ -53,7 +42,7 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
         </div>
 
         <header className="mb-12">
-          <h1 className="font-[var(--font-noto-serif)] text-3xl md:text-5xl leading-tight">{lesson.title}</h1>
+          <h1 className="font-[var(--font-noto-serif)] text-3xl md:text-5xl leading-tight text-[var(--liceu-text)]">{lesson.title}</h1>
           {lesson.subtitle && <p className="mt-3 font-[var(--font-noto-serif)] text-xl italic text-[var(--liceu-muted)]">{lesson.subtitle}</p>}
           <div className="mt-4 flex flex-wrap gap-4 font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.15em] text-[var(--liceu-muted)]">
             <span>Dificuldade {lesson.difficulty_tier}/5</span>
@@ -64,7 +53,9 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
 
         <article className="space-y-8">
           {contentHtml ? (
-            <section className="prose-liceu" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+            <section className="prose prose-invert prose-lg max-w-none prose-headings:font-[var(--font-noto-serif)] prose-headings:text-[var(--liceu-text)] prose-p:text-[var(--liceu-text)]/90 prose-a:text-[var(--liceu-accent)] prose-blockquote:border-l-[var(--liceu-accent)] prose-blockquote:text-[var(--liceu-muted)] prose-strong:text-[var(--liceu-text)] prose-code:bg-[var(--liceu-surface)] prose-code:px-1 prose-code:rounded prose-pre:bg-[var(--liceu-surface-container)]"
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
+            />
           ) : (
             <div className="border border-[var(--liceu-stone)]/50 p-6 font-[var(--font-liceu-sans)] text-sm text-[var(--liceu-muted)]">
               <p>O conteúdo teórico desta lição está sendo preparado.</p>
