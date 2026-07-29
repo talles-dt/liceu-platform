@@ -117,19 +117,23 @@ function Sidebar({ user, activeNav }: { user: { email: string }; activeNav: stri
       <nav className="flex-1 px-0 py-2">
         {navItems.map((item) => {
           const isActive = activeNav === item.id;
-          return (
-            <button
-              key={item.id}
-              className={`flex w-full items-center gap-3 px-4 py-3 font-mono text-xs uppercase tracking-widest transition-colors
-                ${isActive
-                  ? "bg-[#201F1F] text-[var(--liceu-accent)] border-l-4 border-[var(--liceu-primary)]"
-                  : "text-[var(--liceu-muted)] border-l-4 border-transparent hover:text-[var(--liceu-text)] hover:bg-[#201F1F]/50"
-                }`}
-            >
+          const el = (
+            <span className="flex w-full items-center gap-3 px-4 py-3 font-mono text-xs uppercase tracking-widest transition-colors">
               <span className="text-sm">{item.icon}</span>
               {item.label}
-            </button>
+            </span>
           );
+          const activeClass = "bg-[#201F1F] text-[var(--liceu-accent)] border-l-4 border-[var(--liceu-primary)]";
+          const inactiveClass = "text-[var(--liceu-muted)] border-l-4 border-transparent hover:text-[var(--liceu-text)] hover:bg-[#201F1F]/50";
+          const classes = `flex w-full ${isActive ? activeClass : inactiveClass}`;
+
+          if (item.id === "overview") {
+            return <a key={item.id} href="/dashboard" className={classes}>{el}</a>;
+          }
+          if (item.id === "courses") {
+            return <a key={item.id} href="/dashboard" className={classes}>{el}</a>;
+          }
+          return <div key={item.id} className={classes}>{el}</div>;
         })}
       </nav>
       <div className="border-t border-[var(--liceu-stone)]/30 px-4 py-4 space-y-3">
@@ -310,16 +314,16 @@ function SessionLogs({ completedCount, totalCount, courseViews }: {
   );
 }
 
-function ActiveDrills({ remainingCount }: { remainingCount: number }) {
+function ActiveDrills({ remainingCount, currentModuleId }: { remainingCount: number; currentModuleId: string | null }) {
   const drills = [
     {
       icon: "◈",
       complexity: "Intermediate",
       complexityColor: "text-[var(--liceu-secondary)]",
       title: "Module Drills",
-      description: `Practice ${remainingCount} remaining lesson${remainingCount !== 1 ? "s" : ""} to advance clearance level.`,
+      description: `Practice ${remainingCount} remaining lesson(s) to advance clearance level.`,
       action: "Start Drill",
-      href: "#",
+      href: currentModuleId ? `/modules/${currentModuleId}` : "/dashboard",
     },
     {
       icon: "◆",
@@ -328,7 +332,7 @@ function ActiveDrills({ remainingCount }: { remainingCount: number }) {
       title: "Writing Forge",
       description: "Refine your written production. Submit essays for review and improve your analytical precision.",
       action: "Enter Forge",
-      href: "#",
+      href: currentModuleId ? `/modules/${currentModuleId}/assignment` : "/dashboard",
     },
     {
       icon: "◎",
@@ -336,8 +340,8 @@ function ActiveDrills({ remainingCount }: { remainingCount: number }) {
       complexityColor: "text-[var(--liceu-accent)]",
       title: "Mentoring Arena",
       description: "Complete modules to unlock mentoring access and schedule your session.",
-      action: "Locked",
-      href: "#",
+      action: "Schedule",
+      href: "/mentoria",
     },
   ];
 
@@ -441,7 +445,7 @@ export default async function DashboardPage(props: { searchParams: Promise<Dashb
           </div>
 
           <div className="px-8">
-            <ActiveDrills remainingCount={totalModules - totalCompleted} />
+            <ActiveDrills remainingCount={totalModules - totalCompleted} currentModuleId={firstCurrentModule?.id ?? null} />
           </div>
 
           {/* Module detail sections */}
