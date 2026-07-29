@@ -9,59 +9,19 @@ import {
   QuizSection,
 } from "./content";
 
-type FullLesson = {
+type ModuleData = {
   id: string;
-  module_id: string;
-  code: string;
   title: string;
-  subtitle: string;
-  learning_objective: string;
-  rhetorical_dimension: string;
-  archetype_keys: string[];
-  difficulty_tier: number;
-  estimated_minutes: number;
-  prerequisites: string[];
   order_index: number;
-  is_published: boolean;
+  assignment: { assignment_prompt: string; speech_prompt: string } | null;
+  text: { title: string; author: string | null; content: string } | null;
 };
 
-type FullModuleData = {
-  id: string;
-  title: string;
-  order_index: number;
-  lessons: FullLesson[];
-  simulations: Array<{
-    module_id: string;
-    title: string;
-    scenario_markdown: string;
-    simulation_constraint: string;
-    success_criteria: unknown;
-    simulation_type: string;
-    related_lessons: string[];
-    rhetorical_dimensions: string[];
-    archetype_keys: string[];
-    difficulty_tier: number;
-    estimated_minutes: number;
-    is_published: boolean;
-  }>;
-  excerpts: Array<{
-    lesson_id: string;
-    author: string;
-    work: string;
-    book: string;
-    section: string;
-    quote: string;
-    paraphrase: string;
-    concept_illustrated: string;
-    language: string;
-    translation_ref: string;
-    is_published: boolean;
-  }>;
-};
+// ─── Main component ───────────────────────────────────────────────────────────
 
 type Tab = "licoes" | "prompts" | "text" | "flashcards" | "quiz";
 
-function ModuleEditor({ module }: { module: FullModuleData }) {
+function ModuleEditor({ module }: { module: ModuleData }) {
   const [tab, setTab] = useState<Tab>("prompts");
 
   const tabs: { key: Tab; label: string }[] = [
@@ -93,17 +53,27 @@ function ModuleEditor({ module }: { module: FullModuleData }) {
       </div>
 
       <div className="p-5">
-        {tab === "licoes" && <LicoesSection module={module} />}
-        {tab === "prompts" && <PromptsSection moduleId={module.id} initial={null} />}
-        {tab === "text" && <TextSection moduleId={module.id} initial={null} />}
-        {tab === "flashcards" && <FlashcardsSection moduleId={module.id} />}
-        {tab === "quiz" && <QuizSection moduleId={module.id} />}
+        {tab === "licoes" && (
+          <LicoesSection moduleId={module.id} />
+        )}
+        {tab === "prompts" && (
+          <PromptsSection moduleId={module.id} initial={module.assignment} />
+        )}
+        {tab === "text" && (
+          <TextSection moduleId={module.id} initial={module.text} />
+        )}
+        {tab === "flashcards" && (
+          <FlashcardsSection moduleId={module.id} />
+        )}
+        {tab === "quiz" && (
+          <QuizSection moduleId={module.id} />
+        )}
       </div>
     </div>
   );
 }
 
-export function ContentEditor({ modules }: { modules: FullModuleData[] }) {
+export function ContentEditor({ modules }: { modules: ModuleData[] }) {
   const [selectedId, setSelectedId] = useState<string | null>(
     modules[0]?.id ?? null,
   );
@@ -139,8 +109,11 @@ export function ContentEditor({ modules }: { modules: FullModuleData[] }) {
                 {m.title}
               </div>
               <div className="mt-1 flex gap-2">
-                {m.simulations && m.simulations.length > 0 && (
-                  <span className="font-[var(--font-liceu-mono)] text-[9px] text-[var(--liceu-accent)]/60">SIM</span>
+                {m.assignment && (
+                  <span className="font-[var(--font-liceu-mono)] text-[9px] text-[var(--liceu-accent)]/60">EX</span>
+                )}
+                {m.text && (
+                  <span className="font-[var(--font-liceu-mono)] text-[9px] text-[var(--liceu-accent)]/60">TX</span>
                 )}
               </div>
             </button>
