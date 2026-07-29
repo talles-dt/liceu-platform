@@ -2,54 +2,51 @@ import { redirect } from "next/navigation";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
+import { getCommerceConfig } from "@/lib/commerce";
 
 export default async function MentorshipPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
   const supabase = await createSupabaseServerClient();
+  const { calInterviewLink, calMentoringLink } = getCommerceConfig();
 
-  const { data: unlocked } = await supabase
-    .from("liceu_learner_progression")
-    .select("completed_lessons")
-    .eq("user_id", user.id)
-    .maybeSingle();
+  const [{ data: applications }, { data: sessionsData }, { data: progression }] =
+    await Promise.all([
+      supabase
+        .from("mentoring_applications")
+        .select("id, status, created_at")
+        .eq("email", (user.email ?? "").toLowerCase())
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+      supabase
+        .from("mentorship_sessions")
+        .select("id, scheduled_at, status")
+        .eq("user_id", user.id)
+        .order("scheduled_at", { ascending: true })
+        .limit(1),
+      supabase
+        .from("liceu_learner_progression")
+        .select("completed_lessons, current_module_id, updated_at")
+        .eq("user_id", user.id)
+        .maybeSingle(),
+    ]);
 
-  const { data: lessonsData } = await supabase
-    .from("liceu_lessons")
-    .select("id, module_id, is_published");
+  const application = applications as unknown as { id?: string; status?: string | null; created_at?: string | null } | null;
+  const firstSession = (sessionsData as unknown as { id?: string; scheduled_at?: string | null; status?: string | null }[] | null)?.[0] ?? null;
+  const completedLessons = ((progression as unknown as { completed_lessons?: string[] } | null)?.completed_lessons?.length ?? 0);
 
-  const { data: modulesData } = await supabase
-    .from("liceu_modules")
-    .select("id, order_index");
+  const mentoringStatus = application?.status ?? null;
+  const isFundamentalsComplete = completedLessons >= 7;
+  const canBook = isFundamentalsComplete && Boolean(calMentoringLink);
 
-  const lessons = (lessonsData as unknown as { id: string; module_id: string }[]) ?? [];
-  const modules = (modulesData as unknown as { id: string; order_index: number }[]) ?? [];
-
-  const lessonsByModule = new Map<string, string[]>();
-  for (const l of lessons) {
-    const arr = lessonsByModule.get(l.module_id) ?? [];
-    arr.push(l.id);
-    lessonsByModule.set(l.module_id, arr);
-  }
-
-  const completedLessons = (unlocked as unknown as { completed_lessons: string[] })?.completed_lessons ?? [];
-
-  let available = false;
-  for (const [moduleId, lessonIds] of lessonsByModule.entries()) {
-    const moduleLessons = lessonIds ?? [];
-    const moduleCompletedLessons = completedLessons.filter(lessonId => moduleLessons.includes(lessonId));
-    const moduleCompletionPct = moduleLessons.length > 0 ? (moduleCompletedLessons.length / moduleLessons.length) : 0;
-    
-    if (moduleCompletionPct === 1) {
-      // Check if this module is the first one (Fundamentos)
-      const module = modules.find(m => m.id === moduleId);
-      if (module && module.order_index === 0) {
-        available = true;
-        break;
-      }
-    }
-  }
+  const statusLabel = canBook
+    ? "Sessão liberada"
+    : "Ainda não liberada";
+  const statusHint = canBook
+    ? "Agende sua sessão diretamente pelo Cal.com."
+    : "Conclua o módulo de Fundamentos para liberar a agenda.";
 
   return (
     <ReadingLayout
@@ -60,29 +57,18 @@ export default async function MentorshipPage() {
       <div className="space-y-10">
         <section className="space-y-4">
           <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-            Requisitos
-          </div>
-          <ul className="list-disc space-y-2 pl-5 font-[var(--font-noto-serif)] text-[15px] leading-[1.9] text-[var(--liceu-text)]">
-            <li>Conclusão dos módulos anteriores ao tema.</li>
-            <li>Quiz com nota mínima de 70%.</li>
-            <li>Produção escrita enviada e aprovada.</li>
-            <li>Uma nota breve com 2–3 perguntas precisas.</li>
-          </ul>
-        </section>
-
-        <section className="space-y-4">
-          <div className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
             Estado
           </div>
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/50 px-4 py-4">
-            <div className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)]">
-              {available ? "Sessão liberada" : "Ainda não liberada"}
-            </div>
+            <div className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)]">{statusLabel}</div>
             <p className="mt-2 font-[var(--font-work-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
-              {available
-                ? "Você concluiu ao menos um módulo com mentoria liberada."
-                : "Conclua um módulo para liberar a próxima sessão."}
+              {statusHint}
             </p>
+            {firstSession?.scheduled_at && (
+              <p className="mt-2 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-text)]">
+                Próxima sessão: {firstSession.scheduled_at.replace("T", " ").slice(0, 16)}
+              </p>
+            )}
           </div>
         </section>
 
@@ -92,17 +78,19 @@ export default async function MentorshipPage() {
           </div>
 
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-4 py-4">
-            <p className="font-[var(--font-work-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
-              Integração planejada: Cal.com.
-              <br />
-              Fluxo: verificar módulo concluído → verificar sessão disponível →
-              liberar agenda.
-            </p>
-
             <div className="mt-4 flex flex-wrap gap-3">
-              <MinimalButton disabled={!available}>Escolher horário</MinimalButton>
-              <MinimalButton variant="quiet">Entrar na fila</MinimalButton>
-              <MinimalButton variant="quiet">Comprar mentoria</MinimalButton>
+              {canBook && calMentoringLink ? (
+                <a
+                  href={calMentoringLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block border border-[var(--liceu-secondary)]/60 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--liceu-secondary)] hover:bg-[var(--liceu-secondary)]/10"
+                >
+                  Agendar sessão →
+                </a>
+              ) : (
+                <MinimalButton disabled>Escolher horário</MinimalButton>
+              )}
             </div>
           </div>
         </section>
