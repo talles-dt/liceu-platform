@@ -88,10 +88,27 @@ async function markLessonComplete(
   userId: string,
   lessonId: string,
 ) {
+  // Get current progression
+  const { data: prog } = await supabase
+    .from("liceu_learner_progression")
+    .select("completed_lessons")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  const completedLessons = prog?.completed_lessons ?? [];
+  if (!completedLessons.includes(lessonId)) {
+    completedLessons.push(lessonId);
+  }
+
+  // Update progression
   await supabase
-    .from("lesson_completions")
+    .from("liceu_learner_progression")
     .upsert(
-      { user_id: userId, lesson_id: lessonId, completed: true },
-      { onConflict: "user_id,lesson_id" },
+      {
+        user_id: userId,
+        completed_lessons: completedLessons,
+        updated_at: new Date().toISOString()
+      },
+      { onConflict: "user_id" },
     );
 }

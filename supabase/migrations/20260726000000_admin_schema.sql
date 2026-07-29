@@ -324,13 +324,13 @@ $$;
 CREATE OR REPLACE FUNCTION public.grant_user_access(
   p_user_id UUID,
   p_grant_type access_grant_type,
+  p_granted_by UUID,
   p_modules UUID[] DEFAULT NULL,
   p_courses UUID[] DEFAULT NULL,
   p_expires_at TIMESTAMPTZ DEFAULT NULL,
   p_source_id UUID DEFAULT NULL,
   p_source_type TEXT DEFAULT 'manual',
-  p_metadata JSONB DEFAULT '{}'::jsonb,
-  p_granted_by UUID
+  p_metadata JSONB DEFAULT '{}'::jsonb
 )
 RETURNS UUID LANGUAGE plpgsql SECURITY DEFINER AS $$
 DECLARE

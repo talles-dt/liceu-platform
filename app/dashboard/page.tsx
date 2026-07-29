@@ -133,13 +133,25 @@ function Sidebar({ user, activeNav }: { user: { email: string }; activeNav: stri
           if (item.id === "courses") {
             return <a key={item.id} href="/dashboard" className={classes}>{el}</a>;
           }
+          if (item.id === "drills") {
+            return <a key={item.id} href="/exercicios" className={classes}>{el}</a>;
+          }
+          if (item.id === "logs") {
+            return <a key={item.id} href="/registros" className={classes}>{el}</a>;
+          }
+          if (item.id === "mentoring") {
+            return <a key={item.id} href="/mentoria" className={classes}>{el}</a>;
+          }
           return <div key={item.id} className={classes}>{el}</div>;
         })}
       </nav>
       <div className="border-t border-[var(--liceu-stone)]/30 px-4 py-4 space-y-3">
-        <button className="w-full rounded border border-[var(--liceu-accent)]/30 bg-[var(--liceu-accent)]/10 px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-[var(--liceu-accent)] hover:bg-[var(--liceu-accent)]/20 transition-colors">
+        <a
+          href="/exercicios"
+          className="w-full rounded border border-[var(--liceu-accent)]/30 bg-[var(--liceu-accent)]/10 px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-[var(--liceu-accent)] hover:bg-[var(--liceu-accent)]/20 transition-colors"
+        >
           Iniciar Exercício →
-        </button>
+        </a>
         <a
           href="/api/auth/logout"
           className="block text-center font-mono text-[10px] uppercase tracking-widest text-[var(--liceu-muted)] hover:text-[var(--liceu-text)] transition-colors"
