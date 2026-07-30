@@ -4,6 +4,7 @@ import {
   type ApplicationRow,
 } from "@/components/admin/tables/ApplicationsTable";
 import { MentorshipTable, type SessionRow } from "@/components/admin/tables/MentorshipTable";
+import { BookingsTable, type BookingRow } from "@/components/admin/tables/BookingsTable";
 
 export default async function AdminMentorshipPage() {
   const supabase = createSupabaseAdminClient();
@@ -69,7 +70,48 @@ export default async function AdminMentorshipPage() {
     }[]) ?? [];
   const userById = new Map(users.map((u) => [u.id, u]));
 
-  const sessionRows: SessionRow[] =
+  // Bookings confirmed by students after Cal.com scheduling
+  const { data: bookingsData } = await supabase
+    .from("mentoring_bookings")
+    .select("id, user_id, email, session_id, created_at")
+    .order("created_at", { ascending: false })
+    .limit(200);
+
+  const bookings =
+    (bookingsData as unknown as {
+      id: string;
+      user_id: string;
+      email: string;
+      session_id: string;
+      created_at: string | null;
+    }[]) ?? [];
+
+  const bookingUserIds = Array.from(new Set(bookings.map((b) => b.user_id)));
+  const { data: bookingUsersData } =
+    bookingUserIds.length > 0
+      ? await supabase.from("users").select("id, name, email").in("id", bookingUserIds)
+      : { data: [] as unknown[] };
+
+  const bookingUsers =
+    (bookingUsersData as unknown as {
+      id: string;
+      name?: string | null;
+      email?: string | null;
+    }[]) ?? [];
+
+  const bookingUserById = new Map(bookingUsers.map((u) => [u.id, u]));
+
+  const bookingRows = bookings.map((b) => {
+    const u = bookingUserById.get(b.user_id);
+    return {
+      id: b.id,
+      student: (u?.name?.trim() || u?.email?.trim() || b.email.trim() || b.user_id.slice(0, 8)) as string,
+      sessionId: b.session_id,
+      bookedAt: b.created_at ? b.created_at.replace("T", " ").slice(0, 19) : "—",
+    };
+  });
+
+  const activeSessionRows: SessionRow[] =
     sessions.length > 0
       ? sessions.map((s) => {
           const u = userById.get(s.user_id);
@@ -137,12 +179,28 @@ export default async function AdminMentorshipPage() {
         )}
       </div>
 
+      {/* Student booking confirmations */}
+      <div className="mt-8">
+        <div className="mb-3 font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
+          Agendamentos confirmados
+        </div>
+        {bookingRows.length > 0 ? (
+          <BookingsTable rows={bookingRows as BookingRow[]} />
+        ) : (
+          <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/25 px-4 py-4">
+            <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
+              Nenhuma confirmação de agendamento ainda.
+            </p>
+          </div>
+        )}
+      </div>
+
       {/* Active sessions */}
       <div className="mt-8">
         <div className="mb-3 font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
           Sessões ativas
         </div>
-        <MentorshipTable rows={sessionRows} />
+        <MentorshipTable rows={activeSessionRows} />
       </div>
     </div>
   );
