@@ -11,22 +11,32 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
   const supabase = await createSupabaseServerClient();
 
   const [{ data: lesson }, { data: mod }, { data: theory }] = await Promise.all([
-    supabase.from("liceu_lessons").select("id, title, subtitle, learning_objective, order_index, module_id, difficulty_tier, estimated_minutes, rhetorical_dimension").eq("id", lessonId).eq("module_id", moduleId).maybeSingle(),
-    supabase.from("liceu_modules").select("id, title, order_index").eq("id", moduleId).maybeSingle(),
-    supabase.from("liceu_theoretical_content").select("content_markdown, title").eq("lesson_id", lessonId).order("section_order").limit(1).maybeSingle(),
+    supabase.from("liceu_lessons").select("id, title, subtitle, learning_objective, order_index, module_id, difficulty_tier, estimated_minutes, rhetorical_dimension").eq("id", lessonId).eq("module_id", moduleId).maybeSingle<{
+      id: string;
+      title: string;
+      subtitle: string | null;
+      learning_objective: string | null;
+      order_index: number;
+      module_id: string;
+      difficulty_tier: number | null;
+      estimated_minutes: number | null;
+      rhetorical_dimension: string | null;
+    }>(),
+    supabase.from("liceu_modules").select("id, title, order_index").eq("id", moduleId).maybeSingle<{ id: string; title: string; order_index: number }>(),
+    supabase.from("liceu_theoretical_content").select("content_markdown, title").eq("lesson_id", lessonId).order("section_order").limit(1).maybeSingle<{ content_markdown?: string | null; title?: string | null }>(),
   ]);
 
   if (!lesson || !mod) notFound();
 
-  const contentMd = (theory as { content_markdown?: string } | null)?.content_markdown ?? null;
+  const contentMd = theory?.content_markdown ?? null;
   const contentHtml = contentMd ? await marked(contentMd, { breaks: true }) : null;
 
-  const { data: prog } = await supabase.from("liceu_learner_progression").select("completed_lessons").eq("user_id", user.id).maybeSingle();
-  const completed = ((prog as { completed_lessons?: string[] } | null)?.completed_lessons ?? []).includes(lessonId);
+  const { data: prog } = await supabase.from("liceu_learner_progression").select("completed_lessons").eq("user_id", user.id).maybeSingle<{ completed_lessons?: string[] }>();
+  const completed = ((prog?.completed_lessons ?? []) as string[]).includes(lessonId);
 
   const { data: allLessons } = await supabase.from("liceu_lessons").select("id, title, order_index").eq("module_id", moduleId).eq("is_published", true).order("order_index");
   const lessons = (allLessons ?? []) as { id: string; title: string; order_index: number }[];
-  const idx = lessons.findIndex(l => l.id === lessonId);
+  const idx = lessons.findIndex((l) => l.id === lessonId);
   const prev = idx > 0 ? lessons[idx - 1] : null;
   const next = idx < lessons.length - 1 ? lessons[idx + 1] : null;
 
@@ -37,23 +47,26 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
       <div className="max-w-4xl mx-auto p-8 md:p-16">
         <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] mb-8">
           <a href="/dashboard" className="hover:text-[var(--liceu-text)]">dashboard</a>
-          {" / "}<a href={`/modules/${moduleId}`} className="hover:text-[var(--liceu-text)]">{mod.title}</a>
-          {" / "}<span className="text-[var(--liceu-text)]">lição {lesson.order_index + 1}</span>
+          {" / "}
+          <a href={`/modules/${moduleId}`} className="hover:text-[var(--liceu-text)]">{mod.title}</a>
+          {" / "}
+          <span className="text-[var(--liceu-text)]">lição {lesson.order_index + 1}</span>
         </div>
 
         <header className="mb-12">
           <h1 className="font-[var(--font-noto-serif)] text-3xl md:text-5xl leading-tight text-[var(--liceu-text)]">{lesson.title}</h1>
           {lesson.subtitle && <p className="mt-3 font-[var(--font-noto-serif)] text-xl italic text-[var(--liceu-muted)]">{lesson.subtitle}</p>}
           <div className="mt-4 flex flex-wrap gap-4 font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.15em] text-[var(--liceu-muted)]">
-            <span>Dificuldade {lesson.difficulty_tier}/5</span>
-            <span>{lesson.estimated_minutes} min</span>
-            {lesson.rhetorical_dimension && <span>{dimLabel[lesson.rhetorical_dimension] || lesson.rhetorical_dimension}</span>}
+            <span>Dificuldade {lesson.difficulty_tier ?? 1}/5</span>
+            <span>{lesson.estimated_minutes ?? 0} min</span>
+            {lesson.rhetorical_dimension && <span>{dimLabel[lesson.rhetorical_dimension as keyof typeof dimLabel] || lesson.rhetorical_dimension}</span>}
           </div>
         </header>
 
         <article className="space-y-8">
           {contentHtml ? (
-            <section className="prose prose-invert prose-lg max-w-none prose-headings:font-[var(--font-noto-serif)] prose-headings:text-[var(--liceu-text)] prose-p:text-[var(--liceu-text)]/90 prose-a:text-[var(--liceu-accent)] prose-blockquote:border-l-[var(--liceu-accent)] prose-blockquote:text-[var(--liceu-muted)] prose-strong:text-[var(--liceu-text)] prose-code:bg-[var(--liceu-surface)] prose-code:px-1 prose-code:rounded prose-pre:bg-[var(--liceu-surface-container)]"
+            <section
+              className="prose prose-invert prose-lg max-w-none prose-headings:font-[var(--font-noto-serif)] prose-headings:text-[var(--liceu-text)] prose-p:text-[var(--liceu-text)]/90 prose-a:text-[var(--liceu-accent)] prose-blockquote:border-l-[var(--liceu-accent)] prose-blockquote:text-[var(--liceu-muted)] prose-strong:text-[var(--liceu-text)] prose-code:bg-[var(--liceu-surface)] prose-code:px-1 prose-code:rounded prose-pre:bg-[var(--liceu-surface-container)]"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           ) : (
@@ -67,9 +80,12 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
             {completed ? (
               <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.2em] text-[var(--liceu-accent)]">✓ Lição concluída</div>
             ) : (
-              <form action={`/api/lessons/${lessonId}/quiz`} method="post">
-                <input type="hidden" name="answers" value="{}" />
-                <button type="submit" className="border border-[var(--liceu-stone)] px-4 py-2 font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)] hover:text-[var(--liceu-text)] hover:border-[var(--liceu-accent)] transition-colors">
+              <form action={`/api/modules/${moduleId}/lessons/${lessonId}/complete`} method="post" className="space-y-3">
+                <input type="hidden" name="redirect_to" value={`/modules/${moduleId}/lessons/${lessonId}`} />
+                <button
+                  type="submit"
+                  className="border border-[var(--liceu-stone)] px-4 py-2 font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)] hover:text-[var(--liceu-text)] hover:border-[var(--liceu-accent)] transition-colors"
+                >
                   Marcar como concluída
                 </button>
               </form>

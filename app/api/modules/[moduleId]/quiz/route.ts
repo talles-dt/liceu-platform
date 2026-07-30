@@ -63,7 +63,7 @@ export async function POST(req: Request, { params }: Context) {
   if (accessError) return accessError;
 
   const body = (await req.json().catch(() => ({}))) as {
-    answers?: Record<string, string>; // { questionId: selectedOptionId }
+    answers?: Record<string, string>;
   };
 
   if (!body.answers || typeof body.answers !== "object") {

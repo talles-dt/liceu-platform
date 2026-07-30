@@ -47,11 +47,25 @@ export async function POST(req: Request, { params }: Context) {
   const { denial } = await resolveLessonAccess(user.id, lessonId);
   if (denial) return denial;
 
-  const body = (await req.json().catch(() => ({}))) as {
-    answers?: Record<string, string>;
-  };
+  const contentType = req.headers.get("content-type") || "";
+  let body: { answers?: Record<string, string> } = {};
 
-  if (!body.answers) return NextResponse.json({ error: "answers required" }, { status: 400 });
+  if (contentType.includes("application/json")) {
+    body = (await req.json().catch(() => ({}))) as typeof body;
+  } else if (contentType.includes("application/x-www-form-urlencoded")) {
+    const form = await req.text();
+    const parsed = new URLSearchParams(form);
+    const answersRaw = parsed.get("answers") || "";
+    try {
+      body.answers = JSON.parse(answersRaw || "{}");
+    } catch {
+      body.answers = {};
+    }
+  }
+
+  if (!body.answers || typeof body.answers !== "object") {
+    return NextResponse.json({ error: "answers required" }, { status: 400 });
+  }
 
   const supabase = await createSupabaseServerClient();
 
