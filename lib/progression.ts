@@ -45,7 +45,7 @@ export async function canAccessLiceuModuleForUser(
   if (moduleError || !module) return false;
 
   // First module is always accessible
-  if (module.order_index === 0) return true;
+  if (module.order_index <= 1) return true;
 
   // Load ALL modules that come before this one
   const { data: previousModules, error: prevError } = await supabase
@@ -55,11 +55,16 @@ export async function canAccessLiceuModuleForUser(
     .lt("order_index", module.order_index)
     .order("order_index", { ascending: true });
 
-  if (prevError || !previousModules || previousModules.length === 0) {
+  if (prevError || !previousModules) {
     return false;
   }
 
   const previousIds = previousModules.map((m) => m.id);
+
+  // If there are no previous modules, this is the first module and should be accessible
+  if (previousIds.length === 0) {
+    return true;
+  }
 
   // Load progress for user
   const { data: progRow, error: progressError } = await supabase
@@ -72,17 +77,17 @@ export async function canAccessLiceuModuleForUser(
 
   // User has access if they have completed any lessons from previous modules
   const completedLessonIds = progRow?.completed_lessons ?? [];
-  
+
   // Check which lessons belong to previous modules
   const { data: prevModuleLessons } = await supabase
     .from("liceu_lessons")
     .select("id")
     .in("module_id", previousIds);
 
-  const prevModuleLessonIds = new Set((prevModuleLessons ?? []).map(l => l.id));
-  
+  const prevModuleLessonIds = new Set((prevModuleLessons ?? []).map((l) => l.id));
+
   // User has access if they've completed at least one lesson from previous modules
-  return completedLessonIds.some(id => prevModuleLessonIds.has(id));
+  return completedLessonIds.some((id) => prevModuleLessonIds.has(id));
 }
 
 /**

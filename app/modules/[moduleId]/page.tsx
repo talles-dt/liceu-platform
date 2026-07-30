@@ -130,7 +130,7 @@ export default async function ModulePage({ params }: Params) {
     .maybeSingle<DbModuleProgressRow>();
 
   // Module is accessible if: it's the first module, or user has completed previous module
-  const isFirstModule = moduleRow.order_index === 0;
+  const isFirstModule = moduleRow.order_index <= 1;
   const hasAccess = isFirstModule || (progRow?.completed_lessons?.length ?? 0) > 0;
   if (!hasAccess) redirect("/dashboard");
 
