@@ -9,72 +9,51 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing CAL_WEBHOOK_SECRET" }, { status: 500 });
   }
 
-  const signature = req.headers.get("x-cal-signature") ?? "";
   const body = await req.text();
-
-  // Note: Replace with Cal.com's actual signature verification logic if needed.
-  // Leaving this as a placeholder for webhook secret validation.
-  // if (signature !== calWebhookSecret) {
-  //   return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-  // }
-
-  let event: { triggerEvent?: string; payload?: Record<string, unknown> } = {};
+  let parsed: Record<string, unknown> = {};
   try {
-    event = JSON.parse(body);
+    parsed = JSON.parse(body);
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const eventTypeRaw = event.triggerEvent ?? "";
-  const eventType = String(eventTypeRaw).toLowerCase();
-  const payload = event.payload ?? {};
-
-  if (!eventType || !payload) {
-    return NextResponse.json({ error: "Missing event or payload" }, { status: 400 });
-  }
-
   const supabase = await createSupabaseServerClient();
 
-  const attendees = Array.isArray((payload as { attendees?: unknown[] }).attendees)
-    ? ((payload as { attendees: Array<{ email?: string; name?: string }> }).attendees)
+  // Cal.com sends two common shapes:
+  // 1) Nested webhook format: { triggerEvent, payload }
+  // 2) Flat event format: { id, uid, eventTypeId, attendees, startTime, endTime, ... }
+  const triggerEvent = typeof parsed.triggerEvent === "string" ? parsed.triggerEvent.toLowerCase() : "";
+  const payload = (parsed.payload as Record<string, unknown>) ?? {};
+
+  const eventType = (parsed.eventType ?? triggerEvent) as string | undefined;
+  const attendees = Array.isArray((parsed.attendees ?? payload.attendees))
+    ? ((parsed.attendees ?? payload.attendees) as Array<{ email?: string; name?: string }>)
     : [];
 
-  const attendeeEmail =
-    attendees.find((a) => a.email)?.email?.toLowerCase() ??
-    ((payload as { user?: { email?: string } }).user?.email ?? "").toLowerCase();
-
-  const attendeeName =
-    attendees.find((a) => a.name)?.name ??
-    ((payload as { user?: { name?: string } }).user?.name ?? "");
+  const attendeeEmail = (attendees.find((a) => a.email)?.email ?? (parsed as { email?: string }).email ?? "").toLowerCase();
+  const attendeeName = (attendees.find((a) => a.name)?.name ?? (parsed as { name?: string }).name ?? "") as string;
 
   const calBookingId =
     (payload as { bookingUid?: string }).bookingUid ??
-    (payload as { uid?: string }).uid ??
-    (payload as { id?: string | number }).id?.toString() ?? "";
+    (parsed as { bookingUid?: string }).bookingUid ??
+    (parsed as { uid?: string }).uid ??
+    (parsed as { bookingId?: string | number }).bookingId?.toString() ??
+    (parsed as { id?: string | number }).id?.toString() ??
+    "";
 
   const startTime =
-    (payload as { startTime?: string }).startTime ??
-    (payload as { start_time?: string }).start_time ??
+    (parsed as { startTime?: string }).startTime ??
+    (parsed as { start_time?: string }).start_time ??
     null;
 
   const endTime =
-    (payload as { endTime?: string }).endTime ??
-    (payload as { end_time?: string }).end_time ??
+    (parsed as { endTime?: string }).endTime ??
+    (parsed as { end_time?: string }).end_time ??
     null;
 
-  if (!attendeeEmail || !calBookingId) {
-    return NextResponse.json({ error: "Missing attendee or booking id" }, { status: 400 });
-  }
+  const sessionId = calBookingId ? `cal_${calBookingId}` : "";
 
-  const sessionId = `cal_${calBookingId}`;
-
-  if (eventType === "booking.created" || eventType === "booking.updated" || eventType === "booking.accepted") {
-    const { data: existing } = await supabase
-      .from("mentoring_bookings")
-      .select("id")
-      .eq("session_id", sessionId)
-      .maybeSingle();
-
+  if (sessionId && attendeeEmail) {
     const bookingRecord = {
       user_id: null,
       email: attendeeEmail,
@@ -82,26 +61,34 @@ export async function POST(req: Request) {
       attendee_name: attendeeName || null,
       cal_event_start: startTime,
       cal_event_end: endTime,
-      cal_raw_payload: payload,
-      created_at: new Date().toISOString(),
+      cal_raw_payload: parsed,
+      updated_at: new Date().toISOString(),
     };
 
+    const { data: existing } = await supabase
+      .from("mentoring_bookings")
+      .select("id")
+      .eq("session_id", sessionId)
+      .maybeSingle();
+
     if (existing?.id) {
-      await supabase
-        .from("mentoring_bookings")
-        .update(bookingRecord)
-        .eq("id", existing.id);
+      await supabase.from("mentoring_bookings").update(bookingRecord).eq("id", existing.id);
     } else {
-      await supabase.from("mentoring_bookings").insert(bookingRecord);
+      const insertPayload = {
+        ...bookingRecord,
+        created_at: new Date().toISOString(),
+      };
+      await supabase.from("mentoring_bookings").insert(insertPayload);
     }
   }
 
-  if (eventType === "booking.cancelled" || eventType === "booking.rejected") {
-    await supabase
-      .from("mentoring_bookings")
-      .delete()
-      .eq("session_id", sessionId);
+  if (eventType && sessionId) {
+    const lowered = eventType.toLowerCase();
+    if (lowered.includes("cancel") || lowered.includes("reject")) {
+      await supabase.from("mentoring_bookings").delete().eq("session_id", sessionId);
+    }
   }
 
+  // Always accept the event — Cal.com only requires a 200.
   return NextResponse.json({ received: true });
 }
