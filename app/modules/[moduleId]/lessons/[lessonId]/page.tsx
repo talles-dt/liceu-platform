@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
+import { CompleteLessonButton } from "@/components/CompleteLessonButton";
 
 export default async function LessonPage(props: { params: Promise<{ moduleId: string; lessonId: string }> }) {
   const { moduleId, lessonId } = await props.params;
@@ -77,19 +78,7 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
           )}
 
           <section className="border-t border-[var(--liceu-stone)]/70 pt-6">
-            {completed ? (
-              <div className="font-[var(--font-liceu-mono)] text-[11px] uppercase tracking-[0.2em] text-[var(--liceu-accent)]">✓ Lição concluída</div>
-            ) : (
-              <form action={`/api/modules/${moduleId}/lessons/${lessonId}/complete`} method="post" className="space-y-3">
-                <input type="hidden" name="redirect_to" value={`/modules/${moduleId}/lessons/${lessonId}`} />
-                <button
-                  type="submit"
-                  className="border border-[var(--liceu-stone)] px-4 py-2 font-[var(--font-liceu-mono)] text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)] hover:text-[var(--liceu-text)] hover:border-[var(--liceu-accent)] transition-colors"
-                >
-                  Marcar como concluída
-                </button>
-              </form>
-            )}
+            <CompleteLessonButton moduleId={moduleId} lessonId={lessonId} />
           </section>
         </article>
 
@@ -102,3 +91,4 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
     </div>
   );
 }
+
