@@ -4,13 +4,11 @@ import { resolveLessonAccess } from "@/lib/routeSecurity";
 
 type Context = { params: Promise<{ lessonId: string }> };
 
-/**
- * GET — lesson quiz questions (no correct answers exposed).
- * POST — submit answers, grade server-side, mark lesson complete if passed.
- */
 export async function GET(_req: Request, { params }: Context) {
   const user = await getCurrentUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   const { lessonId } = await params;
   const { denial } = await resolveLessonAccess(user.id, lessonId);
@@ -26,11 +24,7 @@ export async function GET(_req: Request, { params }: Context) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  const questions = (data ?? []).map((q: {
-    id: string;
-    question: string;
-    options: { id: string; label: string }[];
-  }) => ({
+  const questions = (data ?? []).map((q: { id: string; question: string; options: { id: string; label: string }[] }) => ({
     id: q.id,
     prompt: q.question,
     options: q.options,
@@ -41,7 +35,9 @@ export async function GET(_req: Request, { params }: Context) {
 
 export async function POST(req: Request, { params }: Context) {
   const user = await getCurrentUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   const { lessonId } = await params;
   const { denial } = await resolveLessonAccess(user.id, lessonId);
@@ -109,7 +105,7 @@ async function markLessonComplete(
     .eq("user_id", userId)
     .maybeSingle();
 
-  const completedLessons = prog?.completed_lessons ?? [];
+  const completedLessons: string[] = prog?.completed_lessons ?? [];
   if (!completedLessons.includes(lessonId)) {
     completedLessons.push(lessonId);
   }
@@ -121,7 +117,7 @@ async function markLessonComplete(
       {
         user_id: userId,
         completed_lessons: completedLessons,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       },
       { onConflict: "user_id" },
     );
