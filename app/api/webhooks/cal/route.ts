@@ -18,14 +18,15 @@ export async function POST(req: Request) {
   //   return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   // }
 
-  let event: { event?: string; payload?: Record<string, unknown> } = {};
+  let event: { triggerEvent?: string; payload?: Record<string, unknown> } = {};
   try {
     event = JSON.parse(body);
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const eventType = event.event ?? "";
+  const eventTypeRaw = event.triggerEvent ?? "";
+  const eventType = String(eventTypeRaw).toLowerCase();
   const payload = event.payload ?? {};
 
   if (!eventType || !payload) {
@@ -46,11 +47,10 @@ export async function POST(req: Request) {
     attendees.find((a) => a.name)?.name ??
     ((payload as { user?: { name?: string } }).user?.name ?? "");
 
-  // Cal.com event ID or booking ID
   const calBookingId =
-    (payload as { id?: string | number }).id?.toString() ??
-    (payload as { uid?: string | number }).uid?.toString() ??
-    "";
+    (payload as { bookingUid?: string }).bookingUid ??
+    (payload as { uid?: string }).uid ??
+    (payload as { id?: string | number }).id?.toString() ?? "";
 
   const startTime =
     (payload as { startTime?: string }).startTime ??
@@ -66,17 +66,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing attendee or booking id" }, { status: 400 });
   }
 
-  if (eventType === "booking.created" || eventType === "booking.updated") {
+  const sessionId = `cal_${calBookingId}`;
+
+  if (eventType === "booking.created" || eventType === "booking.updated" || eventType === "booking.accepted") {
     const { data: existing } = await supabase
       .from("mentoring_bookings")
       .select("id")
-      .eq("session_id", `cal_${calBookingId}`)
+      .eq("session_id", sessionId)
       .maybeSingle();
 
     const bookingRecord = {
       user_id: null,
       email: attendeeEmail,
-      session_id: `cal_${calBookingId}`,
+      session_id: sessionId,
       attendee_name: attendeeName || null,
       cal_event_start: startTime,
       cal_event_end: endTime,
@@ -94,11 +96,11 @@ export async function POST(req: Request) {
     }
   }
 
-  if (eventType === "booking.cancelled") {
+  if (eventType === "booking.cancelled" || eventType === "booking.rejected") {
     await supabase
       .from("mentoring_bookings")
       .delete()
-      .eq("session_id", `cal_${calBookingId}`);
+      .eq("session_id", sessionId);
   }
 
   return NextResponse.json({ received: true });
