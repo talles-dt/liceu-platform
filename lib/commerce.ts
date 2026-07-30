@@ -15,6 +15,7 @@ export function getCommerceConfig() {
 
   const calInterviewLink = process.env.CAL_INTERVIEW_LINK ?? "";
   const calMentoringLink = process.env.CAL_MENTORING_LINK ?? "";
+  const calWebhookSecret = process.env.CAL_WEBHOOK_SECRET ?? "";
 
   return {
     courseId,
@@ -26,6 +27,7 @@ export function getCommerceConfig() {
     mentoringProgramPriceId,
     calInterviewLink,
     calMentoringLink,
+    calWebhookSecret,
     webhookSecret,
   };
 }
