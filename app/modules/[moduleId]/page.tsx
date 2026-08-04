@@ -139,6 +139,7 @@ export default async function ModulePage({ params }: Params) {
     { data: lessons },
     { data: progressRow },
     { data: siblingModules },
+    { data: legacyModuleRow },
   ] = await Promise.all([
     supabase
       .from("liceu_lessons")
@@ -156,7 +157,17 @@ export default async function ModulePage({ params }: Params) {
       .select("id, code, title, subtitle, description, order_index, estimated_hours, is_active")
       .eq("is_active", true)
       .order("order_index", { ascending: true }),
+    // Bridge: the quiz/flashcard/assignment APIs key on the `modules` table,
+    // not `liceu_modules`. Resolve the matching `modules` row by order_index.
+    supabase
+      .from("modules")
+      .select("id, order_index")
+      .eq("order_index", moduleRow.order_index - 1)
+      .maybeSingle<{ id: string }>(),
   ]);
+
+  // Use the `modules` table id for sub-routes (quiz, flashcards, assignment, etc.)
+  const subModuleId = legacyModuleRow?.id ?? moduleRow.id;
 
   const typedLessons = (lessons ?? []) as DbLessonRow[];
   const lessonIds = typedLessons.map((l) => l.id);
@@ -260,7 +271,7 @@ export default async function ModulePage({ params }: Params) {
               </h2>
               <div className="space-y-1">
                 <Link
-                  href={`/modules/${moduleRow.id}/quiz`}
+                  href={`/modules/${subModuleId}/quiz`}
                   className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
                 >
                   <div className="flex items-center gap-4">
@@ -274,7 +285,7 @@ export default async function ModulePage({ params }: Params) {
                   </span>
                 </Link>
                 <Link
-                  href={`/modules/${moduleRow.id}/flashcards`}
+                  href={`/modules/${subModuleId}/flashcards`}
                   className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
                 >
                   <div className="flex items-center gap-4">
@@ -300,7 +311,7 @@ export default async function ModulePage({ params }: Params) {
               </h2>
               <div className="space-y-1">
                 <Link
-                  href={`/modules/${moduleRow.id}/assignment`}
+                  href={`/modules/${subModuleId}/assignment`}
                   className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
                 >
                   <div className="flex items-center gap-4">
@@ -314,7 +325,7 @@ export default async function ModulePage({ params }: Params) {
                   </span>
                 </Link>
                 <Link
-                  href={`/modules/${moduleRow.id}/analysis`}
+                  href={`/modules/${subModuleId}/analysis`}
                   className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
                 >
                   <div className="flex items-center gap-4">
@@ -328,7 +339,7 @@ export default async function ModulePage({ params }: Params) {
                   </span>
                 </Link>
                 <Link
-                  href={`/modules/${moduleRow.id}/speech`}
+                  href={`/modules/${subModuleId}/speech`}
                   className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
                 >
                   <div className="flex items-center gap-4">
@@ -352,7 +363,7 @@ export default async function ModulePage({ params }: Params) {
               <div className="font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
                 Ao concluir o módulo, a próxima unidade e a sessão de mentoria são liberadas.
               </div>
-              <form action={`/api/modules/${moduleRow.id}/complete`} method="post">
+              <form action={`/api/modules/${subModuleId}/complete`} method="post">
                 <button
                   type="submit"
                   className="font-[var(--font-space-grotesk)] text-[11px] tracking-[0.22em] uppercase border border-[var(--liceu-secondary)] text-[var(--liceu-secondary)] px-6 py-2 hover:bg-[var(--liceu-secondary)]/10 transition-colors"
