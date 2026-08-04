@@ -35,11 +35,27 @@ export async function GET(_req: Request, { params }: Context) {
 
   const supabase = await createSupabaseServerClient();
 
+  // Bridge: the flashcard API keys on `modules` table, but receives `liceu_modules` id.
+  // Resolve the matching `modules` row by order_index.
+  const { data: lmod } = await supabase
+    .from("liceu_modules")
+    .select("order_index")
+    .eq("id", moduleId)
+    .maybeSingle<{ order_index: number }>();
+  if (!lmod) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+
+  const { data: mod } = await supabase
+    .from("modules")
+    .select("id")
+    .eq("order_index", lmod.order_index - 1)
+    .maybeSingle<{ id: string }>();
+  if (!mod) return NextResponse.json({ error: "No flashcard sets for this module" }, { status: 404 });
+
   // Pick a random set for this module
   const { data: sets } = await supabase
     .from("flashcard_sets")
     .select("id, title")
-    .eq("module_id", moduleId);
+    .eq("module_id", mod.id);
 
   if (!sets || sets.length === 0) {
     return NextResponse.json({ error: "No flashcard sets for this module" }, { status: 404 });

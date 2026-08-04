@@ -28,11 +28,27 @@ export async function GET(_req: Request, { params }: Context) {
 
   const supabase = await createSupabaseServerClient();
 
-  // Resolve quiz_id from module_id
+  // Bridge: the quiz API keys on `modules` table, but receives `liceu_modules` id.
+  // Resolve the matching `modules` row by order_index.
+  const { data: lmod } = await supabase
+    .from("liceu_modules")
+    .select("order_index")
+    .eq("id", moduleId)
+    .maybeSingle<{ order_index: number }>();
+  if (!lmod) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+
+  const { data: mod } = await supabase
+    .from("modules")
+    .select("id")
+    .eq("order_index", lmod.order_index - 1)
+    .maybeSingle<{ id: string }>();
+  if (!mod) return NextResponse.json({ questions: [] });
+
+  // Resolve quiz_id from modules.id
   const { data: quiz } = await supabase
     .from("quizzes")
     .select("id")
-    .eq("module_id", moduleId)
+    .eq("module_id", mod.id)
     .maybeSingle<{ id: string }>();
 
   if (!quiz) return NextResponse.json({ questions: [] });
@@ -72,11 +88,26 @@ export async function POST(req: Request, { params }: Context) {
 
   const supabase = await createSupabaseServerClient();
 
+  // Bridge: the quiz API keys on `modules` table, but receives `liceu_modules` id.
+  const { data: lmod } = await supabase
+    .from("liceu_modules")
+    .select("order_index")
+    .eq("id", moduleId)
+    .maybeSingle<{ order_index: number }>();
+  if (!lmod) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+
+  const { data: mod } = await supabase
+    .from("modules")
+    .select("id")
+    .eq("order_index", lmod.order_index - 1)
+    .maybeSingle<{ id: string }>();
+  if (!mod) return NextResponse.json({ error: "No quiz for this module" }, { status: 404 });
+
   // Resolve quiz
   const { data: quiz } = await supabase
     .from("quizzes")
     .select("id")
-    .eq("module_id", moduleId)
+    .eq("module_id", mod.id)
     .maybeSingle<{ id: string }>();
 
   if (!quiz) return NextResponse.json({ error: "No quiz for this module" }, { status: 404 });
