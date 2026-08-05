@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
 import { assertModuleAccess } from "@/lib/routeSecurity";
 
-// Debug: log the moduleId received
-console.log("[DEBUG] Flashcards API route loaded");
-
 type Context = { params: Promise<{ moduleId: string }> };
 
 type DbCard = {
@@ -55,10 +52,7 @@ export async function GET(_req: Request, { params }: Context) {
     .from("flashcard_sets")
     .select("id, title")
     .eq("module_id", mod.id);
-  console.log("[DEBUG] Flashcard sets:", sets);
-
   if (!sets || sets.length === 0) {
-    console.log("[DEBUG] No flashcard sets");
     return NextResponse.json({ error: "No flashcard sets for this module" }, { status: 404 });
   }
 
@@ -105,6 +99,5 @@ export async function GET(_req: Request, { params }: Context) {
     };
   });
 
-  console.log("[DEBUG] Returning", result.length, "cards");
   return NextResponse.json({ setId: randomSet.id, title: randomSet.title, cards: result });
 }
