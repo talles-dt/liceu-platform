@@ -23,26 +23,34 @@ export async function GET(_req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
+  console.log("[DEBUG] Quiz API received moduleId:", moduleId);
   const accessError = await assertModuleAccess(user.id, moduleId);
   if (accessError) return accessError;
 
   const supabase = await createSupabaseServerClient();
 
   // Bridge: the quiz API keys on `modules` table, but receives `liceu_modules` id.
-  // Resolve the matching `modules` row by order_index.
+  console.log("[DEBUG] Resolving liceu_modules -> modules bridge");
   const { data: lmod } = await supabase
     .from("liceu_modules")
     .select("order_index")
     .eq("id", moduleId)
     .maybeSingle<{ order_index: number }>();
-  if (!lmod) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+  if (!lmod) {
+    console.log("[DEBUG] Module not found");
+    return NextResponse.json({ error: "Module not found" }, { status: 404 });
+  }
 
   const { data: mod } = await supabase
     .from("modules")
     .select("id")
     .eq("order_index", lmod.order_index - 1)
     .maybeSingle<{ id: string }>();
-  if (!mod) return NextResponse.json({ questions: [] });
+  if (!mod) {
+    console.log("[DEBUG] No modules row found");
+    return NextResponse.json({ questions: [] });
+  }
+  console.log("[DEBUG] Bridge: liceu_module", moduleId, "-> modules", mod.id);
 
   // Resolve quiz_id from modules.id
   const { data: quiz } = await supabase
@@ -75,6 +83,7 @@ export async function POST(req: Request, { params }: Context) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
+  console.log("[DEBUG] Quiz API (POST) received moduleId:", moduleId);
   const accessError = await assertModuleAccess(user.id, moduleId);
   if (accessError) return accessError;
 
@@ -89,19 +98,27 @@ export async function POST(req: Request, { params }: Context) {
   const supabase = await createSupabaseServerClient();
 
   // Bridge: the quiz API keys on `modules` table, but receives `liceu_modules` id.
+  console.log("[DEBUG] Resolving liceu_modules -> modules bridge (POST)");
   const { data: lmod } = await supabase
     .from("liceu_modules")
     .select("order_index")
     .eq("id", moduleId)
     .maybeSingle<{ order_index: number }>();
-  if (!lmod) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+  if (!lmod) {
+    console.log("[DEBUG] Module not found (POST)");
+    return NextResponse.json({ error: "Module not found" }, { status: 404 });
+  }
 
   const { data: mod } = await supabase
     .from("modules")
     .select("id")
     .eq("order_index", lmod.order_index - 1)
     .maybeSingle<{ id: string }>();
-  if (!mod) return NextResponse.json({ error: "No quiz for this module" }, { status: 404 });
+  if (!mod) {
+    console.log("[DEBUG] No modules row found (POST)");
+    return NextResponse.json({ error: "No quiz for this module" }, { status: 404 });
+  }
+  console.log("[DEBUG] Bridge: liceu_module", moduleId, "-> modules", mod.id, "(POST)");
 
   // Resolve quiz
   const { data: quiz } = await supabase

@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/lib/supabaseServer";
-import { createSupabaseServerClient } from "@/lib/supabaseServer";
+import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
 import { assertModuleAccess } from "@/lib/routeSecurity";
+
+// Debug: log the moduleId received
+console.log("[DEBUG] Flashcards API route loaded");
 
 type Context = { params: Promise<{ moduleId: string }> };
 
@@ -22,42 +24,50 @@ type DbProgress = {
 
 /**
  * GET /api/modules/[moduleId]/flashcards
- * Returns a random flashcard set for the module, with the user's SM-2 state
- * merged in. If no sets exist, returns 404.
  */
 export async function GET(_req: Request, { params }: Context) {
   const user = await getCurrentUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { moduleId } = await params;
+  console.log("[DEBUG] Flashcards API received moduleId:", moduleId);
   const accessError = await assertModuleAccess(user.id, moduleId);
   if (accessError) return accessError;
 
   const supabase = await createSupabaseServerClient();
 
   // Bridge: the flashcard API keys on `modules` table, but receives `liceu_modules` id.
-  // Resolve the matching `modules` row by order_index.
+  console.log("[DEBUG] Resolving liceu_modules -> modules bridge");
   const { data: lmod } = await supabase
     .from("liceu_modules")
     .select("order_index")
     .eq("id", moduleId)
-    .maybeSingle<{ order_index: number }>();
-  if (!lmod) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+    .maybeSingle();
+  if (!lmod) {
+    console.log("[DEBUG] Module not found");
+    return NextResponse.json({ error: "Module not found" }, { status: 404 });
+  }
 
   const { data: mod } = await supabase
     .from("modules")
     .select("id")
     .eq("order_index", lmod.order_index - 1)
-    .maybeSingle<{ id: string }>();
-  if (!mod) return NextResponse.json({ error: "No flashcard sets for this module" }, { status: 404 });
+    .maybeSingle();
+  if (!mod) {
+    console.log("[DEBUG] No modules row found");
+    return NextResponse.json({ error: "No flashcard sets for this module" }, { status: 404 });
+  }
+  console.log("[DEBUG] Bridge: liceu_module", moduleId, "-> modules", mod.id);
 
   // Pick a random set for this module
   const { data: sets } = await supabase
     .from("flashcard_sets")
     .select("id, title")
     .eq("module_id", mod.id);
+  console.log("[DEBUG] Flashcard sets:", sets);
 
   if (!sets || sets.length === 0) {
+    console.log("[DEBUG] No flashcard sets");
     return NextResponse.json({ error: "No flashcard sets for this module" }, { status: 404 });
   }
 
@@ -104,5 +114,6 @@ export async function GET(_req: Request, { params }: Context) {
     };
   });
 
+  console.log("[DEBUG] Returning", result.length, "cards");
   return NextResponse.json({ setId: randomSet.id, title: randomSet.title, cards: result });
 }
