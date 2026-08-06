@@ -47,7 +47,7 @@ export function TextReveal<T extends ElementType = "h1">({
   return (
     <Tag
       ref={ref as React.RefObject<HTMLHeadingElement>}
-      className={`overflow-hidden ${className}`}
+      className={`overflow-hidden whitespace-nowrap ${className}`}
     >
       {text.split("").map((char, i) => (
         <span

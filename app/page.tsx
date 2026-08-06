@@ -60,13 +60,27 @@ export default function HomePage() {
             </div>
 
             <TextReveal
-              text="Você é inteligente."
+              text="Você é"
               as="h1"
               className="font-[var(--font-noto-serif)] text-5xl font-black uppercase tracking-tighter leading-none md:text-7xl lg:text-8xl"
               staggerDelay={0.04}
             />
             <TextReveal
-              text="Sob pressão, não parece."
+              text="Inteligente."
+              as="h1"
+              className="font-[var(--font-noto-serif)] text-5xl font-black uppercase tracking-tighter leading-none md:text-7xl lg:text-8xl"
+              staggerDelay={0.04}
+              delay={0.2}
+            />
+            <TextReveal
+              text="Sob pressão,"
+              as="h1"
+              className="font-[var(--font-noto-serif)] text-5xl font-black uppercase tracking-tighter leading-none md:text-7xl lg:text-8xl text-[var(--liceu-accent)]"
+              staggerDelay={0.04}
+              delay={0.4}
+            />
+            <TextReveal
+              text="Não parece."
               as="h1"
               className="font-[var(--font-noto-serif)] text-5xl font-black uppercase tracking-tighter leading-none md:text-7xl lg:text-8xl text-[var(--liceu-accent)]"
               staggerDelay={0.04}
