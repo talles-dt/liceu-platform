@@ -87,48 +87,76 @@ export async function POST(request: Request) {
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     
     const body = await request.json();
-    const { email, name, role = "student" } = body;
+    const { email, name, role = "student", password } = body;
     
     if (!email) {
       return NextResponse.json({ error: "Email required" }, { status: 400 });
     }
     
+    const emailLower = email.trim().toLowerCase();
     const supabase = createSupabaseAdminClient();
     
-    // Create user in auth
-    const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
-      email,
-      email_confirm: true,
-      user_metadata: { full_name: name }
-    });
+    // Check if email already exists
+    const { data: existingUsers } = await supabase.auth.admin.listUsers();
+    const emailExists = existingUsers?.users?.some(
+      (u) => u.email?.toLowerCase() === emailLower,
+    );
+
+    if (emailExists) {
+      return NextResponse.json(
+        { error: "Email already exists. Use a different email or update the existing user." },
+        { status: 400 },
+      );
+    }
     
-    if (authError) throw authError;
+    // Create user in auth
+    const createParams: { email: string; email_confirm: boolean; user_metadata: { full_name?: string; name?: string }; password?: string } = {
+      email: emailLower,
+      email_confirm: true,
+      user_metadata: { full_name: name, name }
+    };
+    
+    if (password) {
+      createParams.password = password;
+    }
+    
+    const { data: authUser, error: authError } = await supabase.auth.admin.createUser(createParams);
+    
+    if (authError) {
+      return NextResponse.json({ error: authError.message }, { status: 400 });
+    }
     
     // Create profile in public.users
     const { data: profile, error: profileError } = await supabase
       .from("users")
       .insert({
         id: authUser.user.id,
-        name: name || email.split("@")[0],
-        email,
+        name: name || emailLower.split("@")[0],
+        email: emailLower,
         role
       })
       .select()
       .single();
     
-    if (profileError) throw profileError;
+    if (profileError) {
+      console.error("[admin/users] Profile insert error:", profileError);
+      return NextResponse.json({ error: "Failed to create user profile" }, { status: 500 });
+    }
     
     // Audit log
     await supabase.rpc("log_audit", {
       p_action: "user_created",
       p_target_type: "user",
       p_target_id: authUser.user.id,
-      p_target_identifier: email,
-      p_new_values: { email, name, role },
+      p_target_identifier: emailLower,
+      p_new_values: { email: emailLower, name, role },
       p_metadata: { created_by: user.id }
     });
     
-    return NextResponse.json({ user: profile });
+    return NextResponse.json({ 
+      user: profile,
+      note: password ? "User created with provided password" : "User created without password - they will need a password reset",
+    });
   } catch (error) {
     console.error("[admin/users] Create error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

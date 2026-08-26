@@ -32,7 +32,13 @@ export default function AdminCreateStudentPage() {
         return;
       }
 
-      setResult({ ok: true, msg: `Created ${data.email}${data.id ? ` (${data.id.slice(0, 8)}…)` : ""}` });
+      const generatedPassword = data.generatedPassword;
+      const message = data.message || `Created ${data.email}${data.id ? ` (${data.id.slice(0, 8)}\u2026)` : ""}`;
+      
+      setResult({ 
+        ok: true, 
+        msg: generatedPassword ? `${message}\n\nGenerated Password: ${generatedPassword}` : message 
+      });
       setEmail("");
       setName("");
       setPassword("");
@@ -98,10 +104,10 @@ export default function AdminCreateStudentPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full border border-[var(--liceu-stone)] bg-[var(--liceu-bg)] px-3 py-2 font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] outline-none focus:border-[var(--liceu-accent)]"
-            placeholder="Leave empty to let them set their own"
+            placeholder="Leave empty to auto-generate a secure password"
           />
           <p className="mt-1 font-[var(--font-work-sans)] text-[10px] text-[var(--liceu-muted)]">
-            If left blank, an invite email with a magic link is sent so they can set their own password.
+            If left blank, a secure password will be generated and displayed after creation.
           </p>
         </div>
 
@@ -110,7 +116,7 @@ export default function AdminCreateStudentPage() {
           disabled={loading || !email.trim()}
           className="bg-[var(--liceu-primary)] px-6 py-2.5 font-[var(--font-space-grotesk)] text-[11px] font-bold uppercase tracking-[0.15em] text-[var(--liceu-text)] hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
         >
-          {loading ? "Creating…" : "Create Student"}
+          {loading ? "Creating\u2026" : "Create Student"}
         </button>
 
         {result && (
@@ -121,7 +127,7 @@ export default function AdminCreateStudentPage() {
                 : "border-[var(--liceu-critical)]/40 text-[var(--liceu-critical)]"
             }`}
           >
-            {result.msg}
+            <p className="whitespace-pre-wrap">{result.msg}</p>
           </div>
         )}
       </form>
