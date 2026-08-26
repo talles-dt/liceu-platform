@@ -7,7 +7,7 @@ export default function AdminCreateStudentPage() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<{ ok: boolean; msg: string } | null>(null);
+  const [result, setResult] = useState<{ ok: boolean; msg: string; generatedPassword?: string } | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -37,7 +37,8 @@ export default function AdminCreateStudentPage() {
       
       setResult({ 
         ok: true, 
-        msg: generatedPassword ? `${message}\n\nGenerated Password: ${generatedPassword}` : message 
+        msg: message,
+        generatedPassword
       });
       setEmail("");
       setName("");
@@ -127,7 +128,15 @@ export default function AdminCreateStudentPage() {
                 : "border-[var(--liceu-critical)]/40 text-[var(--liceu-critical)]"
             }`}
           >
-            <p className="whitespace-pre-wrap">{result.msg}</p>
+            <p>{result.msg}</p>
+            {result.generatedPassword && (
+              <div className="mt-2 p-2 bg-[var(--liceu-surface-raised)] border border-[var(--liceu-stone)] rounded">
+                <span className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.15em] text-[var(--liceu-muted)]">
+                  Generated Password:
+                </span>
+                <code className="ml-2 font-mono text-[11px] break-all">{result.generatedPassword}</code>
+              </div>
+            )}
           </div>
         )}
       </form>

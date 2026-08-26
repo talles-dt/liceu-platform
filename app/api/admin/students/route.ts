@@ -16,7 +16,7 @@ function generateSecurePassword(): string {
  * Create a student manually (for migration, deals, gifts).
  * Body: { email: string, name?: string, password?: string }
  *
- * If password is omitted, a secure random password is generated and returned.
+ * If password is omitted or empty, a secure random password is generated and returned.
  * The admin should share this password with the student.
  */
 export async function POST(req: Request) {
@@ -36,7 +36,8 @@ export async function POST(req: Request) {
 
   const email = body.email.trim().toLowerCase();
   const name = body.name?.trim() ?? null;
-  const password = body.password?.trim() ?? generateSecurePassword();
+  // Use || instead of ?? to handle empty string case
+  const password = body.password?.trim() || generateSecurePassword();
 
   try {
     // Check if email already exists to provide better error message
