@@ -83,19 +83,89 @@ async function loadDashboardData(userId: string) {
   return { modules, courseViews, prog, totalCompleted, totalModules, overallPercent };
 }
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// [38;2;255;165;0m[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m____
+// Sub-components
+// [38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m______[38;2;255;165;0m____
 
-function Sidebar({ user, activeNav }: { user: { email: string }; activeNav: string }) {
+function SidebarMobile({ user, activeNav, onClose }: { user: { email: string }; activeNav: string; onClose: () => void }) {
   const navItems = [
-    { id: "overview", label: "Overview", icon: "◈" },
-    { id: "courses", label: "Módulos", icon: "◉" },
-    { id: "drills", label: "Exercícios", icon: "◆" },
-    { id: "logs", label: "Registros", icon: "▣" },
-    { id: "mentoring", label: "Mentoria", icon: "◎" },
+    { id: "overview", label: "Overview", icon: "\u25c8" },
+    { id: "courses", label: "M\u00f3dulos", icon: "\u25c9" },
+    { id: "drills", label: "Exerc\u00edcios", icon: "\u25c6" },
+    { id: "logs", label: "Registros", icon: "\u25a3" },
+    { id: "mentoring", label: "Mentoria", icon: "\u25ce" },
   ];
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-[#0E0E0E] shadow-[20px_0_50px_rgba(0,0,0,0.5)] flex flex-col">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm md:hidden" onClick={onClose}>
+      <aside className="fixed left-0 top-0 z-50 h-full w-72 bg-[#0E0E0E] shadow-[20px_0_50px_rgba(0,0,0,0.5)] flex flex-col animate-slide-in-from-left" onClick={(e) => e.stopPropagation()}>
+        <div className="px-5 pt-6 pb-2 border-b border-[var(--liceu-stone)]/30">
+          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--liceu-secondary)]">
+            Archive
+          </div>
+        </div>
+        <div className="mx-4 mb-4 flex items-center gap-3 rounded border border-[var(--liceu-stone)]/30 bg-[#201F1F]/60 px-3 py-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--liceu-primary)]/40 font-mono text-xs text-[var(--liceu-accent)]">
+            {user.email?.charAt(0).toUpperCase() ?? "U"}
+          </div>
+          <div className="min-w-0">
+            <div className="truncate font-[var(--font-work-sans)] text-xs text-[var(--liceu-text)]">
+              {user.email}
+            </div>
+            <div className="font-mono text-[10px] text-[var(--liceu-muted)]">
+              Clearance: Active
+            </div>
+          </div>
+        </div>
+        <nav className="flex-1 px-0 py-2">
+          {navItems.map((item) => {
+            const isActive = activeNav === item.id;
+            const el = (
+              <span className="flex w-full items-center gap-3 px-4 py-3 font-mono text-xs uppercase tracking-widest transition-colors">
+                <span className="text-sm">{item.icon}</span>
+                {item.label}
+              </span>
+            );
+            const activeClass = "bg-[#201F1F] text-[var(--liceu-accent)] border-l-4 border-[var(--liceu-primary)]";
+            const inactiveClass = "text-[var(--liceu-muted)] border-l-4 border-transparent hover:text-[var(--liceu-text)] hover:bg-[#201F1F]/50";
+            const classes = `flex w-full ${isActive ? activeClass : inactiveClass}`;
+
+            if (item.id === "overview") {
+              return <a key={item.id} href="/dashboard" className={classes}>{el}</a>;
+            }
+            if (item.id === "courses") {
+              return <a key={item.id} href="/dashboard" className={classes}>{el}</a>;
+            }
+            return <div key={item.id} className={classes}>{el}</div>;
+          })}
+        </nav>
+        <div className="border-t border-[var(--liceu-stone)]/30 px-4 py-4 space-y-3">
+          <button className="w-full rounded border border-[var(--liceu-accent)]/30 bg-[var(--liceu-accent)]/10 px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-[var(--liceu-accent)] hover:bg-[var(--liceu-accent)]/20 transition-colors">
+            Iniciar Exerc\u00edcio \u2192
+          </button>
+          <a
+            href="/api/auth/logout"
+            className="block text-center font-mono text-[10px] uppercase tracking-widest text-[var(--liceu-muted)] hover:text-[var(--liceu-text)] transition-colors"
+          >
+            Logout
+          </a>
+        </div>
+      </aside>
+    </div>
+  );
+}
+
+function SidebarDesktop({ user, activeNav }: { user: { email: string }; activeNav: string }) {
+  const navItems = [
+    { id: "overview", label: "Overview", icon: "\u25c8" },
+    { id: "courses", label: "M\u00f3dulos", icon: "\u25c9" },
+    { id: "drills", label: "Exerc\u00edcios", icon: "\u25c6" },
+    { id: "logs", label: "Registros", icon: "\u25a3" },
+    { id: "mentoring", label: "Mentoria", icon: "\u25ce" },
+  ];
+
+  return (
+    <aside className="hidden md:flex fixed left-0 top-0 z-40 h-screen w-64 bg-[#0E0E0E] shadow-[20px_0_50px_rgba(0,0,0,0.5)] flex-col">
       <div className="px-5 pt-6 pb-2">
         <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--liceu-secondary)]">
           Archive
@@ -138,7 +208,7 @@ function Sidebar({ user, activeNav }: { user: { email: string }; activeNav: stri
       </nav>
       <div className="border-t border-[var(--liceu-stone)]/30 px-4 py-4 space-y-3">
         <button className="w-full rounded border border-[var(--liceu-accent)]/30 bg-[var(--liceu-accent)]/10 px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-[var(--liceu-accent)] hover:bg-[var(--liceu-accent)]/20 transition-colors">
-          Iniciar Exercício →
+          Iniciar Exerc\u00edcio \u2192
         </button>
         <a
           href="/api/auth/logout"
@@ -151,17 +221,29 @@ function Sidebar({ user, activeNav }: { user: { email: string }; activeNav: stri
   );
 }
 
-function TopAppBar({ title }: { title: string }) {
+function TopAppBar({ title, onMenuClick }: { title: string; onMenuClick?: () => void }) {
   return (
-    <header className="ml-64 h-20 bg-[var(--liceu-surface)] border-l-4 border-[var(--liceu-accent)] flex items-center justify-between px-8">
-      <div>
-        <h1 className="font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-text)]">
+    <header className="md:ml-64 h-16 md:h-20 bg-[var(--liceu-surface)] border-l-4 border-[var(--liceu-accent)] flex items-center justify-between px-4 md:px-8">
+      {onMenuClick && (
+        <button
+          onClick={onMenuClick}
+          className="md:hidden p-2 rounded hover:bg-[var(--liceu-surface-container)] transition-colors"
+          aria-label="Toggle menu"
+        >
+          <svg className="w-6 h-6 text-[var(--liceu-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      )}
+      <div className="absolute left-1/2 -translate-x-1/2">
+        <h1 className="font-[var(--font-noto-serif)] text-lg md:text-2xl text-[var(--liceu-text)] text-center">
           {title}
         </h1>
-        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
+        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)] text-center">
           The Training Grounds
         </div>
       </div>
+      <div className="w-10" />
     </header>
   );
 }
@@ -174,17 +256,17 @@ function IntellectualLoadHero({ percent, completedCount, totalCount, currentModu
 }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border-l-4 border-[var(--liceu-accent)] bg-[var(--liceu-surface-container-low)]">
-      <div className="lg:col-span-8 p-10 lg:p-12">
+      <div className="lg:col-span-8 p-6 md:p-10 lg:p-12">
         <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--liceu-muted)]">
           Intellectual Load
         </div>
-        <h2 className="mt-2 font-[var(--font-noto-serif)] text-3xl text-[var(--liceu-text)]">
+        <h2 className="mt-2 font-[var(--font-noto-serif)] text-2xl md:text-3xl text-[var(--liceu-text)]">
           Cognitive Progress
         </h2>
-        <div className="mt-6 font-[var(--font-noto-serif)] text-7xl text-[var(--liceu-accent)] leading-none">
+        <div className="mt-6 font-[var(--font-noto-serif)] text-5xl md:text-7xl text-[var(--liceu-accent)] leading-none">
           {percent}%
         </div>
-        <div className="mt-4 h-12 bg-[var(--liceu-surface-container-highest)] rounded overflow-hidden">
+        <div className="mt-4 h-10 bg-[var(--liceu-surface-container-highest)] rounded overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-[var(--liceu-primary)] to-[var(--liceu-accent)] rounded transition-all duration-700"
             style={{ width: `${percent}%` }}
@@ -199,11 +281,11 @@ function IntellectualLoadHero({ percent, completedCount, totalCount, currentModu
           </div>
         )}
       </div>
-      <div className="lg:col-span-4 bg-[var(--liceu-primary)]/20 p-10 border-l border-[var(--liceu-stone)]/30 flex flex-col justify-center">
+      <div className="lg:col-span-4 bg-[var(--liceu-primary)]/20 p-6 md:p-10 border-l border-[var(--liceu-stone)]/30 flex flex-col justify-center">
         <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--liceu-secondary)]">
           Next Milestone
         </div>
-        <div className="mt-4 font-[var(--font-noto-serif)] text-xl text-[var(--liceu-text)] leading-snug">
+        <div className="mt-4 font-[var(--font-noto-serif)] text-lg md:text-xl text-[var(--liceu-text)] leading-snug">
           {currentModule
             ? `Complete "${currentModule.title}" to advance clearance.`
             : "All lessons complete. Awaiting review."}
@@ -228,13 +310,13 @@ function RhetoricalTrendsChart({ courseViews }: {
   const maxVal = Math.max(...courseViews.map((c) => c.totalCount), 1);
 
   return (
-    <div className="bg-[var(--liceu-surface-container)] border border-[var(--liceu-stone)]/20 p-8">
+    <div className="bg-[var(--liceu-surface-container)] border border-[var(--liceu-stone)]/20 p-6 md:p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--liceu-muted)]">
             Rhetorical PR Trends
           </div>
-          <div className="mt-1 font-[var(--font-noto-serif)] text-xl text-[var(--liceu-text)]">
+          <div className="mt-1 font-[var(--font-noto-serif)] text-lg md:text-xl text-[var(--liceu-text)]">
             Module Progression
           </div>
         </div>
@@ -277,15 +359,15 @@ function SessionLogs({ completedCount, totalCount, courseViews }: {
   courseViews: Array<{ completedCount: number; totalCount: number; course: { title: string } }>;
 }) {
   const logEntries = [
-    { prefix: "[SYNC]", prefixColor: "text-[var(--liceu-accent)]", text: `Cognitive sync complete — ${completedCount} lessons processed` },
+    { prefix: "[SYNC]", prefixColor: "text-[var(--liceu-accent)]", text: `Cognitive sync complete \u2014 ${completedCount} lessons processed` },
     { prefix: "[CURR]", prefixColor: "text-[var(--liceu-secondary)]", text: `${courseViews.length} module(s) in active rotation` },
     { prefix: "[DATA]", prefixColor: "text-[var(--liceu-secondary)]", text: `No exercises submitted yet` },
     { prefix: "[WARN]", prefixColor: "text-[var(--liceu-critical)]", text: `${totalCount - completedCount} lesson(s) remaining` },
-    { prefix: "[SYS]", prefixColor: "text-[var(--liceu-muted)]", text: `Session initialized — ${new Date().toISOString().split("T")[0]}` },
+    { prefix: "[SYS]", prefixColor: "text-[var(--liceu-muted)]", text: `Session initialized \u2014 ${new Date().toISOString().split("T")[0]}` },
   ];
 
   return (
-    <div className="bg-[#0E0E0E] border border-[var(--liceu-stone)]/20 p-8 font-mono text-xs">
+    <div className="bg-[#0E0E0E] border border-[var(--liceu-stone)]/20 p-6 md:p-8 font-mono text-xs">
       <div className="flex items-center justify-between mb-4">
         <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--liceu-muted)]">
           Session Logs
@@ -306,8 +388,8 @@ function SessionLogs({ completedCount, totalCount, courseViews }: {
           </div>
         ))}
         <div className="flex items-center gap-1 pt-2">
-          <span className="text-[var(--liceu-accent)]">❯</span>
-          <span className="animate-pulse text-[var(--liceu-accent)]">█</span>
+          <span className="text-[var(--liceu-accent)]">\u276f</span>
+          <span className="animate-pulse text-[var(--liceu-accent)]">\u2588</span>
         </div>
       </div>
     </div>
@@ -317,7 +399,7 @@ function SessionLogs({ completedCount, totalCount, courseViews }: {
 function ActiveDrills({ remainingCount, currentModuleId }: { remainingCount: number; currentModuleId: string | null }) {
   const drills = [
     {
-      icon: "◈",
+      icon: "\u25c8",
       complexity: "Intermediate",
       complexityColor: "text-[var(--liceu-secondary)]",
       title: "Module Drills",
@@ -326,7 +408,7 @@ function ActiveDrills({ remainingCount, currentModuleId }: { remainingCount: num
       href: currentModuleId ? `/modules/${currentModuleId}` : "/dashboard",
     },
     {
-      icon: "◆",
+      icon: "\u25c6",
       complexity: "Advanced",
       complexityColor: "text-[var(--liceu-critical)]",
       title: "Writing Forge",
@@ -335,7 +417,7 @@ function ActiveDrills({ remainingCount, currentModuleId }: { remainingCount: num
       href: currentModuleId ? `/modules/${currentModuleId}/assignment` : "/dashboard",
     },
     {
-      icon: "◎",
+      icon: "\u25ce",
       complexity: "Expert",
       complexityColor: "text-[var(--liceu-accent)]",
       title: "Mentoring Arena",
@@ -346,11 +428,11 @@ function ActiveDrills({ remainingCount, currentModuleId }: { remainingCount: num
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-8 md:mt-12 px-4 md:px-0">
       {drills.map((drill) => (
         <div
           key={drill.title}
-          className="h-80 bg-[var(--liceu-surface-container)] hover:bg-[var(--liceu-surface-container-high)] border border-[var(--liceu-stone)]/20 p-8 flex flex-col justify-between transition-colors"
+          className="h-80 bg-[var(--liceu-surface-container)] hover:bg-[var(--liceu-surface-container-high)] border border-[var(--liceu-stone)]/20 p-6 sm:p-8 flex flex-col justify-between transition-colors"
         >
           <div>
             <div className="flex items-center justify-between">
@@ -359,7 +441,7 @@ function ActiveDrills({ remainingCount, currentModuleId }: { remainingCount: num
                 {drill.complexity}
               </span>
             </div>
-            <h3 className="mt-4 font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-text)]">
+            <h3 className="mt-4 font-[var(--font-noto-serif)] text-xl sm:text-2xl text-[var(--liceu-text)]">
               {drill.title}
             </h3>
             <p className="mt-3 font-[var(--font-work-sans)] text-sm leading-relaxed text-[var(--liceu-muted)]">
@@ -380,7 +462,7 @@ function ActiveDrills({ remainingCount, currentModuleId }: { remainingCount: num
 
 function BottomStatusBar() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 h-8 bg-[var(--liceu-surface)] border-t border-[var(--liceu-stone)]/20 flex items-center px-6 font-mono text-[10px] uppercase tracking-widest text-[var(--liceu-muted)]">
+    <div className="fixed bottom-0 left-0 right-0 z-50 h-8 bg-[var(--liceu-surface)] border-t border-[var(--liceu-stone)]/20 flex items-center px-4 md:px-6 font-mono text-[10px] uppercase tracking-widest text-[var(--liceu-muted)]">
       <span className="ml-auto flex items-center gap-1">
         <span className="animate-pulse text-[var(--liceu-accent)]">_</span>
       </span>
@@ -388,7 +470,21 @@ function BottomStatusBar() {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// Tailwind CSS for mobile sidebar animation
+// Add to globals.css:
+// @layer utilities {
+//   .animate-slide-in-from-left {
+//     animation: slide-in-from-left 0.2s ease-out;
+//   }
+//   @keyframes slide-in-from-left {
+//     from { transform: translateX(-100%); }
+//     to { transform: translateX(0); }
+//   }
+// }
+
+// [38;2;255;165;0m[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m______
+// Main Page
+// [38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m________[38;2;255;165;0m______
 
 export default async function DashboardPage(props: { searchParams: Promise<DashboardSearchParams> }) {
   const searchParams = await props.searchParams;
@@ -423,11 +519,11 @@ export default async function DashboardPage(props: { searchParams: Promise<Dashb
       </Suspense>
 
       <div className="min-h-screen bg-[var(--liceu-surface-container-low)] pb-8">
-        <Sidebar user={{ email: user.email ?? "user" }} activeNav="overview" />
+        <SidebarDesktop user={{ email: user.email ?? "user" }} activeNav="overview" />
 
         <TopAppBar title="Liceu Underground" />
 
-        <main className="ml-64 min-h-screen">
+        <main className="md:ml-64 min-h-screen">
           <IntellectualLoadHero
             percent={overallPercent}
             completedCount={totalCompleted}
@@ -435,35 +531,33 @@ export default async function DashboardPage(props: { searchParams: Promise<Dashb
             currentModule={firstCurrentModule}
           />
 
-          <div className="lg:grid lg:grid-cols-12 gap-8 mt-8 px-8">
+          <div className="lg:grid lg:grid-cols-12 gap-6 sm:gap-8 mt-6 sm:mt-8 px-4 md:px-8">
             <div className="lg:col-span-7">
               <RhetoricalTrendsChart courseViews={courseViews} />
             </div>
-            <div className="lg:col-span-5 mt-8 lg:mt-0">
+            <div className="lg:col-span-5 mt-6 sm:mt-8 lg:mt-0">
               <SessionLogs completedCount={totalCompleted} totalCount={totalModules} courseViews={courseViews} />
             </div>
           </div>
 
-          <div className="px-8">
-            <ActiveDrills remainingCount={totalModules - totalCompleted} currentModuleId={firstCurrentModule?.id ?? null} />
-          </div>
+          <ActiveDrills remainingCount={totalModules - totalCompleted} currentModuleId={firstCurrentModule?.id ?? null} />
 
           {/* Module detail sections */}
           {courseViews.length > 0 && (
-            <div className="px-8 mt-12 space-y-12">
+            <div className="px-4 md:px-8 mt-10 sm:mt-12 space-y-10 sm:space-y-12">
               {courseViews.map(({ course, moduleItems, completedCount, totalCount, percent, currentModule }) => (
                 <section key={course.id} className="space-y-6">
-                  <div className="flex items-end justify-between gap-6 border-b border-[var(--liceu-stone)]/40 pb-4">
+                  <div className="flex items-end justify-between gap-4 sm:gap-6 border-b border-[var(--liceu-stone)]/40 pb-4">
                     <div>
                       <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                         {course.code}
                       </div>
-                      <div className="mt-1 font-[var(--font-noto-serif)] text-[22px] leading-tight text-[var(--liceu-text)]">
+                      <div className="mt-1 font-[var(--font-noto-serif)] text-lg sm:text-[22px] leading-tight text-[var(--liceu-text)]">
                         {course.title}
                       </div>
                     </div>
                     <div className="shrink-0 text-right">
-                      <div className="font-[var(--font-noto-serif)] text-2xl text-[var(--liceu-text)]">
+                      <div className="font-[var(--font-noto-serif)] text-xl sm:text-2xl text-[var(--liceu-text)]">
                         {percent}%
                       </div>
                       <div className="font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
@@ -477,7 +571,7 @@ export default async function DashboardPage(props: { searchParams: Promise<Dashb
                       <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                         CURRENT LESSON
                       </div>
-                      <div className="font-[var(--font-noto-serif)] text-xl leading-tight text-[var(--liceu-text)]">
+                      <div className="font-[var(--font-noto-serif)] text-lg sm:text-xl leading-tight text-[var(--liceu-text)]">
                         {currentModule.title}
                       </div>
                     </div>
@@ -496,18 +590,18 @@ export default async function DashboardPage(props: { searchParams: Promise<Dashb
 
           {/* Mentoring section */}
           {(mentoringStatus || mentorshipModuleUnlocked) && (
-            <div className="px-8 mt-12 pt-8 border-t border-[var(--liceu-stone)]/30 space-y-6">
+            <div className="px-4 md:px-8 mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-[var(--liceu-stone)]/30 space-y-6">
               <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
                 MENTORIA
               </div>
 
               {mentoringStatus === "pending_interview" && calInterviewLink && (
-                <div className="border border-[var(--liceu-stone)]/30 bg-[var(--liceu-surface)]/35 px-5 py-5">
-                  <div className="font-[var(--font-noto-serif)] text-[17px] text-[var(--liceu-text)]">
-                    Entrevista de qualificação
+                <div className="border border-[var(--liceu-stone)]/30 bg-[var(--liceu-surface)]/35 px-4 sm:px-5 py-4 sm:py-5">
+                  <div className="font-[var(--font-noto-serif)] text-lg sm:text-[17px] text-[var(--liceu-text)]">
+                    Entrevista de qualifica\u00e7\u00e3o
                   </div>
                   <p className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
-                    Seu pagamento foi confirmado. Agende a entrevista no horário disponível.
+                    Seu pagamento foi confirmado. Agende a entrevista no hor\u00e1rio dispon\u00edvel.
                   </p>
                   <a
                     href={calInterviewLink}
@@ -515,29 +609,29 @@ export default async function DashboardPage(props: { searchParams: Promise<Dashb
                     rel="noopener noreferrer"
                     className="mt-4 inline-block border border-[var(--liceu-text)] px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--liceu-text)] hover:bg-[var(--liceu-surface)]/40"
                   >
-                    Agendar entrevista →
+                    Agendar entrevista \u2192
                   </a>
                 </div>
               )}
 
               {mentoringStatus === "approved_pending_payment" && (
-                <div className="border border-[var(--liceu-secondary)]/30 bg-[var(--liceu-surface)]/35 px-5 py-5">
-                  <div className="font-[var(--font-noto-serif)] text-[17px] text-[var(--liceu-text)]">
+                <div className="border border-[var(--liceu-secondary)]/30 bg-[var(--liceu-surface)]/35 px-4 sm:px-5 py-4 sm:py-5">
+                  <div className="font-[var(--font-noto-serif)] text-lg sm:text-[17px] text-[var(--liceu-text)]">
                     Aprovado para o programa
                   </div>
                   <p className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
-                    Você foi aprovado. Verifique seu email para o link de pagamento com o crédito da entrevista aplicado.
+                    Voc\u00ea foi aprovado. Verifique seu email para o link de pagamento com o cr\u00e9dito da entrevista aplicado.
                   </p>
                 </div>
               )}
 
               {mentoringStatus === "active" && calMentoringLink && (
-                <div className="border border-[var(--liceu-secondary)]/30 bg-[var(--liceu-surface)]/35 px-5 py-5">
-                  <div className="font-[var(--font-noto-serif)] text-[17px] text-[var(--liceu-text)]">
+                <div className="border border-[var(--liceu-secondary)]/30 bg-[var(--liceu-surface)]/35 px-4 sm:px-5 py-4 sm:py-5">
+                  <div className="font-[var(--font-noto-serif)] text-lg sm:text-[17px] text-[var(--liceu-text)]">
                     Programa de mentoria ativo
                   </div>
                   <p className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
-                    As sessões são liberadas conforme você conclui os módulos. Agende quando estiver pronto.
+                    As sess\u00f5es s\u00e3o liberadas conforme voc\u00ea conclui os m\u00f3dulos. Agende quando estiver pronto.
                   </p>
                   {mentorshipModuleUnlocked && (
                     <a
@@ -546,29 +640,16 @@ export default async function DashboardPage(props: { searchParams: Promise<Dashb
                       rel="noopener noreferrer"
                       className="mt-4 inline-block border border-[var(--liceu-secondary)]/60 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--liceu-secondary)] hover:bg-[var(--liceu-secondary)]/10"
                     >
-                      Agendar sessão →
+                      Agendar sess\u00e3o \u2192
                     </a>
-                  )}
-                  {!mentorshipModuleUnlocked && (
-                    <p className="mt-3 font-[var(--font-work-sans)] text-[11px] text-[var(--liceu-muted)]">
-                      Conclua o próximo módulo para liberar o agendamento.
-                    </p>
                   )}
                 </div>
               )}
             </div>
           )}
 
-          {courseViews.length === 0 && (
-            <div className="px-8 mt-12">
-              <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
-                Nenhum módulo disponível para esta conta.
-              </p>
-            </div>
-          )}
+          <BottomStatusBar />
         </main>
-
-        <BottomStatusBar />
       </div>
     </>
   );
