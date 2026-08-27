@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "@/lib/hooks/useMobile";
 
 /**
  * Parallax Layer — Elements that move at different speeds on scroll.
+ * Disabled on mobile devices for performance.
  * Reference: stitch-webdesign skill, references/gsap-choreography.md
  */
 export function ParallaxLayer({
@@ -16,10 +18,11 @@ export function ParallaxLayer({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || isMobile) return;
 
     const onScroll = () => {
       const rect = el.getBoundingClientRect();
@@ -33,7 +36,12 @@ export function ParallaxLayer({
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, [speed]);
+  }, [speed, isMobile]);
+
+  // On mobile, just render children without parallax effect
+  if (isMobile) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <div ref={ref} className={className} style={{ willChange: "transform" }}>

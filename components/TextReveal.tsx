@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState, type ElementType } from "react";
+import { useIsMobile } from "@/lib/hooks/useMobile";
 
 /**
  * Text Reveal — Characters emerge from below with staggered timing.
+ * Simplified on mobile devices for performance.
  * Reference: stitch-webdesign skill, Section 3 (Kinetic Typography Header)
  *
  * @example
@@ -24,6 +26,7 @@ export function TextReveal<T extends ElementType = "h1">({
 }) {
   const ref = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = useIsMobile();
   const Tag = as || "h1";
 
   useEffect(() => {
@@ -43,6 +46,18 @@ export function TextReveal<T extends ElementType = "h1">({
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  // On mobile, render text normally without per-character animation
+  if (isMobile) {
+    return (
+      <Tag
+        ref={ref as React.RefObject<HTMLHeadingElement>}
+        className={`overflow-hidden ${className}`}
+      >
+        {text}
+      </Tag>
+    );
+  }
 
   return (
     <Tag

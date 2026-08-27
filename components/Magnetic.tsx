@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "@/lib/hooks/useMobile";
 
 /**
  * Magnetic Hover Effect — Elements subtly attracted to the cursor.
+ * Disabled on mobile devices for performance and usability.
  * Reference: stitch-webdesign skill, Section 4 (Magnetic Hover Effect)
  *
  * @example
@@ -21,10 +23,11 @@ export function Magnetic({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || isMobile) return;
 
     let currentX = 0;
     let currentY = 0;
@@ -64,7 +67,12 @@ export function Magnetic({
       el.removeEventListener("mouseleave", onMouseLeave);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [strength]);
+  }, [strength, isMobile]);
+
+  // On mobile, just render children without magnetic effect
+  if (isMobile) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <div ref={ref} className={className} style={{ willChange: "transform" }}>
