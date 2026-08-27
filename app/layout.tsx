@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Noto_Serif, Work_Sans, Space_Grotesk, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -10,32 +10,38 @@ import * as Sentry from "@sentry/nextjs";
 const uiSans = Inter({
   variable: "--font-liceu-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const uiMono = JetBrains_Mono({
   variable: "--font-liceu-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const notoSerif = Noto_Serif({
   variable: "--font-noto-serif",
   subsets: ["latin"],
   weight: ["400", "700", "800"],
+  display: "swap",
 });
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const robotoMono = Roboto_Mono({
   variable: "--font-roboto-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -65,6 +71,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

@@ -152,9 +152,9 @@ textarea {
   background: color-mix(in oklab, var(--liceu-accent) 30%, transparent);
 }
 
-/* ═══════════════════════════════════════════════════
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    Stitch Motion: Keyframe Animations
-   ═══════════════════════════════════════════════════ */
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 @keyframes qa-rise {
   from {
@@ -201,9 +201,9 @@ textarea {
   90% { transform: translate(10%, -5%); }
 }
 
-/* ═══════════════════════════════════════════════════
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    Verdant Scriptorium Utilities
-   ═══════════════════════════════════════════════════ */
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 .surface-scriptorium {
   background-color: var(--liceu-surface);
@@ -251,6 +251,47 @@ textarea {
 /* BRUTALIST: Enforce zero border-radius globally */
 *, *::before, *::after {
   border-radius: 0 !important;
+}
+
+/* Mobile Performance: Touch optimization */
+button,
+a,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[tabindex]:focus {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile Performance: Prevent overscroll bounce effects */
+html,
+body {
+  overscroll-behavior-y: contain;
+}
+
+/* Mobile Performance: Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* Mobile sidebar animation */
+@layer utilities {
+  .animate-slide-in-from-left {
+    animation: slide-in-from-left 0.2s ease-out;
+  }
+  @keyframes slide-in-from-left {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
 }
 
 /* Markdown prose styles for blog posts */
@@ -332,9 +373,9 @@ textarea {
   border-radius: 2px;
 }
 
-/* ═══════════════════════════════════════════════════
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    Stitch Motion: Component Utilities
-   ═══════════════════════════════════════════════════ */
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* Smooth scroll for anchor links */
 html {
