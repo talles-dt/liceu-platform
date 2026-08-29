@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { MinimalButton } from "@/components/MinimalButton";
 import { POSTS } from "@/lib/blog";
 import { Magnetic } from "@/components/Magnetic";
@@ -8,7 +9,15 @@ import { TextReveal } from "@/components/TextReveal";
 import { ParallaxLayer } from "@/components/ParallaxLayer";
 import RecoveryRedirect from "./RecoveryRedirect";
 
+const HOME_NAV = [
+  { href: "/metodo", label: "Método" },
+  { href: "/programa", label: "Programa" },
+  { href: "/mentoria", label: "Mentoria" },
+  { href: "/login", label: "Login" },
+] as const;
+
 export default function HomePage() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)]">
       <RecoveryRedirect />
@@ -17,17 +26,13 @@ export default function HomePage() {
         <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
           <Link
             href="/"
-            className="font-[var(--font-noto-serif)] text-2xl font-black uppercase tracking-tight text-[var(--liceu-accent)]"
+            className="font-[var(--font-noto-serif)] text-xl font-black uppercase tracking-tight text-[var(--liceu-accent)] sm:text-2xl"
           >
             Liceu Underground
           </Link>
 
-          <nav className="flex items-center gap-6">
-            {([
-              { href: "/metodo", label: "Método" },
-              { href: "/programa", label: "Programa" },
-              { href: "/mentoria", label: "Mentoria" },
-            ] as const).map((item) => (
+          <nav className="hidden items-center gap-6 sm:flex">
+            {HOME_NAV.filter((i) => i.href !== "/login").map((item) => (
               <Magnetic key={item.href} strength={0.15}>
                 <Link
                   href={item.href}
@@ -38,7 +43,34 @@ export default function HomePage() {
               </Magnetic>
             ))}
           </nav>
+
+          <button
+            type="button"
+            aria-label="Abrir menu"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-9 w-9 items-center justify-center border border-[var(--liceu-stone)] text-[var(--liceu-accent)] sm:hidden"
+          >
+            <span className="font-[var(--font-space-grotesk)] text-lg leading-none">{open ? "×" : "≡"}</span>
+          </button>
         </div>
+
+        {open && (
+          <div className="sm:hidden">
+            <nav className="flex flex-col border-t border-[var(--liceu-stone)] px-6 py-2">
+              {HOME_NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="border-b border-[var(--liceu-stone)]/40 py-3 font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] transition-colors hover:text-[var(--liceu-accent)]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
       </header>
 
       <main>
