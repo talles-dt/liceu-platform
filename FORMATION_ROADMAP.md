@@ -1,8 +1,8 @@
 # Formação retórica — auditoria e roadmap do piloto
 
-**Status:** proposta para revisão pedagógica e técnica; nenhuma feature, migração ou cobrança implementada por este documento.  
-**Data:** 9 de outubro de 2026.  
-**Repositório auditado:** [talles-dt/liceu-platform](https://github.com/talles-dt/liceu-platform), branch padrão `main`, commit `6969ac8a86ad2a970811f81bd3fce10d280c18fe`.  
+**Status:** proposta para revisão pedagógica e técnica; nenhuma feature, migração ou cobrança implementada por este documento.
+**Data:** 9 de outubro de 2026.
+**Repositório auditado:** [talles-dt/liceu-platform](https://github.com/talles-dt/liceu-platform), branch padrão `main`, commit `6969ac8a86ad2a970811f81bd3fce10d280c18fe`.
 **Decisão central:** incorporar uma formação com coortes, encontros e portfólios ao mesmo aplicativo. Preservar a identidade do Liceu; não converter a formação em uma sequência de módulos desbloqueados por quiz.
 
 ## 1. Mandato e limites da evidência
