@@ -1,13 +1,15 @@
-# Formação retórica — auditoria e roadmap do piloto
+# Formação pelo Trivium — auditoria e roadmap do piloto
 
 **Status:** proposta para revisão pedagógica e técnica; nenhuma feature, migração ou cobrança implementada por este documento.
-**Data:** 9 de outubro de 2026.
+**Data da auditoria:** 9 de outubro de 2026. **Revisão e consolidação:** 10 de outubro de 2026.
+
+**Plano coordenador:** [LICEU_ROADMAP.md](LICEU_ROADMAP.md). Este documento detalha a formação; a ordem global, os 34 achados e o programa R0–R8 estão no plano coordenador. Em caso de divergência de execução, seguir a fila unificada U00–U11; a especificação pedagógica da formação permanece aqui.
 **Repositório auditado:** [talles-dt/liceu-platform](https://github.com/talles-dt/liceu-platform), branch padrão `main`, commit `6969ac8a86ad2a970811f81bd3fce10d280c18fe`.
 **Decisão central:** incorporar uma formação com coortes, encontros e portfólios ao mesmo aplicativo. Preservar a identidade do Liceu; não converter a formação em uma sequência de módulos desbloqueados por quiz.
 
 ## 1. Mandato e limites da evidência
 
-O piloto autorizado para planejamento tem **6 participantes, R$500 por mês, duração inicial de 6 meses**. Seu movimento recorrente é **leitura → seminário → imitatio → composição → disputatio → declamatio → reflexão**. A formação é de longo prazo; o piloto testa seus primeiros seis meses, sem prometer que eles esgotam a formação.
+O piloto autorizado para planejamento tem **6 participantes, R$500 por mês, duração inicial de 6 meses**. Seu movimento recorrente é **leitura → seminário → imitatio → composição → disputatio → declamatio → reflexão**. A formação é de longo prazo; o piloto testa seus primeiros seis meses, sem prometer que eles esgotam a formação. **Gramática, lógica e retórica são os três pilares obrigatórios e integrados.** O ciclo é o modo de trabalho dos três, não um currículo exclusivamente retórico. “Formação pelo Trivium” é nome de trabalho; nome público continua sujeito à revisão.
 
 A auditoria foi feita em clone novo do GitHub, sem modificar a cópia de trabalho da auditoria anterior. A localização na raiz acompanha `DESIGN.md` e `SUPABASE_SETUP.md`; não havia diretório `docs/` versionado no commit examinado. Foram inspecionados código, dependências declaradas, rotas, migrações, seeds, componentes e testes existentes. Não foram executados seeds nem acessados registros pessoais.
 
@@ -104,9 +106,40 @@ Bibliografia é trabalho editorial da fase 1: escolher trechos, edições, tradu
 
 Rodar os papéis entre ciclos, preservando histórico. Professor pode acumular moderação e registro. Papéis pertencem a uma atividade, não são cargos permanentes nem privilégios administrativos. Symposium e banca têm múltiplos participantes/avaliadores; não criar seis cópias desconectadas do mesmo evento.
 
+### 3.3 Trivium: três pilares estruturantes
+
+A inclusão de gramática e lógica é requisito do responsável pedagógico, confirmado em 10/10. Esta é uma proposta de operacionalização para o piloto, não uma alegação de que exista um único currículo histórico do Trivium. Os três pilares aparecem desde o primeiro ciclo, com progressão própria e aplicação conjunta; não reservar gramática para uma introdução ou lógica para uma aula de falácias.
+
+| Pilar | Competências propostas para os seis meses | Práticas e evidências | Limite pedagógico |
+|---|---|---|---|
+| **Gramática** | Ler com precisão; reconhecer relações sintáticas e referenciais; distinguir sentidos e ambiguidades; analisar coesão, gênero e registro; revisar a expressão preservando o sentido | Leitura próxima; segmentação de período; explicitação de referentes; comparação de paráfrases; edição comentada; imitação de construção e comparação entre versões | Não reduzir a correção ortográfica ou usar sotaque/variedade como medida de inteligência. Norma e registro são ensinados em relação à situação. Latim/grego não são pré-requisitos presumidos |
+| **Lógica** | Definir termos; distinguir proposição, premissa e conclusão; reconstruir argumentos; distinguir validade de verdade e força de evidência; reconhecer contradição/equivocação; testar inferências, objeções e contraexemplos | Definição e divisão; mapa de argumento; análise de quantificadores/condicionais em linguagem natural; inferências categóricas/proposicionais introdutórias; contraexemplo; comparação de dedução, indução e analogia | Não reduzir a lista de falácias ou fazer de notação formal uma barreira de entrada. A profundidade formal cresce conforme diagnóstico e tempo disponível |
+| **Retórica** | Inventar e selecionar razões, dispor, expressar, recordar e pronunciar; adequar-se à audiência; ouvir e responder com responsabilidade | Imitatio, composição, disputatio, declamatio e symposium; defesa de escolhas, revisão e reflexão | Eficácia persuasiva não prova verdade, validade ou responsabilidade; carisma não substitui argumento |
+
+Um mesmo trabalho pode conter três apreciações distintas: texto linguisticamente preciso com inferência frágil; argumento válido expresso de modo ambíguo; fala eficaz com leitura infiel. A rubrica deve tornar essas diferenças visíveis, sem produzir uma média compensatória que esconda uma delas.
+
+### 3.4 Matriz espiral dos seis ciclos
+
+A tabela de C1–C6 da seção 3.1 descreve o percurso comum. Esta matriz é parte obrigatória do mesmo currículo, **sem triplicar a carga horária**. Cada ciclo tem objetivos dos três pilares, pelo menos uma evidência observável por pilar e uma tarefa integradora. Minioficinas de gramática e lógica entram no tempo de leitura/seminário e na preparação, substituindo volume de outras tarefas quando necessário.
+
+| Ciclo | Gramática | Lógica | Retórica / tarefa integradora |
+|---|---|---|---|
+| C1 | Sintaxe e referentes; paráfrase fiel; ambiguidade lexical | Termos, proposições, premissas/conclusão; distinguir afirmar e justificar | Ler um trecho, reconstruir seu argumento e apresentá-lo oralmente sem distorção; baseline separado da intervenção |
+| C2 | Coesão, período, figuras e registro; imitação com comentário | Definição/divisão; identidade dos termos e equivocação | Imitar uma construção e defender como a mudança altera sentido e efeito; glossário contextual no Codex |
+| C3 | Negação, quantificadores, condicionais e alcance das expressões | Validade/verdade; formas inferenciais básicas e contraexemplo | Disputatio com reconstrução justa da tese e teste das inferências; síntese intermediária dos três pilares |
+| C4 | Coerência entre parágrafos, gênero, ordem informacional e revisão | Dedução, indução, analogia; pertinência e suficiência da evidência | Composição para audiência definida com mapa argumentativo e edição comentada |
+| C5 | Registro oral/escrito, pontuação/prosódia e precisão sob objeção | Premissas implícitas, carga da prova e revisão diante de objeções | Declamatio com arguição: responder sem mudar indevidamente os termos ou a tese |
+| C6 | Edição final e interpretação de trecho novo | Reconstrução e avaliação independente de argumento novo | Banca e symposium integradores; comparar evidências de cada pilar com baseline e propor continuidade |
+
+Exemplo de percurso completo sobre um texto: **leitura** identifica sintaxe, sentidos e premissas → **seminário** testa interpretações e reconstruções → **imitatio** transforma a forma sem confundir a tese → **composição** articula razões para uma audiência → **disputatio** testa inferências e objeções → **declamatio** torna o discurso inteligível e situado → **reflexão** explica mudanças linguísticas, lógicas e retóricas. Uma evidência pode servir a mais de um pilar, desde que o parecer explicite o critério observado.
+
+Bibliografia deve ter trilhas de gramática, lógica e retórica, com textos primários e apoio adequados ao nível de entrada. Gramática: selecionar referência de língua portuguesa e textos para análise; lógica: selecionar introdução conceitual e trechos primários quando pedagogicamente cabíveis; retórica: selecionar o corpus proposto na seção 3.1. Não presumir que os materiais de Armas da Palavra cubram os outros dois pilares. Edições, traduções, capítulos, direitos e carga serão verificados por item antes de publicação.
+
+O Codex também registra definições contextualizadas, distinções conceituais, mapas de argumentos, contraexemplos, variantes de expressão e notas de revisão, além de citações e lugares-comuns. Esses formatos são opcionais para o caderno privado; a avaliação utiliza somente evidências submetidas ou compartilhadas explicitamente.
+
 ## 4. Arquitetura proposta
 
-**Um domínio adicional no aplicativo e banco atuais**, com prefixo `formation_` em tabelas de execução. Manter nomes do conteúdo em inglês técnico e interface em português. Não modificar sem necessidade o curso Armas da Palavra.
+**Um domínio adicional no aplicativo e banco atuais**, com prefixo `formation_` em tabelas de execução. Manter nomes do conteúdo em inglês técnico e interface em português. As mudanças necessárias ao curso Armas da Palavra seguem U01–U05 do plano coordenador, sem misturar suas regras de progressão com a formação.
 
 ```text
 Formation ──< CurriculumRelease ──< ContentItem (IDs estáveis + versão)
@@ -163,7 +196,7 @@ Contrato lógico para discussão, não SQL pronto para produção. `id` UUID em 
 
 - Propagar `cohort_id` para alvos sensíveis e usar FKs compostas/validações transacionais: submission, membership, cycle, activity, performance, assessment e artefato devem pertencer à mesma coorte. UUID válido de outra turma não basta.
 - Aluno não escolhe `author_id`, `cohort_id`, papel, assessor, estado publicado ou versão curricular livremente; servidor deriva e banco confere. Troca de autor/parent após criação proibida.
-- Content refs usam `(release_id,item_key)`; validar kind esperado ao importar e ao instanciar. Uma rubrica não pode ocupar o lugar de prompt.
+- Content refs usam `(release_id,item_key)`; validar kind esperado e referências de competência ao importar e ao instanciar. O catálogo de competências é versionado dentro do manifesto (`competencies.json`, incluído no hash); não requer nova tabela de execução. Uma rubrica não pode ocupar o lugar de prompt.
 - Avaliação referencia **uma revisão exata ou uma performance exata**, nunca “última entrega”. Em performance coletiva, `subject_membership_id` deve estar entre os participantes; cada parecer continua individual.
 - Professor determina fechamento do ciclo com síntese e retomadas. Não criar percentual global de domínio. Estado operacional e parecer pedagógico são coisas distintas.
 - Publicar trabalho, atribuir review e registrar evento em transação; submissão idempotente não duplica revisão. Salvar rascunho com `lock_version`, retornando conflito em vez de sobrescrever outra aba.
@@ -171,7 +204,7 @@ Contrato lógico para discussão, não SQL pronto para produção. `id` UUID em 
 - FKs de evidência não devem apagar silenciosamente portfólios ao excluir ciclo/release. Arquivar execução; exclusão de dados pessoais usa fluxo próprio, auditado, incluindo arquivos e participações coletivas.
 - Tabelas de permissão, membership e publicação só podem ser modificadas por comandos autorizados. `service_role` não é atalho para ignorar verificação de identidade, escopo e alvo.
 
-## 6. Currículo e conteúdo versionados
+## 6. Currículo e conteúdo versionados — incluindo o Trivium
 
 **Fonte editorial:** Git. **Fonte de execução:** snapshot publicado no banco. Conteúdo nunca é buscado de `main` em tempo de leitura da coorte. Git sozinho não resolve reprodutibilidade se a aplicação lê tabelas mutáveis.
 
@@ -187,6 +220,9 @@ content/formations/retorica/
     activities/c01-seminario.json ...
     exercise-types.json
     readings/bibliography.json
+    competencies.json
+    rubrics/grammar.json
+    rubrics/logic.json
     rubrics/reading.json
     rubrics/composition.json
     rubrics/oral.json
@@ -194,7 +230,7 @@ content/formations/retorica/
     prompts/*.md
 ```
 
-Manifesto tem `schema_version`, `formation_key`, `version`, objetivos, ciclo pedagógico, índice de todos os arquivos com hash, autores/revisores editoriais e changelog. Item tem chave estável, título, tipo, objetivos, preparação, restrições, entregas esperadas, prompts, critérios, referências e acessibilidade. Atividade síncrona inclui papéis, cardinalidades, sequência e alternativa em caso de ausência. Bibliografia inclui autor, obra, edição, tradutor, ano, idioma, localização exata, link, direitos, extensão proposta e status de revisão. Markdown é conteúdo sanitizado, sem MDX arbitrário.
+Manifesto tem `pillars: ["grammar", "logic", "rhetoric"]`, `schema_version`, `formation_key`, `version`, objetivos, ciclo pedagógico, índice de todos os arquivos com hash, autores/revisores editoriais e changelog. Item tem chave estável, título, tipo, `pillars` (um ou mais dos três), `competency_keys` estáveis, objetivos, preparação, restrições, entregas esperadas, prompts, critérios, referências e acessibilidade. Atividade síncrona inclui papéis, cardinalidades, sequência e alternativa em caso de ausência. Bibliografia inclui autor, obra, edição, tradutor, ano, idioma, localização exata, link, direitos, extensão proposta e status de revisão. Markdown é conteúdo sanitizado, sem MDX arbitrário.
 
 Exemplo **ilustrativo**, a ser validado contra o schema futuro:
 
@@ -202,6 +238,8 @@ Exemplo **ilustrativo**, a ser validado contra o schema futuro:
 {
   "key": "c01.disputatio",
   "type": "disputatio",
+  "pillars": ["grammar", "logic", "rhetoric"],
+  "competency_keys": ["grammar.precision", "logic.objections", "rhetoric.response"],
   "cycle_key": "c01",
   "prompt_key": "prompts.c01.proposicao",
   "rubric_key": "rubrics.dialogue",
@@ -214,7 +252,7 @@ Exemplo **ilustrativo**, a ser validado contra o schema futuro:
 
 Fluxo editorial obrigatório:
 
-1. Hermes produz proposta e valida JSON Schema, referências, unicidade, cardinalidade de papéis, carga e cobertura do ciclo completo. IDs estáveis não são gerados a partir do título.
+1. Hermes produz proposta e valida JSON Schema, referências, unicidade, cardinalidade de papéis, carga e cobertura do ciclo completo. Validar os três pilares em cada ciclo por objetivos, atividade/evidência e critério de rubrica, não apenas por tags. IDs estáveis não são gerados a partir do título.
 2. Docente revisa currículo, rubricas, trechos/edições, linguagem, esforço e critérios. Código verde não significa publicação pedagógica aprovada.
 3. PR de conteúdo registra diff e motivo; publicar uma versão exige aprovação docente registrada, commit de origem e hash do pacote. Importador começa por dry-run, sem escrita.
 4. Importar em transação. Mesma versão+hash é no-op; mesma versão com hash distinto é erro. Releases publicadas não recebem UPDATE/DELETE por edição normal.
@@ -277,9 +315,9 @@ Reagendamento preserva ID do evento e incrementa revisão ICS; cancelamento gera
 
 ### 9.1 Baseline e banca
 
-Antes do ciclo 1: entrevista breve de contexto e expectativas, leitura/paráfrase de trecho, composição curta e fala de 3–5 minutos seguida de objeção. Proposta de condições: preparação registrada, tempo de execução definido, adaptações acessíveis anotadas. Guardar instrução, texto/edição, revisão da produção, condições e rubrica. Professor não infere repertório ou capacidade a partir de diagnóstico comercial/arquetípico existente.
+Antes do ciclo 1: tarefas diagnósticas dos três pilares — análise de sentido/sintaxe e revisão de ambiguidade (gramática), reconstrução de argumento e justificação/contraexemplo (lógica), composição e fala com audiência e objeção (retórica) — acompanhadas de entrevista breve de contexto e expectativas. Usar leitura/paráfrase, composição curta e fala de 3–5 minutos seguida de objeção para observar essas competências. Proposta de condições: preparação registrada, tempo de execução definido, adaptações acessíveis anotadas. Guardar instrução, texto/edição, revisão da produção, condições e rubrica. Professor não infere repertório ou capacidade a partir de diagnóstico comercial/arquetípico existente.
 
-Na banca final: tarefa paralela de dificuldade justificada, mesmas dimensões e condições comparáveis; candidato apresenta portfólio e responde a objeções. Registrar diferenças de contexto e mudança de rubrica quando houver. Professor e eventual segundo avaliador fazem pareceres antes da síntese para preservar divergências. Comparar evidências, não só um número de entrada com outro de saída.
+Na banca final: tarefa paralela de dificuldade justificada, mesmas dimensões e condições comparáveis, incluindo gramática, lógica e retórica em texto/problema novo; candidato apresenta portfólio e responde a objeções. Registrar diferenças de contexto e mudança de rubrica quando houver. Professor e eventual segundo avaliador fazem pareceres antes da síntese para preservar divergências. Comparar evidências, não só um número de entrada com outro de saída.
 
 ### 9.2 Rubrica inicial para elaboração editorial
 
@@ -288,7 +326,10 @@ Quatro descritores comuns: **necessita apoio**, **em desenvolvimento**, **consis
 | Dimensão | O que observar | Exemplo de âncora “consistente nesta tarefa” |
 |---|---|---|
 | Leitura e fidelidade | Distingue tese, suporte, contexto e citação | Paráfrase preserva a tese, aponta passagem e reconhece limite interpretativo |
-| Argumentação | Razões, evidências, inferências e objeções | Expõe premissas, responde à objeção forte e ajusta a conclusão quando necessário |
+| Gramática: precisão e relações | Sintaxe, referentes, ambiguidade, sentido, coesão e registro | Explicita relações, resolve ambiguidade sem distorcer a tese e justifica revisão em função da situação |
+| Lógica: reconstrução | Termos, definições, premissas explícitas/implícitas e conclusão | Reconstrói o argumento fielmente, distingue o que é afirmado do que é inferido e declara pressupostos |
+| Lógica: avaliação | Validade/verdade, força da evidência, contraexemplos e objeções | Testa a inferência, distingue validade de verdade e ajusta conclusão ao alcance das razões |
+| Retórica: argumentação situada | Seleção de razões, audiência, objeções e responsabilidade | Expõe razões pertinentes, trata a objeção forte com justiça e explica escolhas para a audiência |
 | Composição | Ordenação, unidade, transições e público | Sequência de razões sustenta tese para audiência definida; revisão justifica escolhas |
 | Expressão oral | Inteligibilidade, ritmo, presença e adequação | Fala compreensível, tempo manejado e resposta pertinente; considerar adaptações individuais |
 | Escuta e juízo | Reconstrução justa do outro e discernimento | Reconstrói objeção antes de responder; distingue discordância de incompreensão |
@@ -297,7 +338,7 @@ Quatro descritores comuns: **necessita apoio**, **em desenvolvimento**, **consis
 
 Peer feedback usa estrutura breve: **uma observação com referência à evidência, uma pergunta, uma sugestão praticável**. Docente atribui pares e modera abuso; pairings rotativos evitam panelinhas. Autoavaliação compara intenção, resultado e parecer recebido. Nota do par não se transforma automaticamente em parecer docente.
 
-Acompanhamento por ciclo: síntese do professor, dimensão trabalhada, evidência escolhida pelo participante, uma retomada e um próximo passo. Proposta de prazo docente: até sete dias após entrega pactuada; medir e revisar se inviável. Dashboard docente mostra pendências de devolutiva e lacunas de observação, não ranking de alunos.
+Acompanhamento por ciclo: síntese do professor com observações distintas de gramática, lógica e retórica, dimensão trabalhada, evidência escolhida pelo participante, uma retomada e um próximo passo. Proposta de prazo docente: até sete dias após entrega pactuada; medir e revisar se inviável. Dashboard docente mostra pendências de devolutiva e lacunas de observação, não ranking de alunos.
 
 ## 10. Instrumentação e decisão sobre o piloto
 
@@ -307,7 +348,7 @@ Registrar eventos operacionais mínimos: membership_activated, activity_schedule
 |---|---|---|
 | O desenho cabe na vida dos seis? | Presença com motivo opcional, entregas/retomadas e carga autorrelatada; revisão mensal | Ajustar carga, extensão de leituras e calendário |
 | O professor consegue sustentar a proposta? | Horas de preparo/correção/encontro em registro semanal, prazo real de devolutiva | Reduzir volume ou mudar cadência antes de ampliar turma |
-| Há desenvolvimento observável? | Baseline + amostra por ciclo + banca; parecer por dimensão com evidências | Identificar avanços, permanências e lacunas sem promessa causal |
+| Há desenvolvimento observável nos três pilares? | Baseline + amostra por ciclo + banca; parecer de gramática, lógica e retórica por dimensão com evidências | Identificar avanços, permanências e lacunas sem promessa causal |
 | Pares e reflexão ajudam? | Revisões com justificativa que citam feedback; conversa intermediária no C3 | Melhorar instruções de feedback e escolha de pares |
 | O software ajuda ou interrompe? | Falhas de salvamento/upload, pedidos de suporte e observação de percurso | Corrigir fricções antes de acrescentar recursos |
 | A operação é sustentável? | Recebimentos conciliados, horas e custos reais separados | Rever preço/escopo após o piloto; sem automatizar exclusão por atraso |
@@ -323,7 +364,7 @@ Prioridades: **P0** impede coleta real; **P1** necessário ao percurso do piloto
 | Fase | Entrega e requisito | Critério de aceite verificável |
 |---|---|---|
 | 0 — Base confiável (P0) | Inventário atual de schema/Storage; comparar main com correções locais; reconciliar auth, roles, CI, tipos e configuração em PRs próprios | Identidade adulterada/expirada negada; estudante não promove papel nem lê terceiros; CI executa em main; schema de staging reproduzível; achados remanescentes registrados |
-| 1 — Contrato pedagógico (P1) | Manifesto 0.1.0, seis ciclos, bibliografia revisada, tipos/prompts, rubricas completas, baseline/banca, carga, política de dados | Docente aprova; todos os sete movimentos presentes por ciclo; tarefas e critérios alinhados; papéis acomodam seis; fontes/localizações e direitos verificados; carga cabe na cadência |
+| 1 — Contrato pedagógico (P1) | Manifesto 0.1.0, seis ciclos, bibliografia revisada, tipos/prompts, rubricas completas, baseline/banca, carga, política de dados | Docente aprova; todos os sete movimentos e os três pilares presentes por ciclo; tarefas e critérios alinhados; papéis acomodam seis; fontes/localizações e direitos verificados; carga cabe na cadência |
 | 2 — Domínio e release (P0/P1) | Schema aditivo, validação/importação de release, matrícula, memberships, RLS e decisão de rota docente | Importação repetida não duplica; versão alterada com mesmo número rejeitada; coortes isoladas; sétima matrícula concorrente rejeitada; staff não ocupa vaga; rollback ensaiado |
 | 3 — Coorte habitável (P1) | Início, ciclo, biblioteca, agenda, atividades/papéis e Codex mínimo | Aluno acha leitura e próximo encontro sem admin; papéis rotacionam; data/fuso corretos; Codex recarrega privado; teclado/mobile utilizáveis |
 | 4 — Evidência e devolutiva (P0/P1) | Rascunho/revisão, upload privado, performance coletiva, rubrica, peer/self feedback, reflexão e exportação | Duas abas não perdem texto; falha de rede recuperável; URL pública inexistente; avaliação fixa revisão; par vê só alvo; banca simulada e exportação incluem versões corretas |
@@ -334,6 +375,8 @@ Fases 1 e preparação técnica podem avançar sem dependência entre si; execu�
 
 ### 11.1 Testes de aceite transversais
 
+- **TRI-01:** o validador rejeita ciclo sem objetivo, evidência e critério de qualquer um dos três pilares; uma tag isolada não satisfaz a cobertura. Baseline, C3 e banca apresentam evidências separadas de gramática, lógica e retórica.
+- **TRI-02:** tarefa sintética com fala persuasiva e inferência inválida recebe apreciações distintas; nota retórica não mascara problema lógico. Variação linguística não é tratada automaticamente como erro. Professor valida interpretação, sem avaliação automática de competência.
 - **AUTH-01:** participante A, B, professor de outra coorte, convidado e anônimo tentam SELECT/INSERT/UPDATE/DELETE direto pela Data API e pelos handlers. Acessos indevidos negados, inclusive Storage e alteração de parents.
 - **AUTH-02:** manipular metadata, papel e membership não concede docência; professor da coorte não acessa administração global. Renovação/expiração de sessão tem comportamento verificável.
 - **CUR-01:** criar 0.2.0 mantém C1 e seus pareceres em 0.1.0; adoção explícita de C2 aparece no histórico/export; prompt original permanece recuperável.
@@ -352,10 +395,10 @@ Testes de schema/RLS reais em staging/local complementam Vitest; não substituí
 | Risco/dívida | Tratamento do piloto | Limite para adiar |
 |---|---|---|
 | Auth/RLS e divergência do banco | Reconciliação P0 separada da feature | Não adiar proteção de identidade, papéis, portfólio ou Storage |
-| Dois modelos legados | Domínio novo explícito; adaptadores pequenos | Migração global do LMS adiada; não deixar dependência ambígua no caminho do piloto |
+| Dois modelos legados | Domínio novo explícito; adaptadores pequenos | Reconciliação do curso permanece obrigatória em U02; evitar reescrita global durante a entrega da formação e não deixar dependência ambígua no piloto |
 | Sobrecarga de professor/aluno | Medir horas e revisar carga no C1/C3 | Não prometer feedback ilimitado ou aumentar coorte sem evidência |
 | Conteúdo ainda em elaboração | Releases e readiness por ciclo, revisão humana | Não apresentar rascunho gerado como leitura verificada |
-| Cobrança recorrente | R$500/mês conciliado manualmente, matrícula administrativa auditada | Automatizar Stripe só em iniciativa própria: assinatura, eventos, cancelamento e conciliação; não usar checkout one-time como mensalidade |
+| Cobrança recorrente | R$500/mês conciliado manualmente, matrícula administrativa auditada | A assinatura da plataforma já pertence a R2/U03 do plano consolidado; conectá-la à coorte só com produto/direito específico aprovado. Não usar checkout one-time como mensalidade nem exigir novo pagamento por devolutiva prevista no piloto |
 | Gravações e direitos de leitura | Alternativa escrita, privado, consentimento e referência licenciada | Privacidade e proveniência são pré-requisitos, não backlog |
 | Falha do sistema | Exportações, backup e plano de encontro/registro offline | Restore e reimportação ensaiados; não depender apenas de promessa de backup |
 | Polimento administrativo | Tabelas simples e seis registros | Sem construtor visual de currículo, agendamento inteligente, BI ou marketplace |
@@ -365,13 +408,13 @@ Testes de schema/RLS reais em staging/local complementam Vitest; não substituí
 
 ## 13. Ordem concreta de execução para Hermes
 
-Esta lista é a fila proposta **depois da revisão deste roadmap**, não autorização para iniciar implementação nesta tarefa. Cada item deve terminar em diff pequeno, critério de aceite e registro de evidência. Não misturar publicação curricular com deploy.
+Esta lista detalha os pacotes de formação H00–H11; sua prioridade global e dependências estão na fila U00–U11 de [LICEU_ROADMAP.md](LICEU_ROADMAP.md). H00/H01 reutilizam a base comum, sem iniciar uma segunda correção de autenticação/banco. Esta lista é a fila proposta **depois da revisão deste roadmap**, não autorização para iniciar implementação nesta tarefa. Cada item deve terminar em diff pequeno, critério de aceite e registro de evidência. Não misturar publicação curricular com deploy.
 
 | Ordem | Unidade de trabalho | Caminhos previstos / saída | Dependência e condição de conclusão |
 |---|---|---|---|
 | H00 | Confirmar base de execução | Registrar HEAD, branches/PRs e inventário somente leitura de banco, policies, grants, funções, buckets e migrações | Antes de qualquer schema; confrontar correções locais sem copiar em bloco |
 | H01 | Resolver acesso e base técnica do piloto | `lib/supabaseServer.ts`, `lib/admin/auth.ts`, `lib/users.ts`, guards, config, tipos e `.github/workflows/ci.yml`; PRs focados | H00; AUTH-01/02 aprovados para fundamentos; documentar riscos legados fora do fluxo |
-| H02 | Fechar decisões pedagógicas/editoriais | `content/formations/retorica/` como rascunho, schemas, bibliografia, rubricas, prompts, baseline/banca | Revisão docente: nome, carga, calendário, corpus, descritores, consentimento/retenção e política de participação |
+| H02 | Fechar decisões pedagógicas/editoriais | `content/formations/retorica/` como rascunho, schemas, bibliografia, rubricas, prompts, baseline/banca | Revisão docente: cobertura dos três pilares, nome, carga, calendário, corpus, descritores, consentimento/retenção e política de participação |
 | H03 | Implementar validador e publicação | `scripts/formation/`, contratos em `lib/formation/`, manifesto/hash/dry-run | H02; fixtures de pacote válido, referência quebrada, alteração de release e reimportação; nenhuma escrita em produção |
 | H04 | Criar fundação de dados | Migração aditiva de formation/release/content/cohort/membership/cycle/activity, grants/RLS; `supabase/tests/` | H00–H03; staging reproduzível, matrícula concorrente e isolamento aprovados; decisão final da rota docente |
 | H05 | Entregar navegação e primeira coorte de teste | `app/formacoes/`, `components/formation/`, ligação no dashboard; biblioteca/agenda/papéis | H04; UX-01 parcial e ciclo completo navegável com dados sintéticos |
@@ -386,7 +429,7 @@ Não executar importação/migração destrutiva, merge ou deploy como consequê
 
 ### 13.1 Decisões abertas para revisão, com padrão proposto
 
-- Nome público: “Formação retórica” provisório; manter distinção de Armas da Palavra.
+- Nome público: “Formação pelo Trivium” provisório; manter distinção de Armas da Palavra.
 - Cadência/carga: seis ciclos mensais, três encontros de 90 min/mês; confirmar disponibilidade e orçamento de correção do professor.
 - Corpus: professor seleciona edições/trechos e objetivos; Hermes estrutura/verifica referências, não inventa canon final.
 - Equipe: professor da coorte e eventual convidado de banca; rota docente dedicada se separação do admin atual não for pequena e segura.
