@@ -287,53 +287,8 @@ export default async function ModulePage({ params }: Params) {
               <h2 className="font-[var(--font-space-grotesk)] text-[11px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] border-b border-[var(--liceu-stone)]/70 pb-2 mb-6">
                 PRODUÇÃO
               </h2>
-              <div className="space-y-1">
-                <Link
-                  href={`/modules/${moduleRow.id}/assignment`}
-                  className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className={`shrink-0 w-2 h-2 ${(progressRow?.completed_exercises?.length ?? 0) > 0 ? "bg-[var(--liceu-secondary)]" : "bg-[var(--liceu-stone)]"}`} />
-                    <span className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors">
-                      Exercício retórico principal
-                    </span>
-                  </div>
-                  <span className={`shrink-0 rounded-full border px-2 py-0.5 font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] ${(progressRow?.completed_exercises?.length ?? 0) > 0 ? "border-[var(--liceu-secondary)]/45 text-[var(--liceu-secondary)]" : "border-[var(--liceu-stone)]/80 text-[var(--liceu-muted)]"}`}>
-                    {(progressRow?.completed_exercises?.length ?? 0) > 0 ? "APROVADO" : "TODO"}
-                  </span>
-                </Link>
-                <Link
-                  href={`/modules/${moduleRow.id}/analysis`}
-                  className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="shrink-0 w-2 h-2 bg-[var(--liceu-stone)]" />
-                    <span className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors">
-                      Análise de texto clássico
-                    </span>
-                  </div>
-                  <span className="shrink-0 rounded-full border px-2 py-0.5 font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] border-[var(--liceu-stone)]/50 text-[var(--liceu-muted)]/60">
-                    OPCIONAL
-                  </span>
-                </Link>
-                <Link
-                  href={`/modules/${moduleRow.id}/speech`}
-                  className="group flex items-start justify-between gap-6 py-3 border-b border-[var(--liceu-stone)]/50 hover:bg-[var(--liceu-surface)]/40 px-2 transition-colors"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="shrink-0 w-2 h-2 bg-[var(--liceu-stone)]" />
-                    <span className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] group-hover:text-[var(--liceu-accent)] transition-colors">
-                      Micro discurso
-                    </span>
-                  </div>
-                  <span className="shrink-0 rounded-full border px-2 py-0.5 font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] border-[var(--liceu-stone)]/50 text-[var(--liceu-muted)]/60">
-                    OPCIONAL
-                  </span>
-                </Link>
-              </div>
-              <p className="font-[var(--font-work-sans)] text-xs leading-relaxed text-[var(--liceu-muted)] mt-4">
-                Análise e micro discurso não bloqueiam avanço. Revisão humana.
-              </p>
+              <Link href={`/modules/${moduleRow.id}/pratica`} className="block underline py-4">Abrir propostas e produções das lições</Link>
+              <p className="text-sm">As práticas preservam rascunhos e versões. Revisão humana avulsa não bloqueia seu avanço.</p>
             </section>
 
             {/* Complete Module Action */}
