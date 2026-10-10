@@ -188,3 +188,11 @@ Adiar deliberadamente: gamificação, IA avaliadora, comunidade/chat, aplicativo
 Decisões ainda necessárias para implementação/abertura: valores da assinatura geral/revisão/mentoria e duração da sessão; corpus/edições e descritores completos dos três pilares; nome público da formação; cadência/horas docentes; política de pausa/desistência/retorno, gravação e retenção. Padrões propostos estão no roadmap da formação; R$500 e seis pessoas/seis meses já são parâmetros do piloto, não perguntas a reabrir.
 
 **Próximo trabalho do Hermes:** começar por U00, preservar o código local e produzir o mapa de incorporação; em seguida U01/U02 para a base comum e U06 editorial para o Trivium. Não reiniciar o projeto nem executar todo o plano num patch único.
+
+## Atualização comercial — direção informada pelo usuário
+
+A Formação Intelectual tem horizonte de 18 a 36 meses, organizado por progressão curricular e períodos anuais renováveis. O primeiro piloto permanece em seis meses, seis participantes, R$500/mês. A duração do percurso não cria automaticamente uma obrigação de contratar todo o período.
+
+Propostas futuras: formação regular R$790/mês (12–16 vagas), tutoria R$1.490/mês com capacidade limitada e anual à vista R$8.400. São hipóteses de oferta, não preços ativos. A abertura depende do piloto; a tutoria depende também de demanda e capacidade. Os fundadores conservam R$500 durante os seis meses contratados; qualquer continuidade exige nova proposta explícita.
+
+Registrar encontros, correções individuais, preparação e atendimento para estimar a carga docente real. Frequência, duração dos encontros e limites de tutoria/devolutivas ainda precisam ser definidos. Esses valores não definem a assinatura do curso existente nem revisão/mentoria avulsas de U03/U05. Dados estruturados: `content/offers/formation-proposal.json`.

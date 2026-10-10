@@ -1,3 +1,4 @@
+import {authorizeEmail,publicLimit,validEmail} from "@/lib/publicRequests";
 import { NextResponse } from "next/server";
 import {
   sendDiagnosisRejeicaoEmail,
@@ -6,26 +7,6 @@ import {
   sendDiagnosisEntrevistaEmail,
   type DiagnosisResult,
 } from "@/lib/email";
-
-// Simple in-memory rate limiter
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
-
-function checkRateLimit(key: string, maxRequests: number, windowMs: number): boolean {
-  const now = Date.now();
-  const entry = rateLimitMap.get(key);
-
-  if (!entry || now > entry.resetAt) {
-    rateLimitMap.set(key, { count: 1, resetAt: now + windowMs });
-    return true;
-  }
-
-  if (entry.count >= maxRequests) {
-    return false;
-  }
-
-  entry.count++;
-  return true;
-}
 
 /**
  * POST /api/email/diagnostico
@@ -51,23 +32,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { email, nome, resultado } = body;
+  const { email, nome, resultado } = body??{};
 
-  if (!email || !nome || !resultado) {
+  if (!validEmail(email) || typeof nome!=="string" || !nome.trim() || nome.length>120 || typeof resultado!=="string") {
     return NextResponse.json(
       { error: "email, nome and resultado are required" },
       { status: 400 },
     );
   }
 
-  // Rate limit: 3 requests per email per hour
-  const rateLimitKey = `diagnostico:${email.toLowerCase()}`;
-  if (!checkRateLimit(rateLimitKey, 3, 60 * 60 * 1000)) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded. Try again later." },
-      { status: 429 },
-    );
-  }
+  const denied=await authorizeEmail(req,email);if(denied)return denied;
+  const limited=await publicLimit(req,"diagnostic-email",email);if(limited)return limited;
 
   const validResults: DiagnosisResult[] = [
     "rejeicao",

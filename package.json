@@ -17,7 +17,6 @@
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.49.1",
     "date-fns": "^4.4.0",
-    "gray-matter": "^4.0.3",
     "isomorphic-dompurify": "^3.7.1",
     "marked": "^17.0.5",
     "next": "^16.4.0",
@@ -25,7 +24,8 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "resend": "^4.0.0",
-    "stripe": "^16.0.0"
+    "stripe": "^16.0.0",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -1,0 +1,43 @@
+{
+  "status": "proposal_not_for_checkout",
+  "product": "intellectual_formation",
+  "currency": "BRL",
+  "horizon_months": [
+    18,
+    36
+  ],
+  "founder": {
+    "monthly_cents": 50000,
+    "seats": 6,
+    "commitment_months": 6,
+    "price_protected_for_contracted_period": true
+  },
+  "regular_proposal": {
+    "monthly_cents": 79000,
+    "seats_min": 12,
+    "seats_max": 16,
+    "commitment_months": 12
+  },
+  "tutoring_proposal": {
+    "monthly_cents": 149000,
+    "commitment_months": 12,
+    "seats": null,
+    "opening_condition": "Pilot validation, proven demand and teacher capacity"
+  },
+  "annual_upfront_proposal": {
+    "total_cents": 840000,
+    "commitment_months": 12
+  },
+  "renewal": "New disclosed annual proposal; no silent price change",
+  "open_decisions": [
+    "Meeting frequency and duration",
+    "Included individual feedback workload",
+    "Tutoring hours and response times",
+    "Separate course subscription, review and mentoring session prices"
+  ],
+  "not_applicable_to": [
+    "course_subscription",
+    "standalone_review",
+    "mentoring_session"
+  ]
+}

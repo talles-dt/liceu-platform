@@ -17,7 +17,7 @@ export async function identity() {
 }
 export function fail(message:string,status=400){return NextResponse.json({error:message},{status,headers:{"Cache-Control":"private, no-store"}});}
 export function databaseFailure(error:{code?:string}) {
- const status=error.code==="42501"?403:error.code==="P0002"?404:["40001","23505"].includes(error.code??"")?409:["22023","22P02","23514","23503","23502"].includes(error.code??"")?400:503;
+ const status=error.code==="42501"?403:error.code==="P0002"?404:["PT409","40001","23505"].includes(error.code??"")?409:["22023","22P02","23514","23503","23502"].includes(error.code??"")?400:503;
  return fail(status===409?"O registro mudou ou já foi enviado. Atualize antes de tentar novamente.":status===403?"Você não tem acesso a esta ação.":status===400?"Confira os campos e os vínculos com a coorte.":"Não foi possível concluir. Seus dados não foram confirmados como salvos.",status);
 }
 export async function command(actor:string,cohort:string,action:string,body:Record<string,unknown>){

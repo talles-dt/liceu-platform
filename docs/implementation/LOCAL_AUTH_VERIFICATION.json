@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-10T21:39:50.199Z",
+  "environment": "local real Supabase Auth/PostgREST plus Next HTTP",
+  "remote": false,
+  "checks": [
+    "profile trigger ignores metadata role",
+    "verified sign-in",
+    "role promotion denied",
+    "answers protected",
+    "entitlement gates REST",
+    "forged admin cookie denied",
+    "server graded quiz",
+    "concurrent drafts conflict",
+    "submission retry idempotent",
+    "other user evidence denied",
+    "teacher assignment enforced",
+    "paid review delivered after subscription expiry",
+    "own history retained",
+    "suspended account denied",
+    "complete JSON export",
+    "private storage public and other user denied",
+    "owner signed download",
+    "unpaid cancellation idempotent and owner scoped"
+  ],
+  "limits": [
+    "No real Stripe or Cal delivery",
+    "No production data",
+    "No real money"
+  ]
+}

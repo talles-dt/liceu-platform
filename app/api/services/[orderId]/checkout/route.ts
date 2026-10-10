@@ -18,5 +18,8 @@ export async function POST(request:Request,{params}:{params:Promise<{orderId:str
   success_url:`${origin}/servicos?payment=success`,cancel_url:`${origin}/servicos`,
   custom_text:{submit:{message:`${order.scope.slice(0,800)}. ${order.kind==="review"?"Prazo":"Sessão prevista"}: ${new Date(order.due_at).toLocaleDateString("pt-BR")}.`}},
  },{idempotencyKey:`liceu-service-${order.id}`});
+ if(!session.url)return NextResponse.json({error:"Checkout indisponível"},{status:503});
+ const saved=await db.from("liceu_service_orders").update({stripe_session_id:session.id}).eq("id",order.id).eq("status","offered").select("id");
+ if(saved.error||!saved.data?.length){await stripe.checkout.sessions.expire(session.id);return NextResponse.json({error:"Oferta alterada. Atualize a página."},{status:409});}
  return NextResponse.json({url:session.url});
 }

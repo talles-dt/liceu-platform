@@ -120,7 +120,7 @@ begin
  if not exists(select 1 from public.users where id=p_actor and suspended_at is null) then raise exception 'Forbidden' using errcode='42501';end if;
  select * into m from public.formation_memberships where cohort_id=p_cohort and user_id=p_actor and status='active';
  if not found then raise exception 'Forbidden' using errcode='42501';end if;
- if c.status='closed' then raise exception 'Cohort closed' using errcode='40001';end if;
+ if c.status='closed' then raise exception 'Cohort closed' using errcode='PT409';end if;
  select * into rel from public.formation_releases where id=c.release_id; manifest=rel.manifest;
  if p_action in('save_draft','submit') then
   select * into a from public.formation_activities where id=(p_body->>'activity_id')::uuid and cohort_id=p_cohort;
@@ -128,12 +128,12 @@ begin
   if p_action='submit' then
    select * into s from public.formation_submissions where request_id=(p_body->>'request_id')::uuid;
    if found then
-    if s.user_id<>p_actor or s.activity_id<>a.id then raise exception 'Request conflict' using errcode='40001';end if;
+    if s.user_id<>p_actor or s.activity_id<>a.id then raise exception 'Request conflict' using errcode='PT409';end if;
     return jsonb_build_object('id',s.id,'revision',s.revision);
    end if;
   end if;
   select * into d from public.formation_drafts where activity_id=a.id and user_id=p_actor;
-  if (p_body->>'revision') is null or coalesce(d.revision,0)<>(p_body->>'revision')::int then raise exception 'Draft changed; reload' using errcode='40001';end if;
+  if (p_body->>'revision') is null or coalesce(d.revision,0)<>(p_body->>'revision')::int then raise exception 'Draft changed; reload' using errcode='PT409';end if;
   if length(p_body->>'body')>50000 or p_body->>'body' is null then raise exception 'Invalid body' using errcode='22023';end if;
   v=coalesce(d.revision,0)+1;
   insert into public.formation_drafts(activity_id,cohort_id,user_id,body,revision) values(a.id,p_cohort,p_actor,p_body->>'body',v)
@@ -150,7 +150,7 @@ begin
   else
    update public.formation_codex set title=p_body->>'title',body=p_body->>'body',source=coalesce(p_body->>'source',''),revision=revision+1,updated_at=now()
    where id=(p_body->>'id')::uuid and cohort_id=p_cohort and user_id=p_actor and revision=(p_body->>'revision')::int returning id,revision into result_id,v;
-   if not found then raise exception 'Note changed or unavailable' using errcode='40001';end if;
+   if not found then raise exception 'Note changed or unavailable' using errcode='PT409';end if;
   end if;
  elsif p_action='assess' then
   select * into r from public.formation_reviews where id=(p_body->>'review_id')::uuid and cohort_id=p_cohort and reviewer_id=p_actor;
@@ -215,9 +215,9 @@ declare cap int;n int;begin
  if not exists(select 1 from public.users where id=p_admin and role='admin' and suspended_at is null) then raise exception 'Admin required' using errcode='42501';end if;
  select capacity into cap from public.formation_cohorts where id=p_cohort for update;
  if not found then raise exception 'Not found' using errcode='P0002';end if;
- if exists(select 1 from public.formation_memberships where cohort_id=p_cohort and user_id=p_user) then raise exception 'Already enrolled' using errcode='40001';end if;
+ if exists(select 1 from public.formation_memberships where cohort_id=p_cohort and user_id=p_user) then raise exception 'Already enrolled' using errcode='PT409';end if;
  select count(*) into n from public.formation_memberships where cohort_id=p_cohort and role='participant' and status in('active','paused');
- if p_role='participant' and n>=cap then raise exception 'Cohort full' using errcode='40001';end if;
+ if p_role='participant' and n>=cap then raise exception 'Cohort full' using errcode='PT409';end if;
  insert into public.formation_memberships(cohort_id,user_id,role) values(p_cohort,p_user,p_role);
  insert into public.formation_events(cohort_id,actor_id,event_type,entity_id) values(p_cohort,p_admin,'enrolled',p_user);
 end$$;
@@ -233,7 +233,7 @@ declare prog uuid;rel public.formation_releases;begin
  select id into prog from public.formation_programs where slug=p_manifest->>'slug' for update;
  select * into rel from public.formation_releases where program_id=prog and version=p_manifest->>'version';
  if found then
- if rel.hash<>p_hash then raise exception 'Version content changed' using errcode='40001';end if;return rel.id;end if;
+ if rel.hash<>p_hash then raise exception 'Version content changed' using errcode='PT409';end if;return rel.id;end if;
  insert into public.formation_releases(program_id,version,hash,manifest,source_commit,approved_by) values(prog,p_manifest->>'version',p_hash,p_manifest,p_commit,p_admin) returning * into rel;
  return rel.id;
 end$$;

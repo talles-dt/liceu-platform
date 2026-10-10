@@ -7,6 +7,8 @@ import {
   sendDiagnosisEntrevistaEmail,
 } from "../../mocks/email";
 
+vi.mock("@/lib/publicRequests",()=>({validEmail:(v:unknown)=>typeof v==="string"&&v.includes("@"),authorizeEmail:async()=>null,publicLimit:async()=>null}));
+
 beforeEach(() => {
   vi.clearAllMocks();
   vi.resetModules();

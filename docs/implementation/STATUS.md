@@ -9,11 +9,11 @@ A cópia de trabalho de 8 de outubro permanece preservada. `INVENTORY.json` regi
 | Pacote | Estado | Evidência e limite |
 |---|---|---|
 | U00 — inventário/consolidação | local_candidate | Checkout anterior preservado; inventário com hashes; roadmaps incorporados. |
-| U01 — segurança | local_candidate | Identidade verificada, concessões/RLS e gabaritos protegidos na migração; testes SQL sintéticos. Persistem revisão de endpoints públicos e alertas transitivos de dependências. |
-| U02 — dados/progresso | local_candidate | Baseline restaurado e migração aditiva aplicada em PostgreSQL local; conclusão e gate de 70% testados. Não equivale a restore completo do Supabase/Storage/Auth em homologação. |
-| U03 — assinatura | local_candidate | Checkout, trial, portal e processamento de eventos incorporados; venda desligada por configuração. Valores e homologação Stripe pendentes. |
-| U04 — experiência do curso | local_candidate | Leitura integral, vídeo, quiz de módulo, produções e histórico. Práticas antigas redirecionadas às produções `liceu_*`; APIs incompatíveis respondem 410 e preservam histórico. Faltam testes autenticados de ponta a ponta. |
-| U05 — serviços | local_candidate | Solicitação, oferta e entrega incorporadas; confirmação/cancelamento legado desativados. Preço, duração, capacidade e conciliação real pendentes. |
+| U01 — segurança | local_candidate | Identidade verificada, concessões/RLS e gabaritos protegidos na migração; testes SQL sintéticos. Endpoints públicos usam limites persistentes e envio autenticado. Suspensão é conferida no servidor; restam logs administrativos e 5 alertas transitivos de desenvolvimento. |
+| U02 — dados/progresso | local_candidate | Baseline e três migrações testados em PostgreSQL local; rascunhos concorrentes, versões imutáveis e perfil Auth verificados. Exportação própria ampliada. Exclusão resumível e reconciliação legada ainda pendentes. |
+| U03 — assinatura | local_candidate | Checkout, trial, portal e processamento de eventos incorporados; venda desligada por configuração. Lease por assinatura, pagamento de serviço transacional e testes de replay/falhas adicionados. Valores do curso, recuperação operacional e homologação Stripe pendentes. |
+| U04 — experiência do curso | local_candidate | Leitura integral, vídeo, quiz de módulo, produções e histórico. Práticas antigas redirecionadas às produções `liceu_*`; APIs incompatíveis respondem 410 e preservam histórico. Auth/PostgREST e APIs Next testados com identidades locais reais. Falta validação visual autenticada completa, incluindo navegação/recarga. |
+| U05 — serviços | local_candidate | Solicitação, oferta e entrega incorporadas; confirmação/cancelamento legado desativados. Atribuição ao docente, rubrica, cancelamento e reembolso implementados. Preço, duração, capacidade, ordenação Cal e conciliação real pendentes. |
 | U06 — Trivium editorial | local_candidate | Seis ciclos estruturados, objetivos dos três pilares, rubrica, baseline e banca. Arquivo **draft**; bibliografia dos ciclos 2–6 e aprovação docente pendentes. Publicação é recusada. |
 | U07 — coorte/atividades | local_candidate | Releases imutáveis, seis vagas, agenda, papéis/presença e performances coletivas; SQL/API/UX implementados. Falta homologar calendário, convites e gestão do ciclo de vida da coorte. |
 | U08 — evidência/devolutivas | local_candidate | Rascunhos com revisão, entregas imutáveis/idempotentes, Codex privado, peer feedback, autoavaliação e banca; anexos PDF/texto privados e exportação textual. Falta testar Storage real, implementar consentimento/retificação/exclusão e completar acessibilidade. |
@@ -34,10 +34,10 @@ A cópia de trabalho de 8 de outubro permanece preservada. `INVENTORY.json` regi
 
 ## Verificação realizada
 
-- Testes unitários/API: 37 casos passaram na execução local; cobrem validação editorial, origem, identidade, conflitos, matrícula administrativa e publicação recusada do rascunho, além dos fluxos incorporados.
-- PostgreSQL 16 local, dados sintéticos: baseline + duas migrações aplicam; autoelevação negada, RPC anônimo negado, gabarito negado, entitlement/70%/idempotência e ordenação de eventos testados.
+- Testes unitários/API: 55 casos passaram na execução local; cobrem validação editorial, origem, identidade, conflitos, matrícula administrativa e publicação recusada do rascunho, além dos fluxos incorporados.
+- PostgreSQL 16 local, dados sintéticos: baseline + três migrações aplicam; autoelevação negada, RPC anônimo negado, gabarito negado, entitlement/70%/idempotência e ordenação de eventos testados.
 - Formação no banco: sétima vaga negada, isolamento de coortes, privacidade docente/par, conflito de rascunho, retry de entrega, release/parecer imutáveis, critérios dos três pilares, performance coletiva e arquivo próprio após desligamento testados.
-- Compilação de produção e TypeScript passaram durante o desenvolvimento. Build final, TypeScript e 37 testes passaram no código de `dadc2e6`; lint: zero erros e 18 avisos. Dependências: 9 alertas transitivos restantes (5 altos no encadeamento do lint e 4 moderados no parser de frontmatter); o audit não está limpo.
+- Compilação de produção e TypeScript passaram durante o desenvolvimento. Build final, TypeScript e 37 testes passaram no código de `dadc2e6`; lint: zero erros e 18 avisos. Atualização U00–U05: parser frontmatter substituído por YAML limitado, sem aliases/engines executáveis. Audit atual: 5 alertas altos no encadeamento do lint; zero moderados/críticos. O audit não está limpo.
 - Proposta pública `/formacoes/curriculo` aberta no navegador local, com seis ciclos e diagnóstico expansível. Isso **não** valida a experiência autenticada com contas Supabase reais.
 - Consulta remota apenas de metadados: zero diferenças nas colunas comparadas com o snapshot de 8 de outubro. Não confundir com equivalência integral de funções, policies, buckets e configuração operacional; `SCHEMA_CHECK.json` registra os metadados da consulta.
 
@@ -48,9 +48,9 @@ A cópia de trabalho de 8 de outubro permanece preservada. `INVENTORY.json` regi
 3. Fechar biblioteca e revisão docente. `0.1.0.json` contém um texto original de oficina em rascunho; não representa bibliografia clássica aprovada nem programa pronto para matrícula.
 4. Definir início/fim da coorte, convites e operação dos seis meses. O schema mantém datas e estados, mas a gestão completa de ingresso, pausa e encerramento ainda precisa de interface e aceites.
 5. Homologar upload/download privado, falhas intermediárias e reconciliação de anexos pendentes. Limite inicial: PDF/texto, 10 MB. Exportação do portfólio inclui textos e metadados, não um ZIP de binários.
-6. Implementar exclusão/retificação resumível de conta, evidências, arquivos e sessões com a política de retenção aprovada. O endpoint legado destrutivo agora recusa com 503, sem apagar parcialmente. A exportação geral e a da formação ainda precisam convergir.
-7. Resolver editores administrativos ainda ligados aos quizzes antigos e conferir o conteúdo publicado de todos os módulos.
-8. Rever abuso/persistência dos endpoints públicos de email, diagnóstico e newsletter, logs administrativos e reengajamento legado. Não habilitar rotinas externas antes desses aceites.
+6. Implementar exclusão/retificação resumível de conta, evidências, arquivos e sessões com a política de retenção aprovada. O endpoint legado destrutivo agora recusa com 503, sem apagar parcialmente. A exportação geral agora inclui evidências próprias da formação, releases e metadados dos arquivos; binários continuam separados.
+7. Editor administrativo de quiz reconciliado com o modelo canônico; resta conferir todo o conteúdo publicado e demais operações administrativas.
+8. Email, diagnóstico e newsletter agora têm limites persistentes, validação e falha explícita. Restam auditoria administrativa transacional e reengajamento legado; não habilitar rotinas externas antes desses aceites.
 9. Homologar Stripe/Cal em modo de teste, replay, falhas de persistência, cancelamentos e reembolsos; informar valores da assinatura geral, revisão e mentoria e duração da sessão. `STRIPE_SALES_ENABLED=false` permanece o padrão.
 10. Tratar alertas transitivos restantes de dependências com revisão de compatibilidade; não fazer downgrade automático do Next/ESLint apenas para silenciar o audit.
 
@@ -67,3 +67,13 @@ A cópia de trabalho de 8 de outubro permanece preservada. `INVENTORY.json` regi
 `npm ci`, `npm test`, `npm run formation:validate`, `npm run lint`, `npm run typecheck`, `npm run build`.
 
 Para banco, criar um container descartável PostgreSQL 16 chamado `liceu-implementation-db` (sem portas públicas) e executar `python scripts/verify-database.py` seguido de `python scripts/verify-formation.py`. O primeiro script recria **somente** o banco sintético `liceu_verify` nesse container. Nunca apontar esses scripts para banco remoto. O segundo script marca apenas uma fixture em memória como aprovada para testar persistência; não aprova o manifesto editorial do repositório.
+
+## Incremento U00–U05 — evidência e limites
+
+A solicitação de executar U00–U05 iniciou este incremento; **não equivale a aceite completo dos seis pacotes**. Consulte U00_U05_ACCEPTANCE.md para a separação entre implementado, verificado e pendente.
+
+A proposta comercial da Formação Intelectual está em content/offers/formation-proposal.json: seis fundadores, R$500/mês por seis meses; regular R$790, tutoria R$1.490 e anual R$8.400 permanecem propostas. Horizonte de 18–36 meses com compromissos anuais renováveis após o piloto. Não preenche preços da assinatura geral ou serviços avulsos. Frequência dos encontros, carga de correção e limites individuais continuam decisões abertas.
+
+Verificação adicional: python scripts/verify-u00-u05.py depois dos dois scripts SQL acima; node scripts/verify-local-supabase.mjs usa exclusivamente Supabase local e aplicação local na porta 3110, com contas e evidências sintéticas. Não aponta para produção e não movimenta dinheiro. O relatório sem credenciais está em LOCAL_AUTH_VERIFICATION.json.
+
+Validação final deste incremento: 55 testes passaram; build de produção passou; lint sem erros e com 18 avisos. Restore local completo seguido de teste Auth/PostgREST/Storage passou, incluindo download privado e cancelamento sem pagamento. Verificação visual e provedores externos continuam pendentes.

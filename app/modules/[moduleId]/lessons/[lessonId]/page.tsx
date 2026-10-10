@@ -49,7 +49,7 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
   const next = idx < lessons.length - 1 ? lessons[idx + 1] : null;
 
   const { data: exercises } = await supabase.from("liceu_exercises").select("id,title,prompt_markdown").eq("lesson_id",lessonId).eq("is_published",true);
-  const { data: drafts } = await supabase.from("liceu_work_drafts").select("exercise_id,content").eq("user_id",user.id);
+  const { data: drafts } = await supabase.from("liceu_work_drafts").select("exercise_id,content,revision").eq("user_id",user.id);
   const dimLabel: Record<string, string> = { inventio: "Inventio", dispositio: "Dispositio", elocutio: "Elocutio", memoria: "Memória", pronuntiatio: "Pronuntiatio" };
 
   return (
@@ -87,7 +87,7 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
             </div>
           )}
 
-          {(exercises ?? []).map(exercise => <section key={exercise.id} className="space-y-4 border-t pt-6"><h2 className="text-2xl">{exercise.title}</h2><p className="whitespace-pre-wrap">{exercise.prompt_markdown}</p><WorkEditor exerciseId={exercise.id} initialContent={drafts?.find(d => d.exercise_id === exercise.id)?.content ?? ""}/></section>)}
+          {(exercises ?? []).map(exercise => <section key={exercise.id} className="space-y-4 border-t pt-6"><h2 className="text-2xl">{exercise.title}</h2><p className="whitespace-pre-wrap">{exercise.prompt_markdown}</p><WorkEditor initialRevision={drafts?.find(d=>d.exercise_id===exercise.id)?.revision??0} exerciseId={exercise.id} initialContent={drafts?.find(d => d.exercise_id === exercise.id)?.content ?? ""}/></section>)}
           <section className="border-t border-[var(--liceu-stone)]/70 pt-6">
             <CompleteLessonButton moduleId={moduleId} lessonId={lessonId} initialCompleted={completed} />
           </section>

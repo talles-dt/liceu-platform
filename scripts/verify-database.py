@@ -2,16 +2,17 @@
 from pathlib import Path
 import subprocess,time
 NAME='liceu-implementation-db'
+for _ in range(20):
+ p=subprocess.run(['docker','exec',NAME,'pg_isready','-U','postgres'],capture_output=True)
+ if p.returncode==0:break
+ time.sleep(.5)
+
 subprocess.run(['docker','exec',NAME,'dropdb','-U','postgres','--if-exists','liceu_verify'],check=True,capture_output=True)
 subprocess.run(['docker','exec',NAME,'createdb','-U','postgres','liceu_verify'],check=True,capture_output=True)
 def sql(value,ok=True):
  p=subprocess.run(['docker','exec','-i',NAME,'psql','-U','postgres','-d','liceu_verify','-v','ON_ERROR_STOP=1'],input=value,text=True,capture_output=True)
  if (p.returncode==0)!=ok: raise RuntimeError(p.stderr[-2500:]+p.stdout[-1000:])
  return p.stdout
-for _ in range(20):
- p=subprocess.run(['docker','exec',NAME,'pg_isready','-U','postgres'],capture_output=True)
- if p.returncode==0:break
- time.sleep(.5)
 sql('''do $$begin if not exists(select 1 from pg_roles where rolname='anon') then create role anon;create role authenticated;create role service_role bypassrls;end if;end$$;
 create schema extensions;create extension pgcrypto with schema extensions;
 create schema storage;create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);

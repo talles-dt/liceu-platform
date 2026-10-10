@@ -29,5 +29,7 @@ export async function createSupabaseServerClient(): Promise<SafeClient> {
 export async function getCurrentUser() {
   const supabase = await createSupabaseServerClient();
   const { data: { user }, error } = await supabase.auth.getUser();
-  return error ? null : user;
+  if(error||!user)return null;
+  const {data:profile,error:profileError}=await supabase.from("users").select("suspended_at").eq("id",user.id).maybeSingle();
+  return profileError||!profile||profile.suspended_at?null:user;
 }

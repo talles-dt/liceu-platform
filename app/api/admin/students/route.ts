@@ -82,7 +82,7 @@ export async function POST(req: Request) {
       });
 
     if (dbError) {
-      console.error("[admin/students] db upsert failed", dbError);
+      return NextResponse.json({error:"A conta de autenticação foi criada, mas o perfil precisa de reconciliação. Não crie outra conta.",userId,created:false},{status:503});
     }
 
     // Only return password if it was auto-generated (not provided by admin)
