@@ -20,5 +20,17 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm test
+      - run: npm run formation:validate
       - run: npm run typecheck
       - run: npm run build
+
+  database:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Synthetic PostgreSQL only
+        run: docker run -d --name liceu-implementation-db -e POSTGRES_PASSWORD=synthetic-ci-only postgres:16-alpine
+      - name: Wait for database
+        run: for attempt in $(seq 1 30); do docker exec liceu-implementation-db pg_isready -U postgres && exit 0; sleep 1; done; exit 1
+      - run: python scripts/verify-database.py
+      - run: python scripts/verify-formation.py

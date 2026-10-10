@@ -14,6 +14,7 @@ for _ in range(20):
  time.sleep(.5)
 sql('''do $$begin if not exists(select 1 from pg_roles where rolname='anon') then create role anon;create role authenticated;create role service_role bypassrls;end if;end$$;
 create schema extensions;create extension pgcrypto with schema extensions;
+create schema storage;create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);
 create schema auth;create table auth.users(id uuid primary key,email text,raw_user_meta_data jsonb);
 create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
 create function auth.role() returns text language sql stable as $$select current_user::text$$;
@@ -40,4 +41,6 @@ sql(f"select liceu_apply_subscription('evt_1','test',1,'sub_test','{U}','cus_tes
 assert 'trialing' in sql("select status from liceu_subscriptions where subscription_id='sub_test';")
 sql("do $$begin if (select cardinality(completed_lessons) from liceu_learner_progression limit 1)<>1 then raise exception 'duplicate completion';end if;end$$;")
 print('PASS: entitlement required, completion idempotent, 70% gate enforced, older event cannot regress subscription')
+for migration in sorted(Path('supabase/migrations').glob('*formation_trivium.sql')): sql(migration.read_text())
+print('Formation migration applied locally')
 print('Database checks complete (local only)')

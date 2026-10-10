@@ -1,0 +1,22 @@
+import {beforeEach,describe,expect,it,vi} from "vitest";
+const mock=vi.hoisted(()=>({identity:vi.fn(),command:vi.fn(),snapshot:vi.fn(),rpc:vi.fn()}));
+vi.mock("@/lib/formation/server",async importOriginal=>({...await importOriginal<typeof import("@/lib/formation/server")>(),identity:mock.identity,command:mock.command,cohortSnapshot:mock.snapshot}));
+vi.mock("@/lib/supabaseAdmin",()=>({createSupabaseAdminClient:()=>({rpc:mock.rpc})}));
+import {POST,GET} from "@/app/api/formations/[cohortId]/route";
+import {POST as publish} from "@/app/api/formations/route";
+import draft from "@/content/formations/trivium/releases/0.1.0.json";
+const id="11111111-1111-4111-8111-111111111111";
+const ctx={params:Promise.resolve({cohortId:id})};
+const req=(body:unknown,origin="http://localhost")=>new Request(`http://localhost/api/formations/${id}`,{method:"POST",headers:{origin,"content-type":"application/json"},body:JSON.stringify(body)});
+beforeEach(()=>{vi.clearAllMocks();vi.stubEnv("NEXT_PUBLIC_SITE_URL","http://localhost");mock.identity.mockResolvedValue({user:{id},role:"student"});mock.command.mockResolvedValue({data:{id,revision:1}});});
+describe("formation API authorization and editorial boundary",()=>{
+ it("rejects cross-origin mutations before identity or database",async()=>{expect((await POST(req({},"https://foreign.invalid"),ctx)).status).toBe(403);expect(mock.identity).not.toHaveBeenCalled();expect(mock.command).not.toHaveBeenCalled();});
+ it("rejects absent identity",async()=>{mock.identity.mockResolvedValue(null);expect((await POST(req({}),ctx)).status).toBe(401);});
+ it("requires draft revision instead of silently overwriting another tab",async()=>{expect((await POST(req({action:"save_draft",body:{activity_id:id,body:"text"}}),ctx)).status).toBe(400);expect(mock.command).not.toHaveBeenCalled();});
+ it("ignores client actor and supplies verified actor to command",async()=>{await POST(req({actor:"attacker",action:"save_draft",body:{activity_id:id,body:"text",revision:0}}),ctx);expect(mock.command).toHaveBeenCalledWith(id,id,"save_draft",{activity_id:id,body:"text",revision:0});});
+ it("returns conflict rather than reporting an outdated write saved",async()=>{mock.command.mockResolvedValue({error:{code:"40001"}});expect((await POST(req({action:"submit",body:{activity_id:id,body:"text",revision:0,request_id:id}}),ctx)).status).toBe(409);});
+ it("cannot enroll oneself from a participant account",async()=>{expect((await POST(req({action:"enroll",body:{user_id:id,role:"teacher"}}),ctx)).status).toBe(403);expect(mock.rpc).not.toHaveBeenCalled();});
+ it("does not expose a cohort denied by RLS",async()=>{mock.snapshot.mockResolvedValue(null);expect((await GET(new Request('http://localhost'),ctx)).status).toBe(404);});
+ it("does not publish the draft curriculum even for an admin",async()=>{mock.identity.mockResolvedValue({user:{id},role:"admin"});expect((await publish(req({action:"publish",manifest:draft,source_commit:"a".repeat(40)}))).status).toBe(400);expect(mock.rpc).not.toHaveBeenCalled();});
+ it("handles JSON null without throwing",async()=>{mock.identity.mockResolvedValue({user:{id},role:"admin"});expect((await publish(req(null))).status).toBe(400);});
+});

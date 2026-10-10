@@ -14,6 +14,7 @@ function Sidebar({
   onNavigate: () => void;
 }) {
   const navItems = [
+    { id: "formations", label: "Formações", icon: "◇" },
     { id: "overview", label: "Visão geral", icon: "◈" },
     { id: "courses", label: "Módulos", icon: "◉" },
     { id: "drills", label: "Exercícios", icon: "◆" },
@@ -22,6 +23,7 @@ function Sidebar({
   ];
 
   const navHref = (id: string) => {
+    if (id === "formations") return "/formacoes";
     if (id === "overview") return "/dashboard";
     if (id === "courses") return "/dashboard";
     if (id === "drills")
