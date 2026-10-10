@@ -1,6 +1,7 @@
-import { Resend } from "resend";
+import { escapeHtml } from "@/lib/routeSecurity";
+import { getResendClient } from "@/lib/resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 const FROM_EMAIL = process.env.FROM_EMAIL ?? "Liceu Underground <contato@oliceu.com>";
 
@@ -28,7 +29,7 @@ export async function sendAssignmentFeedbackEmail(
       ? "Sua produção precisa de ajustes"
       : "Sua produção foi devolvida";
 
-  await resend.emails.send({
+  await getResendClient().emails.send({
     from: FROM_EMAIL,
     to: studentEmail,
     subject,
@@ -38,9 +39,9 @@ export async function sendAssignmentFeedbackEmail(
         <p style="font-size: 14px; color: #89938c;">Feedback de Produção</p>
 
         <div style="margin: 24px 0; padding: 20px; background: #1c1b1b; border-left: 4px solid ${status === "approved" ? "#004D32" : status === "revision" ? "#B5A642" : "#D32F2F"};">
-          <p style="font-size: 14px; margin: 0 0 8px 0;">Olá, <strong>${studentName}</strong>.</p>
+          <p style="font-size: 14px; margin: 0 0 8px 0;">Olá, <strong>${escapeHtml(studentName)}</strong>.</p>
           <p style="font-size: 16px; margin: 0;">
-            Sua produção no módulo <strong>${moduleName}</strong> foi revisada.
+            Sua produção no módulo <strong>${escapeHtml(moduleName)}</strong> foi revisada.
           </p>
           <p style="font-size: 18px; margin: 16px 0 0 0; font-weight: bold; color: ${status === "approved" ? "#93d5b0" : status === "revision" ? "#d8c860" : "#D32F2F"};">
             Status: ${statusLabels[status]}
@@ -50,7 +51,7 @@ export async function sendAssignmentFeedbackEmail(
         ${reviewerNotes ? `
           <div style="margin: 24px 0; padding: 20px; background: #131313; border: 1px solid #404943;">
             <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #89938c; margin: 0 0 8px 0;">Anotações do Revisor</p>
-            <p style="font-size: 14px; line-height: 1.8; margin: 0; white-space: pre-wrap;">${reviewerNotes}</p>
+            <p style="font-size: 14px; line-height: 1.8; margin: 0; white-space: pre-wrap;">${escapeHtml(reviewerNotes)}</p>
           </div>
         ` : `
           <p style="font-size: 14px; color: #89938c;">Nenhuma anotação adicional foi deixada.</p>

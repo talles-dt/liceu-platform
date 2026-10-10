@@ -45,7 +45,7 @@ export async function GET(request: Request) {
     
     // Get access grant counts for each user
     const userIds = data?.map(u => u.id) || [];
-    let grantsMap = new Map<string, number>();
+    const grantsMap = new Map<string, number>();
     if (userIds.length > 0) {
       const { data: grants } = await supabase
         .from("access_grants")
@@ -89,7 +89,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { email, name, role = "student", password } = body;
     
-    if (!email) {
+    if (!["student", "teacher", "admin"].includes(role)) return NextResponse.json({ error: "Invalid role" }, { status: 400 });
+    if (typeof email !== "string" || !email) {
       return NextResponse.json({ error: "Email required" }, { status: 400 });
     }
     
@@ -129,7 +130,7 @@ export async function POST(request: Request) {
     // Create profile in public.users
     const { data: profile, error: profileError } = await supabase
       .from("users")
-      .insert({
+      .upsert({
         id: authUser.user.id,
         name: name || emailLower.split("@")[0],
         email: emailLower,

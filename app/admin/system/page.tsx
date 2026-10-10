@@ -16,7 +16,7 @@ export default async function AdminSystemPage() {
     (progress as unknown as { user_id: string; completed?: boolean | null; started_at?: string | null; completed_at?: string | null; updated_at?: string | null }[]) ?? [];
 
   const totalUsers = allUsers.length;
-  const now = Date.now();
+  const now = new Date().getTime();
   const daysAgo = (iso?: string | null) => {
     if (!iso) return 999;
     const t = new Date(iso).getTime();

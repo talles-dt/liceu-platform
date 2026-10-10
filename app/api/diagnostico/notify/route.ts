@@ -1,8 +1,8 @@
-import { Resend } from "resend";
+import { getResendClient } from "@/lib/resend";
 import { NextResponse } from "next/server";
 import { escapeHtml } from "@/lib/routeSecurity";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
     intro: `Você é ${safeArchetypeName}. O Liceu tem um caminho para você.`,
   };
 
-  await resend.emails.send({
+  await getResendClient().emails.send({
     from: "Liceu Underground <talles@oliceu.com>",
     to: normalizedEmail,
     subject: tpl.subject,

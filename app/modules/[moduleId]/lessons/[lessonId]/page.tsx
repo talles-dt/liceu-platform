@@ -1,6 +1,10 @@
+import { WorkEditor } from "@/components/WorkEditor";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
+import DOMPurify from "isomorphic-dompurify";
+import { canAccessLiceuModuleForUser } from "@/lib/progression";
+import { VideoPlayer } from "@/components/VideoPlayer";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
 import { CompleteLessonButton } from "@/components/CompleteLessonButton";
 
@@ -9,10 +13,13 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
+  if (!await canAccessLiceuModuleForUser(user.id,moduleId)) redirect("/conta");
+
   const supabase = await createSupabaseServerClient();
 
   const [{ data: lesson }, { data: mod }, { data: theory }] = await Promise.all([
-    supabase.from("liceu_lessons").select("id, title, subtitle, learning_objective, order_index, module_id, difficulty_tier, estimated_minutes, rhetorical_dimension").eq("id", lessonId).eq("module_id", moduleId).maybeSingle<{
+    supabase.from("liceu_lessons").select("id, title, subtitle, learning_objective, order_index, module_id, difficulty_tier, estimated_minutes, rhetorical_dimension, cloudflare_stream_id").eq("id", lessonId).eq("module_id", moduleId).eq("is_published", true).maybeSingle<{
+      cloudflare_stream_id: string | null;
       id: string;
       title: string;
       subtitle: string | null;
@@ -24,13 +31,13 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
       rhetorical_dimension: string | null;
     }>(),
     supabase.from("liceu_modules").select("id, title, order_index").eq("id", moduleId).maybeSingle<{ id: string; title: string; order_index: number }>(),
-    supabase.from("liceu_theoretical_content").select("content_markdown, title").eq("lesson_id", lessonId).order("section_order").limit(1).maybeSingle<{ content_markdown?: string | null; title?: string | null }>(),
+    supabase.from("liceu_theoretical_content").select("content_markdown, title").eq("lesson_id", lessonId).order("section_order"),
   ]);
 
   if (!lesson || !mod) notFound();
 
-  const contentMd = theory?.content_markdown ?? null;
-  const contentHtml = contentMd ? await marked(contentMd, { breaks: true }) : null;
+  const contentMd = (theory ?? []).map(section => `## ${section.title ?? ""}\n\n${section.content_markdown ?? ""}`).join("\n\n");
+  const contentHtml = contentMd ? DOMPurify.sanitize(await marked(contentMd, { breaks: true }), { USE_PROFILES: { html: true } }) : null;
 
   const { data: prog } = await supabase.from("liceu_learner_progression").select("completed_lessons").eq("user_id", user.id).maybeSingle<{ completed_lessons?: string[] }>();
   const completed = ((prog?.completed_lessons ?? []) as string[]).includes(lessonId);
@@ -41,6 +48,8 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
   const prev = idx > 0 ? lessons[idx - 1] : null;
   const next = idx < lessons.length - 1 ? lessons[idx + 1] : null;
 
+  const { data: exercises } = await supabase.from("liceu_exercises").select("id,title,prompt_markdown").eq("lesson_id",lessonId).eq("is_published",true);
+  const { data: drafts } = await supabase.from("liceu_work_drafts").select("exercise_id,content").eq("user_id",user.id);
   const dimLabel: Record<string, string> = { inventio: "Inventio", dispositio: "Dispositio", elocutio: "Elocutio", memoria: "Memória", pronuntiatio: "Pronuntiatio" };
 
   return (
@@ -65,6 +74,7 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
         </header>
 
         <article className="space-y-8">
+          {lesson.cloudflare_stream_id && <VideoPlayer lessonId={lessonId} />}
           {contentHtml ? (
             <section
               className="prose prose-invert prose-lg max-w-none prose-headings:font-[var(--font-noto-serif)] prose-headings:text-[var(--liceu-text)] prose-p:text-[var(--liceu-text)]/90 prose-a:text-[var(--liceu-accent)] prose-blockquote:border-l-[var(--liceu-accent)] prose-blockquote:text-[var(--liceu-muted)] prose-strong:text-[var(--liceu-text)] prose-code:bg-[var(--liceu-surface)] prose-code:px-1 prose-code:rounded prose-pre:bg-[var(--liceu-surface-container)]"
@@ -77,8 +87,9 @@ export default async function LessonPage(props: { params: Promise<{ moduleId: st
             </div>
           )}
 
+          {(exercises ?? []).map(exercise => <section key={exercise.id} className="space-y-4 border-t pt-6"><h2 className="text-2xl">{exercise.title}</h2><p className="whitespace-pre-wrap">{exercise.prompt_markdown}</p><WorkEditor exerciseId={exercise.id} initialContent={drafts?.find(d => d.exercise_id === exercise.id)?.content ?? ""}/></section>)}
           <section className="border-t border-[var(--liceu-stone)]/70 pt-6">
-            <CompleteLessonButton moduleId={moduleId} lessonId={lessonId} />
+            <CompleteLessonButton moduleId={moduleId} lessonId={lessonId} initialCompleted={completed} />
           </section>
         </article>
 

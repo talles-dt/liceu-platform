@@ -14,7 +14,7 @@ function Sidebar({
   onNavigate: () => void;
 }) {
   const navItems = [
-    { id: "overview", label: "Overview", icon: "◈" },
+    { id: "overview", label: "Visão geral", icon: "◈" },
     { id: "courses", label: "Módulos", icon: "◉" },
     { id: "drills", label: "Exercícios", icon: "◆" },
     { id: "logs", label: "Registros", icon: "▣" },
@@ -26,8 +26,8 @@ function Sidebar({
     if (id === "courses") return "/dashboard";
     if (id === "drills")
       return firstCurrentModule ? `/modules/${firstCurrentModule.id}/flashcards` : "/dashboard";
-    if (id === "logs") return "/admin/progress";
-    if (id === "mentoring") return "/mentorship";
+    if (id === "logs") return "/me";
+    if (id === "mentoring") return "/servicos";
     return "/dashboard";
   };
 
@@ -35,7 +35,7 @@ function Sidebar({
     <aside className="flex h-screen w-64 flex-col bg-[#0E0E0E] shadow-[20px_0_50px_rgba(0,0,0,0.5)]">
       <div className="px-5 pt-6 pb-2">
         <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--liceu-secondary)]">
-          Archive
+          Liceu Underground
         </div>
       </div>
       <div className="mx-4 mb-4 flex items-center gap-3 rounded border border-[var(--liceu-stone)]/30 bg-[#201F1F]/60 px-3 py-3">
@@ -47,7 +47,7 @@ function Sidebar({
             {user.email}
           </div>
           <div className="font-mono text-[10px] text-[var(--liceu-muted)]">
-            Clearance: Active
+            Área do aluno
           </div>
         </div>
       </div>
@@ -80,13 +80,7 @@ function Sidebar({
         >
           Iniciar Exercício →
         </a>
-        <a
-          href="/api/auth/logout"
-          onClick={onNavigate}
-          className="block text-center font-mono text-[10px] uppercase tracking-widest text-[var(--liceu-muted)] hover:text-[var(--liceu-text)] transition-colors"
-        >
-          Logout
-        </a>
+        <button onClick={async () => { const r = await fetch("/api/auth/logout", { method: "POST" }); if (r.ok) window.location.assign("/login"); }} className="block w-full py-2 text-sm">Sair</button>
       </div>
     </aside>
   );
@@ -150,7 +144,7 @@ export function DashboardShell({
               {title}
             </h1>
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--liceu-muted)]">
-              The Training Grounds
+              Seu percurso
             </div>
           </div>
         </div>

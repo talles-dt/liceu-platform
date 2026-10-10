@@ -31,6 +31,7 @@ export default function FlashcardsPage() {
   const moduleId = params?.moduleId ?? "";
 
   const [state, setState] = useState<DeckState>("loading");
+  const [saveError, setSaveError] = useState("");
   const [title, setTitle] = useState("");
   const [cards, setCards] = useState<Card[]>([]);
   const [idx, setIdx] = useState(0);
@@ -57,7 +58,7 @@ export default function FlashcardsPage() {
         setIdx(0);
         setFlipped(false);
         setResults([]);
-        setState("ready");
+        setState(data.cards.length ? "ready" : "done");
       } catch {
         if (!cancelled) setState("error");
       }
@@ -74,14 +75,18 @@ export default function FlashcardsPage() {
     setGrading(true);
     const card = cards[idx];
     try {
-      await fetch(`/api/flashcards/${card.id}/review`, {
+      const response = await fetch(`/api/flashcards/${card.id}/review`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ grade: g }),
       });
+      if (!response.ok) throw new Error("Não foi possível salvar. Tente novamente.");
+      setSaveError("");
       setResults((r) => [...r, { grade: g }]);
     } catch {
-      // non-fatal — still advance
+      setSaveError("Não foi possível salvar. Tente novamente.");
+      setGrading(false);
+      return;
     }
     setGrading(false);
     if (idx + 1 >= cards.length) {

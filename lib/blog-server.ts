@@ -4,7 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 import { BlogPost } from "@/types/blog";
 
-const POSTS_DIR = path.join(process.cwd(), "posts");
+const POSTS_DIR = path.join(process.cwd(), "content", "blog");
 
 // Utility function to get all posts
 export function getAllPosts(): BlogPost[] {
@@ -33,6 +33,7 @@ export function getAllPosts(): BlogPost[] {
 
 // Get post by slug
 export function getPostBySlug(slug: string): BlogPost & { content: string } | null {
+ if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
  try {
  const filePath = path.join(POSTS_DIR, `${slug}.md`);
  

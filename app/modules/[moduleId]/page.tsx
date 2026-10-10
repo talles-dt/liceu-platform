@@ -1,3 +1,4 @@
+import { CompleteModuleButton } from "@/components/CompleteModuleButton";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer";
 import { canAccessLiceuModuleForUser } from "@/lib/progression";
@@ -35,7 +36,6 @@ type DbLessonRow = {
   is_published: boolean;
 };
 
-type DbLessonCompletionRow = { lesson_id: string; completed: boolean };
 
 type DbModuleProgressRow = {
   user_id: string;
@@ -122,17 +122,7 @@ export default async function ModulePage({ params }: Params) {
 
   if (!moduleRow) redirect("/dashboard");
 
-  // Check access - use liceu_learner_progression
-  const { data: progRow } = await supabase
-    .from("liceu_learner_progression")
-    .select("completed_lessons")
-    .eq("user_id", user.id)
-    .maybeSingle<DbModuleProgressRow>();
-
-  // Module is accessible if: it's the first module, or user has completed previous module
-  const isFirstModule = moduleRow.order_index <= 1;
-  const hasAccess = isFirstModule || (progRow?.completed_lessons?.length ?? 0) > 0;
-  if (!hasAccess) redirect("/dashboard");
+  if (!await canAccessLiceuModuleForUser(user.id,moduleId)) redirect("/conta");
 
   // Parallelise all independent DB reads
   const [
@@ -168,11 +158,10 @@ export default async function ModulePage({ params }: Params) {
 
   const allLessonsCompleted = typedLessons.length > 0 && typedLessons.every((l) => completedLessonIds.has(l.id));
 
-  // For Liceu, we don't have quiz/assignment in the same way
-  // Use progress data from liceu_learner_progression
-  const quizPassed = allLessonsCompleted; // Simplified - can be enhanced with actual quiz data
-  const assignmentApproved = (progressRow?.completed_exercises?.length ?? 0) > 0;
-
+  const { data: attempts } = await supabase.from("liceu_quiz_attempts").select("score").eq("user_id",user.id).eq("module_id",moduleId).gte("score",70).limit(1);
+  const quizPassed = !!attempts?.length;
+  const { data: completions } = await supabase.from("liceu_module_completions").select("module_id").eq("user_id",user.id);
+  const completedModules = new Set((completions ?? []).map(c => c.module_id));
   const allModules = (siblingModules ?? []) as DbModuleRow[];
   const currentIndex = allModules.findIndex((m) => m.id === moduleRow.id);
   const prevModule = currentIndex > 0 ? allModules[currentIndex - 1] : null;
@@ -352,14 +341,7 @@ export default async function ModulePage({ params }: Params) {
               <div className="font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">
                 Ao concluir o módulo, a próxima unidade e a sessão de mentoria são liberadas.
               </div>
-              <form action={`/api/modules/${moduleRow.id}/complete`} method="post">
-                <button
-                  type="submit"
-                  className="font-[var(--font-space-grotesk)] text-[11px] tracking-[0.22em] uppercase border border-[var(--liceu-secondary)] text-[var(--liceu-secondary)] px-6 py-2 hover:bg-[var(--liceu-secondary)]/10 transition-colors"
-                >
-                  Concluir módulo
-                </button>
-              </form>
+              <CompleteModuleButton moduleId={moduleRow.id} />
             </section>
           </article>
         </div>
@@ -370,7 +352,7 @@ export default async function ModulePage({ params }: Params) {
             {/* Sidebar Header */}
             <div className="text-[var(--liceu-secondary)] border-b border-[var(--liceu-secondary)]/20 pb-4 mb-8">
               <h3 className="font-[var(--font-space-grotesk)] text-[11px] tracking-[0.3em] uppercase">
-                MASTER'S_NOTES.TXT
+                Notas de estudo
               </h3>
             </div>
 
@@ -392,7 +374,7 @@ export default async function ModulePage({ params }: Params) {
                 label="PROTOCOL_03"
                 icon="&#x2712;"
                 title="Produção Escrita"
-                description="Submeta seu exercício para revisão humana. Aguarde aprovação."
+                description="Pratique e guarde sua produção. Revisão humana é opcional e contratada separadamente."
               />
             </div>
 
@@ -415,7 +397,7 @@ export default async function ModulePage({ params }: Params) {
                 </div>
                 {[
                   { label: "Lições", ok: allLessonsCompleted },
-                  { label: "Exercício aprovado", ok: assignmentApproved },
+                  { label: "Quiz ≥ 70%", ok: quizPassed },
                 ].map(({ label, ok }) => (
                   <div key={label} className="flex items-center justify-between text-xs">
                     <span className="font-[var(--font-work-sans)] text-xs text-[var(--liceu-muted)]">

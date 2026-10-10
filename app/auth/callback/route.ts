@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import { syncUserProfile } from "@/lib/users";
-import { isAdminEmail } from "@/lib/users";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.oliceu.com";
 
@@ -21,7 +20,7 @@ export async function GET(request: Request) {
 
   // Sync user to public.users table (creates if missing, auto-sets admin role for env-listed admins)
   try {
-    await syncUserProfile(data.user, { autoAdmin: isAdminEmail(data.user.email) });
+    await syncUserProfile(data.user);
   } catch (err) {
     console.error("[auth/callback] Failed to sync user profile:", err instanceof Error ? err.message : String(err));
     // Continue anyway — don't fail login just because sync failed
