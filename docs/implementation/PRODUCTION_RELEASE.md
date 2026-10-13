@@ -1,5 +1,7 @@
 # Publicação autorizada — 13/10/2026
 
+Atualização: testes financeiros no sandbox e Checkout hospedado aprovados; ver [STRIPE_SANDBOX_ACCEPTANCE.md](STRIPE_SANDBOX_ACCEPTANCE.md). A credencial de teste já foi autorizada. A integração financeira com o acesso do aluno ainda precisa de validação em ambiente isolado.
+
 O usuário autorizou aplicar o pacote de migrações em produção e promover o candidato após validar o processamento, mantendo vendas fechadas.
 
 - Supabase confirmado: `rymzyaxhrcusqqzllzay` (Liceu), distinto do projeto Lexio.

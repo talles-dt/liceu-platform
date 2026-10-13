@@ -1,5 +1,7 @@
 # Preparação do deploy — 13/10/2026
 
+Atualização: testes financeiros no sandbox e Checkout hospedado aprovados; ver [STRIPE_SANDBOX_ACCEPTANCE.md](STRIPE_SANDBOX_ACCEPTANCE.md). A credencial de teste já foi autorizada. A integração financeira com o acesso do aluno ainda precisa de validação em ambiente isolado.
+
 **Atualização após autorização: migrações aplicadas e candidato promovido.** Entrega real de evento não financeiro da Stripe confirmada. Vendas permanecem fechadas. A preparação abaixo foi preservada como histórico; ver `PRODUCTION_RELEASE.md` para o resultado atual.
 
 ## Candidato
