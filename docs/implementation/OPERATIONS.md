@@ -33,9 +33,21 @@ A autenticação recebe exclusão lógica do Supabase: não permite novo acesso,
 
 ## Ainda necessário para abrir a oferta
 
-1. Homologar Stripe/Cal em ambientes de teste externos. Não há credenciais desses ambientes configuradas localmente; nenhum teste com dinheiro foi realizado.
+1. Homologar Stripe/Cal em ambientes de teste externos. As credenciais existentes foram confirmadas na Vercel em 13/10/2026; a chave Stripe de Development é live, não de teste. Verificar a configuração complementar abaixo. Nenhum teste com dinheiro foi realizado.
 2. Confirmar preços dos serviços avulsos, duração/capacidade de mentoria e frequência/limites do acompanhamento da formação.
 3. Completar a jornada visual docente/admin, vídeo, diagnóstico, flashcards sob falha e navegação de retorno com texto ainda não salvo.
 4. Conferir conteúdo e comprovantes reais no ambiente alvo; executar backup/restore e reconciliação de schema antes de migrar.
 5. Revisar os cinco alertas altos transitivos de lint. O pacote afetado não apresenta correção compatível no audit; não houve downgrade automático.
 6. Aprovar bibliografia/currículo do Trivium e preparar os seis participantes. A release editorial continua rascunho.
+
+## Conferência das variáveis do projeto — 13/10/2026
+
+Fonte: inventário autenticado da Vercel, projeto `liceu-platform` (`prj_r3KSr6zVe6Nj6EwXxqK4KxrtMSJT`), equipe `tallestonatto-5836s-projects`. A ausência no shell local não significa ausência no projeto.
+
+- Presentes: `STRIPE_SECRET_KEY`, credenciais Supabase, `RESEND_API_KEY`, chaves de IA e Cloudflare nos ambientes Development, Preview e Production.
+- `CAL_WEBHOOK_SECRET` está presente em Preview e Production; os links Cal também existem.
+- A chave Stripe recuperada de Development foi classificada apenas pelo prefixo como **live**. Não foi carregada no aplicativo local nem utilizada para criar cobranças. O arquivo temporário foi removido; nenhum valor foi registrado.
+- Ausentes no inventário: `STRIPE_WEBHOOK_SECRET`, `STRIPE_MONTHLY_PRICE_ID`, `STRIPE_REVIEW_PRICE_ID`, `STRIPE_MENTORING_PRICE_ID`, `STRIPE_SALES_ENABLED`, `TRIAL_HASH_SECRET`, `CRON_SECRET` e `DIAGNOSTIC_WEBHOOK_SECRET`. As três últimas atendem fluxos específicos e não são chaves dos provedores.
+- Os preços legados (`STRIPE_PRICE_EBOOK`, `STRIPE_PRICE_VIDEO`, `STRIPE_PRICE_MENTORING_PROGRAM`, `STRIPE_PRICE_MENTORING_INTERVIEW`) existem, mas não equivalem automaticamente à assinatura e aos serviços novos.
+
+Próximo passo: configurar credencial e preços Stripe de teste no escopo de homologação, confirmar o endpoint correspondente e seu segredo de assinatura, e completar as variáveis operacionais dos fluxos utilizados. Manter vendas fechadas até a aceitação. A existência das variáveis não comprova validade das credenciais, entrega de webhooks ou homologação externa. Nenhuma variável remota foi alterada nesta conferência.
