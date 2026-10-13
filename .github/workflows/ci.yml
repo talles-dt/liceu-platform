@@ -35,3 +35,4 @@ jobs:
       - run: python scripts/verify-database.py
       - run: python scripts/verify-formation.py
       - run: python scripts/verify-u00-u05.py
+      - run: python scripts/verify-operations.py

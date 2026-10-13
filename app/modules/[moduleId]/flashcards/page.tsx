@@ -115,9 +115,9 @@ export default function FlashcardsPage() {
 
   if (state === "error") {
     return (
-      <ReadingLayout eyebrow="LICEU / FLASHCARDS" title="Sem flashcards" subtitle="">
+      <ReadingLayout eyebrow="LICEU / FLASHCARDS" title="Não foi possível carregar" subtitle="">
         <p className="font-[var(--font-work-sans)] text-sm text-[var(--liceu-muted)]">
-          Nenhum conjunto disponível para este módulo ainda.
+          A consulta falhou. Tente novamente antes de concluir que não há cartões.
         </p>
       </ReadingLayout>
     );
@@ -129,9 +129,9 @@ export default function FlashcardsPage() {
       <ReadingLayout
         eyebrow="LICEU / FLASHCARDS"
         title="Revisão concluída."
-        subtitle="O algoritmo registrou seu desempenho."
+        subtitle={results.length ? "Suas revisões foram salvas." : "Nenhum cartão disponível para revisão neste momento."}
       >
-        <div className="space-y-6">
+        <div className="space-y-6">{saveError && <p role="alert">{saveError}</p>}
           <div className="border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-5 py-5 space-y-4">
             <div className="grid grid-cols-3 gap-4">
               <div>
@@ -197,7 +197,7 @@ export default function FlashcardsPage() {
         </div>
       }
     >
-      <div className="space-y-6">
+      <div className="space-y-6">{saveError && <p role="alert">{saveError}</p>}
         {/* Card */}
         <div
           className="min-h-[220px] cursor-pointer border border-[var(--liceu-stone)] bg-[var(--liceu-surface)]/40 px-6 py-6 transition-colors hover:bg-[var(--liceu-surface)]/60"

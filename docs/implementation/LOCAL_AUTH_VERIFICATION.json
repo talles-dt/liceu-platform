@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-10T21:39:50.199Z",
+  "at": "2026-10-12T15:34:00.026Z",
   "environment": "local real Supabase Auth/PostgREST plus Next HTTP",
   "remote": false,
   "checks": [
@@ -17,6 +17,7 @@
     "paid review delivered after subscription expiry",
     "own history retained",
     "suspended account denied",
+    "canonical section editor saves actual course content",
     "complete JSON export",
     "private storage public and other user denied",
     "owner signed download",

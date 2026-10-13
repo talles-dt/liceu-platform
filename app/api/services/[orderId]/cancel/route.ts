@@ -5,7 +5,7 @@ import {createSupabaseAdminClient} from "@/lib/supabaseAdmin";
 import {sameOrigin,uuid} from "@/lib/formation/server";
 export async function POST(request:Request,{params}:{params:Promise<{orderId:string}>}){
  if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});const user=await getCurrentUser();if(!user)return NextResponse.json({error:"Unauthorized"},{status:401});
- const {orderId}=await params;if(!uuid(orderId))return NextResponse.json({error:"Invalid order"},{status:400});const db=createSupabaseAdminClient();
+ const {orderId}=await params;if(!uuid(orderId))return NextResponse.json({error:"Invalid order"},{status:400});const db=createSupabaseAdminClient(user.id);
  const {data:o,error}=await db.from("liceu_service_orders").select("status,stripe_session_id").eq("id",orderId).eq("user_id",user.id).maybeSingle();
  if(error)return NextResponse.json({error:"Consulta indisponível"},{status:503});if(!o)return NextResponse.json({error:"Not found"},{status:404});
  if(["cancelled","refund_requested","refund_pending","refunded"].includes(o.status))return NextResponse.json({message:"Pedido já registrado."});

@@ -6,7 +6,7 @@ import { getStripeClient } from "@/lib/stripe";
 export async function PATCH(request:Request,{params}:{params:Promise<{orderId:string}>}){
  if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
  const staff=await currentStaff();if(!staff)return NextResponse.json({error:"Forbidden"},{status:403});
- const {orderId}=await params;const b=await request.json().catch(()=>null);const db=createSupabaseAdminClient();
+ const {orderId}=await params;const b=await request.json().catch(()=>null);const db=createSupabaseAdminClient(staff.user.id);
  const {data:order,error}=await db.from("liceu_service_orders").select("*").eq("id",orderId).maybeSingle();
  if(error||!order)return NextResponse.json({error:"Not found"},{status:404});
  if(order.teacher_id!==staff.user.id && staff.role!=="admin")return NextResponse.json({error:"Forbidden"},{status:403});

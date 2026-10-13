@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { assertAdmin } from "@/lib/admin/auth";
@@ -6,12 +7,13 @@ import { sendMentoringRejectedEmail } from "@/lib/email";
 type Context = { params: Promise<{ id: string }> };
 
 export async function POST(_req: Request, { params }: Context) {
+ if(!sameOrigin(_req))return NextResponse.json({error:"Forbidden"},{status:403});
   // Admin guard
   const user = await assertAdmin();
   if (!user) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const { id } = await params;
-  const supabase = createSupabaseAdminClient();
+  const supabase = createSupabaseAdminClient(user.id);
 
   const { data: application, error } = await supabase
     .from("mentoring_applications")

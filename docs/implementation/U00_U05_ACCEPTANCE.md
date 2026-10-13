@@ -1,5 +1,8 @@
 # U00–U05: registro de execução e aceite
 
+> Atualização de 12/10/2026: veja [OPERATIONS.md](OPERATIONS.md) para o incremento posterior. Auditoria transacional, fila retomável, conciliação explícita e exclusão revisada já foram implementadas e testadas localmente. As pendências históricas abaixo descrevem o checkpoint anterior, não o estado integral atual. U00–U05 seguem sem aceite de produção.
+
+
 Data: 10/10/2026. Estado: incremento implementado em revisão; **pacotes não encerrados**. Nenhuma migração remota ou cobrança executada.
 
 ## Entrega deste incremento

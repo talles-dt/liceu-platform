@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/supabaseServer";
 import { assertAdmin } from "@/lib/admin/auth";
 
 const NAV = [
+  { href: "/admin/operacoes" as const, label: "operações" },
   { href: "/admin" as const, label: "command" },
   { href: "/admin/students" as const, label: "students" },
   { href: "/admin/students/create" as const, label: "create" },

@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { assertAdmin } from "@/lib/admin/auth";
@@ -20,10 +21,11 @@ function generateSecurePassword(): string {
  * The admin should share this password with the student.
  */
 export async function POST(req: Request) {
+ if(!sameOrigin(req))return NextResponse.json({error:"Forbidden"},{status:403});
   const user = await assertAdmin();
   if (!user) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const supabase = createSupabaseAdminClient();
+  const supabase = createSupabaseAdminClient(user.id);
   const body = (await req.json().catch(() => ({}))) as {
     email?: string;
     name?: string;

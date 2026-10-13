@@ -22,15 +22,8 @@ export async function syncUserProfile(user: User) {
     if (user.email && existing.email !== user.email) {
       updates.email = user.email;
     }
-    if (user.user_metadata?.full_name && existing.name !== user.user_metadata.full_name) {
-      updates.name = user.user_metadata.full_name;
-    }
-    if (user.user_metadata?.name && existing.name !== user.user_metadata.name) {
-      updates.name = user.user_metadata.name;
-    }
-
     if (Object.keys(updates).length > 0) {
-      await supabase.from("users").update(updates).eq("id", user.id);
+      const {error}=await supabase.from("users").update(updates).eq("id", user.id);if(error)throw error;
     }
 
     return { ...existing, ...updates } as typeof existing;

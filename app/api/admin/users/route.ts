@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getCurrentUser } from "@/lib/supabaseServer";
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
     const status = searchParams.get("status");
     const offset = (page - 1) * limit;
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     let query = supabase
       .from("users")
@@ -79,6 +80,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+ if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -95,7 +97,7 @@ export async function POST(request: Request) {
     }
     
     const emailLower = email.trim().toLowerCase();
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Check if email already exists
     const { data: existingUsers } = await supabase.auth.admin.listUsers();

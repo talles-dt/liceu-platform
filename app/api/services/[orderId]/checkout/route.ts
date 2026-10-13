@@ -7,7 +7,7 @@ export async function POST(request:Request,{params}:{params:Promise<{orderId:str
  const origin=process.env.NEXT_PUBLIC_SITE_URL && new URL(process.env.NEXT_PUBLIC_SITE_URL).origin;
  if(process.env.STRIPE_SALES_ENABLED!=="true"||!origin)return NextResponse.json({error:"Vendas ainda não abertas."},{status:503});
  if(request.headers.get("origin")!==origin)return NextResponse.json({error:"Forbidden"},{status:403});
- const {orderId}=await params;const db=createSupabaseAdminClient();
+ const {orderId}=await params;const db=createSupabaseAdminClient(user.id);
  const {data:order,error}=await db.from("liceu_service_orders").select("*").eq("id",orderId).eq("user_id",user.id).single();
  if(error||!order||order.status!=="offered"||!order.price_id||!order.teacher_id||Date.parse(order.due_at)<=Date.now())return NextResponse.json({error:"Oferta indisponível ou expirada."},{status:409});
  const stripe=getStripeClient();

@@ -1,5 +1,8 @@
 # Execução do roadmap consolidado — 10 de outubro de 2026
 
+> Atualização de 12/10/2026: veja [OPERATIONS.md](OPERATIONS.md) para o incremento posterior. Auditoria transacional, fila retomável, conciliação explícita e exclusão revisada já foram implementadas e testadas localmente. As pendências históricas abaixo descrevem o checkpoint anterior, não o estado integral atual. U00–U05 seguem sem aceite de produção.
+
+
 Estado: **implementação local em revisão; nenhuma oferta liberada por esta entrega**.
 Branch: `codex/liceu-implementation`. Base de produção auditada: `6969ac8`.
 A cópia de trabalho de 8 de outubro permanece preservada. `INVENTORY.json` registra os arquivos recuperados; `6f5e575` incorpora essa base, incluindo a remoção do Zernio (`d461b9c`).

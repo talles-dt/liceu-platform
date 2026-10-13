@@ -6,7 +6,7 @@ import {getStripeClient} from "@/lib/stripe";
 import {sameOrigin,uuid} from "@/lib/formation/server";
 export async function POST(request:Request,{params}:{params:Promise<{orderId:string}>}){
  if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});const staff=await currentStaff();if(staff?.role!=="admin")return NextResponse.json({error:"Forbidden"},{status:403});
- const {orderId}=await params;if(!uuid(orderId))return NextResponse.json({error:"Invalid order"},{status:400});const db=createSupabaseAdminClient();
+ const {orderId}=await params;if(!uuid(orderId))return NextResponse.json({error:"Invalid order"},{status:400});const db=createSupabaseAdminClient(staff.user.id);
  const {data:o,error}=await db.from("liceu_service_orders").select("status,payment_intent_id,refund_id").eq("id",orderId).single();
  if(error)return NextResponse.json({error:"Consulta indisponível"},{status:503});if(o.status==="refunded")return NextResponse.json({status:"refunded"});
  if(!["refund_requested","refund_pending"].includes(o.status)||!o.payment_intent_id)return NextResponse.json({error:"Pedido sem solicitação ou pagamento conciliado."},{status:409});

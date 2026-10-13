@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-12T15:36:07.009Z",
+  "environment": "isolated local Supabase and Next HTTP",
+  "checks": [
+    "verified actor transactional audit",
+    "audit data minimisation and isolation",
+    "durable failed inbox replay",
+    "lease ownership",
+    "duplicate success",
+    "Cal identity and duration",
+    "one active booking",
+    "reschedule and stale cancellation",
+    "explicit legacy receipt reconciliation",
+    "same confirmed email claim once",
+    "reviewed erasure request",
+    "file checkpoint failure stops before data scrub and resumes same job",
+    "private file removal",
+    "data scrub",
+    "soft Auth closure",
+    "idempotent erasure resume",
+    "old session denied"
+  ],
+  "limits": [
+    "No external Stripe or Cal sandbox credentials",
+    "No production change",
+    "Retention review remains human and explicit"
+  ]
+}

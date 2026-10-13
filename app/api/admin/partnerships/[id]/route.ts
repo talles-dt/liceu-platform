@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getCurrentUser } from "@/lib/supabaseServer";
@@ -15,7 +16,7 @@ export async function GET(
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     
     const { id } = await params;
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     const { data: partnership, error } = await supabase
       .from("partnerships")
@@ -43,6 +44,7 @@ export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+ if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -54,7 +56,7 @@ export async function PATCH(
     const body = await request.json();
     const { name, description, contact_email, contact_name, status, partner_type, modules, courses, max_seats, settings, terminated_reason } = body;
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Get current state for audit
     const { data: current } = await supabase
@@ -119,6 +121,7 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+ if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -134,7 +137,7 @@ export async function POST(
       return NextResponse.json({ error: "user_id or email required" }, { status: 400 });
     }
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Get partnership
     const { data: partnership } = await supabase
@@ -238,6 +241,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+ if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -254,7 +258,7 @@ export async function DELETE(
       return NextResponse.json({ error: "member_id required" }, { status: 400 });
     }
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Get member for audit
     const { data: member } = await supabase

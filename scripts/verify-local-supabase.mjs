@@ -33,6 +33,11 @@ assert.equal((await actors.student.client.from('liceu_quiz_questions').select('c
 assert.equal(check(await actors.student.client.from('liceu_lessons').select('id').eq('id',lessonId)).length,0);
 const grant=check(await db.from('access_grants').insert({user_id:actors.student.id,granted_by:actors.admin.id,grant_type:'admin_override'}).select('id').single());
 assert.equal(check(await actors.student.client.from('liceu_lessons').select('id').eq('id',lessonId)).length,1);
+const section=check(await db.from('liceu_theoretical_content').insert({lesson_id:lessonId,title:'Synthetic section',section_order:1,content_markdown:'Original synthetic text'}).select('id').single());
+const edited=await request('admin',`/api/admin/content/lessons/${moduleId}`,{lesson_id:lessonId,section_id:section.id,content:'Reviewed canonical section'});
+assert.equal(edited.status,200,JSON.stringify(edited.data));
+assert.equal(check(await db.from('liceu_theoretical_content').select('content_markdown').eq('id',section.id).single()).content_markdown,'Reviewed canonical section');
+assert.equal((await request('other',`/api/admin/content/lessons/${moduleId}`,{lesson_id:lessonId,section_id:section.id,content:'Unauthorised change'})).status,403);
 assert.equal((await request('forged',`/api/admin/content/quiz/${moduleId}`)).status,403);
 const quiz=await request('student',`/api/modules/${moduleId}/quiz`);assert.equal(quiz.status,200);assert.ok(!JSON.stringify(quiz.data).includes('correct_answer'));
 assert.equal((await request('student',`/api/modules/${moduleId}/quiz`,{answers:{[questionId]:'no'}})).data.score,0);
@@ -72,6 +77,6 @@ assert.equal((await request('other','/api/services/'+cancelOrder.data.id+'/cance
 assert.equal((await request('student','/api/services/'+cancelOrder.data.id+'/cancel',{})).status,404);
 check(await db.from('users').update({suspended_at:new Date().toISOString()}).eq('id',actors.student.id));
 assert.equal((await request('student','/api/services',{kind:'mentoring',scope:'An attempt from a suspended account'})).status,401);
-const report={at:new Date().toISOString(),environment:'local real Supabase Auth/PostgREST plus Next HTTP',remote:false,checks:['profile trigger ignores metadata role','verified sign-in','role promotion denied','answers protected','entitlement gates REST','forged admin cookie denied','server graded quiz','concurrent drafts conflict','submission retry idempotent','other user evidence denied','teacher assignment enforced','paid review delivered after subscription expiry','own history retained','suspended account denied','complete JSON export','private storage public and other user denied','owner signed download','unpaid cancellation idempotent and owner scoped'],limits:['No real Stripe or Cal delivery','No production data','No real money']};
+const report={at:new Date().toISOString(),environment:'local real Supabase Auth/PostgREST plus Next HTTP',remote:false,checks:['profile trigger ignores metadata role','verified sign-in','role promotion denied','answers protected','entitlement gates REST','forged admin cookie denied','server graded quiz','concurrent drafts conflict','submission retry idempotent','other user evidence denied','teacher assignment enforced','paid review delivered after subscription expiry','own history retained','suspended account denied','canonical section editor saves actual course content','complete JSON export','private storage public and other user denied','owner signed download','unpaid cancellation idempotent and owner scoped'],limits:['No real Stripe or Cal delivery','No production data','No real money']};
 writeFileSync('docs/implementation/LOCAL_AUTH_VERIFICATION.json',JSON.stringify(report,null,2)+'\n');
 console.log('PASS: '+report.checks.join(', '));

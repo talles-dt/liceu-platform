@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getCurrentUser } from "@/lib/supabaseServer";
@@ -15,7 +16,7 @@ export async function GET(
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     
     const { id } = await params;
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     const { data: grant, error } = await supabase
       .from("access_grants")
@@ -40,6 +41,7 @@ export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+ if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -51,7 +53,7 @@ export async function PATCH(
     const body = await request.json();
     const { modules, courses, expires_at, metadata, revoked, revoke_reason } = body;
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Get current state for audit
     const { data: current } = await supabase
@@ -113,6 +115,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+ if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -124,7 +127,7 @@ export async function DELETE(
     const { searchParams } = new URL(request.url);
     const revokeReason = searchParams.get("revoke_reason") || "Revoked by admin";
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Get current state for audit
     const { data: current } = await supabase

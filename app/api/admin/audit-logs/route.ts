@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     const limit = parseInt(searchParams.get("limit") || "50");
     const offset = (page - 1) * limit;
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     let query = supabase
       .from("audit_logs")
