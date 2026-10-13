@@ -1,8 +1,8 @@
 {
   "candidate": "dpl_89F9G3p6hAHN3xXaQfT5dURJ4EgV",
   "supabase_ref": "rymzyaxhrcusqqzllzay",
-  "production_migrated": false,
-  "domain_promoted": false,
+  "production_migrated": true,
+  "domain_promoted": true,
   "migrations": [
     {
       "path": "supabase/migrations/20261008231646_subscription_learning_security.sql",
@@ -23,5 +23,13 @@
   ],
   "bundle_sha256": "5a51d390495f7d729efea7b86c290b70f8202eed917bfc436fd407db2ec58ebb",
   "public_schema_backup_sha256": "f5fdcba2a86fd10556447ea508cb5fd419f613c6db89b9d39ccd4851ed731241",
-  "public_data_backup_sha256": "5dc20fdda8d9ae4e25accc04a93969dc8fdaf08f8d25708404a91074c5c12721"
+  "public_data_backup_sha256": "5dc20fdda8d9ae4e25accc04a93969dc8fdaf08f8d25708404a91074c5c12721",
+  "verified_at": "2026-10-13T10:27:20.429078+00:00",
+  "public_domain": "https://www.oliceu.com",
+  "webhook_external_event": "evt_1UPyX8DLweZOOMDKj2Q2zwwK",
+  "sales_enabled": false,
+  "pre_release_backups": {
+    "pre-release-schema.sql": "9458d6cf842d3ba31f21af30c14f4d52db1a8f9d6c91b0e5915c51cd3a5ae22c",
+    "pre-release-data.sql": "ed27dbf14fdddf3e704fea133754a6d9e3432946c82a7448c6b3ba2c7fabb83f"
+  }
 }

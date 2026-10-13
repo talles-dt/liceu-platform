@@ -1,6 +1,6 @@
 # Operação de U00–U05 — incremento de 12/10/2026
 
-Estado: deploy candidato preparado sem promoção do domínio, sem migração remota ou ativação de vendas. Evidência atual e sequência de publicação: [DEPLOY_READINESS.md](DEPLOY_READINESS.md).
+Estado: migrações aplicadas e deploy promovido após autorização; webhook próprio validado com entrega real; vendas fechadas. Evidência atual: [PRODUCTION_RELEASE.md](PRODUCTION_RELEASE.md). Preparação e limites: [DEPLOY_READINESS.md](DEPLOY_READINESS.md).
 
 ## Entregue
 

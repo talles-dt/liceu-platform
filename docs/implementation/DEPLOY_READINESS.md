@@ -1,6 +1,6 @@
 # Preparação do deploy — 13/10/2026
 
-**Candidato preparado; promoção e aceite externo pendentes.** Não interpretar build READY como autorização de abertura comercial ou validação pedagógica.
+**Atualização após autorização: migrações aplicadas e candidato promovido.** Entrega real de evento não financeiro da Stripe confirmada. Vendas permanecem fechadas. A preparação abaixo foi preservada como histórico; ver `PRODUCTION_RELEASE.md` para o resultado atual.
 
 ## Candidato
 

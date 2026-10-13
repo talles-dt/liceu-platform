@@ -4,9 +4,9 @@
   "results": [
     {
       "case": "valid_signature",
-      "http_status": 500,
+      "http_status": 200,
       "response": {
-        "error": "Retry required; event retained when storage is available."
+        "received": true
       }
     },
     {

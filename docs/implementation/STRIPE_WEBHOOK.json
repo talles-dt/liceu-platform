@@ -1,7 +1,7 @@
 {
   "id": "we_1UPy9sDLweZOOMDKrMaB3C3K",
   "url": "https://www.oliceu.com/api/stripe/webhook",
-  "status": "disabled",
+  "status": "enabled",
   "livemode": true,
   "api_version": "2024-06-20",
   "enabled_events": [
@@ -18,6 +18,6 @@
   ],
   "account_id": "acct_1TC9LbDLweZOOMDK",
   "vercel_secret_target": "production",
-  "delivery_verified": false,
-  "reason_disabled": "Pending compatible application deployment, database readiness and external acceptance"
+  "delivery_verified": true,
+  "verification_scope": "Real Stripe product.updated event persisted with status done; financial lifecycle not yet homologated"
 }
