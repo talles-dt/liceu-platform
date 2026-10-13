@@ -69,3 +69,11 @@ Após o usuário fornecer o segredo, `STRIPE_WEBHOOK_SECRET` foi salvo como vari
 - Nove testes de rota passaram, com dependências simuladas. Verificação adicional com o SDK Stripe real e segredo sintético local aceitou assinatura válida e rejeitou corpo adulterado e timestamp expirado. Esses resultados não comprovam assinatura ou entrega externa com o segredo fornecido.
 
 Para concluir: identificar a origem/conta do segredo ou cadastrar o endpoint correto (cujo segredo é gerado pela Stripe), publicar a configuração junto de uma versão e schema compatíveis e então verificar uma entrega externa controlada. Não criar um endpoint que já começará entregando eventos financeiros ao deploy incompatível. Nenhuma cobrança, reenvio de evento financeiro, migração ou deploy de produção foi realizado nesta verificação.
+
+## Correção da origem do segredo e criação do endpoint
+
+O usuário esclareceu que o segredo fornecido pertencia à Lexio. A variável incorreta foi removida do Liceu. Foi criado um endpoint próprio na conta Stripe live do Liceu, com API `2024-06-20` e URL `https://www.oliceu.com/api/stripe/webhook`; o novo segredo gerado pela Stripe foi salvo como variável sensível em Production na Vercel, sem registro no repositório. Nenhuma configuração da Lexio foi alterada.
+
+O endpoint foi confirmado **disabled**, com os eventos de checkout, assinatura, fatura e reembolso tratados pelo código. Identificação e configuração pública estão em `STRIPE_WEBHOOK.json`. Durante a criação, somente `product.created` foi selecionado; os eventos financeiros foram adicionados após desativar o endpoint. A repetição da criação usou a mesma chave de idempotência e não criou outro endpoint.
+
+A entrega externa segue não homologada: concluir preparação do schema/deploy compatível, publicar as variáveis e validar o receptor antes de ativar o endpoint. Vendas continuam fechadas.
