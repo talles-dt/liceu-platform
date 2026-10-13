@@ -8,6 +8,20 @@ const event=(object:unknown,type='customer.subscription.updated')=>({id:'evt_tes
 const subscription={object:'subscription',id:'sub_test',metadata:{liceu_user_id:'user'},customer:'cus_test',status:'active',latest_invoice:{status:'paid'},current_period_end:2000,trial_end:null,cancel_at_period_end:false};
 beforeEach(()=>{vi.clearAllMocks();vi.stubEnv('TRIAL_HASH_SECRET','x'.repeat(32));m.rpc.mockImplementation(async(name:string)=>({data:name==='liceu_lock_billing_entity'||name==='liceu_claim_trial_card'?true:null}));m.account.mockResolvedValue({data:{user_id:'user'}});m.previous.mockResolvedValue({data:{access_until:'2030-01-01T00:00:00Z'}});m.order.mockResolvedValue({data:{user_id:'user',status:'offered',stripe_session_id:'cs_test',price_id:'price_test'}});m.from.mockImplementation((table:string)=>{const q={select:()=>q,eq:()=>q,maybeSingle:table==='liceu_billing_accounts'?m.account:m.previous,single:m.order};return q;});m.retrieve.mockResolvedValue(subscription);m.items.mockResolvedValue({data:[{price:{id:'price_test'},quantity:1}]});});
 describe('subscription state, serialization and failure handling',()=>{
+ it.each([
+  {object:'invoice',subscription:'sub_test'},
+  {object:'invoice',subscription:{id:'sub_test'}},
+  {object:'invoice',parent:{type:'subscription_details',subscription_details:{subscription:'sub_test'}}},
+  {object:'invoice',parent:{type:'subscription_details',subscription_details:{subscription:{id:'sub_test'}}}},
+ ])('resolves paid invoice subscription across API versions: %j',async invoice=>{
+  expect(await handleSubscriptionEvent(event(invoice,'invoice.paid'))).toBe(true);
+  expect(m.retrieve).toHaveBeenCalledWith('sub_test',expect.anything());
+  expect(m.rpc).toHaveBeenCalledWith('liceu_apply_subscription',expect.objectContaining({p_status:'active',p_until:new Date(2000000).toISOString()}));
+ });
+ it('ignores standalone invoice without subscription',async()=>{
+  expect(await handleSubscriptionEvent(event({object:'invoice',parent:null},'invoice.paid'))).toBe(false);
+  expect(m.retrieve).not.toHaveBeenCalled();
+ });
  it('serializes provider reads and fails for another owner of the lease',async()=>{m.rpc.mockResolvedValueOnce({data:false});await expect(handleSubscriptionEvent(event(subscription))).rejects.toThrow('busy');expect(m.retrieve).not.toHaveBeenCalled();});
  it('records only the paid interval and releases its own lease',async()=>{await handleSubscriptionEvent(event(subscription));expect(m.rpc).toHaveBeenCalledWith('liceu_apply_subscription',expect.objectContaining({p_status:'active',p_until:new Date(2000000).toISOString()}));expect(m.rpc.mock.calls.at(-1)?.[0]).toBe('liceu_unlock_billing_entity');});
  it('preserves already paid time after renewal failure',async()=>{m.retrieve.mockResolvedValue({...subscription,status:'past_due',latest_invoice:{status:'open'}});await handleSubscriptionEvent(event(subscription));expect(m.rpc).toHaveBeenCalledWith('liceu_apply_subscription',expect.objectContaining({p_status:'past_due',p_until:'2030-01-01T00:00:00.000Z'}));});

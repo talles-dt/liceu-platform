@@ -19,8 +19,18 @@ Evidências sem credenciais: `STRIPE_SANDBOX_VERIFICATION.json` e `STRIPE_HOSTED
 
 Roteiro: `python scripts/stripe/verify-sandbox.py`. Exige CLI autenticada no perfil correto. Estado/checkpoints ficam em `.local-u00u05/stripe-sandbox-state.json` (ignorado, modo 0600). Execução já aprovada não repete mutações; uma rodada nova exige preservar/mover o estado anterior. O roteiro usa API Stripe `2024-06-20`, chaves de idempotência e relógio controlado; não é parte da CI comum porque depende de autorização externa.
 
-**Este aceite é do provedor financeiro e do Checkout hospedado.** As chamadas de contratação/serviço foram geradas pelo roteiro, não pela sessão autenticada de um aluno. A concessão/revogação de acesso no banco do aplicativo após esses eventos ainda não foi validada ponta a ponta contra este sandbox. Os testes locais de autorização/persistência e a entrega real não financeira em produção são evidências separadas. Não marcar como validada uma renovação financeira em produção.
+## Integração de assinatura com o aplicativo
 
-As vendas permanecem fechadas. O próximo teste de integração é ligar o sandbox a uma instância isolada do aplicativo e banco e percorrer aluno → contratação → webhook → acesso → inadimplência/cancelamento, além do fluxo docente → serviço → pagamento → reembolso. Não apontar os eventos de teste para o banco de produção.
+O roteiro opt-in `npx vitest run --config integration/stripe/vitest.config.ts` conecta `stripe listen` exclusivamente ao HTTP local. As entregas têm assinatura real da Stripe. O servidor de teste chama a rota real, que usa o inbox, os handlers, as RPCs e o banco Supabase local; um aluno sintético autentica via Auth e verifica a aula via PostgREST/RLS. O resultado desta rodada está em `STRIPE_ENTITLEMENT_VERIFICATION.json`.
+
+A CLI autenticada por OAuth substitui somente o transporte das consultas do SDK: retorna respostas reais da Stripe, na API `2024-06-20`. O handler, o banco e a verificação criptográfica não são simulados. As entregas HTTP são serializadas pelo harness; concorrência entre workers não é objeto deste ensaio. O roteiro não integra a CI comum, cria recursos novos a cada execução e cancela a assinatura de teste ao terminar. IDs sintéticos ficam no relatório; credenciais e segredo temporário não são gravados nele.
+
+Foi encontrada uma incompatibilidade reproduzível: eventos `invoice.paid` do sandbox usam `2026-02-25.clover`, com a assinatura em `parent.subscription_details.subscription`. O handler só lia `invoice.subscription`, reconhecia o pagamento inicial pelo evento de assinatura, mas ignorava a extensão na renovação. A correção aceita os dois formatos e mantém a consulta autoritativa e a conferência de titularidade. Cinco casos de regressão cobrem referências simples/expandidas e faturas sem assinatura. O endpoint de produção continua fixado em `2024-06-20`; esta correção ainda não foi publicada em produção.
+
+O teste confere pagamento inicial, renovação, recusa de cobrança, cancelamento, deduplicação e rejeição de assinatura adulterada. Inadimplência e cancelamento preservam o intervalo pago. Para verificar bloqueio após esse intervalo, o roteiro expira somente a assinatura sintética no banco local: o relógio da Stripe não altera o relógio do PostgreSQL. Esse último passo é uma verificação explícita de fronteira temporal, não uma passagem real de meses.
+
+**Limites remanescentes:** contratação iniciada pela sessão do aluno no frontend e fluxo docente → serviço → pagamento → reembolso no aplicativo ainda não têm aceite integrado contra o sandbox. Os pagamentos avulsos, reembolsos e Checkout hospedado já têm evidência no provedor, separada deste ensaio de assinatura. O transporte HTTP normal do SDK com chave de sandbox não foi exercitado neste harness OAuth. Não houve teste financeiro nem alteração de ambiente em produção; as vendas permanecem fechadas.
 
 Referências oficiais usadas: [cartões de teste](https://docs.stripe.com/testing) e [relógios de teste](https://docs.stripe.com/billing/testing/test-clocks/simulate-subscriptions).
+
+Formato atual de fatura: [referência oficial Stripe](https://docs.stripe.com/api/invoices/object).

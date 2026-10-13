@@ -9,7 +9,12 @@ export async function handleSubscriptionEvent(event: Stripe.Event): Promise<bool
   const object=event.data.object;
   let subscriptionId: string | null=null;
   if(object.object==="subscription") subscriptionId=object.id;
-  else if(object.object==="invoice") subscriptionId=typeof object.subscription==="string"?object.subscription:object.subscription?.id??null;
+  else if(object.object==="invoice") {
+    // Basil and later put the subscription under parent; SDK reads remain pinned to 2024-06-20.
+    const invoice=object as Stripe.Invoice & {parent?:{type?:string;subscription_details?:{subscription?:string|{id:string}|null}|null}|null};
+    const reference=invoice.subscription??(invoice.parent?.type==="subscription_details"?invoice.parent.subscription_details?.subscription:null);
+    subscriptionId=typeof reference==="string"?reference:reference?.id??null;
+  }
   else if(object.object==="checkout.session" && object.mode==="subscription") subscriptionId=typeof object.subscription==="string"?object.subscription:object.subscription?.id??null;
   if(!subscriptionId)return false;
   const db=createSupabaseAdminClient(),token=randomUUID();
