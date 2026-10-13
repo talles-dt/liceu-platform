@@ -1,0 +1,27 @@
+{
+  "candidate": "dpl_89F9G3p6hAHN3xXaQfT5dURJ4EgV",
+  "supabase_ref": "rymzyaxhrcusqqzllzay",
+  "production_migrated": false,
+  "domain_promoted": false,
+  "migrations": [
+    {
+      "path": "supabase/migrations/20261008231646_subscription_learning_security.sql",
+      "sha256": "9c8ca7dc109f676e54af7a0ce7b1fcbf0e90f425fb5bf37c84f8738499a1066c"
+    },
+    {
+      "path": "supabase/migrations/20261010065904_formation_trivium.sql",
+      "sha256": "4b2945d4a66ad4d632ca8039aa9df73b570f6b5034dc3a8e85893f287bfdc17d"
+    },
+    {
+      "path": "supabase/migrations/20261010211812_close_u00_u05.sql",
+      "sha256": "5665a6935050d18fb1349813690b2d8a334b414da26551ae8892a5717b5704fa"
+    },
+    {
+      "path": "supabase/migrations/20261011030827_operational_recovery_and_privacy.sql",
+      "sha256": "6502c935b52d3695b9e9f64ffaceabb9b6732b6c8aabcb72a32bbbf835f47205"
+    }
+  ],
+  "bundle_sha256": "5a51d390495f7d729efea7b86c290b70f8202eed917bfc436fd407db2ec58ebb",
+  "public_schema_backup_sha256": "f5fdcba2a86fd10556447ea508cb5fd419f613c6db89b9d39ccd4851ed731241",
+  "public_data_backup_sha256": "5dc20fdda8d9ae4e25accc04a93969dc8fdaf08f8d25708404a91074c5c12721"
+}

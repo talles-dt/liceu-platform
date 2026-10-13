@@ -1,6 +1,6 @@
 # Operação de U00–U05 — incremento de 12/10/2026
 
-Estado: candidato local em revisão, sem migração remota ou ativação de vendas.
+Estado: deploy candidato preparado sem promoção do domínio, sem migração remota ou ativação de vendas. Evidência atual e sequência de publicação: [DEPLOY_READINESS.md](DEPLOY_READINESS.md).
 
 ## Entregue
 
