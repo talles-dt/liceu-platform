@@ -34,7 +34,7 @@ A autenticação recebe exclusão lógica do Supabase: não permite novo acesso,
 ## Ainda necessário para abrir a oferta
 
 1. Homologar Stripe/Cal em ambientes de teste externos. As credenciais existentes foram confirmadas na Vercel em 13/10/2026; a chave Stripe de Development é live, não de teste. Verificar a configuração complementar abaixo. Nenhum teste com dinheiro foi realizado.
-2. Confirmar preços dos serviços avulsos, duração/capacidade de mentoria e frequência/limites do acompanhamento da formação.
+2. Confirmar duração/capacidade de mentoria e frequência/limites do acompanhamento da formação. Os preços dos serviços e da assinatura geral foram definidos pelo usuário; ver atualização abaixo.
 3. Completar a jornada visual docente/admin, vídeo, diagnóstico, flashcards sob falha e navegação de retorno com texto ainda não salvo.
 4. Conferir conteúdo e comprovantes reais no ambiente alvo; executar backup/restore e reconciliação de schema antes de migrar.
 5. Revisar os cinco alertas altos transitivos de lint. O pacote afetado não apresenta correção compatível no audit; não houve downgrade automático.
@@ -51,3 +51,11 @@ Fonte: inventário autenticado da Vercel, projeto `liceu-platform` (`prj_r3KSr6z
 - Os preços legados (`STRIPE_PRICE_EBOOK`, `STRIPE_PRICE_VIDEO`, `STRIPE_PRICE_MENTORING_PROGRAM`, `STRIPE_PRICE_MENTORING_INTERVIEW`) existem, mas não equivalem automaticamente à assinatura e aos serviços novos.
 
 Próximo passo: configurar credencial e preços Stripe de teste no escopo de homologação, confirmar o endpoint correspondente e seu segredo de assinatura, e completar as variáveis operacionais dos fluxos utilizados. Manter vendas fechadas até a aceitação. A existência das variáveis não comprova validade das credenciais, entrega de webhooks ou homologação externa. Nenhuma variável remota foi alterada nesta conferência.
+
+## Preços definidos e cadastro Stripe
+
+O usuário definiu revisão avulsa por R$199, sessão de mentoria por R$449 e assinatura geral por R$799/mês. Esses valores não alteram a oferta da Formação Intelectual.
+
+Catálogo live criado pela Stripe CLI na conta verificada do Liceu, com lookup keys e chaves de idempotência para evitar duplicação. IDs e escopos efetivamente configurados constam em `STRIPE_CATALOG.json`. Os três IDs foram configurados em Production na Vercel, junto com `STRIPE_SALES_ENABLED=false`. Nenhuma assinatura, cobrança ou checkout foi criado, e nenhum deploy foi solicitado. Deployments existentes precisam de nova publicação para receber as variáveis.
+
+Development e Preview não receberam esses IDs live: a homologação continua dependendo de credencial e catálogo de teste na conta correta. O segredo do webhook Stripe segue pendente. A duração da mentoria continua sendo definida na proposta individual pelo docente (o código exige 15–180 minutos); não foi inventada uma duração para o novo preço.

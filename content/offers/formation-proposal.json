@@ -32,8 +32,7 @@
   "open_decisions": [
     "Meeting frequency and duration",
     "Included individual feedback workload",
-    "Tutoring hours and response times",
-    "Separate course subscription, review and mentoring session prices"
+    "Tutoring hours and response times"
   ],
   "not_applicable_to": [
     "course_subscription",
