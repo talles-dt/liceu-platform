@@ -59,3 +59,13 @@ O usuário definiu revisão avulsa por R$199, sessão de mentoria por R$449 e as
 Catálogo live criado pela Stripe CLI na conta verificada do Liceu, com lookup keys e chaves de idempotência para evitar duplicação. IDs e escopos efetivamente configurados constam em `STRIPE_CATALOG.json`. Os três IDs foram configurados em Production na Vercel, junto com `STRIPE_SALES_ENABLED=false`. Nenhuma assinatura, cobrança ou checkout foi criado, e nenhum deploy foi solicitado. Deployments existentes precisam de nova publicação para receber as variáveis.
 
 Development e Preview não receberam esses IDs live: a homologação continua dependendo de credencial e catálogo de teste na conta correta. O segredo do webhook Stripe segue pendente. A duração da mentoria continua sendo definida na proposta individual pelo docente (o código exige 15–180 minutos); não foi inventada uma duração para o novo preço.
+
+## Verificação do webhook — 13/10/2026
+
+Após o usuário fornecer o segredo, `STRIPE_WEBHOOK_SECRET` foi salvo como variável sensível em Production. O teste subsequente não aprovou a integração em produção:
+
+- POST sem assinatura para `https://www.oliceu.com/api/stripe/webhook`: HTTP 500, `Missing STRIPE_WEBHOOK_SECRET`. O deployment publicado ainda não recebeu a configuração nova.
+- Consultas autenticadas na conta Stripe do projeto: zero webhooks tradicionais e zero destinos de eventos v2. Não foi possível vincular o segredo fornecido a um destino dessa conta ou testar entrega real.
+- Nove testes de rota passaram, com dependências simuladas. Verificação adicional com o SDK Stripe real e segredo sintético local aceitou assinatura válida e rejeitou corpo adulterado e timestamp expirado. Esses resultados não comprovam assinatura ou entrega externa com o segredo fornecido.
+
+Para concluir: identificar a origem/conta do segredo ou cadastrar o endpoint correto (cujo segredo é gerado pela Stripe), publicar a configuração junto de uma versão e schema compatíveis e então verificar uma entrega externa controlada. Não criar um endpoint que já começará entregando eventos financeiros ao deploy incompatível. Nenhuma cobrança, reenvio de evento financeiro, migração ou deploy de produção foi realizado nesta verificação.
