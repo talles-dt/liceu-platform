@@ -1,90 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-
-// Build a chainable supabase mock
-function makeSupabaseChain(selectResult: unknown = null) {
-  const chain = {
-    select: vi.fn(() => chain),
-    insert: vi.fn().mockResolvedValue({ data: null, error: null }),
-    upsert: vi.fn().mockResolvedValue({ data: null, error: null }),
-    update: vi.fn(() => chain),
-    eq: vi.fn(() => chain),
-    limit: vi.fn().mockResolvedValue({ data: [] }),
-    in: vi.fn(() => chain),
-    order: vi.fn(() => chain),
-    maybeSingle: vi.fn().mockResolvedValue({ data: selectResult }),
-  };
-  return chain;
-}
-
-const mockSupabase = {
-  from: vi.fn(() => makeSupabaseChain()),
-  auth: { signOut: vi.fn(), getUser: vi.fn(), admin: { listUsers: vi.fn() } },
-};
-
-const mockGetCurrentUser = vi.fn();
-
-vi.mock("@/lib/supabaseServer", () => ({
-  createSupabaseServerClient: vi.fn().mockResolvedValue(mockSupabase),
-  getCurrentUser: mockGetCurrentUser,
-}));
-
-beforeEach(() => {
-  vi.clearAllMocks();
-});
-
-describe("GET /api/onboarding/status", () => {
-  it("returns 401 when user is not authenticated", async () => {
-    mockGetCurrentUser.mockResolvedValue(null);
-
-    const { GET } = await import("../../../../app/api/onboarding/status/route");
-    const res = await GET();
-
-    expect(res.status).toBe(401);
-    const json = await res.json();
-    expect(json.error).toBe("Unauthorized");
-  });
-
-  it("returns status object for authenticated user with no purchases", async () => {
-    mockGetCurrentUser.mockResolvedValue({
-      id: "user_123",
-      email: "user@test.com",
-    });
-
-    mockSupabase.from.mockReturnValue(makeSupabaseChain());
-
-    const { GET } = await import("../../../../app/api/onboarding/status/route");
-    const res = await GET();
-
-    expect(res.status).toBe(200);
-    const json = await res.json();
-    expect(json).toEqual({
-      hasAccount: true,
-      hasPurchase: false,
-      hasDiagnosis: false,
-      firstModuleId: null,
-      moduleName: null,
-    });
-  });
-
-  it("returns hasPurchase:true when user has purchases", async () => {
-    mockGetCurrentUser.mockResolvedValue({
-      id: "user_123",
-      email: "user@test.com",
-    });
-
-    mockSupabase.from.mockReturnValue({
-      select: vi.fn().mockReturnValue({
-        eq: vi.fn().mockReturnValue({
-          limit: vi.fn().mockResolvedValue({ data: [{ id: "p1" }] }),
-        }),
-      }),
-    });
-
-    const { GET } = await import("../../../../app/api/onboarding/status/route");
-    const res = await GET();
-
-    expect(res.status).toBe(200);
-    const json = await res.json();
-    expect(json.hasPurchase).toBe(true);
-  });
+import {beforeEach,describe,expect,it,vi} from "vitest";
+const mocks=vi.hoisted(()=>({user:vi.fn(),from:vi.fn(),rpc:vi.fn()}));
+vi.mock("@/lib/supabaseServer",()=>({getCurrentUser:mocks.user,createSupabaseServerClient:async()=>mocks}));
+import {GET} from "@/app/api/onboarding/status/route";
+beforeEach(()=>{vi.clearAllMocks();mocks.user.mockResolvedValue({id:"user"});mocks.from.mockImplementation((table:string)=>{const chain={select:()=>chain,eq:()=>chain,order:async()=>({data:[{id:"m1",title:"Primeiro"},{id:"m2",title:"Segundo"}]}),limit:async()=>({data:table==="diagnostic_sessions"?[{id:"diagnostic"}]:[]})};return chain;});});
+describe("onboarding is based on verified access",()=>{
+ it("requires identity",async()=>{mocks.user.mockResolvedValue(null);expect((await GET()).status).toBe(401);});
+ it("does not infer access from having a purchase row",async()=>{mocks.rpc.mockResolvedValue({data:false});expect((await (await GET()).json()).hasPurchase).toBe(false);});
+ it("chooses an accessible module",async()=>{mocks.rpc.mockResolvedValueOnce({data:false}).mockResolvedValueOnce({data:true});expect(await (await GET()).json()).toMatchObject({hasPurchase:true,firstModuleId:"m2"});});
+ it("does not turn an authorization outage into a successful empty result",async()=>{mocks.rpc.mockResolvedValue({error:{message:"offline"}});expect((await GET()).status).toBe(500);});
 });

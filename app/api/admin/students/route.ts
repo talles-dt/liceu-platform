@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { assertAdmin } from "@/lib/admin/auth";
@@ -20,10 +21,11 @@ function generateSecurePassword(): string {
  * The admin should share this password with the student.
  */
 export async function POST(req: Request) {
+ if(!sameOrigin(req))return NextResponse.json({error:"Forbidden"},{status:403});
   const user = await assertAdmin();
   if (!user) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const supabase = createSupabaseAdminClient();
+  const supabase = createSupabaseAdminClient(user.id);
   const body = (await req.json().catch(() => ({}))) as {
     email?: string;
     name?: string;
@@ -82,7 +84,7 @@ export async function POST(req: Request) {
       });
 
     if (dbError) {
-      console.error("[admin/students] db upsert failed", dbError);
+      return NextResponse.json({error:"A conta de autenticação foi criada, mas o perfil precisa de reconciliação. Não crie outra conta.",userId,created:false},{status:503});
     }
 
     // Only return password if it was auto-generated (not provided by admin)

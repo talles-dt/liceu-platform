@@ -1,0 +1,11 @@
+{
+  "livemode": false,
+  "checkout_id": "cs_test_a1tr4zNvIw0bXqe20rYA2dcEaBDzcGz3NRDR6unkhPKL3sfalqetTQKSVo",
+  "checkout_status": "complete",
+  "payment_status": "paid",
+  "amount": 19900,
+  "refund_id": "re_3UQ3B1DLweZOOMDK1RysRRWD",
+  "refund_status": "succeeded",
+  "browser_redirect_verified": true,
+  "app_entitlement_verified": false
+}

@@ -19,11 +19,11 @@ export default function ResetPasswordLogic() {
   useEffect(() => {
     async function prepareRecoverySession() {
       // Prevent double-execution on React StrictMode
-      if ((window as any).__resetPasswordPrep__) {
+      if ((window as Window & { __resetPasswordPrep__?: boolean }).__resetPasswordPrep__) {
         setCheckingSession(false);
         return;
       }
-      (window as any).__resetPasswordPrep__ = true;
+      (window as Window & { __resetPasswordPrep__?: boolean }).__resetPasswordPrep__ = true;
 
       const supabase = createSupabaseBrowserClient();
       const code = searchParams.get("code");

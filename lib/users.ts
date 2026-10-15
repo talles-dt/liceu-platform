@@ -6,7 +6,7 @@ import type { User } from "@supabase/supabase-js";
  * Creates the record if missing, updates if needed.
  * Returns the synced user profile.
  */
-export async function syncUserProfile(user: User, opts: { autoAdmin?: boolean } = {}) {
+export async function syncUserProfile(user: User) {
   const supabase = createSupabaseAdminClient();
 
   // Check if user already exists in public.users
@@ -22,20 +22,8 @@ export async function syncUserProfile(user: User, opts: { autoAdmin?: boolean } 
     if (user.email && existing.email !== user.email) {
       updates.email = user.email;
     }
-    if (user.user_metadata?.full_name && existing.name !== user.user_metadata.full_name) {
-      updates.name = user.user_metadata.full_name;
-    }
-    if (user.user_metadata?.name && existing.name !== user.user_metadata.name) {
-      updates.name = user.user_metadata.name;
-    }
-
-    // If auto-admin flag, ensure role is set
-    if (opts.autoAdmin && existing.role !== "admin") {
-      updates.role = "admin";
-    }
-
     if (Object.keys(updates).length > 0) {
-      await supabase.from("users").update(updates).eq("id", user.id);
+      const {error}=await supabase.from("users").update(updates).eq("id", user.id);if(error)throw error;
     }
 
     return { ...existing, ...updates } as typeof existing;
@@ -52,7 +40,7 @@ export async function syncUserProfile(user: User, opts: { autoAdmin?: boolean } 
     id: user.id,
     name,
     email: user.email,
-    role: opts.autoAdmin ? "admin" : "student",
+    role: "student",
   };
 
   const { data, error } = await supabase.from("users").insert(newUser).select().single();

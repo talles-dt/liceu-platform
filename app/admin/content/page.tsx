@@ -148,7 +148,7 @@ export default async function AdminContentPage() {
                             {l.code}
                           </td>
                           <td className="py-2 pr-3">
-                            <div className="font-serif text-[13px] text-[var(--liceu-text)]">{l.title}</div>
+                            <div className="font-serif text-[13px] text-[var(--liceu-text)]">{l.title} <a className="underline ml-2" href={"/admin/content/lesson/"+l.id}>Editar</a></div>
                             {l.subtitle && (
                               <div className="font-serif text-[11px] italic text-[var(--liceu-muted)]/60">{l.subtitle}</div>
                             )}

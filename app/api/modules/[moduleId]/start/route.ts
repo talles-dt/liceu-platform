@@ -1,27 +1,8 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser, createSupabaseServerClient } from "@/lib/supabaseServer";
-
-type Context = { params: Promise<{ moduleId: string }> };
-
-/**
- * POST /api/modules/[moduleId]/start
- * Sets started_at on module_progress if not already set.
- * Called when the student first opens the module page.
- */
-export async function POST(_req: Request, { params }: Context) {
-  const user = await getCurrentUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const { moduleId } = await params;
-  const supabase = await createSupabaseServerClient();
-
-  // Only set started_at if it's null — never overwrite
-  await supabase
-    .from("module_progress")
-    .update({ started_at: new Date().toISOString() })
-    .eq("user_id", user.id)
-    .eq("module_id", moduleId)
-    .is("started_at", null);
-
-  return NextResponse.json({ ok: true });
+import { getCurrentUser } from "@/lib/supabaseServer";
+import { canAccessLiceuModuleForUser, setLiceuCurrentModule } from "@/lib/progression";
+export async function POST(_req: Request,{params}:{params:Promise<{moduleId:string}>}){
+ const user=await getCurrentUser();if(!user)return NextResponse.json({error:"Unauthorized"},{status:401});const {moduleId}=await params;
+ if(!await canAccessLiceuModuleForUser(user.id,moduleId))return NextResponse.json({error:"Forbidden"},{status:403});
+ return await setLiceuCurrentModule(user.id,moduleId)?NextResponse.json({ok:true}):NextResponse.json({error:"Não foi possível salvar."},{status:500});
 }

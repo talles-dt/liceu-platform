@@ -1,0 +1,10 @@
+import {beforeEach,it,expect,vi} from "vitest";
+const m=vi.hoisted(()=>({user:vi.fn(),rpc:vi.fn()}));
+vi.mock("@/lib/supabaseServer",()=>({getCurrentUser:m.user}));
+vi.mock("@/lib/supabaseAdmin",()=>({createSupabaseAdminClient:()=>({rpc:m.rpc})}));
+import {authorizeEmail,publicLimit} from "@/lib/publicRequests";
+beforeEach(()=>{vi.clearAllMocks();vi.stubEnv("TRIAL_HASH_SECRET","t".repeat(32));vi.stubEnv("DIAGNOSTIC_WEBHOOK_SECRET","server-only-secret");vi.stubEnv("NEXT_PUBLIC_SITE_URL","http://localhost");m.user.mockResolvedValue(null);m.rpc.mockResolvedValue({data:true});});
+it("rejects arbitrary anonymous email",async()=>{expect((await authorizeEmail(new Request('http://localhost'),"a@example.com"))?.status).toBe(403);});
+it("accepts server-to-server secret, not a near match",async()=>{expect(await authorizeEmail(new Request('http://localhost',{headers:{authorization:"Bearer server-only-secret"}}),"a@example.com")).toBeNull();expect((await authorizeEmail(new Request('http://localhost',{headers:{authorization:"Bearer server-only-secrex"}}),"a@example.com"))?.status).toBe(403);});
+it("confirmed account can send only to itself from same origin",async()=>{m.user.mockResolvedValue({email:"a@example.com",email_confirmed_at:"today"});const req=new Request('http://localhost',{headers:{origin:"http://localhost"}});expect(await authorizeEmail(req,"a@example.com")).toBeNull();expect((await authorizeEmail(req,"b@example.com"))?.status).toBe(403);});
+it("uses durable counters and fails closed on outage",async()=>{const req=new Request('http://localhost');m.rpc.mockResolvedValueOnce({data:false});expect((await publicLimit(req,"email","a@example.com"))?.status).toBe(429);m.rpc.mockResolvedValueOnce({error:{}});expect((await publicLimit(req,"email","a@example.com"))?.status).toBe(503);expect(JSON.stringify(m.rpc.mock.calls)).not.toContain("a@example.com");});

@@ -1,0 +1,41 @@
+{
+  "account_id": "acct_1TC9LbDLweZOOMDK",
+  "livemode": true,
+  "currency": "brl",
+  "sales_enabled": false,
+  "prices": [
+    {
+      "kind": "review",
+      "product_id": "prod_VQpVhmtr5pxJew",
+      "price_id": "price_1UPxqxDLweZOOMDKUwnhPpIf",
+      "unit_amount": 19900,
+      "interval": null,
+      "env_var": "STRIPE_REVIEW_PRICE_ID",
+      "vercel_targets": [
+        "production"
+      ]
+    },
+    {
+      "kind": "mentoring",
+      "product_id": "prod_VQpW4TioXFI7KD",
+      "price_id": "price_1UPxr0DLweZOOMDKzOPEWbQn",
+      "unit_amount": 44900,
+      "interval": null,
+      "env_var": "STRIPE_MENTORING_PRICE_ID",
+      "vercel_targets": [
+        "production"
+      ]
+    },
+    {
+      "kind": "monthly",
+      "product_id": "prod_VQpW02M3Ee0jPk",
+      "price_id": "price_1UPxr3DLweZOOMDKMXbZuaUm",
+      "unit_amount": 79900,
+      "interval": "month",
+      "env_var": "STRIPE_MONTHLY_PRICE_ID",
+      "vercel_targets": [
+        "production"
+      ]
+    }
+  ]
+}

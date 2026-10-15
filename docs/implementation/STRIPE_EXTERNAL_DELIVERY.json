@@ -1,0 +1,23 @@
+{
+  "endpoint_id": "we_1UPy9sDLweZOOMDKrMaB3C3K",
+  "endpoint_status": "enabled",
+  "enabled_events": [
+    "checkout.session.completed",
+    "checkout.session.async_payment_succeeded",
+    "customer.subscription.created",
+    "customer.subscription.updated",
+    "customer.subscription.deleted",
+    "invoice.paid",
+    "invoice.payment_failed",
+    "refund.created",
+    "refund.updated",
+    "refund.failed"
+  ],
+  "event_id": "evt_1UPyX8DLweZOOMDKj2Q2zwwK",
+  "event_type": "product.updated",
+  "pending_webhooks": 0,
+  "sales_enabled": false,
+  "inbox_status": "done",
+  "inbox_attempts": 1,
+  "verified_at": "2026-10-13T10:27:20.429078+00:00"
+}

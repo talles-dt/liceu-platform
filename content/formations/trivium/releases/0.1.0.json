@@ -1,0 +1,1152 @@
+{
+  "schema_version": 1,
+  "slug": "trivium",
+  "title": "Formação pelo Trivium",
+  "version": "0.1.0",
+  "editorial_status": "draft",
+  "approval_note": "",
+  "competencies": [
+    {
+      "key": "grammar.precision",
+      "pillar": "grammar",
+      "objective": "Interpretar relações, referentes e sentidos; revisar ambiguidades sem distorcer o texto."
+    },
+    {
+      "key": "logic.inference",
+      "pillar": "logic",
+      "objective": "Reconstruir premissas e conclusão, testar inferências e justificar objeções."
+    },
+    {
+      "key": "rhetoric.expression",
+      "pillar": "rhetoric",
+      "objective": "Compor e pronunciar razões adequadas à audiência, com escuta e responsabilidade."
+    }
+  ],
+  "readings": [
+    {
+      "key": "reading.workshop",
+      "title": "Uma decisão sobre a biblioteca — texto de trabalho",
+      "author": "Equipe curricular do Liceu — rascunho para revisão docente",
+      "location": "Texto integral, parágrafos 1–2",
+      "url": "",
+      "rights": "Texto original deste pacote; sem reprodução de obra externa.",
+      "status": "draft",
+      "text": "A biblioteca recebe poucos visitantes à noite. Por isso, devemos fechar mais cedo. Todos os leitores que trabalham precisam de horários acessíveis. Alguns desses leitores só podem visitar a biblioteca depois do expediente.\n\nO conselho propõe manter uma noite por semana aberta até mais tarde durante dois meses e observar o uso. A proposta não prova que o horário ampliado será suficiente; oferece uma forma de testar essa hipótese antes de decidir."
+    }
+  ],
+  "rubrics": [
+    {
+      "key": "trivium.integrated",
+      "title": "Gramática, lógica e retórica — apreciações distintas",
+      "criteria": [
+        {
+          "key": "grammar.precision",
+          "pillar": "grammar",
+          "label": "Precisão de leitura e expressão",
+          "descriptors": {
+            "support": "Perde referentes ou altera a tese ao parafrasear.",
+            "developing": "Reconhece relações com apoio e ainda deixa ambiguidades.",
+            "consistent": "Preserva sentido, explicita referentes e justifica revisão.",
+            "transfer": "Transfere a análise a novo gênero e explica efeitos de registro."
+          }
+        },
+        {
+          "key": "logic.inference",
+          "pillar": "logic",
+          "label": "Reconstrução e avaliação da inferência",
+          "descriptors": {
+            "support": "Confunde afirmação, premissa e conclusão.",
+            "developing": "Reconstrói parte do argumento, mas precisa de apoio para testá-lo.",
+            "consistent": "Distingue verdade/validade e testa a inferência com razões ou contraexemplo.",
+            "transfer": "Avalia argumento novo, torna pressupostos explícitos e revê a conclusão."
+          }
+        },
+        {
+          "key": "rhetoric.expression",
+          "pillar": "rhetoric",
+          "label": "Expressão situada e resposta ao outro",
+          "descriptors": {
+            "support": "Tese e audiência pouco claras; não responde à objeção.",
+            "developing": "Organiza razões, mas adequação e resposta ainda exigem apoio.",
+            "consistent": "Expõe razões para audiência definida e responde à objeção com justiça.",
+            "transfer": "Adapta forma e razões a situação nova e explica escolhas responsáveis."
+          }
+        }
+      ]
+    }
+  ],
+  "cycles": [
+    {
+      "key": "c01",
+      "title": "Ler e escutar",
+      "question": "O que o texto realmente afirma?",
+      "objectives": {
+        "grammar": "Sintaxe, referentes e paráfrase fiel.",
+        "logic": "Termos, proposições, premissas e conclusão.",
+        "rhetoric": "Reconstruir a situação de fala e apresentar uma interpretação fiel, distinguindo a voz do autor da própria."
+      },
+      "activities": [
+        {
+          "key": "c01.baseline",
+          "type": "baseline",
+          "title": "Diagnóstico inicial",
+          "prompt": "Antes das intervenções, leia o texto de trabalho, desfaça uma ambiguidade, reconstrua premissas e conclusão, teste uma inferência e componha uma fala de 3–5 minutos. Registre condições e ajuda recebida. Foco deste ciclo: Sintaxe, referentes e paráfrase fiel. Termos, proposições, premissas e conclusão. Foco retórico: Reconstruir a situação de fala e apresentar uma interpretação fiel, distinguindo a voz do autor da própria.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [
+            "reading.workshop"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.reading",
+          "type": "reading",
+          "title": "Leitura",
+          "prompt": "Identifique referentes e uma ambiguidade. Faça uma paráfrase fiel. Separe premissas da conclusão e indique o que não está demonstrado. Foco deste ciclo: Sintaxe, referentes e paráfrase fiel. Termos, proposições, premissas e conclusão. Foco retórico: Reconstruir a situação de fala e apresentar uma interpretação fiel, distinguindo a voz do autor da própria.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [
+            "reading.workshop"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.seminar",
+          "type": "seminar",
+          "title": "Seminário",
+          "prompt": "Traga uma interpretação com referência ao texto, uma pergunta e uma reconstrução do argumento. Ouça uma leitura diferente antes de responder; registre o que mudou. Foco deste ciclo: Sintaxe, referentes e paráfrase fiel. Termos, proposições, premissas e conclusão. Foco retórico: Reconstruir a situação de fala e apresentar uma interpretação fiel, distinguindo a voz do autor da própria.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [
+            "reading.workshop"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio",
+          "prompt": "Imite uma construção do texto em situação diferente. Identifique o modelo, explique o que preservou e o que mudou no sentido e na inferência. Foco deste ciclo: Sintaxe, referentes e paráfrase fiel. Termos, proposições, premissas e conclusão. Foco retórico: Reconstruir a situação de fala e apresentar uma interpretação fiel, distinguindo a voz do autor da própria.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [
+            "reading.workshop"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.composition",
+          "type": "composition",
+          "title": "Composição",
+          "prompt": "Escreva 300–500 palavras para uma audiência definida. Inclua tese, razões e uma objeção. Anexe ao texto um mapa breve do argumento e duas escolhas de revisão linguística. Foco deste ciclo: Sintaxe, referentes e paráfrase fiel. Termos, proposições, premissas e conclusão. Foco retórico: Reconstruir a situação de fala e apresentar uma interpretação fiel, distinguindo a voz do autor da própria.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [
+            "reading.workshop"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio",
+          "prompt": "Prepare defesa ou objeção à proposição discutida no ciclo. Explicite termos e premissas. Na réplica, reconstrua a objeção antes de responder e registre uma concessão justificada. Foco deste ciclo: Sintaxe, referentes e paráfrase fiel. Termos, proposições, premissas e conclusão. Foco retórico: Reconstruir a situação de fala e apresentar uma interpretação fiel, distinguindo a voz do autor da própria.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [
+            "reading.workshop"
+          ],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "relator": 1,
+            "observador": 1
+          }
+        },
+        {
+          "key": "c01.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio",
+          "prompt": "Apresente sua composição em 3–5 minutos. Defina audiência, torne as relações claras e responda a uma objeção sem mudar indevidamente a tese. Registro escrito do professor substitui gravação. Foco deste ciclo: Sintaxe, referentes e paráfrase fiel. Termos, proposições, premissas e conclusão. Foco retórico: Reconstruir a situação de fala e apresentar uma interpretação fiel, distinguindo a voz do autor da própria.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [
+            "reading.workshop"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.reflection",
+          "type": "reflection",
+          "title": "Reflexão",
+          "prompt": "Compare intenção e evidência. Cite uma mudança gramatical, uma revisão lógica e uma escolha retórica. Relacione-as ao feedback e formule um próximo experimento. Foco deste ciclo: Sintaxe, referentes e paráfrase fiel. Termos, proposições, premissas e conclusão. Foco retórico: Reconstruir a situação de fala e apresentar uma interpretação fiel, distinguindo a voz do autor da própria.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [
+            "reading.workshop"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ]
+    },
+    {
+      "key": "c02",
+      "title": "Imitar com discernimento",
+      "question": "Como a forma altera sentido e efeito?",
+      "objectives": {
+        "grammar": "Coesão, período e registro.",
+        "logic": "Definição, divisão e equivocação.",
+        "rhetoric": "Adaptar um modelo expressivo a uma nova audiência e justificar as escolhas de forma e efeito."
+      },
+      "activities": [
+        {
+          "key": "c02.reading",
+          "type": "reading",
+          "title": "Leitura",
+          "prompt": "Identifique referentes e uma ambiguidade. Faça uma paráfrase fiel. Separe premissas da conclusão e indique o que não está demonstrado. Foco deste ciclo: Coesão, período e registro. Definição, divisão e equivocação. Foco retórico: Adaptar um modelo expressivo a uma nova audiência e justificar as escolhas de forma e efeito.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c02.seminar",
+          "type": "seminar",
+          "title": "Seminário",
+          "prompt": "Traga uma interpretação com referência ao texto, uma pergunta e uma reconstrução do argumento. Ouça uma leitura diferente antes de responder; registre o que mudou. Foco deste ciclo: Coesão, período e registro. Definição, divisão e equivocação. Foco retórico: Adaptar um modelo expressivo a uma nova audiência e justificar as escolhas de forma e efeito.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c02.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio",
+          "prompt": "Imite uma construção do texto em situação diferente. Identifique o modelo, explique o que preservou e o que mudou no sentido e na inferência. Foco deste ciclo: Coesão, período e registro. Definição, divisão e equivocação. Foco retórico: Adaptar um modelo expressivo a uma nova audiência e justificar as escolhas de forma e efeito.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c02.composition",
+          "type": "composition",
+          "title": "Composição",
+          "prompt": "Escreva 300–500 palavras para uma audiência definida. Inclua tese, razões e uma objeção. Anexe ao texto um mapa breve do argumento e duas escolhas de revisão linguística. Foco deste ciclo: Coesão, período e registro. Definição, divisão e equivocação. Foco retórico: Adaptar um modelo expressivo a uma nova audiência e justificar as escolhas de forma e efeito.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c02.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio",
+          "prompt": "Prepare defesa ou objeção à proposição discutida no ciclo. Explicite termos e premissas. Na réplica, reconstrua a objeção antes de responder e registre uma concessão justificada. Foco deste ciclo: Coesão, período e registro. Definição, divisão e equivocação. Foco retórico: Adaptar um modelo expressivo a uma nova audiência e justificar as escolhas de forma e efeito.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "relator": 1,
+            "observador": 1
+          }
+        },
+        {
+          "key": "c02.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio",
+          "prompt": "Apresente sua composição em 3–5 minutos. Defina audiência, torne as relações claras e responda a uma objeção sem mudar indevidamente a tese. Registro escrito do professor substitui gravação. Foco deste ciclo: Coesão, período e registro. Definição, divisão e equivocação. Foco retórico: Adaptar um modelo expressivo a uma nova audiência e justificar as escolhas de forma e efeito.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c02.reflection",
+          "type": "reflection",
+          "title": "Reflexão",
+          "prompt": "Compare intenção e evidência. Cite uma mudança gramatical, uma revisão lógica e uma escolha retórica. Relacione-as ao feedback e formule um próximo experimento. Foco deste ciclo: Coesão, período e registro. Definição, divisão e equivocação. Foco retórico: Adaptar um modelo expressivo a uma nova audiência e justificar as escolhas de forma e efeito.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ]
+    },
+    {
+      "key": "c03",
+      "title": "Argumentar e objetar",
+      "question": "Quais razões sustentam esta conclusão?",
+      "objectives": {
+        "grammar": "Negação, quantificação e alcance de condicionais.",
+        "logic": "Validade, verdade e contraexemplos.",
+        "rhetoric": "Defender uma tese e responder a uma objeção reconstruída com justiça, sem ocultar uma inferência frágil."
+      },
+      "activities": [
+        {
+          "key": "c03.reading",
+          "type": "reading",
+          "title": "Leitura",
+          "prompt": "Identifique referentes e uma ambiguidade. Faça uma paráfrase fiel. Separe premissas da conclusão e indique o que não está demonstrado. Foco deste ciclo: Negação, quantificação e alcance de condicionais. Validade, verdade e contraexemplos. Foco retórico: Defender uma tese e responder a uma objeção reconstruída com justiça, sem ocultar uma inferência frágil.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.seminar",
+          "type": "seminar",
+          "title": "Seminário",
+          "prompt": "Traga uma interpretação com referência ao texto, uma pergunta e uma reconstrução do argumento. Ouça uma leitura diferente antes de responder; registre o que mudou. Foco deste ciclo: Negação, quantificação e alcance de condicionais. Validade, verdade e contraexemplos. Foco retórico: Defender uma tese e responder a uma objeção reconstruída com justiça, sem ocultar uma inferência frágil.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio",
+          "prompt": "Imite uma construção do texto em situação diferente. Identifique o modelo, explique o que preservou e o que mudou no sentido e na inferência. Foco deste ciclo: Negação, quantificação e alcance de condicionais. Validade, verdade e contraexemplos. Foco retórico: Defender uma tese e responder a uma objeção reconstruída com justiça, sem ocultar uma inferência frágil.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.composition",
+          "type": "composition",
+          "title": "Composição",
+          "prompt": "Escreva 300–500 palavras para uma audiência definida. Inclua tese, razões e uma objeção. Anexe ao texto um mapa breve do argumento e duas escolhas de revisão linguística. Foco deste ciclo: Negação, quantificação e alcance de condicionais. Validade, verdade e contraexemplos. Foco retórico: Defender uma tese e responder a uma objeção reconstruída com justiça, sem ocultar uma inferência frágil.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio",
+          "prompt": "Prepare defesa ou objeção à proposição discutida no ciclo. Explicite termos e premissas. Na réplica, reconstrua a objeção antes de responder e registre uma concessão justificada. Foco deste ciclo: Negação, quantificação e alcance de condicionais. Validade, verdade e contraexemplos. Foco retórico: Defender uma tese e responder a uma objeção reconstruída com justiça, sem ocultar uma inferência frágil.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "relator": 1,
+            "observador": 1
+          }
+        },
+        {
+          "key": "c03.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio",
+          "prompt": "Apresente sua composição em 3–5 minutos. Defina audiência, torne as relações claras e responda a uma objeção sem mudar indevidamente a tese. Registro escrito do professor substitui gravação. Foco deste ciclo: Negação, quantificação e alcance de condicionais. Validade, verdade e contraexemplos. Foco retórico: Defender uma tese e responder a uma objeção reconstruída com justiça, sem ocultar uma inferência frágil.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.reflection",
+          "type": "reflection",
+          "title": "Reflexão",
+          "prompt": "Compare intenção e evidência. Cite uma mudança gramatical, uma revisão lógica e uma escolha retórica. Relacione-as ao feedback e formule um próximo experimento. Foco deste ciclo: Negação, quantificação e alcance de condicionais. Validade, verdade e contraexemplos. Foco retórico: Defender uma tese e responder a uma objeção reconstruída com justiça, sem ocultar uma inferência frágil.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.symposium",
+          "type": "symposium",
+          "title": "Symposium",
+          "prompt": "Integre duas leituras ou trabalhos do percurso em uma questão comum. Explicite uma distinção de linguagem, uma inferência e uma escolha para a audiência. O relator reúne divergências sem forçar consenso. Foco deste ciclo: Negação, quantificação e alcance de condicionais. Validade, verdade e contraexemplos. Foco retórico: Defender uma tese e responder a uma objeção reconstruída com justiça, sem ocultar uma inferência frágil.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ]
+    },
+    {
+      "key": "c04",
+      "title": "Compor e julgar",
+      "question": "Como organizar razões para este público?",
+      "objectives": {
+        "grammar": "Coerência entre parágrafos e revisão.",
+        "logic": "Dedução, indução, analogia e evidência.",
+        "rhetoric": "Ordenar razões, exemplos e objeções segundo a finalidade do discurso e as necessidades da audiência."
+      },
+      "activities": [
+        {
+          "key": "c04.reading",
+          "type": "reading",
+          "title": "Leitura",
+          "prompt": "Identifique referentes e uma ambiguidade. Faça uma paráfrase fiel. Separe premissas da conclusão e indique o que não está demonstrado. Foco deste ciclo: Coerência entre parágrafos e revisão. Dedução, indução, analogia e evidência. Foco retórico: Ordenar razões, exemplos e objeções segundo a finalidade do discurso e as necessidades da audiência.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c04.seminar",
+          "type": "seminar",
+          "title": "Seminário",
+          "prompt": "Traga uma interpretação com referência ao texto, uma pergunta e uma reconstrução do argumento. Ouça uma leitura diferente antes de responder; registre o que mudou. Foco deste ciclo: Coerência entre parágrafos e revisão. Dedução, indução, analogia e evidência. Foco retórico: Ordenar razões, exemplos e objeções segundo a finalidade do discurso e as necessidades da audiência.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c04.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio",
+          "prompt": "Imite uma construção do texto em situação diferente. Identifique o modelo, explique o que preservou e o que mudou no sentido e na inferência. Foco deste ciclo: Coerência entre parágrafos e revisão. Dedução, indução, analogia e evidência. Foco retórico: Ordenar razões, exemplos e objeções segundo a finalidade do discurso e as necessidades da audiência.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c04.composition",
+          "type": "composition",
+          "title": "Composição",
+          "prompt": "Escreva 300–500 palavras para uma audiência definida. Inclua tese, razões e uma objeção. Anexe ao texto um mapa breve do argumento e duas escolhas de revisão linguística. Foco deste ciclo: Coerência entre parágrafos e revisão. Dedução, indução, analogia e evidência. Foco retórico: Ordenar razões, exemplos e objeções segundo a finalidade do discurso e as necessidades da audiência.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c04.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio",
+          "prompt": "Prepare defesa ou objeção à proposição discutida no ciclo. Explicite termos e premissas. Na réplica, reconstrua a objeção antes de responder e registre uma concessão justificada. Foco deste ciclo: Coerência entre parágrafos e revisão. Dedução, indução, analogia e evidência. Foco retórico: Ordenar razões, exemplos e objeções segundo a finalidade do discurso e as necessidades da audiência.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "relator": 1,
+            "observador": 1
+          }
+        },
+        {
+          "key": "c04.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio",
+          "prompt": "Apresente sua composição em 3–5 minutos. Defina audiência, torne as relações claras e responda a uma objeção sem mudar indevidamente a tese. Registro escrito do professor substitui gravação. Foco deste ciclo: Coerência entre parágrafos e revisão. Dedução, indução, analogia e evidência. Foco retórico: Ordenar razões, exemplos e objeções segundo a finalidade do discurso e as necessidades da audiência.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c04.reflection",
+          "type": "reflection",
+          "title": "Reflexão",
+          "prompt": "Compare intenção e evidência. Cite uma mudança gramatical, uma revisão lógica e uma escolha retórica. Relacione-as ao feedback e formule um próximo experimento. Foco deste ciclo: Coerência entre parágrafos e revisão. Dedução, indução, analogia e evidência. Foco retórico: Ordenar razões, exemplos e objeções segundo a finalidade do discurso e as necessidades da audiência.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ]
+    },
+    {
+      "key": "c05",
+      "title": "Pronunciar e responder",
+      "question": "Como responder sem distorcer os termos?",
+      "objectives": {
+        "grammar": "Precisão oral e prosódia sob objeção.",
+        "logic": "Premissas implícitas e carga da prova.",
+        "rhetoric": "Pronunciar uma fala inteligível e responder sob objeção preservando a tese e concedendo o que for justificado."
+      },
+      "activities": [
+        {
+          "key": "c05.reading",
+          "type": "reading",
+          "title": "Leitura",
+          "prompt": "Identifique referentes e uma ambiguidade. Faça uma paráfrase fiel. Separe premissas da conclusão e indique o que não está demonstrado. Foco deste ciclo: Precisão oral e prosódia sob objeção. Premissas implícitas e carga da prova. Foco retórico: Pronunciar uma fala inteligível e responder sob objeção preservando a tese e concedendo o que for justificado.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c05.seminar",
+          "type": "seminar",
+          "title": "Seminário",
+          "prompt": "Traga uma interpretação com referência ao texto, uma pergunta e uma reconstrução do argumento. Ouça uma leitura diferente antes de responder; registre o que mudou. Foco deste ciclo: Precisão oral e prosódia sob objeção. Premissas implícitas e carga da prova. Foco retórico: Pronunciar uma fala inteligível e responder sob objeção preservando a tese e concedendo o que for justificado.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c05.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio",
+          "prompt": "Imite uma construção do texto em situação diferente. Identifique o modelo, explique o que preservou e o que mudou no sentido e na inferência. Foco deste ciclo: Precisão oral e prosódia sob objeção. Premissas implícitas e carga da prova. Foco retórico: Pronunciar uma fala inteligível e responder sob objeção preservando a tese e concedendo o que for justificado.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c05.composition",
+          "type": "composition",
+          "title": "Composição",
+          "prompt": "Escreva 300–500 palavras para uma audiência definida. Inclua tese, razões e uma objeção. Anexe ao texto um mapa breve do argumento e duas escolhas de revisão linguística. Foco deste ciclo: Precisão oral e prosódia sob objeção. Premissas implícitas e carga da prova. Foco retórico: Pronunciar uma fala inteligível e responder sob objeção preservando a tese e concedendo o que for justificado.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c05.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio",
+          "prompt": "Prepare defesa ou objeção à proposição discutida no ciclo. Explicite termos e premissas. Na réplica, reconstrua a objeção antes de responder e registre uma concessão justificada. Foco deste ciclo: Precisão oral e prosódia sob objeção. Premissas implícitas e carga da prova. Foco retórico: Pronunciar uma fala inteligível e responder sob objeção preservando a tese e concedendo o que for justificado.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "relator": 1,
+            "observador": 1
+          }
+        },
+        {
+          "key": "c05.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio",
+          "prompt": "Apresente sua composição em 3–5 minutos. Defina audiência, torne as relações claras e responda a uma objeção sem mudar indevidamente a tese. Registro escrito do professor substitui gravação. Foco deste ciclo: Precisão oral e prosódia sob objeção. Premissas implícitas e carga da prova. Foco retórico: Pronunciar uma fala inteligível e responder sob objeção preservando a tese e concedendo o que for justificado.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c05.reflection",
+          "type": "reflection",
+          "title": "Reflexão",
+          "prompt": "Compare intenção e evidência. Cite uma mudança gramatical, uma revisão lógica e uma escolha retórica. Relacione-as ao feedback e formule um próximo experimento. Foco deste ciclo: Precisão oral e prosódia sob objeção. Premissas implícitas e carga da prova. Foco retórico: Pronunciar uma fala inteligível e responder sob objeção preservando a tese e concedendo o que for justificado.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ]
+    },
+    {
+      "key": "c06",
+      "title": "Integrar e refletir",
+      "question": "O que mudou nos três pilares?",
+      "objectives": {
+        "grammar": "Interpretação e edição de texto novo.",
+        "logic": "Avaliação independente de argumento novo.",
+        "rhetoric": "Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites."
+      },
+      "activities": [
+        {
+          "key": "c06.reading",
+          "type": "reading",
+          "title": "Leitura",
+          "prompt": "Identifique referentes e uma ambiguidade. Faça uma paráfrase fiel. Separe premissas da conclusão e indique o que não está demonstrado. Foco deste ciclo: Interpretação e edição de texto novo. Avaliação independente de argumento novo. Foco retórico: Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.seminar",
+          "type": "seminar",
+          "title": "Seminário",
+          "prompt": "Traga uma interpretação com referência ao texto, uma pergunta e uma reconstrução do argumento. Ouça uma leitura diferente antes de responder; registre o que mudou. Foco deste ciclo: Interpretação e edição de texto novo. Avaliação independente de argumento novo. Foco retórico: Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio",
+          "prompt": "Imite uma construção do texto em situação diferente. Identifique o modelo, explique o que preservou e o que mudou no sentido e na inferência. Foco deste ciclo: Interpretação e edição de texto novo. Avaliação independente de argumento novo. Foco retórico: Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.composition",
+          "type": "composition",
+          "title": "Composição",
+          "prompt": "Escreva 300–500 palavras para uma audiência definida. Inclua tese, razões e uma objeção. Anexe ao texto um mapa breve do argumento e duas escolhas de revisão linguística. Foco deste ciclo: Interpretação e edição de texto novo. Avaliação independente de argumento novo. Foco retórico: Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio",
+          "prompt": "Prepare defesa ou objeção à proposição discutida no ciclo. Explicite termos e premissas. Na réplica, reconstrua a objeção antes de responder e registre uma concessão justificada. Foco deste ciclo: Interpretação e edição de texto novo. Avaliação independente de argumento novo. Foco retórico: Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "relator": 1,
+            "observador": 1
+          }
+        },
+        {
+          "key": "c06.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio",
+          "prompt": "Apresente sua composição em 3–5 minutos. Defina audiência, torne as relações claras e responda a uma objeção sem mudar indevidamente a tese. Registro escrito do professor substitui gravação. Foco deste ciclo: Interpretação e edição de texto novo. Avaliação independente de argumento novo. Foco retórico: Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.reflection",
+          "type": "reflection",
+          "title": "Reflexão",
+          "prompt": "Compare intenção e evidência. Cite uma mudança gramatical, uma revisão lógica e uma escolha retórica. Relacione-as ao feedback e formule um próximo experimento. Foco deste ciclo: Interpretação e edição de texto novo. Avaliação independente de argumento novo. Foco retórico: Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.symposium",
+          "type": "symposium",
+          "title": "Symposium",
+          "prompt": "Integre duas leituras ou trabalhos do percurso em uma questão comum. Explicite uma distinção de linguagem, uma inferência e uma escolha para a audiência. O relator reúne divergências sem forçar consenso. Foco deste ciclo: Interpretação e edição de texto novo. Avaliação independente de argumento novo. Foco retórico: Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.panel",
+          "type": "panel",
+          "title": "Banca final",
+          "prompt": "Use um texto novo selecionado pelo professor e de dificuldade comparável ao baseline. Apresente análise gramatical, reconstrução e avaliação lógica, composição e fala com arguição. Compare evidências dos três pilares e reconheça limites. Foco deste ciclo: Interpretação e edição de texto novo. Avaliação independente de argumento novo. Foco retórico: Compor e apresentar uma intervenção para uma situação nova, justificando suas escolhas e reconhecendo limites.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "trivium.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ]
+    }
+  ]
+}

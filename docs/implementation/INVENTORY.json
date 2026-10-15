@@ -1,0 +1,524 @@
+{
+  "source_head": "d461b9c43db20b3d3d11a02f9e1dcd92fedefbef",
+  "copied_candidates": [
+    {
+      "path": ".env.example",
+      "status": "local_candidate",
+      "sha256": "5b88968cd30746d2781df93442672c48a3fff4463cbf5a1e0c80830da94b7458"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "status": "local_candidate",
+      "sha256": "0619699587fd3c67b48f0cda0ad3620bc7821363e5882315462c40516dca359b"
+    },
+    {
+      "path": "agents.zip",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "app/HomePageClient.tsx",
+      "status": "local_candidate",
+      "sha256": "eb1303312bb846ca36679c77d26ea78cf13d939f295b75d44bff5b99a0cfafb8"
+    },
+    {
+      "path": "app/admin/layout.tsx",
+      "status": "local_candidate",
+      "sha256": "371a46d67bda6a08452bb92c5da153442cad41f63faa69a55616f9597bf35a1a"
+    },
+    {
+      "path": "app/admin/login/actions.ts",
+      "status": "local_candidate",
+      "sha256": "0150a31f2c6e5396b6f7a545f0d3a62d4b37bc917a191df7620bae973100b41a"
+    },
+    {
+      "path": "app/admin/login/page.tsx",
+      "status": "local_candidate",
+      "sha256": "57d9b3f0f1109ebde29bb33e779039fc06364ac5f4be1b5692cb496ea94fe6f3"
+    },
+    {
+      "path": "app/admin/system/page.tsx",
+      "status": "local_candidate",
+      "sha256": "059b095a32c9c106d3c98ac1678c8bb043897c49a0a6b179e482adb9f8b3286f"
+    },
+    {
+      "path": "app/api/admin/users/route.ts",
+      "status": "local_candidate",
+      "sha256": "f5665c0c51cf68294be4efd76fb6a021ada819835812b4946461ab9c226c19c1"
+    },
+    {
+      "path": "app/api/billing/portal/route.ts",
+      "status": "local_candidate",
+      "sha256": "bfd0e8e1dbd2ae26affc1ae7ead1a69b93c5b5c4e9beb9cc7e57848e3a652303"
+    },
+    {
+      "path": "app/api/cron/reprocess-purchases/route.ts",
+      "status": "local_candidate",
+      "sha256": "70e6ef58fec7c48569a70ac4805ba0d01b10d1516d4d41645b0c8d0b3455a635"
+    },
+    {
+      "path": "app/api/diagnostico/notify/route.ts",
+      "status": "local_candidate",
+      "sha256": "f0ff71b974edc3dee352083bab687d03ed31c42dd9df1ba7ddbbd6043aa22004"
+    },
+    {
+      "path": "app/api/flashcards/[cardId]/review/route.ts",
+      "status": "local_candidate",
+      "sha256": "736a77b639cb95e38460ff96a060d27abce623c59b358bf358a4c4222142eb3c"
+    },
+    {
+      "path": "app/api/lessons/[lessonId]/download/route.ts",
+      "status": "local_candidate",
+      "sha256": "1305151fd6edf6f164b478315e09bbe27ae133aaee602d86ce52e6a343d1c1e1"
+    },
+    {
+      "path": "app/api/me/export-data/route.ts",
+      "status": "local_candidate",
+      "sha256": "cf81e4be492c319476a50454ccd56c65d5b07c2ef7082b15c97b4cb32cb02508"
+    },
+    {
+      "path": "app/api/modules/[moduleId]/complete/route.ts",
+      "status": "local_candidate",
+      "sha256": "0afff9b62bd0b9b5c10de8ae4c67040997ccaea3ad0b2383dd356b5e56592b6f"
+    },
+    {
+      "path": "app/api/modules/[moduleId]/flashcards/route.ts",
+      "status": "local_candidate",
+      "sha256": "ad381a8e207946ae0a3747ba604f57d7d7b7ac87a73e7ca1d85d08c70e8a75f4"
+    },
+    {
+      "path": "app/api/modules/[moduleId]/lessons/[lessonId]/complete/route.ts",
+      "status": "local_candidate",
+      "sha256": "c5dd33102c054705f8409cbbadba3e1d071ba7f83a6e9595533b1622fb443771"
+    },
+    {
+      "path": "app/api/modules/[moduleId]/quiz/route.ts",
+      "status": "local_candidate",
+      "sha256": "7c68c7704c97f229ea7d09908303e0dcdef9265599ce6a4dc5527cb38a1ff380"
+    },
+    {
+      "path": "app/api/modules/[moduleId]/start/route.ts",
+      "status": "local_candidate",
+      "sha256": "f34b1c816ab3e068f75b1a0649e23db02bdab6532dcde18d0b065d95fc9abc42"
+    },
+    {
+      "path": "app/api/onboarding/status/route.ts",
+      "status": "local_candidate",
+      "sha256": "f4d0f5faaec1e3ce9ade4cd3d2a8b277be07afba1e923d118277af4cc027dae4"
+    },
+    {
+      "path": "app/api/purchases/claim/route.ts",
+      "status": "local_candidate",
+      "sha256": "9c64ed0c329ced3b863be9b0fcd9d624ec22de0ca4f0b857ce4a76903b220e3d"
+    },
+    {
+      "path": "app/api/services/[orderId]/checkout/route.ts",
+      "status": "local_candidate",
+      "sha256": "37e8f526c89e62eec8e3fe15a35865c69b7056de1b8815caf88fc5fd99b0cc36"
+    },
+    {
+      "path": "app/api/services/[orderId]/route.ts",
+      "status": "local_candidate",
+      "sha256": "f28974b47887e4b0fb65c9cddadfda83fd8b9d28de9437095b31060043a6901b"
+    },
+    {
+      "path": "app/api/services/route.ts",
+      "status": "local_candidate",
+      "sha256": "77900a50cde1955ebc955f3efe3ac7ba7bc9b0b826ee43237189b87fce88fc5b"
+    },
+    {
+      "path": "app/api/stripe/checkout/route.ts",
+      "status": "local_candidate",
+      "sha256": "52e5e42678c706c3f106dd3fc6a353de2045ff8498e57818b79a285108d30748"
+    },
+    {
+      "path": "app/api/stripe/webhook/route.ts",
+      "status": "local_candidate",
+      "sha256": "0f2e94e40d1d316b381c411613832270d0cf7dc32c5893affd8b2071c5e94bf4"
+    },
+    {
+      "path": "app/api/webhooks/cal/route.ts",
+      "status": "local_candidate",
+      "sha256": "9b2b43a08a02d8ddd738bc607f80e1fb3be9fa5b13a0b7cc74599eb50c074bf4"
+    },
+    {
+      "path": "app/api/work/route.ts",
+      "status": "local_candidate",
+      "sha256": "ba7bfb9fd4256dfe51709c979055e7732fa54ea354e2e77fe70c42c780889037"
+    },
+    {
+      "path": "app/auth/callback/route.ts",
+      "status": "local_candidate",
+      "sha256": "dd89001e25f481c1683de4367da5a13c5f5e974d8e4cfc76aaa743a81c86a7a1"
+    },
+    {
+      "path": "app/blog/[slug]/page.tsx",
+      "status": "local_candidate",
+      "sha256": "8af04ba3967971bd3a3f74f081e62f46d4663dec2fcac9cab7f8210b65dd3451"
+    },
+    {
+      "path": "app/blog/blog-server-actions.ts",
+      "status": "local_candidate",
+      "sha256": "046f7436d7e11277161c59d7bdeb37ab35dc954691e2273922f52320442b865a"
+    },
+    {
+      "path": "app/blog/page.tsx",
+      "status": "local_candidate",
+      "sha256": "41764fb42542783b2d745672bb90daef0b294b9f4ffd6a166d90a587767aca90"
+    },
+    {
+      "path": "app/conta/page.tsx",
+      "status": "local_candidate",
+      "sha256": "3e3ba30baacd2ae2728910e0c71da9899f8d7c14864503db289bf5ee6b4d9a60"
+    },
+    {
+      "path": "app/dashboard/page.tsx",
+      "status": "local_candidate",
+      "sha256": "fa4ce107fd530924d4edf751da8643bb1071533bf156a28c9f869b7aa3377118"
+    },
+    {
+      "path": "app/diagnostico/[token]/page.tsx",
+      "status": "local_candidate",
+      "sha256": "78ab0e8df9c47eb67f9eb46cec2b6efe60d0aa38937196f77f361279440d7c2a"
+    },
+    {
+      "path": "app/diagnostico/resultado/DiagnosticoResultadoClient.tsx",
+      "status": "local_candidate",
+      "sha256": "f72deac8c2dfaeb72ed813b95461225baa0a13412e3d3ce6978f33d6aeef987e"
+    },
+    {
+      "path": "app/globals.css",
+      "status": "local_candidate",
+      "sha256": "df8a9b161c2e7531f902d39b7fa82e8a7fadf433c365b49fe502357faafd6b9f"
+    },
+    {
+      "path": "app/layout.tsx",
+      "status": "local_candidate",
+      "sha256": "30c8758a8b00d038b388a9bb889ee4c2899ca42084c1f5ed5a72b4b9af7eeefb"
+    },
+    {
+      "path": "app/me/page.tsx",
+      "status": "local_candidate",
+      "sha256": "6b5b6e5232b66ea7346e6eacea1eb909fb815010f5d4ffabfa305ccd4f9eeba0"
+    },
+    {
+      "path": "app/mentoria/page.tsx",
+      "status": "local_candidate",
+      "sha256": "cc80ad671269608800d0b5d03ce7c155fb8c86d4720308f3e697c32ec33979e3"
+    },
+    {
+      "path": "app/modules/[moduleId]/flashcards/page.tsx",
+      "status": "local_candidate",
+      "sha256": "9ad904881913b2c9bc4085517e311a4673e9df47125194efe606b644c2c3bfba"
+    },
+    {
+      "path": "app/modules/[moduleId]/lessons/[lessonId]/page.tsx",
+      "status": "local_candidate",
+      "sha256": "5fa123cbe23b2e2c3c1111b8be26fe869b56d9c9e5775b5a2c9455bcec61fa4a"
+    },
+    {
+      "path": "app/modules/[moduleId]/page.tsx",
+      "status": "local_candidate",
+      "sha256": "363a98bbaded071dc10c37680dc4d4c5e1a2bbe801bbebb2c25dbb88d29cdd3e"
+    },
+    {
+      "path": "app/onboarding/page.tsx",
+      "status": "local_candidate",
+      "sha256": "a15227626869bdbdc8d82597af9f9e6b684631d027c15e7c030973ed7b8c1337"
+    },
+    {
+      "path": "app/page.tsx",
+      "status": "local_candidate",
+      "sha256": "f606b425311040fb1a6b459c5532925f8b94f84b68050efe1f9f51039288619f"
+    },
+    {
+      "path": "app/professor/page.tsx",
+      "status": "local_candidate",
+      "sha256": "b63c2f63d3a42b663e7cb0febf6b4279edcdb3f6ef001278ccb4a127817ceb4a"
+    },
+    {
+      "path": "app/programa/page.tsx",
+      "status": "local_candidate",
+      "sha256": "02ff7c7c3718aa719a75a321d4ae0eb09e406aa1ce456b6129a6793f31b47b49"
+    },
+    {
+      "path": "app/reset-password/ResetPasswordLogic.tsx",
+      "status": "local_candidate",
+      "sha256": "7516ccd0a20cfada542466db40aedbb8ad6bee65f092e326d0f9993f1e7bc349"
+    },
+    {
+      "path": "app/servicos/page.tsx",
+      "status": "local_candidate",
+      "sha256": "66a3a5d9c77ebf63620ae62d41d1428550c86845a81ecb9434d2a17b5155f027"
+    },
+    {
+      "path": "components/BillingActions.tsx",
+      "status": "local_candidate",
+      "sha256": "bf84561a386eba9ff4e2db3882d0e857be02b870192d043512687772e8d4185c"
+    },
+    {
+      "path": "components/CompleteLessonButton.tsx",
+      "status": "local_candidate",
+      "sha256": "6720fe033f66d51becc5276e239ed6074deae36fc16a8080ffb666fddc27a79a"
+    },
+    {
+      "path": "components/CompleteModuleButton.tsx",
+      "status": "local_candidate",
+      "sha256": "9bb897bc2db4e3edf4c610b7416dff3e13b3a9de279de55fe49f125da1225ff4"
+    },
+    {
+      "path": "components/DashboardShell.tsx",
+      "status": "local_candidate",
+      "sha256": "cf214282f116deed3cb9a96156b5ffbcbee4aef107e60030a105ad67b58283a2"
+    },
+    {
+      "path": "components/NotificationBell.tsx",
+      "status": "local_candidate",
+      "sha256": "7a01969270d9350772e519e1f283637da747e8f06fbf40bd39fc6959f7dd981b"
+    },
+    {
+      "path": "components/ReadingLayout.tsx",
+      "status": "local_candidate",
+      "sha256": "0cca8405cf8fc35a824ab8e65ce838e2aa8e5489e39f9028ef24e83422b365dd"
+    },
+    {
+      "path": "components/ServiceForms.tsx",
+      "status": "local_candidate",
+      "sha256": "31a85e65594fa991f9b10a7cd08ffdb9eb5571c7308ad047e6a0cb0f60229580"
+    },
+    {
+      "path": "components/SiteHeader.tsx",
+      "status": "local_candidate",
+      "sha256": "6f027f363ba05e3a7df76ff1f749e01b590dd38ee979977c6083a11e6cfb46c4"
+    },
+    {
+      "path": "components/WorkEditor.tsx",
+      "status": "local_candidate",
+      "sha256": "c6893dfa530216732b84c7be0677c6fdf199e129c92953d057784928e9cf4843"
+    },
+    {
+      "path": "docs/implementation/STATUS.md",
+      "status": "local_candidate",
+      "sha256": "05fe2180151311fe8da7a30136019cf1fa36c22bcdb8451931d67d1a452ab302"
+    },
+    {
+      "path": "lib/actions.ts",
+      "status": "local_candidate",
+      "sha256": "146da6365b14593b5b213f662d0cb0fe38f6ff6e36ac263a0adef97482724573"
+    },
+    {
+      "path": "lib/admin/auth.ts",
+      "status": "local_candidate",
+      "sha256": "14505a9b0d08c77e12387f3f43726c743e8c76efaed2a07ab6e2375f4491a954"
+    },
+    {
+      "path": "lib/billing/abuse.ts",
+      "status": "local_candidate",
+      "sha256": "52b630ea1f43545f97c43ee66383032d712efdebca426bfddddc415c4d2126fd"
+    },
+    {
+      "path": "lib/billing/config.ts",
+      "status": "local_candidate",
+      "sha256": "091115cf638e4038be95f01dc8d5ae4bdc245d2edcd8fc9e7952a94b4d15ab5a"
+    },
+    {
+      "path": "lib/billing/webhook.ts",
+      "status": "local_candidate",
+      "sha256": "da763e6c875e382814d19dfdf80100684e036faf3904019f036465a8fc675bfd"
+    },
+    {
+      "path": "lib/blog-server.ts",
+      "status": "local_candidate",
+      "sha256": "280cfb468f1a5b7cf875a25522a0802392c4d4de4bb259e826519c383e8f2b0d"
+    },
+    {
+      "path": "lib/email/assignmentFeedback.ts",
+      "status": "local_candidate",
+      "sha256": "319585ed29a307421e4947b668ec0f7a66e3cef48421ecc078adeea2b8151023"
+    },
+    {
+      "path": "lib/email/reEngagement.ts",
+      "status": "local_candidate",
+      "sha256": "d0fc975a884514af772f1b08c900ac63620cc6f126448de75e7411fcf72787ad"
+    },
+    {
+      "path": "lib/progression.ts",
+      "status": "local_candidate",
+      "sha256": "6313df62ca1f8fbc31273d1970ffbc1b32798cf23923a29dc25875b7623b2454"
+    },
+    {
+      "path": "lib/provisioning.ts",
+      "status": "local_candidate",
+      "sha256": "80777baad8eb5f9815c5e0090db23f02f440d772c57d2f15eff9bce6e890e4c0"
+    },
+    {
+      "path": "lib/routeSecurity.ts",
+      "status": "local_candidate",
+      "sha256": "fe30177d0ba29cac132e24b71b11f2b5377ac19cd9c7c8ecd12869499cff590a"
+    },
+    {
+      "path": "lib/staff.ts",
+      "status": "local_candidate",
+      "sha256": "ef128c6ae6373a3e920eab332c3c9341c8f288eb5502ce7d5b9d76f119f0a1c6"
+    },
+    {
+      "path": "lib/supabaseServer.ts",
+      "status": "local_candidate",
+      "sha256": "40b80fdd479dcca46544b1f427f0d25caebec7214b928a0ce30995a5509cb19d"
+    },
+    {
+      "path": "lib/users.ts",
+      "status": "local_candidate",
+      "sha256": "c19b7d313b4851fe8952dd8def1632dd08f841c1712b0abb2e0307828e69c2ba"
+    },
+    {
+      "path": "liceu-lms-fixed.zip",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "middleware.ts",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "next.config.mjs",
+      "status": "local_candidate",
+      "sha256": "16f577aa8bf33347aa6f3ee6adc38241f7809f926cf8f122766cf56765f6ae3b"
+    },
+    {
+      "path": "next.config.ts",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "package-lock.json",
+      "status": "local_candidate",
+      "sha256": "f473c5d294194c52ca5b49eff601950343a06c1d6e17d152b5a206bc7c3cf530"
+    },
+    {
+      "path": "package.json",
+      "status": "local_candidate",
+      "sha256": "2ae13d4501ed268005f43618feabb01bffb562f2b4f7e0c05d0f0cf864e1e3f9"
+    },
+    {
+      "path": "proxy.ts",
+      "status": "local_candidate",
+      "sha256": "0ab03e15009ab2fb5a0934c17cf596790e4aa04c5435b6f200d6ad63d30972b8"
+    },
+    {
+      "path": "scripts/verify-database.py",
+      "status": "local_candidate",
+      "sha256": "4b3fb6b9b0def5ea007ee99f04840c11f22c11b88a38371f019fece8846ac28a"
+    },
+    {
+      "path": "stitch_liceu_underground_prd.zip",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/initiate_identity_verdant_profile/code.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/initiate_identity_verdant_profile/screen.png",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/mentor_command_verdant_dashboard/code.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/mentor_command_verdant_dashboard/screen.png",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_archive_verdant/code.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_archive_verdant/screen.png",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_arena_verdant_mentorship/code.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_arena_verdant_mentorship/screen.png",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_atrium_verdant_landing/code.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_atrium_verdant_landing/screen.png",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_drill_terminal_verdant/code.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_drill_terminal_verdant/screen.png",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_scriptorium_verdant_course_view/code.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_scriptorium_verdant_course_view/screen.png",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_sifting_verdant_diagnostic/code.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_sifting_verdant_diagnostic/screen.png",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_training_grounds_verdant_dashboard/code.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_training_grounds_verdant_dashboard/screen.png",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/the_verdant_scriptorium/DESIGN.md",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "stitch_liceu_underground_prd/stitch_liceu_underground_prd/verdant_scriptorium_design_spec.html",
+      "status": "local_deleted_candidate"
+    },
+    {
+      "path": "supabase/baseline/2026-10-08-public.sql",
+      "status": "local_candidate",
+      "sha256": "f5fdcba2a86fd10556447ea508cb5fd419f613c6db89b9d39ccd4851ed731241"
+    },
+    {
+      "path": "supabase/migrations/20261008231646_subscription_learning_security.sql",
+      "status": "local_candidate",
+      "sha256": "9c8ca7dc109f676e54af7a0ce7b1fcbf0e90f425fb5bf37c84f8738499a1066c"
+    },
+    {
+      "path": "tests/api/auth/logout.test.ts",
+      "status": "local_candidate",
+      "sha256": "b7b9570f4b527b36a0fec3de47a22f5f0c3f7cabaaedb41298372710ed93940e"
+    },
+    {
+      "path": "tests/api/email/diagnostico.test.ts",
+      "status": "local_candidate",
+      "sha256": "2049e5b6a6aa7f9ef9b1f483fd64b1c367129f765fad7803e8ea3d3bd3960c31"
+    },
+    {
+      "path": "tests/api/onboarding/status.test.ts",
+      "status": "local_candidate",
+      "sha256": "ee2b61ed0b3b9ad0ea7b139a04cd8b1e6ae102cd661cf1268c25ed3b8d52851c"
+    },
+    {
+      "path": "verify_upsert.js",
+      "status": "local_deleted_candidate"
+    }
+  ]
+}

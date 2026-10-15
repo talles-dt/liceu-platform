@@ -1,0 +1,27 @@
+{
+  "verified_at": "2026-10-10",
+  "read_only": true,
+  "column_drift_from_2026_10_08": 0,
+  "schema_evidence": {
+    "columns": {
+      "sha256": "81cf3c0ec9edde6cb0974e98b750f318ef0aafbdb37b6e7d14146787087a4685",
+      "row_count": 341
+    },
+    "policies": {
+      "sha256": "523ab87804a6b7295af63d5d54a3e3fc018227ead842d99e28f8fb5bf481fd73",
+      "row_count": 40
+    },
+    "functions": {
+      "sha256": "1c754c12404bf3abae06590a8cc2ca949df90b2c66f91a7114c2da3088a6c1f8",
+      "row_count": 11
+    },
+    "migrations": {
+      "sha256": "29976198d93d35f493fb3c4ca55c0cd0aa729f6cb2fd7968a4b866889736ff61",
+      "row_count": 16
+    },
+    "buckets": {
+      "sha256": "46bec9b1e7ccf0d7ea21afa59bf135736f6a8435d676046b156dbc351db97f7e",
+      "row_count": 1
+    }
+  }
+}

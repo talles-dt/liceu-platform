@@ -1,0 +1,90 @@
+{
+  "scope": "Stripe API provider tests only; no production charges or application DB writes",
+  "account_id": "acct_1TC9LbDLweZOOMDK",
+  "livemode": false,
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Correct Liceu account and sandbox mode",
+      "passed": true,
+      "account_id": "acct_1TC9LbDLweZOOMDK"
+    },
+    {
+      "name": "Sandbox catalog matches approved BRL amounts",
+      "passed": true,
+      "prices": {
+        "monthly": "price_1UQ396DLweZOOMDKmFRuLSeg",
+        "review": "price_1UQ398DLweZOOMDKFD3T2D4A",
+        "mentoring": "price_1UQ399DLweZOOMDKMgOUtGPN"
+      }
+    },
+    {
+      "name": "Checkout sessions created for all three offers (not completed)",
+      "passed": true
+    },
+    {
+      "name": "Initial subscription payment succeeds",
+      "passed": true,
+      "subscription_id": "sub_1UQ39IDLweZOOMDK2YW0Co1o",
+      "invoice_id": "in_1UQ39IDLweZOOMDKsNv2W9jq",
+      "amount_paid": 79900
+    },
+    {
+      "name": "Monthly renewal paid using Stripe test clock",
+      "passed": true,
+      "invoice_id": "in_1UQ39QDLweZOOMDKS8q1IrcE",
+      "amount_paid": 79900
+    },
+    {
+      "name": "Failed renewal becomes past_due without payment",
+      "passed": true,
+      "subscription_status": "past_due",
+      "invoice_status": "open"
+    },
+    {
+      "name": "Subscription canceled without extra invoice or proration",
+      "passed": true
+    },
+    {
+      "name": "review payment and full refund succeeded",
+      "passed": true,
+      "payment_intent_id": "pi_3UQ3CRDLweZOOMDK21jQp5FI",
+      "refund_id": "re_3UQ3CRDLweZOOMDK2aR5A63Z",
+      "amount": 19900
+    },
+    {
+      "name": "mentoring payment and full refund succeeded",
+      "passed": true,
+      "payment_intent_id": "pi_3UQ3CUDLweZOOMDK1ogtOGlR",
+      "refund_id": "re_3UQ3CUDLweZOOMDK1bc1ILDa",
+      "amount": 44900
+    },
+    {
+      "name": "Uncompleted test Checkout sessions expired",
+      "passed": true
+    }
+  ],
+  "resources": {
+    "product_monthly": "prod_VQuzFDZ0QOByYc",
+    "price_monthly": "price_1UQ396DLweZOOMDKmFRuLSeg",
+    "product_review": "prod_VQuzjp26AtlP5j",
+    "price_review": "price_1UQ398DLweZOOMDKFD3T2D4A",
+    "product_mentoring": "prod_VQuzp6JNdXQX9d",
+    "price_mentoring": "price_1UQ399DLweZOOMDKMgOUtGPN",
+    "checkout_monthly": "cs_test_a1zmDw4GP14q2k7fW2Gs7Djg2mUTwxSQr1HEGtJm1HcTNpRjGmLH33GcMW",
+    "checkout_review": "cs_test_a1npXb79iKPLRHEQBq01jtEpjKfMSEednTzU6OiTWrNdtxjim6LgjuwP6L",
+    "checkout_mentoring": "cs_test_a1Y5oWGiWV4e9yaAg5oyKjletiOVx89vgTokqvX1oB7UHJa8zYi97Hk2e3",
+    "clock": "clock_1UQ39EDLweZOOMDKbTrYQcRU",
+    "customer": "cus_VQuzOOMHjW0BTs",
+    "subscription": "sub_1UQ39IDLweZOOMDK2YW0Co1o",
+    "payment_review": "pi_3UQ3CRDLweZOOMDK21jQp5FI",
+    "refund_review": "re_3UQ3CRDLweZOOMDK2aR5A63Z",
+    "payment_mentoring": "pi_3UQ3CUDLweZOOMDK1ogtOGlR",
+    "refund_mentoring": "re_3UQ3CUDLweZOOMDK1bc1ILDa"
+  },
+  "error": null,
+  "limitations": [
+    "Hosted Checkout UI not completed",
+    "Application entitlement and webhook effects not asserted by this script"
+  ]
+}

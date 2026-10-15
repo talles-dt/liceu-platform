@@ -1,10 +1,11 @@
-import { Resend } from "resend";
+import {authorizeEmail,publicLimit,validEmail} from "@/lib/publicRequests";
+import { getResendClient } from "@/lib/resend";
 import { NextResponse } from "next/server";
 import { escapeHtml } from "@/lib/routeSecurity";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+
 
 const TEMPLATES: Record<string, { subject: string; intro: string }> = {
   silencio: {
@@ -22,19 +23,6 @@ const TEMPLATES: Record<string, { subject: string; intro: string }> = {
   // Adicione outros arquétipos aqui conforme necessário
 };
 
-function checkRateLimit(key: string) {
-  const now = Date.now();
-  const entry = rateLimitMap.get(key);
-  if (!entry || now > entry.resetAt) {
-    rateLimitMap.set(key, { count: 1, resetAt: now + 60 * 60 * 1000 });
-    return true;
-  }
-
-  if (entry.count >= 3) return false;
-  entry.count++;
-  return true;
-}
-
 export async function POST(req: Request) {
   const body = (await req.json().catch(() => ({}))) as {
     email?: string;
@@ -43,16 +31,15 @@ export async function POST(req: Request) {
     archetype_name?: string;
     share_token?: string;
   };
-  const { email, name, archetype_key, archetype_name, share_token } = body;
+  const { email, name, archetype_key, archetype_name, share_token } = body??{};
 
-  if (!email || !EMAIL_RE.test(email)) {
+  if (!validEmail(email) || [name,archetype_key,archetype_name,share_token].some(value=>value!==undefined&&(typeof value!=="string"||value.length>200))) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
   const normalizedEmail = email.toLowerCase().trim();
-  if (!checkRateLimit(`diagnostico-notify:${normalizedEmail}`)) {
-    return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });
-  }
+  const denied=await authorizeEmail(req,email);if(denied)return denied;
+  const limited=await publicLimit(req,"diagnostic-notify",email);if(limited)return limited;
 
   const safeName = escapeHtml((name ?? "Visitante").slice(0, 120));
   const safeArchetypeName = escapeHtml((archetype_name ?? "resultado").slice(0, 120));
@@ -64,14 +51,14 @@ export async function POST(req: Request) {
     intro: `Você é ${safeArchetypeName}. O Liceu tem um caminho para você.`,
   };
 
-  await resend.emails.send({
+  await getResendClient().emails.send({
     from: "Liceu Underground <talles@oliceu.com>",
     to: normalizedEmail,
     subject: tpl.subject,
     html: `
       <p>Olá, ${safeName}.</p>
       <p>${tpl.intro}</p>
-      <p><a href="https://olice.com/checkout">Comece no Liceu →</a></p>
+      <p><a href="https://oliceu.com/conta">Comece no Liceu →</a></p>
       <hr/>
       <p style="font-size:12px;color:#888">
         Compartilhe seu resultado:

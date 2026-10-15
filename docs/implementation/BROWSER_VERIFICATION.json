@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-12",
+  "environment": "localhost:3110, synthetic confirmed student, Chromium",
+  "checks": [
+    "authenticated practice page",
+    "draft save visibly confirmed",
+    "saved draft survives reload",
+    "offline failure preserves text",
+    "retry after connection restoration",
+    "private credentials kept only in ignored fixture directory"
+  ],
+  "limits": [
+    "Not production acceptance",
+    "No external payment or calendar provider",
+    "Full teacher/admin visual journey and browser back unsaved recovery remain to verify"
+  ]
+}

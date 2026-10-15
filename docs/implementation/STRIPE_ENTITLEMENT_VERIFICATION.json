@@ -1,0 +1,71 @@
+{
+  "at": "2026-10-13T10:55:45.305Z",
+  "scope": "Real Stripe sandbox signed forwarding -> application route/inbox/handlers -> isolated Supabase Auth/PostgREST/RLS",
+  "account": "acct_1TC9LbDLweZOOMDK",
+  "livemode": false,
+  "checks": [
+    "Unpaid student denied by RPC and real RLS",
+    "Real initial payment grants paid interval and lesson access",
+    "Real paid renewal extends access",
+    "Failed renewal preserves only already-paid interval",
+    "Cancellation preserves already-paid interval without extension",
+    "Repeated signed event acknowledged once",
+    "Tampered delivery rejected",
+    "After paid interval expires, RPC and RLS deny lesson access"
+  ],
+  "deliveries": [
+    {
+      "id": "evt_1UQ3N8DLweZOOMDK1OTKD0zW",
+      "type": "invoice.paid",
+      "status": 200
+    },
+    {
+      "id": "evt_1UQ3N8DLweZOOMDKVurffnZX",
+      "type": "customer.subscription.created",
+      "status": 200
+    },
+    {
+      "id": "evt_1UQ3NGDLweZOOMDKqNFqX7u3",
+      "type": "customer.subscription.updated",
+      "status": 200
+    },
+    {
+      "id": "evt_1UQ3NSDLweZOOMDKA1dVbDRP",
+      "type": "invoice.paid",
+      "status": 200
+    },
+    {
+      "id": "evt_1UQ3NcDLweZOOMDKUfIm3ax6",
+      "type": "customer.subscription.updated",
+      "status": 200
+    },
+    {
+      "id": "evt_1UQ3NrDLweZOOMDKaaJBNg6v",
+      "type": "invoice.payment_failed",
+      "status": 200
+    },
+    {
+      "id": "evt_1UQ3NsDLweZOOMDKutk9HDSk",
+      "type": "customer.subscription.updated",
+      "status": 200
+    },
+    {
+      "id": "evt_1UQ3NuDLweZOOMDKLBSv5Jcs",
+      "type": "customer.subscription.deleted",
+      "status": 200
+    }
+  ],
+  "limits": [
+    "Stripe SDK network calls use a CLI OAuth adapter; production SDK credential transport not exercised",
+    "HTTP harness invokes the real route, not a deployed Next server",
+    "Expiry boundary simulated by changing only the synthetic local subscription access_until; Stripe test clocks do not move PostgreSQL time",
+    "No production writes, charges, or sales activation"
+  ],
+  "resources": {
+    "subscription": "sub_1UQ3N6DLweZOOMDKPs1iitOa",
+    "clock": "clock_1UQ3N1DLweZOOMDKh1NOqFYE",
+    "customer": "cus_VQvDvvOkAbuFzc",
+    "user": "3dd39a48-7a9e-4458-ab55-0bc27cc29531"
+  },
+  "status": "passed"
+}
