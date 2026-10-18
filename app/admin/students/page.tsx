@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { StudentsTable } from "@/components/admin/tables/StudentsTable";
 import { getAdminStudents } from "@/lib/admin/queries";
 
@@ -18,6 +19,7 @@ export default async function AdminStudentsPage() {
         <div className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
           Dense table. Click a student for diagnosis.
         </div>
+        <Link href="/admin/students/create" className="inline-block mt-4 border px-4 py-2">Criar aluno e escolher acessos</Link>
       </header>
 
       <div className="mt-5">

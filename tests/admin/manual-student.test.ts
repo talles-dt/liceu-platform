@@ -1,0 +1,20 @@
+import {beforeEach,describe,it,expect,vi} from 'vitest';
+const mock=vi.hoisted(()=>({admin:vi.fn(),get:vi.fn(),create:vi.fn(),rpc:vi.fn(),from:vi.fn()}));
+vi.mock('@/lib/admin/auth',()=>({assertAdmin:mock.admin}));
+vi.mock('@/lib/supabaseAdmin',()=>({createSupabaseAdminClient:()=>({auth:{admin:{getUserById:mock.get,createUser:mock.create}},rpc:mock.rpc,from:mock.from})}));
+import {POST} from '@/app/api/admin/students/route';
+const id='11111111-1111-4111-8111-111111111111';
+const payload={requestId:id,email:'student@example.invalid',access:'mentoring',scope:'Acompanhamento individual mensal'};
+const req=(body:unknown,origin='http://localhost')=>new Request('http://localhost/api/admin/students',{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify(body)});
+beforeEach(()=>{vi.clearAllMocks();vi.stubEnv('NEXT_PUBLIC_SITE_URL','http://localhost');mock.admin.mockResolvedValue({id:'admin'});mock.get.mockResolvedValue({data:{user:null},error:{status:404}});mock.create.mockResolvedValue({data:{user:{id}}});mock.rpc.mockResolvedValue({data:{userId:id}});});
+describe('Manual student provisioning',()=>{
+ it('rejects foreign origin before authentication and writes',async()=>{expect((await POST(req(payload,'https://evil.invalid'))).status).toBe(403);expect(mock.admin).not.toHaveBeenCalled();});
+ it('rejects non administrators',async()=>{mock.admin.mockResolvedValue(null);expect((await POST(req(payload))).status).toBe(403);expect(mock.create).not.toHaveBeenCalled();});
+ it('requires an explicit access choice and valid fields',async()=>{for(const b of [null,{}, {...payload,access:undefined},{...payload,scope:'short'},{...payload,email:5},{...payload,access:'formation'}])expect((await POST(req(b))).status).toBe(400);expect(mock.create).not.toHaveBeenCalled();});
+ it('creates an administrative access, never a payment',async()=>{const r=await POST(req(payload));expect(r.status).toBe(200);expect(r.headers.get('cache-control')).toContain('no-store');expect(mock.rpc).toHaveBeenCalledWith('liceu_provision_student',expect.objectContaining({p_actor:'admin',p_access:'mentoring',p_cohort:null}));expect(mock.from).not.toHaveBeenCalled();});
+ it('does not return a supplied password',async()=>{const r=await POST(req({...payload,password:'VerySecureProvided123'}));expect((await r.json()).generatedPassword).toBeUndefined();});
+ it('reports partial completion honestly and preserves initial credentials',async()=>{mock.rpc.mockResolvedValue({error:{code:'PT409'}});const r=await POST(req(payload));const d=await r.json();expect(r.status).toBe(503);expect(d.partial).toBe(true);expect(d.generatedPassword).toBeTruthy();expect(d.created).not.toBe(true);});
+ it('resumes the same account without recreating or resetting credentials',async()=>{mock.get.mockResolvedValue({data:{user:{id,email:payload.email,app_metadata:{manual_provisioning_by:'admin',manual_access:{scope:payload.scope,expiresAt:null,cohortId:null,access:'mentoring'}}}}});expect((await POST(req(payload))).status).toBe(200);expect(mock.create).not.toHaveBeenCalled();});
+ it('rejects account takeover and changed retry options',async()=>{mock.get.mockResolvedValue({data:{user:{id,email:payload.email,app_metadata:{manual_provisioning_by:'someone-else'}}}});expect((await POST(req(payload))).status).toBe(409);expect(mock.rpc).not.toHaveBeenCalled();});
+ it('stops on identity service errors instead of creating another account',async()=>{mock.get.mockResolvedValue({data:{user:null},error:{status:503}});expect((await POST(req(payload))).status).toBe(503);expect(mock.create).not.toHaveBeenCalled();});
+});
