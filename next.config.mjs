@@ -4,6 +4,9 @@ import { withSentryConfig } from "@sentry/nextjs/config";
 const nextConfig = {
   reactStrictMode: true,
   typedRoutes: true,
+  outputFileTracingIncludes: {
+    "/api/formations/*/materials": ["./content/formations/trivium/drafts/c01/materiais/0.2.0/*.md"],
+  },
   async headers() {
     return [
       {

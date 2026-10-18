@@ -14,8 +14,9 @@ function Sidebar({
   onNavigate: () => void;
 }) {
   const navItems = [
+    { id: "spaces", label: "Meus espaços", icon: "◇" },
     { id: "formations", label: "Formações", icon: "◇" },
-    { id: "overview", label: "Visão geral", icon: "◈" },
+    { id: "overview", label: "Estudos da assinatura", icon: "◈" },
     { id: "courses", label: "Módulos", icon: "◉" },
     { id: "drills", label: "Exercícios", icon: "◆" },
     { id: "logs", label: "Registros", icon: "▣" },
@@ -23,14 +24,15 @@ function Sidebar({
   ];
 
   const navHref = (id: string) => {
+    if (id === "spaces") return "/dashboard?areas=1";
     if (id === "formations") return "/formacoes";
-    if (id === "overview") return "/dashboard";
-    if (id === "courses") return "/dashboard";
+    if (id === "overview") return "/estudos";
+    if (id === "courses") return "/estudos";
     if (id === "drills")
       return firstCurrentModule ? `/modules/${firstCurrentModule.id}/flashcards` : "/dashboard";
     if (id === "logs") return "/me";
-    if (id === "mentoring") return "/servicos";
-    return "/dashboard";
+    if (id === "mentoring") return "/aluno/mentoria";
+    return "/estudos";
   };
 
   return (

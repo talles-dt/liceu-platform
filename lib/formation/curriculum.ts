@@ -3,7 +3,7 @@ export type Pillar = typeof pillars[number];
 export const movements = ["reading", "seminar", "imitatio", "composition", "disputatio", "declamatio", "reflection"] as const;
 export type Activity = {key:string;type:string;title:string;prompt:string;pillars:Pillar[];competency_keys:string[];rubric_key:string;reading_keys:string[];roles:Record<string,number>};
 export type Criterion = {key:string;pillar:Pillar;label:string;descriptors:Record<string,string>};
-export type Curriculum = {schema_version:1;slug:string;title:string;version:string;editorial_status:"draft"|"approved";approval_note:string;competencies:{key:string;pillar:Pillar;objective:string}[];readings:{key:string;title:string;author:string;location:string;url:string;rights:string;text:string;status:"draft"|"verified"}[];rubrics:{key:string;title:string;criteria:Criterion[]}[];cycles:{key:string;title:string;question:string;objectives:Record<Pillar,string>;activities:Activity[]}[]};
+export type Curriculum = {materials?:Record<string,{version:string;translation_review:"pending"|"approved";participant_sha256:string;teacher_sha256:string}>;schema_version:1;slug:string;title:string;version:string;editorial_status:"draft"|"approved";approval_note:string;competencies:{key:string;pillar:Pillar;objective:string}[];readings:{key:string;title:string;author:string;location:string;url:string;rights:string;text:string;status:"draft"|"verified"}[];rubrics:{key:string;title:string;criteria:Criterion[]}[];cycles:{key:string;title:string;question:string;cadence?:{weeks:number;individual_minutes:number[];meeting_minutes:number[]};objectives:Record<Pillar,string>;activities:Activity[]}[]};
 const record = (x:unknown): x is Record<string,unknown> => !!x && typeof x==="object" && !Array.isArray(x);
 const text = (x:unknown) => typeof x==="string" && x.trim().length>0;
 export function validateCurriculum(input:unknown, forPublication=false): Curriculum {
@@ -16,6 +16,13 @@ export function validateCurriculum(input:unknown, forPublication=false): Curricu
  check(text(input.title),"título obrigatório");
  check(["draft","approved"].includes(String(input.editorial_status)),"estado editorial inválido");
  if(forPublication)check(input.editorial_status==="approved"&&text(input.approval_note),"aprovação editorial registrada obrigatória");
+ if(input.materials!==undefined){
+ check(record(input.materials),"materiais inválidos");
+ if(record(input.materials))for(const material of Object.values(input.materials)){
+ check(record(material)&&typeof material.version==="string"&&/^\d+\.\d+\.\d+$/.test(material.version)&&["pending","approved"].includes(String(material.translation_review))&&[material.participant_sha256,material.teacher_sha256].every(h=>typeof h==="string"&&/^[a-f0-9]{64}$/.test(h)),"versão/hashes dos materiais inválidos");
+ if(forPublication)check(record(material)&&material.translation_review==="approved","revisão humana das traduções pendente");
+ }
+ }
  const list=(value:unknown,label:string): Record<string,unknown>[]=>{if(!Array.isArray(value)||!value.every(record)){errors.push(`${label}: lista inválida`);return [];}return value;};
  const competencies=list(input.competencies,"competências"),readings=list(input.readings,"leituras"),rubrics=list(input.rubrics,"rubricas"),cycles=list(input.cycles,"ciclos");
  const unique=(items:Record<string,unknown>[],label:string)=>{const seen=new Set();for(const i of items){check(typeof i.key==="string"&&/^[a-z0-9.-]+$/.test(i.key),`${label}: chave inválida`);check(!seen.has(i.key),`${label}: chave duplicada ${i.key}`);seen.add(i.key);}};
