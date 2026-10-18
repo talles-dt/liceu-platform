@@ -11,7 +11,7 @@ Quatro semanas, seis participantes, três encontros de 90 minutos e 2–3 horas 
 
 Todos os recortes obrigatórios estão neste material, em português. Primeiro faça o diagnóstico A0, antes de avançar para as leituras ou a ficha. Depois siga o calendário. Aristóteles e Quintiliano estão no apêndice facultativo, sem ampliação da carga obrigatória.
 
-**Sobre esta edição:** as versões portuguesas dos clássicos são novas versões de trabalho, produzidas com assistência de IA a partir das bases em domínio público identificadas em cada texto. A revisão humana das traduções ainda está pendente. Não são as traduções comerciais citadas na proposta inicial. A aprovação pedagógica do desenho não é apresentada como aprovação dessas novas traduções.
+**Sobre esta edição:** as versões portuguesas dos clássicos são novas versões de trabalho, produzidas com assistência de IA a partir das bases em domínio público identificadas em cada texto. Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação. Não são as traduções comerciais citadas na proposta inicial. A aprovação declarada abrange o pacote e suas traduções.
 
 ## Antes das leituras
 
@@ -38,7 +38,7 @@ Total planejado: **8h45 individuais + 4h30 síncronas = 13h15**. A margem até t
 
 ## P1 — Platão: Apologia de Sócrates
 
-**Leitura obrigatória.** Dois recortes completos, sem resumos substitutivos. Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta da versão inglesa de Benjamin Jowett (1817–1893), em domínio público. Não é a tradução de André Malta nem uma tradução direta do grego. Revisão humana de tradução ainda pendente.
+**Leitura obrigatória.** Dois recortes completos, sem resumos substitutivos. Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta da versão inglesa de Benjamin Jowett (1817–1893), em domínio público. Não é a tradução de André Malta nem uma tradução direta do grego. Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação.
 
 **Fonte:** [texto de Jowett, Project Gutenberg, n. 1656](https://www.gutenberg.org/files/1656/1656-h/1656-h.htm). A divisão de parágrafos abaixo é editorial; P1a e P1b são identificadores do caderno, não divisões antigas. Não foram reproduzidos a introdução, o aparato ou o material institucional do site.
 
@@ -80,7 +80,7 @@ Por isso continuo a procurar e examinar, em obediência ao deus, qualquer pessoa
 
 ## P2 — Fedro: O lobo e o cordeiro
 
-**Leitura obrigatória. Fábulas, I.1, integral, 15 versos.** Texto latino antigo em domínio público. Versão de trabalho em português, em prosa, produzida com assistência de IA nesta preparação a partir do latim; não reproduz a tradução de Weberson Fernandes Grizoste. Revisão humana de tradução ainda pendente. A disposição em prosa não procura reproduzir o metro latino.
+**Leitura obrigatória. Fábulas, I.1, integral, 15 versos.** Texto latino antigo em domínio público. Versão de trabalho em português, em prosa, produzida com assistência de IA nesta preparação a partir do latim; não reproduz a tradução de Weberson Fernandes Grizoste. Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação. A disposição em prosa não procura reproduzir o metro latino.
 
 **Fontes de conferência:** [The Latin Library, livro I](https://www.thelatinlibrary.com/phaedr1.html); texto latino da p. XLVI da [edição bilíngue de Grizoste, 2023](https://latinitates.com/gallery/Grizoste-Fedro-Anuario-n-1.pdf). Não se reproduzem a tradução portuguesa nem as notas modernas dessa edição. O original latino está transcrito adiante para consulta facultativa.
 
@@ -236,7 +236,7 @@ Os textos seguintes apoiam o professor e ficam disponíveis ao participante. Sua
 
 ## P4 — Aristóteles: Da interpretação, capítulo 4
 
-**Apoio docente e aprofundamento facultativo. Capítulo integral.** Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta de Octavius Freire Owen (1816–1873), *The Organon*, vol. I, 1853. Base histórica em domínio público; revisão humana de tradução e colação com o fac-símile ainda pendentes. Não se utiliza a tradução de E. M. Edghill como base de reprodução.
+**Apoio docente e aprofundamento facultativo. Capítulo integral.** Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta de Octavius Freire Owen (1816–1873), *The Organon*, vol. I, 1853. Base histórica em domínio público; Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação. Não foi anexado relatório separado de colação com o fac-símile. Não se utiliza a tradução de E. M. Edghill como base de reprodução.
 
 **Fonte:** [Owen, capítulo 4, folha digital 69](https://en.wikisource.org/wiki/Page:O._F._Owen%27s_Organon_of_Aristotle_Vol._1_(1853).djvu/69). A transcrição consultada está marcada como ainda não revisada no Wikisource. O recorte exclui o final do capítulo 3 que aparece no alto da mesma página. O texto inglês consultado é preservado no repositório para comparação.
 
@@ -252,7 +252,7 @@ Todo enunciado possui significado, não como instrumento, mas, como dissemos, po
 
 ## P5 — Quintiliano: Instituição oratória, X.1.19–20
 
-**Apoio docente e aprofundamento facultativo. Dois parágrafos integrais.** Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta de H. E. Butler (1878–1951). Base histórica em domínio público no Brasil; revisão humana de tradução ainda pendente.
+**Apoio docente e aprofundamento facultativo. Dois parágrafos integrais.** Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta de H. E. Butler (1878–1951). Base histórica em domínio público no Brasil; Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação.
 
 **Fonte:** [Institutio oratoria, livro X, tradução de Butler, LacusCurtius/Universidade de Chicago](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10A%2A.html). Apenas o texto dos parágrafos 19 e 20: não se incorporam notas ou comentários modernos do site. O parágrafo 19 retoma uma comparação anterior entre ouvir e ler.
 
@@ -272,13 +272,13 @@ Preparação em 15/10/2026; referência territorial: Brasil. O domínio público
 |---|---|---|
 | Platão, Apologia, recortes indicados | Inglês de Benjamin Jowett (1817–1893), transcrição Gutenberg 1656 | Base em domínio público; nova tradução indireta de trabalho em português |
 | Fedro, Fábulas I.1 | Latim antigo, 15 versos | Base em domínio público; nova tradução de trabalho em prosa portuguesa; latim incluído |
-| Aristóteles, Da interpretação 4 | Inglês de O. F. Owen (1816–1873), Organon, vol. I, 1853 | Base em domínio público; nova tradução indireta de trabalho em português; colação do testemunho digital ainda pendente |
+| Aristóteles, Da interpretação 4 | Inglês de O. F. Owen (1816–1873), Organon, vol. I, 1853 | Base em domínio público; nova tradução indireta de trabalho em português; sem relatório separado de colação do testemunho digital |
 | Quintiliano, X.1.19–20 | Inglês de H. E. Butler (1878–1951) | Prazo de 70 anos após a morte já transcorrido no Brasil; nova tradução indireta de trabalho em português |
 | Ficha, baseline e tarefa de transferência | Textos elaborados para o módulo | Material original de preparação; não são excertos de clássicos |
 
 **Verificação bibliográfica:** [Jowett, Universidade de Leeds](https://explore.library.leeds.ac.uk/special-collections-explore/participant/59511); [Owen, registro biográfico e referências históricas](https://en.wikisource.org/wiki/Author:Octavius_Freire_Owen); [Butler, catálogo da Universidade da Pensilvânia](https://onlinebooks.library.upenn.edu/webbin/book/lookupname?key=Butler%2C+Harold+Edgeworth%2C+1878-1951). As fontes textuais estão identificadas junto de cada leitura.
 
-As versões portuguesas foram produzidas com assistência de IA para esta preparação. Não são traduções históricas recuperadas, nem se declara que o pacote editorial inteiro está em domínio público. Não houve revisão filológica humana: registrar nome, data e observações dessa revisão antes de consolidar uma edição para a coorte. A aprovação do desenho pedagógico não equivale à aprovação das traduções novas.
+As versões portuguesas foram produzidas com assistência de IA para esta preparação. Não são traduções históricas recuperadas, nem se declara que o pacote editorial inteiro está em domínio público. Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação. Não se atribui a esta declaração uma certificação filológica independente.
 
 As bases inglesas estão preservadas em arquivos separados no repositório; não constituem leitura exigida do participante. Os dois materiais incluem integralmente as mesmas versões portuguesas, inclusive os dois apoios facultativos. Os rótulos, títulos intermediários e notas editoriais foram acrescentados nesta preparação e não são palavras dos autores antigos.
 
@@ -330,7 +330,7 @@ Comparar baseline, composição e tarefa nova como evidências diferentes: não 
 
 ### Revisão editorial antes da edição de coorte
 
-O desenho pedagógico foi aceito pelo responsável na conversa. As traduções portuguesas desta versão foram preparadas depois dessa aprovação. Conferir fidelidade, legibilidade e os limites do recorte, especialmente: o reconhecimento do saber dos artesãos; o alcance das afirmações sobre ignorância; a terminologia de Aristóteles e a transcrição de Owen; a distinção entre leitura parcial e integral em Quintiliano. Registrar revisor e data. A leitura cronometrada e as datas de encontro continuam a ser validadas no piloto.
+Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação. Na aplicação, acompanhar fidelidade, legibilidade e os limites do recorte, especialmente: o reconhecimento do saber dos artesãos; o alcance das afirmações sobre ignorância; a terminologia de Aristóteles e a transcrição de Owen; a distinção entre leitura parcial e integral em Quintiliano. A aprovação foi declarada pelo responsável na conversa em 18/10/2026. A leitura cronometrada e as datas de encontro continuam a ser validadas no piloto.
 
 As quatro semanas, os três encontros e a carga individual foram preservados. Não transformar os apêndices facultativos em exigência tácita. Uma correção editorial posterior deve gerar uma nova versão com histórico, preservando os arquivos já adotados. Esta preparação não publica uma release curricular completa, não altera uma coorte e não faz deploy.
 

@@ -1,6 +1,6 @@
 # Áreas do aluno e módulo 1
 
-Implementação local iniciada em 17/10/2026. Sem migração de banco ou alteração de produção.
+Implementação iniciada em 17/10/2026; implantação e aprovação editorial registradas em 18/10/2026.
 
 ## Comportamento
 
@@ -22,16 +22,16 @@ A prévia `/api/formations/preview/materials` é exclusiva da administração e 
 
 ## Limites e adoção
 
-As novas traduções ainda aguardam revisão humana. O pacote permanece `draft` e o validador recusa publicação mesmo quando alguém altera apenas a aprovação geral, se a revisão de tradução estiver pendente. A implementação não representa aprovação filológica nem abre matrícula. Não se alterou a release de nenhuma coorte existente.
+O responsável declarou: “Pacote curricular está aprovado e revisado.” A aprovação está registrada em `drafts/c01/APROVACAO_2026-10-18.json`, com hashes dos textos revisados e dos materiais após atualização das notas editoriais. O pacote tem estado editorial `approved`; a publicação integral ainda falha por falta de bibliografia dos ciclos C2–C6. Nenhuma release nem coorte foi criada apenas por alterar esse estado.
 
-Para a adoção: registrar revisão editorial das traduções, concluir a bibliografia dos demais ciclos exigida pelo validador atual, produzir uma versão aprovada completa, validar com `--publication`, registrar o commit editorial e publicar pela administração. Criar a coorte com a release aprovada; não sobrescrever uma release já usada. Publicação parcial de apenas C1, com C2–C6 ainda em elaboração, não é suportada pelo contrato atual de publicação e não foi disfarçada como currículo integral aprovado.
+Para a adoção: concluir a bibliografia dos demais ciclos exigida pelo validador atual, produzir uma versão aprovada completa, validar com `--publication`, registrar o commit editorial e publicar pela administração. Criar a coorte com a release aprovada; não sobrescrever uma release já usada. Publicação parcial de apenas C1, com C2–C6 ainda em elaboração, não é suportada pelo contrato atual de publicação e não foi disfarçada como currículo integral aprovado.
 
 O acesso da Mentoria usa contratos de serviço efetivamente existentes (`liceu_service_orders`). Não foi criado um novo plano individual estruturado, nem reinterpretadas compras legadas sem conciliação. Pacotes que incluam os dois percursos precisam dos dois vínculos; a matrícula na Formação não simula uma sessão paga.
 
 ## Verificação
 
-- 79 testes automatizados passaram, incluindo autorização por papel, ausência de matrícula, falha de consulta, hashes, separação do guia, encaminhamento por acesso, carga e isolamento de conteúdo.
+- 91 testes automatizados passaram, incluindo autorização por papel, ausência de matrícula, falha de consulta, hashes, separação do guia, encaminhamento por acesso, carga e isolamento de conteúdo.
 - TypeScript e build de produção passaram. Os dois materiais constam no rastreamento de arquivos do servidor; as áreas autenticadas usam renderização dinâmica explícita.
 - Lint dos arquivos novos e de autorização passou. O shell preexistente tem aviso de navegação após logout; não é falha de autorização.
 - Ensaio HTTP integrado preparado em `integration/formation/student-areas.mjs`: cria somente usuários/coorte sintéticos em Supabase local, verifica encaminhamento, conteúdo, gravação, recarga, isolamento entre contas e entrega. A tentativa foi bloqueada por timeout 504 no Auth local ao criar o primeiro usuário. Portanto esses cenários não foram declarados aprovados em execução integrada.
-- Sem deploy, cobrança, publicação curricular ou teste em produção nesta mudança.
+- Implantação acompanhada no registro de produção; nenhuma cobrança nem matrícula real foi criada nesta verificação.

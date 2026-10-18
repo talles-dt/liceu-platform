@@ -1,6 +1,6 @@
 ## P4 — Aristóteles: Da interpretação, capítulo 4
 
-**Apoio docente e aprofundamento facultativo. Capítulo integral.** Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta de Octavius Freire Owen (1816–1873), *The Organon*, vol. I, 1853. Base histórica em domínio público; revisão humana de tradução e colação com o fac-símile ainda pendentes. Não se utiliza a tradução de E. M. Edghill como base de reprodução.
+**Apoio docente e aprofundamento facultativo. Capítulo integral.** Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta de Octavius Freire Owen (1816–1873), *The Organon*, vol. I, 1853. Base histórica em domínio público; Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação. Não foi anexado relatório separado de colação com o fac-símile. Não se utiliza a tradução de E. M. Edghill como base de reprodução.
 
 **Fonte:** [Owen, capítulo 4, folha digital 69](https://en.wikisource.org/wiki/Page:O._F._Owen%27s_Organon_of_Aristotle_Vol._1_(1853).djvu/69). A transcrição consultada está marcada como ainda não revisada no Wikisource. O recorte exclui o final do capítulo 3 que aparece no alto da mesma página. O texto inglês consultado é preservado no repositório para comparação.
 

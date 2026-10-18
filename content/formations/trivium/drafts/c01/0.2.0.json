@@ -2,7 +2,7 @@
   "schema": "liceu.module-proposal/v1",
   "module_key": "c01",
   "version": "0.2.0",
-  "editorial_status": "materials_draft_translation_review_pending",
+  "editorial_status": "approved",
   "created_on": "2026-10-15",
   "title": "Ler e escutar: compreender antes de julgar",
   "question": "O que o outro realmente afirma, que razões oferece e o que estamos autorizados a concluir?",
@@ -45,9 +45,9 @@
       "rights_status": "historical_base_public_domain_in_Brazil; new_working_translation_not_a_claim_of_public_domain_for_entire_package",
       "base_translator": "Benjamin Jowett",
       "translation_method": "translation_from_english",
-      "translation_credit": "Working version prepared with AI assistance for this module; human review pending",
+      "translation_credit": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18",
       "path": "textos/0.2.0/PLATAO.md",
-      "sha256": "6ff8122fca977dac1653178f418bccc589c97c2234200ad529346a9e32e69c13"
+      "sha256": "15b12b781d5484a263ae7331f00b897abddd338fb4db1f65cc36b73c73d7cdf8"
     },
     {
       "key": "c01.phaedrus.1.1",
@@ -63,9 +63,9 @@
       "language": "pt-BR",
       "base_translator": null,
       "translation_method": "translation_from_latin",
-      "translation_credit": "Working version prepared with AI assistance for this module; human review pending",
+      "translation_credit": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18",
       "path": "textos/0.2.0/FEDRO.md",
-      "sha256": "14a38d12e7669e701db62c721dcb447b247c005705f2f76a0de088fc1d87ab04"
+      "sha256": "0435614f893369cba40d0acf20f746e631f8cea95a95d6baa49b9f87af4082f4"
     },
     {
       "key": "c01.worksheet",
@@ -92,10 +92,10 @@
       "delivery": "embedded_in_workbook_and_teacher_guide",
       "base_translator": "O. F. Owen",
       "translation_method": "translation_from_english",
-      "translation_credit": "Working version prepared with AI assistance for this module; human review pending",
+      "translation_credit": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18",
       "rights_status": "historical_base_public_domain_in_Brazil; new_working_translation_not_a_claim_of_public_domain_for_entire_package",
       "path": "textos/0.2.0/ARISTOTELES.md",
-      "sha256": "697c536441fb71a4d9b90de754159f0ca72490cb1c77819b3d9008b0a423ec42"
+      "sha256": "5181bda5f54a8456f74f25fba3cb9dacd9b7147daf4889410be464349ef93d5e"
     },
     {
       "key": "c01.quintilian.10.1",
@@ -111,10 +111,10 @@
       "delivery": "embedded_in_workbook_and_teacher_guide",
       "base_translator": "H. E. Butler",
       "translation_method": "translation_from_english",
-      "translation_credit": "Working version prepared with AI assistance for this module; human review pending",
+      "translation_credit": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18",
       "rights_status": "historical_base_public_domain_in_Brazil; new_working_translation_not_a_claim_of_public_domain_for_entire_package",
       "path": "textos/0.2.0/QUINTILIANO.md",
-      "sha256": "9fc9236a4c1bf016286a8751c9104dae7eb2c366aae73f0e17b4ee8c03c6de34"
+      "sha256": "4b9ee624a2efb264eeeaa061acf09a56efedcfd43fdc7de076bb050fc8d59735"
     },
     {
       "key": "c01.bechara.reference",
@@ -415,7 +415,6 @@
     "default_visibility": "private"
   },
   "publication_gates": [
-    "Human review of new Portuguese translations, with reviewer and date",
     "Collate Owen transcription against facsimile and confirm all passage boundaries",
     "Workload rehearsal",
     "Dates and teacher capacity agreed",
@@ -424,11 +423,7 @@
   ],
   "previous_version": "0.1.0",
   "pedagogical_design_status": "accepted_by_responsible_in_conversation",
-  "translation_review": {
-    "status": "pending",
-    "reviewer": null,
-    "reviewed_on": null
-  },
+  "translation_review": "approved",
   "change_summary": [
     "Embedded all selected classical passages in both materials in Portuguese.",
     "Replaced required access to modern translations with newly prepared working translations from public-domain bases.",
@@ -439,12 +434,12 @@
     {
       "role": "participant",
       "path": "materiais/0.2.0/CADERNO_DO_PARTICIPANTE.md",
-      "sha256": "16713c54026cb2a0fcb428dbce8a0e528e9b48f1f2620e264c064b3778c0fe1c"
+      "sha256": "78477779fe0d4c8dd6fa431d520a1b4ee7e70011374db1b5214ed5de4d86d970"
     },
     {
       "role": "teacher",
       "path": "materiais/0.2.0/GUIA_DO_PROFESSOR.md",
-      "sha256": "c9cafd66d52f113e32b60e7cd66ebf940b1639f897093eb6971e326a4afed1d3"
+      "sha256": "05e949c6f923819b855d600a61f73f939ac679b678626d6d3fbd82511d02d4ac"
     }
   ],
   "source_files": [
@@ -485,5 +480,6 @@
       "sha256": "d2217265768c7f931593d39dbb889afe0afec0847eecc53b66f9cb742daf0d8d"
     }
   ],
-  "embedded_access_status": "All required Portuguese excerpts and optional classical readings are embedded in both materials; human translation review pending."
+  "embedded_access_status": "All required Portuguese excerpts and optional classical readings are embedded in both materials; review and approval declared by the project owner on 2026-10-18.",
+  "approval_note": "Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação."
 }

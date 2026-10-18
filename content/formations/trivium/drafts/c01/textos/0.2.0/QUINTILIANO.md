@@ -1,6 +1,6 @@
 ## P5 — Quintiliano: Instituição oratória, X.1.19–20
 
-**Apoio docente e aprofundamento facultativo. Dois parágrafos integrais.** Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta de H. E. Butler (1878–1951). Base histórica em domínio público no Brasil; revisão humana de tradução ainda pendente.
+**Apoio docente e aprofundamento facultativo. Dois parágrafos integrais.** Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta de H. E. Butler (1878–1951). Base histórica em domínio público no Brasil; Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação.
 
 **Fonte:** [Institutio oratoria, livro X, tradução de Butler, LacusCurtius/Universidade de Chicago](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10A%2A.html). Apenas o texto dos parágrafos 19 e 20: não se incorporam notas ou comentários modernos do site. O parágrafo 19 retoma uma comparação anterior entre ouvir e ler.
 

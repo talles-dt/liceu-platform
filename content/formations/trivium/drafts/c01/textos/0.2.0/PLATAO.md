@@ -1,6 +1,6 @@
 ## P1 — Platão: Apologia de Sócrates
 
-**Leitura obrigatória.** Dois recortes completos, sem resumos substitutivos. Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta da versão inglesa de Benjamin Jowett (1817–1893), em domínio público. Não é a tradução de André Malta nem uma tradução direta do grego. Revisão humana de tradução ainda pendente.
+**Leitura obrigatória.** Dois recortes completos, sem resumos substitutivos. Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta da versão inglesa de Benjamin Jowett (1817–1893), em domínio público. Não é a tradução de André Malta nem uma tradução direta do grego. Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação.
 
 **Fonte:** [texto de Jowett, Project Gutenberg, n. 1656](https://www.gutenberg.org/files/1656/1656-h/1656-h.htm). A divisão de parágrafos abaixo é editorial; P1a e P1b são identificadores do caderno, não divisões antigas. Não foram reproduzidos a introdução, o aparato ou o material institucional do site.
 

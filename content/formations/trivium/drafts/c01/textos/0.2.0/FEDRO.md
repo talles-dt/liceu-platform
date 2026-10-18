@@ -1,6 +1,6 @@
 ## P2 — Fedro: O lobo e o cordeiro
 
-**Leitura obrigatória. Fábulas, I.1, integral, 15 versos.** Texto latino antigo em domínio público. Versão de trabalho em português, em prosa, produzida com assistência de IA nesta preparação a partir do latim; não reproduz a tradução de Weberson Fernandes Grizoste. Revisão humana de tradução ainda pendente. A disposição em prosa não procura reproduzir o metro latino.
+**Leitura obrigatória. Fábulas, I.1, integral, 15 versos.** Texto latino antigo em domínio público. Versão de trabalho em português, em prosa, produzida com assistência de IA nesta preparação a partir do latim; não reproduz a tradução de Weberson Fernandes Grizoste. Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação. A disposição em prosa não procura reproduzir o metro latino.
 
 **Fontes de conferência:** [The Latin Library, livro I](https://www.thelatinlibrary.com/phaedr1.html); texto latino da p. XLVI da [edição bilíngue de Grizoste, 2023](https://latinitates.com/gallery/Grizoste-Fedro-Anuario-n-1.pdf). Não se reproduzem a tradução portuguesa nem as notas modernas dessa edição. O original latino está transcrito adiante para consulta facultativa.
 

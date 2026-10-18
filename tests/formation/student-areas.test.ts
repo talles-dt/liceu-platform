@@ -32,7 +32,7 @@ describe('Independent student areas',()=>{
   expect(await readModuleMaterial(m,'participant')).toBeNull();
  });
  it('rejects publication of unreviewed translations even if outer approval is changed',()=>{
-  const m=structuredClone(proposal);m.editorial_status='approved';m.approval_note='approved design';
+  const m=structuredClone(proposal);m.materials.c01.translation_review='pending';m.editorial_status='approved';m.approval_note='approved design';
   expect(()=>validateCurriculum(m,true)).toThrow('revisão humana');
  });
  it('keeps the agreed cadence and exact composition requirement',()=>{

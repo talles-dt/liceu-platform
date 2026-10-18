@@ -16,8 +16,8 @@ O navegador preserva somente os campos e identificador da solicitação pendente
 
 ## Verificação e implantação
 
-- 88 testes automatizados, incluindo admin/origem, validação, retomada, identidade de criação, erro parcial e ausência de simulação de pagamento.
+- 91 testes automatizados, incluindo admin/origem, validação, retomada, identidade de criação, erro parcial e ausência de simulação de pagamento.
 - `scripts/verify-manual-student.py`: teste PostgreSQL local com transação desfeita ao final; verificou atomicidade, idempotência, limite da coorte, privilégio de execução, RLS, ausência de assinatura geral e de pedido pago.
-- Migration aplicada apenas ao Supabase local para validação. Nenhum aluno real criado, nenhuma alteração remota e nenhum email enviado.
-- Aplicar `20261018025718_manual_student_access.sql` no ambiente de destino antes de publicar o código. Ela adiciona o RPC, sem substituir tabelas ou políticas existentes. Sem essa migration, a tela não consegue concluir os acessos e informa cadastro parcial.
+- Migration validada no Supabase local e aplicada ao projeto de produção `rymzyaxhrcusqqzllzay` em 2026-10-18 UTC. Privilégio de execução conferido: apenas `service_role` e proprietário. Nenhum aluno real criado e nenhum email enviado nesta publicação.
+- Migration de referência: `20261018025718_manual_student_access.sql`; já aplicada em produção, aplicar antes do código em outros ambientes. Ela adiciona o RPC, sem substituir tabelas ou políticas existentes. Sem essa migration, a tela não consegue concluir os acessos e informa cadastro parcial.
 - Build/TypeScript e lint dos arquivos alterados fazem parte da verificação. A validação com Auth e navegador em ambiente remoto não foi realizada.
