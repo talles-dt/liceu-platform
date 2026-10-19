@@ -214,12 +214,12 @@
     {
       "role": "participant",
       "path": "materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
-      "sha256": "c3d3221b2ad88e05db1d6efcaade06cb32cf31ec277c5dd751f64a8614149462"
+      "sha256": "a8d40552d762a425540eb30a4c4f0205b4c179b646a39598b26a87e4d0439fd3"
     },
     {
       "role": "teacher",
       "path": "materiais/0.3.0/GUIA_DO_PROFESSOR.md",
-      "sha256": "9031ed65c8e4d8f19141b677988a0363598bd3fd970c3802c812d4e65b3cf011"
+      "sha256": "678547961cf3395e1c86a88ab4dafb68ad8ccec5f7bd9806df74fdbe41369f99"
     }
   ],
   "agendas": [
@@ -328,8 +328,8 @@
       "title": "Críton — viver e viver bem",
       "location": "48b–49a; retomada delimitada no texto",
       "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
-      "rights": "Recorte da versão de trabalho de C3; base Jowett, domínio público; revisão humana pendente.",
-      "sha256": "c5c9d08b87f47559dfa7e8352cc652019adf77403e88fcf08179b44ca8a9dba2",
+      "rights": "Recorte da versão de C3, preparada com assistência de IA; base Jowett, domínio público.",
+      "sha256": "5df6d86c4d4d6ae820eeafb7f5d3d9806da8e94cdc6e5de9955457d70e9de9ff",
       "required": true,
       "selection_group": null
     }

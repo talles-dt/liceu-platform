@@ -4,23 +4,36 @@ import {createHash} from 'node:crypto';
 import {validateCurriculum} from '@/lib/formation/curriculum';
 import {readModuleMaterial} from '@/lib/formation/materials';
 import {materialResponse} from '@/lib/formation/materialResponse';
+import {publicationCopy} from '../../scripts/formation/publication-copy.mjs';
 import previous from '@/content/formations/trivium/releases/0.2.0.json';
 import proposal from '@/content/formations/trivium/releases/0.3.0.json';
 const base='content/formations/trivium/';
 const digest=(s:string)=>createHash('sha256').update(s).digest('hex');
 describe('Complete pilot, editions and editorial boundaries',()=>{
- it('preserves C1 and its material approval byte for byte in the new release',()=>{
+ it('preserves C1 teaching content and historical edition while cleaning its new copy',async()=>{
   expect(proposal.cycles[0]).toEqual(previous.cycles[0]);
-  expect(proposal.materials.c01).toEqual(previous.materials.c01);
-  for(const r of previous.readings)expect(proposal.readings.find(x=>x.key===r.key)).toEqual(r);
+  expect(proposal.materials.c01.version).toBe('0.3.0');
+  for(const r of previous.readings){const clean=proposal.readings.find(x=>x.key===r.key)!;expect(clean.text).toBe(publicationCopy(r.text));}
+  for(const role of ['participant','teacher'] as const){
+   const old=await readModuleMaterial(validateCurriculum(previous),role,'c01');
+   expect(await readModuleMaterial(validateCurriculum(proposal),role,'c01')).toBe(publicationCopy(old!));
+   expect(old).toContain('na conversa de implantação');
+  }
  });
- it('has six structurally publishable cycles but does not inherit editorial approval',()=>{
-  expect(()=>validateCurriculum(proposal,true)).toThrow('aprovação editorial');
-  const reviewed=structuredClone(proposal);reviewed.editorial_status='approved';reviewed.approval_note='Synthetic test only';
-  for(const r of reviewed.readings)r.status='verified';
-  expect(()=>validateCurriculum(reviewed,true)).toThrow('revisão humana');
-  for(const m of Object.values(reviewed.materials))m.translation_review='approved';
-  expect(validateCurriculum(reviewed,true).cycles).toHaveLength(6);
+ it('records the new explicit approval and still rejects an unreviewed release',()=>{
+  expect(validateCurriculum(proposal,true).cycles).toHaveLength(6);
+  const draft=structuredClone(proposal);draft.editorial_status='draft';
+  expect(()=>validateCurriculum(draft,true)).toThrow('aprovação editorial');
+  draft.editorial_status='approved';draft.materials.c02.translation_review='pending';
+  expect(()=>validateCurriculum(draft,true)).toThrow('revisão humana');
+ });
+ it('removes preparation notes in all twelve published materials, retaining credits and teaching notes',async()=>{
+  for(const n of [1,2,3,4,5,6])for(const role of ['participant','teacher'] as const){
+   const body=(await readModuleMaterial(validateCurriculum(proposal),role,`c0${n}`))!;
+   expect(body).not.toMatch(/revisão humana.*pendente|aguardam revisão|na conversa de implantação|não faz deploy|edição de preparação|aprovação do módulo 1 não constitui/i);
+   expect(body).toContain('assistência de IA');expect(body).toContain('Fonte');
+   expect(publicationCopy(body)).toBe(body);
+  }
  });
  it('does not serve new modules to old releases or unknown editions',async()=>{
   expect(await readModuleMaterial(validateCurriculum(previous),'participant','c02')).toBeNull();

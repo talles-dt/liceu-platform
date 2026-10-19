@@ -2,7 +2,7 @@
 
 ## Caderno do participante
 
-Edição 0.3.0 · Liceu Underground · preparada em 19/10/2026. Material completo para revisão docente; novas traduções ainda aguardam revisão humana.
+Edição 0.3.0 · Liceu Underground.
 
 **Questão:** Que interpretação consigo sustentar de um clássico e quais limites reconheço no que afirmo?
 
@@ -37,7 +37,7 @@ Localização: 17a–18a; 20c–23b; closing sentence completed in 23c. [Fonte](
 
 ## P1 — Platão: Apologia de Sócrates
 
-**Leitura obrigatória.** Dois recortes completos, sem resumos substitutivos. Versão de trabalho em português produzida com assistência de IA nesta preparação, por tradução indireta da versão inglesa de Benjamin Jowett (1817–1893), em domínio público. Não é a tradução de André Malta nem uma tradução direta do grego. Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação.
+**Leitura obrigatória.** Dois recortes completos, sem resumos substitutivos. Versão portuguesa produzida com assistência de IA para esta edição, por tradução indireta da versão inglesa de Benjamin Jowett (1817–1893), em domínio público. Não é a tradução de André Malta nem uma tradução direta do grego.
 
 **Fonte:** [texto de Jowett, Project Gutenberg, n. 1656](https://www.gutenberg.org/files/1656/1656-h/1656-h.htm). A divisão de parágrafos abaixo é editorial; P1a e P1b são identificadores do caderno, não divisões antigas. Não foram reproduzidos a introdução, o aparato ou o material institucional do site.
 
@@ -76,7 +76,6 @@ Essa investigação me trouxe muitos inimigos, dos mais perigosos e hostis, e de
 Por isso continuo a procurar e examinar, em obediência ao deus, qualquer pessoa, cidadão ou estrangeiro, que pareça sábia. Quando não o é, mostro que não é sábia, em defesa do oráculo. Essa ocupação me absorve de tal modo que não tenho tempo para cuidar de assuntos públicos importantes nem dos meus próprios; vivo em extrema pobreza por causa desse serviço ao deus.
 
 **Nota editorial, fora do texto:** a alternativa parentética de tradução que Jowett oferece na abertura não foi incorporada ao discurso. “Deus” designa aqui o deus do oráculo de Delfos; o termo não deve receber automaticamente o sentido de uma formulação teológica cristã. Ditirambo é uma forma poética ligada ao canto coral. Esses esclarecimentos não acrescentam premissas à fala de Sócrates.
-
 
 ### Machado de Assis — Um apólogo
 
@@ -131,14 +130,13 @@ Parece que a agulha não disse nada; mas um alfinete, de cabeça grande e não m
 
 Contei esta história a um professor de melancolia, que me disse, abanando a cabeça: — Também eu tenho servido de agulha a muita linha ordinária!
 
-
 ### Platão — Críton
 
 Localização: 46b–49e; pergunta e resposta finais completadas em 50a. [Fonte](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
 
 # Platão — Críton 46b–49e
 
-Versão portuguesa de trabalho, preparada com assistência de IA a partir da tradução inglesa de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base em domínio público; não é tradução direta do grego. Revisão humana desta versão pendente. A passagem sobre acordos em 49e foi cotejada com Harold North Fowler no Perseus para explicitar a condição de justiça. O recorte começa na resposta de Sócrates à proposta de fuga. Completa-se a última pergunta, iniciada em 49e, e a resposta imediata em 50a para não cortar uma frase; essa transição reaparece no módulo 5. As divisões abaixo são editoriais, não novos números de Stephanus. As breves notas do editor inglês não foram incorporadas.
+Versão portuguesa, preparada com assistência de IA a partir da tradução inglesa de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base em domínio público; não é tradução direta do grego. A passagem sobre acordos em 49e foi cotejada com Harold North Fowler no Perseus para explicitar a condição de justiça. O recorte começa na resposta de Sócrates à proposta de fuga. Completa-se a última pergunta, iniciada em 49e, e a resposta imediata em 50a para não cortar uma frase; essa transição reaparece no módulo 5. As divisões abaixo são editoriais, não novos números de Stephanus. As breves notas do editor inglês não foram incorporadas.
 
 ## Razões e circunstâncias
 
@@ -256,7 +254,6 @@ Versão portuguesa de trabalho, preparada com assistência de IA a partir da tra
 
 **Críton:** Não sei responder, Sócrates, porque não compreendo.
 
-
 ### António Vieira — Sermão da Sexagésima
 
 Localização: Seção V integral; pp. 13–16 da transcrição BOCC. [Fonte](https://arquivo.bocc.ubi.pt/pag/vieira-antonio-sermao-sexagesima.pdf).
@@ -275,14 +272,13 @@ Sim, Padre; porém esse estilo de pregar não é pregar culto. Mas fosse! Este d
 
 Boa me parecia também esta razão; mas como os cultos pelo pulido e estudado se defendem com o grande Nazianzeno, com Ambrósio, com Crisólogo, com Leão, e pelo escuro e duro, com Clemente Alexandrino, com Tertuliano, com Basílio de Selêucia, com Zeno Veronense e outros, não podemos negar a reverência a tamanhos autores, posto que desejáramos, nos que se prezam de beber destes rios, a sua profundidade. Qual será logo a causa de nossa queixa?
 
-
 ### Platão — Críton
 
 Localização: 50a–54d; início da pergunta em 49e incluído; sem a fala de 54e. [Fonte](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
 
 # Platão — Críton 50a–54d
 
-Versão portuguesa de trabalho, preparada com assistência de IA a partir de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base histórica em domínio público; não é tradução direta do grego. Revisão humana desta versão pendente. Inclui-se o início da pergunta que atravessa 49e–50a, repetido de C3, para completar a transição. O recorte termina com a resposta de Críton em 54d; a última fala de Sócrates, em 54e, está fora dele. Divisões internas editoriais. Falas das Leis estão dentro da fala imaginada por Sócrates: não são um novo interlocutor presente na prisão.
+Versão portuguesa, preparada com assistência de IA a partir de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base histórica em domínio público; não é tradução direta do grego. Inclui-se o início da pergunta que atravessa 49e–50a, repetido de C3, para completar a transição. O recorte termina com a resposta de Críton em 54d; a última fala de Sócrates, em 54e, está fora dele. Divisões internas editoriais. Falas das Leis estão dentro da fala imaginada por Sócrates: não são um novo interlocutor presente na prisão.
 
 ## A pergunta às Leis
 
@@ -321,7 +317,6 @@ Suponhamos que eu pergunte: por que eu mais que os outros? Elas replicarão, com
 É essa, meu caro Críton, a voz que me parece murmurar aos ouvidos, como o som da flauta aos ouvidos dos iniciados. Essa voz ressoa em mim e me impede de ouvir qualquer outra. Sei que tudo o mais que disseres será em vão. Mesmo assim, fala, se tens algo a dizer.
 
 **Críton:** Não tenho nada a dizer, Sócrates.
-
 
 ## Glossário de leitura
 
@@ -421,12 +416,12 @@ Concluir significa apresentar a produção principal, participar das trocas ou d
 
 Reserve o bloco de transferência indicado no calendário para a tarefa nova entregue pelo professor. Ela não antecipa o conteúdo da banca nem recebe interpretação de teste validado.
 
-## Bibliografia e situação editorial
+## Bibliografia
 
 - Platão. **Apologia de Sócrates**, 17a–18a; 20c–23b; closing sentence completed in 23c. Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18; fontes e direitos identificados no texto. [Testemunho](https://www.gutenberg.org/files/1656/1656-h/1656-h.htm).
 - Machado de Assis. **Um apólogo**, Integral; Várias Histórias, Laemmert, 1896, pp. 253–257. Texto original em domínio público; transcrição Wikisource; duas junções de extração corrigidas e documentadas. [Testemunho](https://pt.wikisource.org/wiki/Um_Ap%C3%B3logo).
-- Platão. **Críton**, 46b–49e; pergunta e resposta finais completadas em 50a. Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler; revisão humana pendente. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
+- Platão. **Críton**, 46b–49e; pergunta e resposta finais completadas em 50a. Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
 - António Vieira. **Sermão da Sexagésima**, Seção V integral; pp. 13–16 da transcrição BOCC. Original em domínio público; transcrição BOCC; cabeçalhos e hifens de translineação removidos; sem reprodução de aparato crítico. [Testemunho](https://arquivo.bocc.ubi.pt/pag/vieira-antonio-sermao-sexagesima.pdf).
-- Platão. **Críton**, 50a–54d; início da pergunta em 49e incluído; sem a fala de 54e. Base Jowett, domínio público; versão indireta com assistência de IA, revisão humana pendente. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
+- Platão. **Críton**, 50a–54d; início da pergunta em 49e incluído; sem a fala de 54e. Base Jowett, domínio público; versão indireta com assistência de IA. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
 
-O texto antigo e sua tradução/edição têm proveniências distintas. O domínio público das bases não declara todo este pacote em domínio público. A aprovação do módulo 1 não constitui revisão dos novos materiais.
+O texto antigo e sua tradução/edição têm proveniências distintas. O domínio público das bases não declara todo este pacote em domínio público.

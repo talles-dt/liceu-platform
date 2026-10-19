@@ -6,3 +6,7 @@ node_modules/
 .next/
 coverage/
 supabase/.temp/
+# Local Stripe QA artifacts are not application source.
+docs/implementation/STRIPE_BROWSER_CHECKPOINT.json
+integration/stripe/cli-transport.cjs
+integration/stripe/start-browser-qa.mjs

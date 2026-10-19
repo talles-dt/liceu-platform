@@ -218,12 +218,12 @@
     {
       "role": "participant",
       "path": "materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
-      "sha256": "c5b68fc6d770093bc6ac3b447e92fb6424f98884f160c9a82efc3d3b81c097cb"
+      "sha256": "7fb0bb0bb30bfb31f067748a7ccf75cd8dda25b4940ae10e5a96cefc4e067741"
     },
     {
       "role": "teacher",
       "path": "materiais/0.3.0/GUIA_DO_PROFESSOR.md",
-      "sha256": "02d9f1163b927cfb9c54c68a9d19957685feccb89e7556919552636635af0e8e"
+      "sha256": "f86f0daba66ba84f665da48b4b89b0967094291bac49dd26e5f7cbd8bc5d27d7"
     }
   ],
   "agendas": [
@@ -332,8 +332,8 @@
       "title": "Instituição oratória",
       "location": "X.2.1–8",
       "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10B*.html",
-      "rights": "Base Butler, 1920, domínio público; versão indireta de trabalho com assistência de IA, revisão humana pendente.",
-      "sha256": "7eaed5b4a04d4871ded0d0477628ea00e6bbff4f3f28782eedc37f4ed975b1c0",
+      "rights": "Base Butler, 1920, domínio público; versão indireta com assistência de IA.",
+      "sha256": "679b29b4fd1c67424d507a7e322d6be978f984049a5df73b2e23432c6c4b9df5",
       "required": true,
       "selection_group": null
     }

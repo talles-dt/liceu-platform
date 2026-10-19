@@ -6,7 +6,7 @@ Edição 0.3.0. Uso docente; inclui integralmente o caderno e, depois dele, orie
 
 ## Caderno do participante
 
-Edição 0.3.0 · Liceu Underground · preparada em 19/10/2026. Material completo para revisão docente; novas traduções ainda aguardam revisão humana.
+Edição 0.3.0 · Liceu Underground.
 
 **Questão:** Como tornar um discurso claro sem empobrecer o problema nem esconder uma passagem frágil?
 
@@ -51,14 +51,13 @@ Sim, Padre; porém esse estilo de pregar não é pregar culto. Mas fosse! Este d
 
 Boa me parecia também esta razão; mas como os cultos pelo pulido e estudado se defendem com o grande Nazianzeno, com Ambrósio, com Crisólogo, com Leão, e pelo escuro e duro, com Clemente Alexandrino, com Tertuliano, com Basílio de Selêucia, com Zeno Veronense e outros, não podemos negar a reverência a tamanhos autores, posto que desejáramos, nos que se prezam de beber destes rios, a sua profundidade. Qual será logo a causa de nossa queixa?
 
-
 ### Platão — Críton — viver e viver bem
 
 Localização: 48b–49a; retomada delimitada no texto. [Fonte](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
 
 # Platão — Críton, retomada de 48b–49a
 
-Recorte de retomada: do exame de viver bem até a aceitação do exame conjunto por Críton, imediatamente antes da pergunta sobre praticar injustiça. Mesma versão indireta de trabalho de C3, baseada em Jowett; revisão humana pendente. Não é leitura adicional de todo o diálogo.
+Recorte de retomada: do exame de viver bem até a aceitação do exame conjunto por Críton, imediatamente antes da pergunta sobre praticar injustiça. Mesma versão indireta de C3, baseada em Jowett. Não é leitura adicional de todo o diálogo.
 
 **Sócrates:** E é verdade. Apesar disso, vejo, com surpresa, que o antigo argumento permanece tão firme quanto antes. Gostaria de saber se posso dizer o mesmo de outra proposição: o que se deve valorizar sobretudo não é viver, mas viver bem.
 
@@ -75,7 +74,6 @@ Recorte de retomada: do exame de viver bem até a aceitação do exame conjunto 
 **Sócrates:** Examinemos juntos. Refuta-me, se puderes, e me convencerei; caso contrário, deixa de repetir, meu caro amigo, que devo fugir contra a vontade dos atenienses. Dou grande valor a tuas tentativas de me persuadir, mas não devo ser persuadido contra meu melhor juízo. Considera agora minha primeira proposição e procura responder da melhor maneira.
 
 **Críton:** Assim farei.
-
 
 ## Glossário de leitura
 
@@ -168,13 +166,12 @@ Concluir significa apresentar a produção principal, participar das trocas ou d
 
 Reserve o bloco de transferência indicado no calendário para a tarefa nova entregue pelo professor. Ela não antecipa o conteúdo da banca nem recebe interpretação de teste validado.
 
-## Bibliografia e situação editorial
+## Bibliografia
 
 - António Vieira. **Sermão da Sexagésima**, Seção V integral; pp. 13–16 da transcrição BOCC. Original em domínio público; transcrição BOCC; cabeçalhos e hifens de translineação removidos; sem reprodução de aparato crítico. [Testemunho](https://arquivo.bocc.ubi.pt/pag/vieira-antonio-sermao-sexagesima.pdf).
-- Platão. **Críton — viver e viver bem**, 48b–49a; retomada delimitada no texto. Recorte da versão de trabalho de C3; base Jowett, domínio público; revisão humana pendente. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
+- Platão. **Críton — viver e viver bem**, 48b–49a; retomada delimitada no texto. Recorte da versão de C3, preparada com assistência de IA; base Jowett, domínio público. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
 
-O texto antigo e sua tradução/edição têm proveniências distintas. O domínio público das bases não declara todo este pacote em domínio público. A aprovação do módulo 1 não constitui revisão dos novos materiais.
-
+O texto antigo e sua tradução/edição têm proveniências distintas. O domínio público das bases não declara todo este pacote em domínio público.
 
 ---
 
@@ -258,4 +255,4 @@ Releia o corpus e as notas de proveniência antes de selecionar comentários sec
 
 ## Instrumentação do piloto
 
-Após cada encontro, registrar tempo real de preparação e correção, leituras que excederam o orçamento, termos que exigiram explicação, adaptações e ambiguidades da tradução. Em C3 e C6, comparar portfólios sem atribuir toda mudança ao programa. Não recolher o Codex inteiro nem divulgar gravações. Antes de publicar esta edição para uma coorte, revisar traduções, recortes, perguntas, descritores e carga; registrar responsável e data sem sobrescrever versões já utilizadas.
+Após cada encontro, registrar tempo real de preparação e correção, leituras que excederam o orçamento, termos que exigiram explicação, adaptações e ambiguidades da tradução. Em C3 e C6, comparar portfólios sem atribuir toda mudança ao programa. Não recolher o Codex inteiro nem divulgar gravações. Registrar melhorias para futuras edições, preservando a versão utilizada pela coorte.

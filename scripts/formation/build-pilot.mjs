@@ -1,3 +1,4 @@
+import {publicationCopy} from './publication-copy.mjs';
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {validateCurriculum} from '../../lib/formation/curriculum.ts';
@@ -7,22 +8,33 @@ const json=p=>JSON.parse(read(p));
 const hash=s=>createHash('sha256').update(s).digest('hex');
 const save=(p,s)=>{mkdirSync(root+p.slice(0,p.lastIndexOf('/')),{recursive:true});writeFileSync(root+p,s);};
 const release=json('releases/0.2.0.json');
-release.version='0.3.0';release.editorial_status='draft';release.approval_note='C1 preservado com sua aprovação. C2–C6 e suas novas traduções aguardam revisão docente; aprovação anterior não é herdada.';
+release.version='0.3.0';release.editorial_status='approved';release.approval_note='Pacote 0.3.0 revisado e aprovado pelo responsável nesta conversa em 19/10/2026. Registro: APROVACAO_0.3.0.json; C1 conserva sua aprovação anterior.';
+const approval=json('APROVACAO_0.3.0.json');
+if(!approval.statement||!approval.reviewed_file_hashes)throw Error('Registro de aprovação ausente');
 const sources=[
  ['machado.apologo','Machado de Assis','Um apólogo','Integral; Várias Histórias, Laemmert, 1896, pp. 253–257','MACHADO_APOLOGO.md','https://pt.wikisource.org/wiki/Um_Ap%C3%B3logo','Texto original em domínio público; transcrição Wikisource; duas junções de extração corrigidas e documentadas.'],
  ['quintilian.x2','Quintiliano','Instituição oratória','X.2.1–8','QUINTILIANO_X_2.md','https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10B*.html','Base Butler, 1920, domínio público; versão indireta de trabalho com assistência de IA, revisão humana pendente.'],
  ['plato.crito46','Platão','Críton','46b–49e; pergunta e resposta finais completadas em 50a','CRITON_46B_49E.md','https://www.gutenberg.org/files/1657/1657-h/1657-h.htm','Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler; revisão humana pendente.'],
  ['vieira.v','António Vieira','Sermão da Sexagésima','Seção V integral; pp. 13–16 da transcrição BOCC','VIEIRA_SEXAGESIMA_V.md','https://arquivo.bocc.ubi.pt/pag/vieira-antonio-sermao-sexagesima.pdf','Original em domínio público; transcrição BOCC; cabeçalhos e hifens de translineação removidos; sem reprodução de aparato crítico.'],
- ['plato.goodlife','Platão','Críton — viver e viver bem','48b–49a; retomada delimitada no texto','CRITON_VIVER_BEM.md','https://www.gutenberg.org/files/1657/1657-h/1657-h.htm','Recorte da versão de trabalho de C3; base Jowett, domínio público; revisão humana pendente.'],
+ ['plato.goodlife','Platão','Críton — viver e viver bem','48b–49a; retomada delimitada no texto','CRITON_VIVER_BEM.md','https://www.gutenberg.org/files/1657/1657-h/1657-h.htm','Recorte da versão de C3, preparada com assistência de IA; base Jowett, domínio público.'],
  ['plato.crito50','Platão','Críton','50a–54d; início da pergunta em 49e incluído; sem a fala de 54e','CRITON_50A_54D.md','https://www.gutenberg.org/files/1657/1657-h/1657-h.htm','Base Jowett, domínio público; versão indireta com assistência de IA, revisão humana pendente.'],
  ['quintilian.xi3','Quintiliano','Instituição oratória','XI.3.1–9','QUINTILIANO_XI_3.md','https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/11C*.html','Base Butler, 1920, domínio público; versão indireta com assistência de IA, revisão humana pendente.']
 ];
 for(const [key,author,title,location,file,url,rights]of sources)release.readings.push({key,author,title,location,url,rights,text:read('texts/0.3.0/'+file),status:'draft'});
+for(const r of release.readings){r.text=publicationCopy(r.text);r.rights=publicationCopy(r.rights);r.status='verified';}
 const roleNames={defensor:2,objetor:2,observador:1,relator:1};
 const levels=['support','developing','consistent','transfer'];
 const typeLabels={reading:'Leitura',seminar:'Seminário',imitatio:'Imitatio',composition:'Composição',disputatio:'Disputatio',declamatio:'Declamatio',reflection:'Reflexão',symposium:'Symposium',panel:'Banca final'};
 const registry={c01:{'0.2.0':{}}};
 for(const file of json('drafts/c01/0.2.0.json').materials)registry.c01['0.2.0'][file.role]={path:'drafts/c01/'+file.path,sha256:file.sha256};
+registry.c01['0.3.0']={};
+for(const role of ['participant','teacher']){
+ const original=registry.c01['0.2.0'][role];
+ const body=publicationCopy(read(original.path));
+ const path=original.path.replace('/0.2.0/','/0.3.0/');
+ save(path,body);registry.c01['0.3.0'][role]={path,sha256:hash(body)};
+}
+release.materials.c01={version:'0.3.0',translation_review:'approved',participant_sha256:registry.c01['0.3.0'].participant.sha256,teacher_sha256:registry.c01['0.3.0'].teacher.sha256};
 const agendas={
  c02:[[[10,'Acolher e recuperar a questão de C1'],[20,'Ler o diálogo de Machado, atribuindo as vozes'],[20,'Examinar os batedores: o que o contraexemplo refuta'],[15,'Relacionar imitação e invenção em Quintiliano'],[15,'Comparar duas imitações e comentar referentes'],[10,'Registrar uma revisão e preparar a composição']],[[10,'Delimitar valor e reconhecimento'],[15,'Preparar passagens e distribuir os seis papéis'],[20,'Primeira rodada da disputatio'],[20,'Trocar posições e realizar a segunda rodada'],[15,'Observador e relator distinguem concessões e dissensos'],[10,'Definir a revisão de cada autor']],[[10,'Combinar critérios de escuta'],[36,'Seis apresentações: 3 minutos de cena, 1 de justificativa, 1 de pergunta e 1 de transição'],[20,'Devolutiva docente por padrões e duas passagens'],[14,'Reflexão e escolha de evidência'],[10,'Preparar a pergunta de C3']]],
  c03:[[[10,'Situar prisão e proposta de fuga'],[20,'Restituir o argumento do treinador'],[20,'Ler negações e comparar quantificadores'],[15,'Testar uma inferência com contraexemplo'],[15,'Ouvir a objeção mais forte ao mapa'],[10,'Registrar o que ainda falta provar']],[[10,'Ler a proposição da disputatio'],[15,'Distribuir papéis e conferir premissas'],[20,'Primeira rodada'],[20,'Troca de lados e segunda rodada'],[15,'Distinguir ataques à premissa e à inferência'],[10,'Preparar revisão e portfólio']],[[42,'Seis declamationes de até sete minutos, incluindo resposta e restituição'],[18,'Devolutiva e reflexão com evidência'],[30,'Symposium: 5 de abertura, 12 de contribuições, 8 de discussão e 5 de síntese']]],
@@ -47,6 +59,7 @@ for(let n=2;n<=6;n++){
  for(const c of m.rubric.criteria)notebook+=`| ${c.label} | ${levels.map(l=>c.descriptors[l]).join(' | ')} |\n`;
  notebook+='\n“Não observado” é um registro separado, não o nível mais baixo. Não se compensam os pilares por média. O professor deve indicar passagem ou momento da fala que sustenta sua devolutiva.\n\n## Conclusão, revisão e acessibilidade\n\nConcluir significa apresentar a produção principal, participar das trocas ou de alternativa acordada e indicar uma revisão sustentada em evidência. Se uma distorção central persistir, combinar revisão delimitada em até sete dias; não há exclusão automática. Ausência não prova incapacidade. Pode usar roteiro, texto ampliado, fala sentada, pausas e registro escrito equivalente quando necessário. Não se exige gravação: um registro docente basta. Gravar somente por acordo explícito, sem publicar falas dos colegas.\n\nReserve o bloco de transferência indicado no calendário para a tarefa nova entregue pelo professor. Ela não antecipa o conteúdo da banca nem recebe interpretação de teste validado.\n\n## Bibliografia e situação editorial\n\n';
  notebook+=readings.map(r=>`- ${r.author}. **${r.title}**, ${r.location}. ${r.rights} [Testemunho](${r.url}).`).join('\n')+'\n\nO texto antigo e sua tradução/edição têm proveniências distintas. O domínio público das bases não declara todo este pacote em domínio público. A aprovação do módulo 1 não constitui revisão dos novos materiais.\n';
+ notebook=publicationCopy(notebook);
  let guide=`# Módulo ${n} — Guia do professor\n\nEdição 0.3.0. Uso docente; inclui integralmente o caderno e, depois dele, orientação reservada. Não distribuir a parte reservada antes da tarefa de transferência.\n\n${notebook}\n\n---\n\n# Parte reservada ao professor\n\n## Decisões de ensino e intervenções\n\n${m.interventions}\n\n## Respostas comentadas às perguntas de leitura\n\n`;
  guide+=m.answers.map((a,i)=>`${i+1}. ${a}`).join('\n\n')+'\n\n## Mapa de conceitos e evidências\n\n';
  for(const [i,p]of ['grammar','logic','rhetoric'].entries())guide+=`- **${p}:** ${m.objectives[p]} Evidência central: ${m.rubric.criteria[i].label.toLowerCase()}. Use a produção e a resposta às perguntas para localizar a dificuldade, antes de introduzir a nomenclatura.\n`;
@@ -57,14 +70,17 @@ for(let n=2;n<=6;n++){
   if(minute!==90)throw Error('Agenda inválida');guide+='\n';
  }
  guide+='## Como devolver e registrar\n\nReserve até 12 minutos de leitura/devolutiva por produção principal (72 minutos para seis alunos), além da preparação dos encontros. Esse é orçamento a medir, não tempo já validado. Registre: participante; produção/versão; passagem ou minuto; pilar; descritor observado ou não observado; pergunta feita; revisão combinada; prazo. Faça no máximo três observações prioritárias, uma por pilar, e peça uma revisão realizável. Não corrija todos os aspectos possíveis do texto.\n\nDivergência interpretativa é defensável quando localiza evidência e responde à passagem resistente. Erro textual ocorre, por exemplo, ao trocar o falante ou apagar uma condição. Não reduza o primeiro caso ao segundo. Os comentários acima indicam pontos de controle e alternativas, não uma redação-modelo obrigatória.\n\n## Tarefa reservada de transferência\n\nTexto original preparado para este módulo; não é citação de autor clássico. Aplicar depois da intervenção docente, em 20 minutos, dentro da carga individual já prevista. Não anunciar os detalhes antes.\n\n> '+m.probe+'\n\n**Enunciado:** '+m.probe_task+'\n\n**Orientação de leitura:** '+m.probe_key+'\n\nAplicar os três critérios da rubrica separadamente. Identificar o que foi feito com ou sem ajuda. A dificuldade deve ser revisada no piloto; não declarar equivalência psicométrica com o baseline. Se houve exposição prévia à tarefa, registrar isso e não chamá-la de transferência para texto novo.\n\n## Preparação docente opcional\n\nReleia o corpus e as notas de proveniência antes de selecionar comentários secundários. Pode consultar o contexto imediatamente anterior e posterior nas fontes indicadas, sem o converter em dever adicional do aluno. Para gramática, use os exemplos do próprio texto para conferir referência, alcance e ligação; para lógica, explicite as premissas antes de nomear formas. As explicações e os exercícios originais deste guia são o apoio suficiente para a aplicação do piloto; nenhuma obra comercial é requisito oculto.\n\n## Instrumentação do piloto\n\nApós cada encontro, registrar tempo real de preparação e correção, leituras que excederam o orçamento, termos que exigiram explicação, adaptações e ambiguidades da tradução. Em C3 e C6, comparar portfólios sem atribuir toda mudança ao programa. Não recolher o Codex inteiro nem divulgar gravações. Antes de publicar esta edição para uma coorte, revisar traduções, recortes, perguntas, descritores e carga; registrar responsável e data sem sobrescrever versões já utilizadas.\n';
+ guide=publicationCopy(guide);
  registry[key]={'0.3.0':{}};m.materials=[];m.agendas=agendas[key].map((segments,i)=>({meeting:i+1,total_minutes:90,segments:segments.map(([minutes,title])=>({minutes,title}))}));
  for(const [role,body,name]of [['participant',notebook,'CADERNO_DO_PARTICIPANTE.md'],['teacher',guide,'GUIA_DO_PROFESSOR.md']]){
   const path=`drafts/${key}/materiais/0.3.0/${name}`;save(path,body);registry[key]['0.3.0'][role]={path,sha256:hash(body)};m.materials.push({role,path:`materiais/0.3.0/${name}`,sha256:hash(body)});
  }
  m.bibliography=readings.map(r=>({key:r.key,author:r.author,title:r.title,location:r.location,url:r.url,rights:r.rights,sha256:hash(r.text),required:n!==6,selection_group:n===6?'choose_one':null}));
  save(`drafts/${key}/0.3.0.json`,JSON.stringify(m,null,2)+'\n');
- release.materials[key]={version:'0.3.0',translation_review:'pending',participant_sha256:hash(notebook),teacher_sha256:hash(guide)};
+ release.materials[key]={version:'0.3.0',translation_review:'approved',participant_sha256:hash(notebook),teacher_sha256:hash(guide)};
 }
-validateCurriculum(release);
+validateCurriculum(release,true);
 save('releases/0.3.0.json',JSON.stringify(release,null,2)+'\n');save('materials/index.json',JSON.stringify(registry,null,2)+'\n');
-console.log('0.3.0: seis ciclos, cinco cadernos e cinco guias. Novos materiais em revisão; C1 preservado.');
+approval.published_material_hashes=Object.fromEntries(Object.entries(registry).map(([key,editions])=>[key,editions['0.3.0']]));
+save('APROVACAO_0.3.0.json',JSON.stringify(approval,null,2)+'\n');
+console.log('0.3.0: seis ciclos, cinco cadernos e cinco guias. Edição aprovada e limpa; arquivos históricos preservados.');

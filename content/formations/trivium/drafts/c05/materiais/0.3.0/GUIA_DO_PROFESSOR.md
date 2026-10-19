@@ -6,7 +6,7 @@ Edição 0.3.0. Uso docente; inclui integralmente o caderno e, depois dele, orie
 
 ## Caderno do participante
 
-Edição 0.3.0 · Liceu Underground · preparada em 19/10/2026. Material completo para revisão docente; novas traduções ainda aguardam revisão humana.
+Edição 0.3.0 · Liceu Underground.
 
 **Questão:** Como dar voz a uma interpretação e continuar pensando quando alguém a contesta?
 
@@ -39,7 +39,7 @@ Localização: 50a–54d; início da pergunta em 49e incluído; sem a fala de 54
 
 # Platão — Críton 50a–54d
 
-Versão portuguesa de trabalho, preparada com assistência de IA a partir de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base histórica em domínio público; não é tradução direta do grego. Revisão humana desta versão pendente. Inclui-se o início da pergunta que atravessa 49e–50a, repetido de C3, para completar a transição. O recorte termina com a resposta de Críton em 54d; a última fala de Sócrates, em 54e, está fora dele. Divisões internas editoriais. Falas das Leis estão dentro da fala imaginada por Sócrates: não são um novo interlocutor presente na prisão.
+Versão portuguesa, preparada com assistência de IA a partir de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base histórica em domínio público; não é tradução direta do grego. Inclui-se o início da pergunta que atravessa 49e–50a, repetido de C3, para completar a transição. O recorte termina com a resposta de Críton em 54d; a última fala de Sócrates, em 54e, está fora dele. Divisões internas editoriais. Falas das Leis estão dentro da fala imaginada por Sócrates: não são um novo interlocutor presente na prisão.
 
 ## A pergunta às Leis
 
@@ -79,14 +79,13 @@ Suponhamos que eu pergunte: por que eu mais que os outros? Elas replicarão, com
 
 **Críton:** Não tenho nada a dizer, Sócrates.
 
-
 ### Quintiliano — Instituição oratória
 
 Localização: XI.3.1–9. [Fonte](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/11C*.html).
 
 # Quintiliano — Instituição oratória XI.3.1–9
 
-Recorte integral dos nove parágrafos. Versão portuguesa de trabalho preparada com assistência de IA a partir de H. E. Butler, Loeb Classical Library, vol. IV, 1920, transcrição LacusCurtius. Butler faleceu em 1951; base histórica em domínio público no Brasil. Não é tradução direta do latim. Revisão humana desta versão pendente. Conservam-se os exemplos históricos do autor; as remissões e notas modernas do site não integram o recorte.
+Recorte integral dos nove parágrafos. Versão portuguesa preparada com assistência de IA a partir de H. E. Butler, Loeb Classical Library, vol. IV, 1920, transcrição LacusCurtius. Butler faleceu em 1951; base histórica em domínio público no Brasil. Não é tradução direta do latim. Conservam-se os exemplos históricos do autor; as remissões e notas modernas do site não integram o recorte.
 
 **1.** A execução do discurso costuma também chamar-se ação. O primeiro nome deriva da voz; o segundo, do gesto. Cícero, em uma passagem, chama a ação de uma forma de fala e, em outra, de uma espécie de eloquência do corpo. Entretanto, divide a ação nos mesmos dois elementos da execução: voz e movimento. Por isso não importa qual dos termos empreguemos.
 
@@ -105,7 +104,6 @@ Recorte integral dos nove parágrafos. Versão portuguesa de trabalho preparada 
 **8.** Ele registra que Gneu Lêntulo adquiriu maior reputação por sua execução do que por sua eloquência propriamente dita; que Caio Graco, pelo mesmo recurso, levou todo o povo romano às lágrimas ao lamentar a morte do irmão; e que Antônio e Crasso causaram grande impressão por seu domínio dessa qualidade, embora a maior de todas tenha sido a de Quinto Hortênsio. O testemunho é fortemente sustentado pelo fato de os escritos deste último ficarem tão aquém da reputação que por tanto tempo lhe assegurou o primeiro lugar entre os oradores, depois o fez ser considerado rival de Cícero e, por fim, lhe deu, pelo restante da vida, posição inferior apenas à dele. Sua fala devia, portanto, possuir algum encanto que não encontramos ao lê-lo.
 
 **9.** E, de fato, como as palavras por si mesmas têm grande valor, e a voz acrescenta força própria ao assunto de que fala, enquanto gesto e movimento são cheios de significado, podemos estar certos de encontrar algo próximo da perfeição quando todas essas qualidades se combinam.
-
 
 ## Glossário de leitura
 
@@ -202,13 +200,12 @@ Concluir significa apresentar a produção principal, participar das trocas ou d
 
 Reserve o bloco de transferência indicado no calendário para a tarefa nova entregue pelo professor. Ela não antecipa o conteúdo da banca nem recebe interpretação de teste validado.
 
-## Bibliografia e situação editorial
+## Bibliografia
 
-- Platão. **Críton**, 50a–54d; início da pergunta em 49e incluído; sem a fala de 54e. Base Jowett, domínio público; versão indireta com assistência de IA, revisão humana pendente. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
-- Quintiliano. **Instituição oratória**, XI.3.1–9. Base Butler, 1920, domínio público; versão indireta com assistência de IA, revisão humana pendente. [Testemunho](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/11C*.html).
+- Platão. **Críton**, 50a–54d; início da pergunta em 49e incluído; sem a fala de 54e. Base Jowett, domínio público; versão indireta com assistência de IA. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
+- Quintiliano. **Instituição oratória**, XI.3.1–9. Base Butler, 1920, domínio público; versão indireta com assistência de IA. [Testemunho](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/11C*.html).
 
-O texto antigo e sua tradução/edição têm proveniências distintas. O domínio público das bases não declara todo este pacote em domínio público. A aprovação do módulo 1 não constitui revisão dos novos materiais.
-
+O texto antigo e sua tradução/edição têm proveniências distintas. O domínio público das bases não declara todo este pacote em domínio público.
 
 ---
 
@@ -292,4 +289,4 @@ Releia o corpus e as notas de proveniência antes de selecionar comentários sec
 
 ## Instrumentação do piloto
 
-Após cada encontro, registrar tempo real de preparação e correção, leituras que excederam o orçamento, termos que exigiram explicação, adaptações e ambiguidades da tradução. Em C3 e C6, comparar portfólios sem atribuir toda mudança ao programa. Não recolher o Codex inteiro nem divulgar gravações. Antes de publicar esta edição para uma coorte, revisar traduções, recortes, perguntas, descritores e carga; registrar responsável e data sem sobrescrever versões já utilizadas.
+Após cada encontro, registrar tempo real de preparação e correção, leituras que excederam o orçamento, termos que exigiram explicação, adaptações e ambiguidades da tradução. Em C3 e C6, comparar portfólios sem atribuir toda mudança ao programa. Não recolher o Codex inteiro nem divulgar gravações. Registrar melhorias para futuras edições, preservando a versão utilizada pela coorte.

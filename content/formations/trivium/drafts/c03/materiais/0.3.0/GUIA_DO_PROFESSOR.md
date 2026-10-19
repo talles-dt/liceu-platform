@@ -6,7 +6,7 @@ Edição 0.3.0. Uso docente; inclui integralmente o caderno e, depois dele, orie
 
 ## Caderno do participante
 
-Edição 0.3.0 · Liceu Underground · preparada em 19/10/2026. Material completo para revisão docente; novas traduções ainda aguardam revisão humana.
+Edição 0.3.0 · Liceu Underground.
 
 **Questão:** Quais razões sustentam uma interpretação e o que uma boa objeção realmente derruba?
 
@@ -39,7 +39,7 @@ Localização: 46b–49e; pergunta e resposta finais completadas em 50a. [Fonte]
 
 # Platão — Críton 46b–49e
 
-Versão portuguesa de trabalho, preparada com assistência de IA a partir da tradução inglesa de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base em domínio público; não é tradução direta do grego. Revisão humana desta versão pendente. A passagem sobre acordos em 49e foi cotejada com Harold North Fowler no Perseus para explicitar a condição de justiça. O recorte começa na resposta de Sócrates à proposta de fuga. Completa-se a última pergunta, iniciada em 49e, e a resposta imediata em 50a para não cortar uma frase; essa transição reaparece no módulo 5. As divisões abaixo são editoriais, não novos números de Stephanus. As breves notas do editor inglês não foram incorporadas.
+Versão portuguesa, preparada com assistência de IA a partir da tradução inglesa de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base em domínio público; não é tradução direta do grego. A passagem sobre acordos em 49e foi cotejada com Harold North Fowler no Perseus para explicitar a condição de justiça. O recorte começa na resposta de Sócrates à proposta de fuga. Completa-se a última pergunta, iniciada em 49e, e a resposta imediata em 50a para não cortar uma frase; essa transição reaparece no módulo 5. As divisões abaixo são editoriais, não novos números de Stephanus. As breves notas do editor inglês não foram incorporadas.
 
 ## Razões e circunstâncias
 
@@ -157,7 +157,6 @@ Versão portuguesa de trabalho, preparada com assistência de IA a partir da tra
 
 **Críton:** Não sei responder, Sócrates, porque não compreendo.
 
-
 ## Glossário de leitura
 
 - **premissa:** Afirmação usada como razão para uma conclusão. Pode ser discutível mesmo quando a inferência é válida.
@@ -253,12 +252,11 @@ Concluir significa apresentar a produção principal, participar das trocas ou d
 
 Reserve o bloco de transferência indicado no calendário para a tarefa nova entregue pelo professor. Ela não antecipa o conteúdo da banca nem recebe interpretação de teste validado.
 
-## Bibliografia e situação editorial
+## Bibliografia
 
-- Platão. **Críton**, 46b–49e; pergunta e resposta finais completadas em 50a. Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler; revisão humana pendente. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
+- Platão. **Críton**, 46b–49e; pergunta e resposta finais completadas em 50a. Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler. [Testemunho](https://www.gutenberg.org/files/1657/1657-h/1657-h.htm).
 
-O texto antigo e sua tradução/edição têm proveniências distintas. O domínio público das bases não declara todo este pacote em domínio público. A aprovação do módulo 1 não constitui revisão dos novos materiais.
-
+O texto antigo e sua tradução/edição têm proveniências distintas. O domínio público das bases não declara todo este pacote em domínio público.
 
 ---
 
@@ -340,4 +338,4 @@ Releia o corpus e as notas de proveniência antes de selecionar comentários sec
 
 ## Instrumentação do piloto
 
-Após cada encontro, registrar tempo real de preparação e correção, leituras que excederam o orçamento, termos que exigiram explicação, adaptações e ambiguidades da tradução. Em C3 e C6, comparar portfólios sem atribuir toda mudança ao programa. Não recolher o Codex inteiro nem divulgar gravações. Antes de publicar esta edição para uma coorte, revisar traduções, recortes, perguntas, descritores e carga; registrar responsável e data sem sobrescrever versões já utilizadas.
+Após cada encontro, registrar tempo real de preparação e correção, leituras que excederam o orçamento, termos que exigiram explicação, adaptações e ambiguidades da tradução. Em C3 e C6, comparar portfólios sem atribuir toda mudança ao programa. Não recolher o Codex inteiro nem divulgar gravações. Registrar melhorias para futuras edições, preservando a versão utilizada pela coorte.

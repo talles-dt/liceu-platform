@@ -214,12 +214,12 @@
     {
       "role": "participant",
       "path": "materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
-      "sha256": "a2867710b5f79163b41b0f8e79bacd22415bcad9df7f3ac3a7e2ed07e342139f"
+      "sha256": "aed7573a81f3442018a337fb2ddf807b9df8dd7c04b066609b4ac9797df677d9"
     },
     {
       "role": "teacher",
       "path": "materiais/0.3.0/GUIA_DO_PROFESSOR.md",
-      "sha256": "3417cfdfc2eabc723323caa9a8af598331c9cd3eedac42a92a7e45ac90bb163b"
+      "sha256": "844360f541072a1c9ffbe189d559b32cb942c58561456743c459fe02b1312057"
     }
   ],
   "agendas": [
@@ -309,8 +309,8 @@
       "title": "Críton",
       "location": "46b–49e; pergunta e resposta finais completadas em 50a",
       "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
-      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler; revisão humana pendente.",
-      "sha256": "7e50312db76d91ab2d2282e44863f1f1939c17920e126236071c595b384adae8",
+      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler.",
+      "sha256": "dcb2ea7d3d1ae93367d8fbcb56fbe19f68d4670e1bc3b9c3953cbdae4e421675",
       "required": true,
       "selection_group": null
     }

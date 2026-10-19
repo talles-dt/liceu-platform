@@ -2,7 +2,7 @@
 
 Pacote de seis ciclos, com o módulo 1 preservado e cinco novos módulos completos. Gramática, lógica e retórica são ensinadas pelos problemas dos textos. Destinatário: adulto sem formação prévia. Cada módulo tem quatro semanas, três encontros de 90 minutos e entre duas e três horas semanais individuais, incluindo feedback, revisão e Codex.
 
-**Estado editorial:** novos materiais em revisão docente; novas traduções portuguesas de trabalho preparadas com assistência de IA, sem alegação de revisão humana já realizada. A aprovação anterior de C1 está preservada. O pacote tem bibliografia dos seis ciclos e estrutura validável, mas não deve ser publicado para coorte antes do registro editorial próprio. Nenhuma matrícula, cobrança, coorte ou publicação em produção foi realizada nesta etapa.
+**Estado editorial:** pacote revisado e aprovado pelo responsável em 19/10/2026. Registro e hashes dos materiais revisados: `APROVACAO_0.3.0.json`. A edição de uso dos seis módulos remove anotações de preparação, preservando fontes, créditos e orientações pedagógicas. Arquivos históricos de C1 permanecem intactos.
 
 ## Materiais completos
 
@@ -54,4 +54,6 @@ npm test
 npm run build
 ```
 
-O gerador produz os dez materiais, seus hashes, o registro de arquivos e a release 0.3.0. Não modifica C1 nem as releases anteriores. `--publication` deve recusar a edição enquanto faltar a revisão própria; os testes usam cópia sintética aprovada para conferir que não restam lacunas estruturais, sem alterar o pacote real. Não editar apenas os arquivos gerados: ajustar o manifesto ou o texto fonte e regenerar.
+O gerador produz os doze materiais da edição de uso, seus hashes, o registro de arquivos e a release 0.3.0 aprovada. C1 recebe uma cópia limpa em 0.3.0; seus arquivos e a release 0.2.0 permanecem arquivados sem alteração. `--publication` valida o pacote real aprovado. Não editar apenas os arquivos gerados: ajustar o manifesto ou o texto fonte e regenerar.
+
+Módulo 1 nesta edição: [Caderno](drafts/c01/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md) · [Guia](drafts/c01/materiais/0.3.0/GUIA_DO_PROFESSOR.md).

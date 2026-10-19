@@ -222,12 +222,12 @@
     {
       "role": "participant",
       "path": "materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
-      "sha256": "676af9a0fdb7595eb8a48ca5b3da11cb23e7e65720af9f2a3314565c29583432"
+      "sha256": "a7637ea6d8c462bdcb7e93e3fae44648ddbe9c9cd86bb5dd4d97c79435af3c5a"
     },
     {
       "role": "teacher",
       "path": "materiais/0.3.0/GUIA_DO_PROFESSOR.md",
-      "sha256": "c3982c0ba63452d774b393a5ac7eb69d03faa7fcc8e258455e1f9b83b60818a3"
+      "sha256": "2b8944abd3b4b55025751d8bc7d9920de2c0dbbfcf64f5c28642f16feeb1a172"
     }
   ],
   "agendas": [
@@ -325,8 +325,8 @@
       "title": "Críton",
       "location": "50a–54d; início da pergunta em 49e incluído; sem a fala de 54e",
       "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
-      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA, revisão humana pendente.",
-      "sha256": "1a01875af41271608e8bbbacf4b573fff41a329b4ad3851a7e5f6ce653fd8427",
+      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA.",
+      "sha256": "aad779f9c400e7591e5b2bb447f7ed3bf2c0c476c604229716b955e132d2a72d",
       "required": true,
       "selection_group": null
     },
@@ -336,8 +336,8 @@
       "title": "Instituição oratória",
       "location": "XI.3.1–9",
       "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/11C*.html",
-      "rights": "Base Butler, 1920, domínio público; versão indireta com assistência de IA, revisão humana pendente.",
-      "sha256": "10eabd0ddc148465b938fd7f9730f9db3263e7923bb99bb17bd7ed3574f0a933",
+      "rights": "Base Butler, 1920, domínio público; versão indireta com assistência de IA.",
+      "sha256": "937b8311de71aff5f0d327ce1678fbc9c6770ce1d5b708e650fb68311f64e8a6",
       "required": true,
       "selection_group": null
     }
