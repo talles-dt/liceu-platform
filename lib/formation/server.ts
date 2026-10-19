@@ -3,9 +3,16 @@ import { createSupabaseServerClient, getCurrentUser } from "@/lib/supabaseServer
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 export const uuid = (value:unknown): value is string => typeof value==="string" && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
 export function sameOrigin(request:Request) {
- const expected=new URL(request.url).origin;
- const configured=process.env.NEXT_PUBLIC_SITE_URL;
- return request.headers.get("origin")===(configured?new URL(configured).origin:expected);
+ const origin=request.headers.get("origin");
+ if(!origin||origin==="null")return false;
+ try{
+  const configured=new URL(process.env.NEXT_PUBLIC_SITE_URL||request.url).origin;
+  // Both are first-party production domains. Do not trust Host/Forwarded headers
+  // or accept arbitrary www/subdomain variants of a configured URL.
+  const production=["https://oliceu.com","https://www.oliceu.com"];
+  const allowed=production.includes(configured)?production:[configured];
+  return allowed.includes(origin);
+ }catch{return false;}
 }
 export async function identity() {
  if(!process.env.NEXT_PUBLIC_SUPABASE_URL)return null;
