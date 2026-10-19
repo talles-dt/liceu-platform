@@ -1,0 +1,658 @@
+{
+  "schema_version": 1,
+  "slug": "palavras-para-comecar",
+  "version": "0.1.0",
+  "kind": "supplement",
+  "editorial_status": "draft",
+  "approval_scope": "Concepção aprovada nesta conversa; novos verbetes e exercícios ainda não receberam aprovação editorial específica.",
+  "compatible_curriculum": "0.3.0",
+  "adds_cycle": false,
+  "delivery": {
+    "welcome": "before_baseline",
+    "notebook": "after_baseline_submission",
+    "glossary": "after_baseline_submission",
+    "teacher": "teacher_only"
+  },
+  "minutes": {
+    "welcome": 5,
+    "entry": 25,
+    "essential_reading": 10,
+    "exercises": 12,
+    "return_to_terms": 3
+  },
+  "terms": [
+    {
+      "key": "afirmacao",
+      "label": "Afirmação",
+      "group": "Examinar razões",
+      "definition": "Algo apresentado como verdadeiro e que podemos examinar.",
+      "example": "“A sala está vazia.” Podemos ir até lá e conferir.",
+      "common_confusion": "Uma pergunta não afirma necessariamente aquilo que pergunta. “A sala está vazia?” não equivale a dizer que está.",
+      "modules": [
+        "c01",
+        "c03"
+      ],
+      "essential": true
+    },
+    {
+      "key": "tese",
+      "label": "Tese",
+      "group": "Examinar razões",
+      "definition": "A posição principal que você pretende sustentar em um texto ou fala.",
+      "example": "“A biblioteca deveria abrir aos sábados.” O restante da fala apresenta razões para essa proposta.",
+      "common_confusion": "Ter uma tese não é ter uma certeza absoluta. Você pode defendê-la e reconhecer limites.",
+      "modules": [
+        "c01",
+        "c03",
+        "c06"
+      ],
+      "essential": true
+    },
+    {
+      "key": "premissa",
+      "label": "Premissa",
+      "group": "Examinar razões",
+      "definition": "Uma afirmação usada como razão para sustentar uma conclusão.",
+      "example": "“Todos os encontros desta turma são à noite. O encontro de hoje é desta turma.” Essas são as duas premissas de um argumento.",
+      "common_confusion": "Uma afirmação ser usada como premissa não garante que seja verdadeira. Pergunte também se temos motivos para aceitá-la.",
+      "modules": [
+        "c01",
+        "c03",
+        "c05"
+      ],
+      "essential": true
+    },
+    {
+      "key": "conclusao",
+      "label": "Conclusão",
+      "group": "Examinar razões",
+      "definition": "A afirmação que as razões apresentadas procuram sustentar.",
+      "example": "Das duas premissas sobre os encontros, concluímos: “O encontro de hoje é à noite.”",
+      "common_confusion": "Conclusão não é apenas o último parágrafo. Pode aparecer no início: “Hoje nos encontraremos à noite, porque todos os encontros desta turma são noturnos.”",
+      "modules": [
+        "c01",
+        "c03"
+      ],
+      "essential": true
+    },
+    {
+      "key": "inferencia",
+      "label": "Inferência",
+      "group": "Examinar razões",
+      "definition": "A passagem que fazemos de uma ou mais afirmações para outra.",
+      "example": "“Todos os encontros da turma são à noite; o de hoje é da turma; então o de hoje é à noite.” A passagem até o “então” é uma inferência.",
+      "common_confusion": "Nem toda passagem é bem sustentada: “A rua está molhada, portanto choveu” ignora outras causas possíveis, como uma lavagem.",
+      "modules": [
+        "c01",
+        "c03",
+        "c05"
+      ],
+      "essential": true
+    },
+    {
+      "key": "argumento",
+      "label": "Argumento",
+      "group": "Examinar razões",
+      "definition": "Um conjunto de razões apresentado para sustentar uma conclusão.",
+      "example": "“O livro está reservado para outra pessoa; por isso, não posso renová-lo agora.” Há uma razão e uma conclusão.",
+      "common_confusion": "Argumentar não é brigar nem apenas repetir uma opinião com firmeza. Uma lista de fatos também pode não formar um argumento, se não sustentar conclusão alguma.",
+      "modules": [
+        "c01",
+        "c03",
+        "c06"
+      ],
+      "essential": true
+    },
+    {
+      "key": "evidencia",
+      "label": "Evidência",
+      "group": "Examinar razões",
+      "definition": "Uma informação ou observação relevante para examinar uma afirmação. Na interpretação, pode ser uma passagem precisa do texto.",
+      "example": "Para afirmar que a narradora mudou de opinião, você aponta duas falas dela e explica a diferença.",
+      "common_confusion": "A passagem não fala por si: é preciso explicar por que sustenta sua leitura. Uma evidência pode ser relevante sem resolver sozinha a questão.",
+      "modules": [
+        "c01",
+        "c04",
+        "c06"
+      ],
+      "essential": true
+    },
+    {
+      "key": "objecao",
+      "label": "Objeção",
+      "group": "Examinar razões",
+      "definition": "Uma dificuldade dirigida a uma posição, a uma premissa ou à passagem entre razões e conclusão.",
+      "example": "À proposta “Vamos reunir todos às 18h”, alguém responde: “Duas pessoas ainda estarão trabalhando nesse horário.”",
+      "common_confusion": "Discordância pessoal e ataque à pessoa não substituem uma objeção à ideia. “Não gosto de você” não mostra uma falha no argumento.",
+      "modules": [
+        "c01",
+        "c03",
+        "c05"
+      ],
+      "essential": true
+    },
+    {
+      "key": "contexto",
+      "label": "Contexto",
+      "group": "Ler e compreender",
+      "definition": "As circunstâncias e o entorno de uma fala ou passagem que ajudam a compreendê-la.",
+      "example": "“Que pontualidade!” pode elogiar alguém que chegou na hora ou ironizar alguém que chegou atrasado.",
+      "common_confusion": "Contexto ajuda a interpretar; não autoriza atribuir ao texto qualquer sentido que nos agrade.",
+      "modules": [
+        "c01",
+        "c04"
+      ],
+      "essential": false
+    },
+    {
+      "key": "interlocutor",
+      "label": "Interlocutor",
+      "group": "Ler e compreender",
+      "definition": "A pessoa a quem alguém dirige a palavra, ou com quem conversa.",
+      "example": "No diálogo “Ana, você concorda?”, Ana é a interlocutora de quem pergunta.",
+      "common_confusion": "A pessoa mencionada não é sempre a pessoa a quem se fala. Você pode falar com Ana sobre Pedro.",
+      "modules": [
+        "c01",
+        "c03",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "referente",
+      "label": "Referente",
+      "group": "Ler e compreender",
+      "definition": "Aquilo ou aquele a que uma expressão se refere naquele contexto.",
+      "example": "Em “Marina trouxe o livro. Ela o colocou na mesa”, “ela” se refere a Marina e “o”, ao livro.",
+      "common_confusion": "Um pronome pode deixar dúvida: em “Marina falou com Joana quando ela chegou”, precisamos esclarecer quem chegou.",
+      "modules": [
+        "c01",
+        "c02",
+        "c04"
+      ],
+      "essential": false
+    },
+    {
+      "key": "interpretacao",
+      "label": "Interpretação",
+      "group": "Ler e compreender",
+      "definition": "Uma compreensão do sentido de um texto, apoiada em suas palavras, relações e contexto.",
+      "example": "Você entende uma fala como irônica e explica quais sinais do diálogo sustentam essa leitura.",
+      "common_confusion": "Interpretar não é apenas dizer do que gostou. Duas interpretações podem ser defensáveis, mas precisam responder às passagens que as desafiam.",
+      "modules": [
+        "c01",
+        "c03",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "parafrase",
+      "label": "Paráfrase",
+      "group": "Ler e compreender",
+      "definition": "Dizer com suas palavras o que uma passagem afirma, preservando seu sentido relevante.",
+      "example": "“Nem todos os moradores concordaram” pode ser parafraseado por “Pelo menos um morador não concordou”.",
+      "common_confusion": "“Nenhum morador concordou” muda o alcance da afirmação. Simplificar a linguagem não autoriza mudar a posição do autor.",
+      "modules": [
+        "c01",
+        "c03",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "citacao",
+      "label": "Citação",
+      "group": "Ler e compreender",
+      "definition": "A reprodução identificada de palavras de outra pessoa ou de um texto.",
+      "example": "Você escreve: No aviso, lê-se “A reunião começa às 18h”, e indica qual aviso consultou.",
+      "common_confusion": "Paráfrases também exigem atribuição, mas não devem ser apresentadas entre aspas como se fossem palavras exatas do autor.",
+      "modules": [
+        "c01",
+        "c04",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "validade",
+      "label": "Validade",
+      "group": "Examinar razões",
+      "definition": "Em um argumento dedutivo, a relação em que, se todas as premissas fossem verdadeiras, a conclusão não poderia ser falsa.",
+      "example": "“Todos os gatos são aves; todos os animais que são aves têm asas; portanto, todos os gatos têm asas.” A forma é válida, embora uma premissa seja falsa.",
+      "common_confusion": "Validade não garante premissas verdadeiras. E argumentos que trabalham com probabilidades não devem ser julgados como se prometessem necessidade dedutiva.",
+      "modules": [
+        "c03",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "verdade",
+      "label": "Verdade",
+      "group": "Examinar razões",
+      "definition": "Aqui, chamar uma afirmação de verdadeira é dizer que as coisas são como ela afirma. Saber se isso ocorre exige exame apropriado.",
+      "example": "“O encontro começou às 19h” pode ser verdadeiro ou falso, conforme o que aconteceu.",
+      "common_confusion": "Confiança, sinceridade e popularidade não garantem verdade. Um argumento pode chegar a uma conclusão verdadeira por razões ruins.",
+      "modules": [
+        "c03",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "contraexemplo",
+      "label": "Contraexemplo",
+      "group": "Examinar razões",
+      "definition": "Um caso que contraria uma afirmação geral, ou uma possibilidade que mostra uma falha numa inferência.",
+      "example": "Um único cisne negro basta para contrariar “Todos os cisnes são brancos”.",
+      "common_confusion": "Não basta contar uma história diferente. O caso precisa contrariar exatamente o que foi afirmado: um cisne negro não refuta “Alguns cisnes são brancos”.",
+      "modules": [
+        "c02",
+        "c03"
+      ],
+      "essential": false
+    },
+    {
+      "key": "condicional",
+      "label": "Condicional",
+      "group": "Examinar razões",
+      "definition": "Uma afirmação que estabelece uma relação do tipo “se isto, então aquilo”.",
+      "example": "“Se a lâmpada está acesa, há energia nesse circuito.”",
+      "common_confusion": "Não inverta automaticamente: haver energia não garante que a lâmpada esteja acesa. Ela pode estar desligada ou queimada.",
+      "modules": [
+        "c03",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "pressuposto",
+      "label": "Pressuposto",
+      "group": "Examinar razões",
+      "definition": "Algo tomado como dado em uma fala ou pergunta, mesmo quando não é afirmado diretamente.",
+      "example": "“Quando você voltou a estudar?” toma como dado que você havia parado e voltou.",
+      "common_confusion": "Não atribua qualquer crença oculta ao falante. Mostre o que, na formulação ou no raciocínio, depende dessa suposição.",
+      "modules": [
+        "c03",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "premissa-implicita",
+      "label": "Premissa implícita",
+      "group": "Examinar razões",
+      "definition": "Uma razão não enunciada que precisamos explicitar para reconstruir um argumento.",
+      "example": "“O museu fecha às segundas; não vá hoje.” A razão não dita é: “Hoje é segunda.”",
+      "common_confusion": "Reconstruir não é inventar uma justificativa conveniente. A premissa proposta precisa fazer sentido no contexto e pode ser discutida.",
+      "modules": [
+        "c03",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "audiencia",
+      "label": "Audiência",
+      "group": "Escrever e falar",
+      "definition": "As pessoas a quem um texto ou uma fala se dirige.",
+      "example": "Explicar a uma colega de turma pode exigir menos apresentação inicial do que explicar a alguém que nunca leu o texto.",
+      "common_confusion": "Adaptar a exposição não significa distorcer a tese para agradar ao público.",
+      "modules": [
+        "c01",
+        "c04",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "composicao",
+      "label": "Composição",
+      "group": "Escrever e falar",
+      "definition": "O trabalho de escolher e organizar o que você dirá ou escreverá para cumprir uma intenção.",
+      "example": "Você apresenta uma pergunta, propõe uma resposta, oferece razões e examina uma objeção.",
+      "common_confusion": "Não há um único molde obrigatório para todos os textos. A ordem precisa ajudar a audiência a acompanhar o problema.",
+      "modules": [
+        "c02",
+        "c04",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "revisao",
+      "label": "Revisão",
+      "group": "Escrever e falar",
+      "definition": "Voltar a uma produção para melhorar seu sentido, suas razões e sua expressão.",
+      "example": "Você percebe que “todos” exagera o que sua evidência mostra e o substitui por “os três casos examinados”.",
+      "common_confusion": "Revisar vai além de corrigir ortografia; pode exigir abandonar uma conclusão.",
+      "modules": [
+        "c01",
+        "c04",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "analogia",
+      "label": "Analogia",
+      "group": "Escrever e falar",
+      "definition": "Uma comparação entre relações de duas situações, usada para esclarecer ou apoiar uma ideia.",
+      "example": "“Um argumento se parece com uma ponte: precisamos examinar as ligações, não só as pontas.”",
+      "common_confusion": "A comparação não demonstra tudo sobre o assunto. Uma ponte suporta peso físico; um argumento não. Diga em que ponto a semelhança é útil e onde termina.",
+      "modules": [
+        "c02",
+        "c04"
+      ],
+      "essential": false
+    },
+    {
+      "key": "clareza",
+      "label": "Clareza",
+      "group": "Escrever e falar",
+      "definition": "A qualidade de uma exposição que permite ao destinatário acompanhar o que está sendo dito e suas relações.",
+      "example": "Em vez de “Ela fez isso”, você identifica a pessoa e a ação quando o contexto não as deixa claras.",
+      "common_confusion": "Clareza não exige retirar toda dificuldade ou palavra técnica. Às vezes, exige explicar a distinção difícil com mais cuidado.",
+      "modules": [
+        "c01",
+        "c04",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "voz",
+      "label": "Voz",
+      "group": "Escrever e falar",
+      "definition": "Ao ler, perguntar pela voz é perguntar quem fala e de que posição fala. Na apresentação oral, também usamos “voz” para a expressão sonora.",
+      "example": "Uma personagem afirma “ninguém é confiável”. Isso não basta para dizer que o autor da obra concorda com ela.",
+      "common_confusion": "Narrador, personagem e autor não são automaticamente a mesma pessoa ou a mesma posição.",
+      "modules": [
+        "c02",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "prosodia",
+      "label": "Prosódia",
+      "group": "Escrever e falar",
+      "definition": "Os aspectos de ritmo, acentuação e entonação com que pronunciamos uma fala.",
+      "example": "Em “Eu não disse que ele roubou”, mudar a palavra enfatizada muda o contraste sugerido.",
+      "common_confusion": "Uma fala expressiva não torna boas as razões apresentadas. Não se avalia sotaque regional como defeito de pensamento.",
+      "modules": [
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "seminario",
+      "label": "Seminário",
+      "group": "Participar do Liceu",
+      "definition": "Um encontro de leitura e investigação compartilhada, preparado por todos.",
+      "example": "Você leva uma passagem, diz o que entendeu e formula uma pergunta que a turma examina.",
+      "common_confusion": "Não é obrigatório fazer uma palestra; preparar uma boa pergunta também é participar.",
+      "modules": [
+        "c01",
+        "c02",
+        "c03",
+        "c04",
+        "c05",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "imitatio",
+      "label": "Imitatio",
+      "group": "Participar do Liceu",
+      "definition": "Imitação declarada de uma escolha ou estrutura de um modelo, para aprender a transformá-la.",
+      "example": "Você reaproveita a estrutura de um diálogo estudado em uma situação nova e identifica seu modelo.",
+      "common_confusion": "Não é copiar escondido nem apenas trocar nomes. Explique o que preservou e o que mudou.",
+      "modules": [
+        "c01",
+        "c02",
+        "c04"
+      ],
+      "essential": false
+    },
+    {
+      "key": "disputatio",
+      "label": "Disputatio",
+      "group": "Participar do Liceu",
+      "definition": "Discussão organizada de uma questão, com posições, objeções e respostas preparadas.",
+      "example": "Você defende uma posição numa rodada e examina a posição oposta na seguinte, procurando suas melhores razões.",
+      "common_confusion": "O papel não é uma declaração de crença pessoal. O objetivo não é vencer por constrangimento ou rapidez.",
+      "modules": [
+        "c01",
+        "c03",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "declamatio",
+      "label": "Declamatio",
+      "group": "Participar do Liceu",
+      "definition": "Neste piloto, uma apresentação oral preparada, seguida de escuta e resposta conforme o módulo.",
+      "example": "Você apresenta uma interpretação em cinco minutos e responde a uma pergunta sobre uma passagem.",
+      "common_confusion": "Aqui não significa recitar de memória nem representar teatralmente um texto. O uso do termo no piloto não esgota seus sentidos históricos.",
+      "modules": [
+        "c01",
+        "c05",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "symposium",
+      "label": "Symposium",
+      "group": "Participar do Liceu",
+      "definition": "Neste piloto, uma conversa de síntese para relacionar questões e aprendizados do percurso.",
+      "example": "Cada pessoa escolhe uma mudança no próprio trabalho e a relaciona a uma pergunta ainda aberta.",
+      "common_confusion": "Não é um encontro obrigatório adicional: ocupa parte do encontro previsto em C3 e C6.",
+      "modules": [
+        "c03",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "codex",
+      "label": "Codex ou commonplace book",
+      "group": "Participar do Liceu",
+      "definition": "Seu caderno pessoal de passagens, ideias, relações e perguntas, com as fontes identificadas.",
+      "example": "Você registra uma frase, a página ou seção, um comentário próprio e uma pergunta para retomar.",
+      "common_confusion": "Não é coleção de frases bonitas nem diário que o professor pode exigir inteiro. Você escolhe o que compartilhar.",
+      "modules": [
+        "c01",
+        "c02",
+        "c03",
+        "c04",
+        "c05",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "rubrica",
+      "label": "Rubrica",
+      "group": "Participar do Liceu",
+      "definition": "Um quadro que descreve o que observar num trabalho e como reconhecer diferentes situações.",
+      "example": "Em fidelidade textual, distingue-se uma paráfrase que troca a tese de outra que preserva suas condições.",
+      "common_confusion": "Não é uma etiqueta sobre a inteligência de alguém. “Não observado” significa falta de evidência, não incapacidade.",
+      "modules": [
+        "c01",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "feedback",
+      "label": "Feedback ou devolutiva",
+      "group": "Participar do Liceu",
+      "definition": "Um retorno que ajuda a perceber uma realização, uma dificuldade e um próximo passo.",
+      "example": "“Entendi sua tese neste parágrafo; aqui perdi o referente; você poderia nomear quem está falando?”",
+      "common_confusion": "“Gostei” pode acolher, mas sozinho não orienta revisão. O colega não deve reescrever o trabalho por você.",
+      "modules": [
+        "c01",
+        "c03",
+        "c04"
+      ],
+      "essential": false
+    },
+    {
+      "key": "portfolio",
+      "label": "Portfólio",
+      "group": "Participar do Liceu",
+      "definition": "Uma seleção de produções e comentários que permite acompanhar seu percurso.",
+      "example": "Você reúne uma primeira versão, uma revisão e uma nota sobre a mudança entre elas.",
+      "common_confusion": "Não precisa ser só uma vitrine dos melhores resultados; uma dificuldade bem documentada também pode ser importante.",
+      "modules": [
+        "c03",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "baseline",
+      "label": "Diagnóstico inicial ou baseline",
+      "group": "Participar do Liceu",
+      "definition": "Uma atividade de partida para observar como você trabalha antes das intervenções da formação.",
+      "example": "Você guarda a primeira resposta, o tempo utilizado e os apoios de que precisou.",
+      "common_confusion": "Não é vestibular, teste de inteligência nem promessa de medir toda a sua capacidade. Se recebeu ajuda conceitual antes, registre.",
+      "modules": [
+        "c01",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "trivium",
+      "label": "Trivium",
+      "group": "Participar do Liceu",
+      "definition": "O nome tradicional do conjunto de gramática, lógica e retórica. Aqui, elas trabalham juntas ao ler, pensar, escrever e falar.",
+      "example": "Ao explicar uma passagem, você identifica a quem um pronome se refere, examina uma razão e escolhe como apresentá-la.",
+      "common_confusion": "Não são três gavetas isoladas nem uma certificação automática de formação completa.",
+      "modules": [
+        "c01",
+        "c06"
+      ],
+      "essential": false
+    },
+    {
+      "key": "gramatica",
+      "label": "Gramática",
+      "group": "Ler e compreender",
+      "definition": "Nesta formação, atenção à estrutura e ao funcionamento da linguagem para compreender e expressar sentidos.",
+      "example": "Perceber a diferença entre “ninguém concordou” e “nem todos concordaram”.",
+      "common_confusion": "Não se resume a decorar nomes de classes de palavras ou corrigir a fala dos outros.",
+      "modules": [
+        "c01",
+        "c02",
+        "c04"
+      ],
+      "essential": false
+    },
+    {
+      "key": "logica",
+      "label": "Lógica",
+      "group": "Examinar razões",
+      "definition": "Investigação das relações entre afirmações e das condições em que razões sustentam conclusões.",
+      "example": "Perguntar se aceitar as razões oferecidas nos obriga a aceitar a conclusão ou apenas a torna plausível.",
+      "common_confusion": "Não é sinônimo de “aquilo que parece óbvio para mim”, nem substitui informações sobre o assunto.",
+      "modules": [
+        "c01",
+        "c03",
+        "c05"
+      ],
+      "essential": false
+    },
+    {
+      "key": "retorica",
+      "label": "Retórica",
+      "group": "Escrever e falar",
+      "definition": "Estudo e prática de construir discursos adequados à questão, à situação e à audiência, oferecendo razões e cuidando da expressão.",
+      "example": "Escolher como explicar uma objeção a quem ainda não conhece o debate.",
+      "common_confusion": "Não significa necessariamente manipulação ou enfeite vazio. Uma fala persuasiva continua responsável por suas razões.",
+      "modules": [
+        "c01",
+        "c04",
+        "c05",
+        "c06"
+      ],
+      "essential": false
+    }
+  ],
+  "exercises": [
+    {
+      "key": "razoes",
+      "minutes": 4,
+      "prompt": "Leia: “Todos os encontros desta turma acontecem na sala 2. O encontro de hoje é desta turma. Portanto, hoje nos encontramos na sala 2.” Separe as duas premissas e a conclusão. Depois escreva: se as duas premissas forem verdadeiras, a conclusão pode ser falsa?",
+      "comment": "Premissas: todos os encontros da turma acontecem na sala 2; o encontro de hoje é da turma. Conclusão: hoje nos encontramos na sala 2. Com essas premissas, a conclusão não pode ser falsa. Isso examina a ligação entre as afirmações; ainda seria preciso conferir se as premissas descrevem a situação real."
+    },
+    {
+      "key": "alcance",
+      "minutes": 4,
+      "prompt": "O aviso diz: “Alguns livros da estante precisam de reparo.” Qual paráfrase preserva o sentido: (A) “Todos os livros da estante estão danificados”; (B) “Há pelo menos um livro da estante que precisa de reparo”? Explique por que a outra vai além do aviso.",
+      "comment": "B preserva o que foi afirmado. A transforma “alguns” em “todos”. O aviso não informa quantos são e, por si, também não garante que existam livros sem necessidade de reparo. Na conversa cotidiana, “alguns” às vezes sugere “não todos”; é importante conferir se o texto realmente autoriza essa limitação."
+    },
+    {
+      "key": "objecao",
+      "minutes": 4,
+      "prompt": "Uma pessoa diz: “Devemos mudar nosso encontro para sábado porque a sala estará disponível.” Escreva uma objeção que examine a decisão sem atacar a pessoa. Depois indique uma informação que ajudaria a decidir.",
+      "comment": "Uma possibilidade: a sala estar disponível não basta se os participantes não puderem ir. Seria útil consultar a disponibilidade deles. Outras objeções são aceitáveis se atingirem uma razão relevante: acesso ao prédio, por exemplo. “Você sempre tem ideias ruins” ataca a pessoa e não examina essa proposta."
+    }
+  ],
+  "week1_replacement": [
+    {
+      "key": "welcome",
+      "minutes": 5
+    },
+    {
+      "key": "baseline",
+      "minutes": 45
+    },
+    {
+      "key": "entry",
+      "minutes": 25
+    },
+    {
+      "key": "first_reading",
+      "minutes": 30
+    },
+    {
+      "key": "reading_notes",
+      "minutes": 5
+    },
+    {
+      "key": "codex",
+      "minutes": 10
+    }
+  ],
+  "later_weeks_unchanged": [
+    150,
+    135,
+    120
+  ],
+  "authorship": "Explicações e exemplos originais preparados para o Liceu com assistência de IA; não são citações de autores clássicos.",
+  "materials": [
+    {
+      "file": "ACOLHIMENTO.md",
+      "sha256": "98088834225e369b5a2c05854056b18289918810dcdce2fed002c3d674f370dd"
+    },
+    {
+      "file": "CADERNO_DE_ENTRADA.md",
+      "sha256": "df3bbb323b60d725c71a55a56b67a70a0f9af40fbf33c6cb01f39fe88969faf4"
+    },
+    {
+      "file": "GLOSSARIO.md",
+      "sha256": "0e1f07e3f08f1da0d6344add7638a2fd781fe2d58791131b46e0d08014b2188d"
+    },
+    {
+      "file": "GUIA_DOCENTE.md",
+      "sha256": "f7e2ca77a20fc37e529187f9323af1a2a2d3b38e11dcb05e499e245e0eea2440"
+    }
+  ]
+}
