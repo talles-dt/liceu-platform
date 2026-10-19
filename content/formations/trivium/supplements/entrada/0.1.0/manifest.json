@@ -3,9 +3,9 @@
   "slug": "palavras-para-comecar",
   "version": "0.1.0",
   "kind": "supplement",
-  "editorial_status": "draft",
-  "approval_scope": "Concepção aprovada nesta conversa; novos verbetes e exercícios ainda não receberam aprovação editorial específica.",
-  "compatible_curriculum": "0.3.0",
+  "editorial_status": "approved",
+  "approval_scope": "Revisado. publique. — declaração direta do responsável nesta conversa em 19/10/2026.",
+  "compatible_curriculum": "0.4.0",
   "adds_cycle": false,
   "delivery": {
     "welcome": "before_baseline",

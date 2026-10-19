@@ -1,0 +1,23 @@
+{
+  "statement": "Revisado. publique.",
+  "recorded_on": "2026-10-19",
+  "reviewed_commit": "b942b10",
+  "materials": [
+    {
+      "file": "ACOLHIMENTO.md",
+      "sha256": "98088834225e369b5a2c05854056b18289918810dcdce2fed002c3d674f370dd"
+    },
+    {
+      "file": "CADERNO_DE_ENTRADA.md",
+      "sha256": "df3bbb323b60d725c71a55a56b67a70a0f9af40fbf33c6cb01f39fe88969faf4"
+    },
+    {
+      "file": "GLOSSARIO.md",
+      "sha256": "0e1f07e3f08f1da0d6344add7638a2fd781fe2d58791131b46e0d08014b2188d"
+    },
+    {
+      "file": "GUIA_DOCENTE.md",
+      "sha256": "f7e2ca77a20fc37e529187f9323af1a2a2d3b38e11dcb05e499e245e0eea2440"
+    }
+  ]
+}

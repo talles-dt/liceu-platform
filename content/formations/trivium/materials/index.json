@@ -19,6 +19,16 @@
         "path": "drafts/c01/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
         "sha256": "98b0e29582c48d4fd463e6a5e1bf31d65eab2c802e4b0c005c80b8203330b259"
       }
+    },
+    "0.4.0": {
+      "participant": {
+        "path": "drafts/c01/materiais/0.4.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "927183e7334dd5ce0d9912d90b6d9dd4d9d4e58c9d614771c4186381ce257a3e"
+      },
+      "teacher": {
+        "path": "drafts/c01/materiais/0.4.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "4ae6c6931d852f4f28d576f978eac15be1044e66d39d02bfb72237915e13ca94"
+      }
     }
   },
   "c02": {
