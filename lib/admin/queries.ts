@@ -16,7 +16,8 @@ export async function adminRows<T>(table:string,columns:string,order='id'):Promi
  }
 }
 export async function getAdminSnapshot(){
- if(!await assertAdmin())throw Error('Acesso administrativo necessário.');
+ const actor=await assertAdmin();
+ if(!actor)throw Error('Acesso administrativo necessário.');
  const [users,members,grants,orders,cohorts,releases]=await Promise.all([
   adminRows<Person>('users','id,name,email,role,suspended_at'),
   adminRows<Membership>('formation_memberships','cohort_id,user_id,role,status','cohort_id,user_id'),
@@ -26,7 +27,7 @@ export async function getAdminSnapshot(){
   adminRows<{id:string;version:string}>('formation_releases','id,version'),
  ]);
  const students=users.filter(u=>u.role==='student').map(u=>({...u,...accessSummary(u.id,members,grants,orders)}));
- return {users,students,members,grants,orders,cohorts,releases};
+ return {users,students,members,grants,orders,cohorts,releases,currentUserId:actor.id};
 }
 export async function getAdminStudents(){return (await getAdminSnapshot()).students;}
 export async function adminCount(table:string):Promise<number|null>{
