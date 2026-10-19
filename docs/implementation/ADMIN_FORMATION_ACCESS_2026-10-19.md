@@ -39,3 +39,17 @@ Troca entre coortes consiste em duas ações explícitas: matricular na nova, de
 A consulta somente leitura ao advisor remoto ainda aponta tabelas legadas sem RLS, quatro funções antigas com `search_path` mutável e proteção de senhas vazadas desligada. Não são alterações desta migração (que fixa `search_path` e restringe execução). Não alteramos políticas legadas em massa neste trabalho. A exposição efetiva depende também dos grants já existentes e requer revisão separada.
 
 Referências de remediação: [RLS](https://supabase.com/docs/guides/database/database-linter?lint=0013_rls_disabled_in_public), [search_path](https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable), [senhas comprometidas](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
+
+## Publicação autorizada e concluída — 19/10/2026
+
+Após a autorização explícita “Publique”:
+
+- Aplicação `e85d364`, branch `codex/liceu-implementation`, publicada no projeto Vercel `liceu-platform`.
+- Migração `admin_student_access` aplicada no Supabase Liceu `rymzyaxhrcusqqzllzay`; registro remoto `20261019175854`. Corresponde ao arquivo local `20261019174337_admin_student_access.sql`.
+- Função conferida: security invoker, search_path fixo, execução negada a anon/authenticated e permitida a service_role.
+- Deploy `dpl_3BX19fo3xqjJvbTXKUVhXRmraXW8`, READY: https://liceu-platform-dx6d68kev-tallestonatto-5836s-projects.vercel.app
+- Candidato verificado antes da promoção: `/admin/formations` redireciona para login; PATCH da API de alteração rejeita usuário sem sessão com 403.
+- Promovido; `vercel inspect www.oliceu.com` confirmou o novo deploy no domínio. Home HTTP 200, `/admin` HTTP 307 para login e API HTTP 403 sem autenticação.
+- Navegador abriu `/admin` e mostrou o formulário de login. Não havia sessão administrativa disponível; não afirmamos validação visual do painel autenticado nem alteração de acesso de aluno real.
+- O teste integrado local segue pendente pela falha de rede já descrita. Publicação realizada com autorização explícita, build remoto bem-sucedido, 134 testes anteriores e validação transacional local do banco.
+- Rollback da aplicação: deployment anterior `dpl_4nEciXbPinUwxfWqW1frCHaas59J`. A função aditiva pode permanecer durante rollback; não altera registros por si só.
