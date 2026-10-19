@@ -10,12 +10,13 @@ export default async function AdminMentorshipPage() {
   const supabase = createSupabaseAdminClient();
 
   // Applications (qualifying interview pipeline)
-  const { data: applicationsData } = await supabase
+  const { data: applicationsData, error: applicationsError } = await supabase
     .from("mentoring_applications")
     .select("id, email, status, created_at")
     .order("created_at", { ascending: false })
     .limit(200);
 
+  if(applicationsError)throw Error("Candidaturas indisponíveis.");
   const applications =
     (applicationsData as unknown as {
       id: string;
@@ -41,12 +42,13 @@ export default async function AdminMentorshipPage() {
   );
 
   // Active sessions (post-program Cal.com sessions)
-  const { data: sessionsData } = await supabase
+  const { data: sessionsData, error: sessionsError } = await supabase
     .from("mentorship_sessions")
     .select("id, user_id, scheduled_at, status, module_id")
     .order("scheduled_at", { ascending: true })
     .limit(200);
 
+  if(sessionsError)throw Error("Sessões indisponíveis.");
   const sessions =
     (sessionsData as unknown as {
       id: string;
@@ -71,12 +73,13 @@ export default async function AdminMentorshipPage() {
   const userById = new Map(users.map((u) => [u.id, u]));
 
   // Bookings confirmed by students after Cal.com scheduling
-  const { data: bookingsData } = await supabase
+  const { data: bookingsData, error: bookingsError } = await supabase
     .from("mentoring_bookings")
     .select("id, user_id, email, session_id, created_at")
     .order("created_at", { ascending: false })
     .limit(200);
 
+  if(bookingsError)throw Error("Agendamentos indisponíveis.");
   const bookings =
     (bookingsData as unknown as {
       id: string;
@@ -123,7 +126,7 @@ export default async function AdminMentorshipPage() {
             readiness: "—",
           };
         })
-      : [{ id: "placeholder", student: "—", when: "—", status: "—", readiness: "—" }];
+      : [];
 
   return (
     <div className="p-4 md:p-6">

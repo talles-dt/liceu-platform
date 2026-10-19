@@ -6,14 +6,15 @@ import { assertAdmin } from "@/lib/admin/auth";
 
 const NAV = [
   { href: "/admin/operacoes" as const, label: "operações" },
-  { href: "/admin" as const, label: "command" },
-  { href: "/admin/students" as const, label: "students" },
-  { href: "/admin/students/create" as const, label: "create" },
-  { href: "/admin/progress" as const, label: "progress" },
-  { href: "/admin/assignments" as const, label: "assignments" },
-  { href: "/admin/mentorship" as const, label: "mentorship" },
-  { href: "/admin/content" as const, label: "content" },
-  { href: "/admin/system" as const, label: "system" },
+  { href: "/admin" as const, label: "visão geral" },
+  { href: "/admin/students" as const, label: "alunos e acessos" },
+  { href: "/admin/students/create" as const, label: "criar aluno" },
+  { href: "/admin/formations" as const, label: "formação" },
+  { href: "/admin/progress" as const, label: "acompanhamento" },
+  { href: "/admin/assignments" as const, label: "entregas avulsas" },
+  { href: "/admin/mentorship" as const, label: "mentoria" },
+  { href: "/admin/content" as const, label: "conteúdo de estudo" },
+  { href: "/admin/system" as const, label: "sistema e auditoria" },
 ] as const satisfies ReadonlyArray<{ readonly href: string; readonly label: string }>;
 
 export default async function AdminLayout({
@@ -54,10 +55,10 @@ export default async function AdminLayout({
                 Liceu / Admin
               </div>
               <div className="mt-2 font-[var(--font-noto-serif)] text-[18px] leading-tight uppercase">
-                Command center
+                Administração
               </div>
               <div className="mt-2 font-[var(--font-work-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
-                Severe. Precise. Analytical.
+                Formação intelectual e mentoria.
               </div>
             </div>
 
@@ -80,7 +81,7 @@ export default async function AdminLayout({
 
             <div className="mt-2 border-t border-[var(--liceu-stone)] px-4 py-4">
               <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-                operator
+                responsável
               </div>
               <div className="mt-2 flex items-baseline justify-between gap-3">
                 <div className="truncate font-[var(--font-work-sans)] text-[12px] text-[var(--liceu-text)]">
@@ -91,7 +92,7 @@ export default async function AdminLayout({
                     type="submit"
                     className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] underline underline-offset-4 hover:text-[var(--liceu-text)] bg-transparent border-none p-0 cursor-pointer"
                   >
-                    logout
+                    Sair
                   </button>
                 </form>
               </div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { StudentsTable } from "@/components/admin/tables/StudentsTable";
 import { getAdminStudents } from "@/lib/admin/queries";
 
-export const revalidate = 60;
+
 
 export default async function AdminStudentsPage() {
   const rows = await getAdminStudents();
@@ -14,10 +14,10 @@ export default async function AdminStudentsPage() {
           /admin/students
         </div>
         <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] leading-tight text-[var(--liceu-text)]">
-          Active roster
+          Alunos e acessos
         </div>
         <div className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
-          Dense table. Click a student for diagnosis.
+          Consulte os acessos de cada aluno. Abra o cadastro para alterar Formação ou Mentoria.
         </div>
         <Link href="/admin/students/create" className="inline-block mt-4 border px-4 py-2">Criar aluno e escolher acessos</Link>
       </header>
