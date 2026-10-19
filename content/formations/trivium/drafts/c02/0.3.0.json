@@ -1,0 +1,341 @@
+{
+  "key": "c02",
+  "title": "Imitar com discernimento",
+  "question": "O que podemos aprender com uma forma sem repetir o juízo de quem a usa?",
+  "readings": [
+    "machado.apologo",
+    "quintilian.x2"
+  ],
+  "objectives": {
+    "grammar": "Distinguir narrador e personagens, recuperar referentes e controlar o efeito do diálogo.",
+    "logic": "Explicitar o termo de comparação e o limite de uma analogia; distinguir condição necessária de superioridade.",
+    "rhetoric": "Transformar uma estrutura narrativa para outra situação e justificar o efeito sobre a audiência."
+  },
+  "context": "Depois de restituir o que o outro diz em C1, vamos perceber como ele faz o leitor ver uma situação. A agulha e a linha não representam duas teses que o professor precisa escolher: suas falas, seus silêncios e o fecho da narrativa precisam ser interpretados. Quintiliano ajuda a distinguir aprender com um modelo de limitar-se a repeti-lo.",
+  "glossary": {
+    "apólogo": "Narrativa breve que atribui fala e ação a seres não humanos e convida a interpretar relações humanas. A moral não precisa vir enunciada como regra.",
+    "referente": "Pessoa, coisa ou ideia retomada por uma palavra como ela, isso ou quem.",
+    "personificação": "Atribuição de ação ou voz humana a algo que não fala; também chamada prosopopeia.",
+    "analogia": "Comparação de relações. Uma semelhança ajuda a compreender, mas não transfere automaticamente todas as propriedades.",
+    "Diana": "Divindade romana associada à caça. Os galgos evocam rapidez; conhecer a mitologia inteira não é pré-requisito.",
+    "mucamas": "Designação histórica de trabalhadoras domésticas escravizadas; a hierarquia social está no mundo narrado, não é uma regra a adotar."
+  },
+  "questions": [
+    "Quem afirma que ir à frente demonstra superioridade? Quem responde com a imagem do imperador? Cite as duas falas.",
+    "O silêncio da linha durante a costura prova concordância? Que evidência posterior modifica essa interpretação?",
+    "O conselho do alfinete é a moral do autor? Compare a voz do alfinete com a do professor de melancolia.",
+    "Em Quintiliano, por que a imitação é necessária à aprendizagem, mas insuficiente ao desenvolvimento? Reconstrua um exemplo e um limite."
+  ],
+  "lessons": [
+    [
+      "Quem fala e quem é retomado",
+      "Na sequência “Buraco aberto pela agulha era logo enchido por ela”, o contexto aponta a linha como referente de “ela”. Substitua o pronome pelo nome e confira a ação descrita. Agora marque três falas com N (narrador), A (agulha), L (linha) ou F (alfinete). Não atribua ao autor uma avaliação apenas porque uma personagem a pronunciou."
+    ],
+    [
+      "Ir adiante não é governar",
+      "A agulha aproxima posição física e autoridade: vou adiante, logo mando. A linha oferece os batedores que precedem o imperador. O contraexemplo derruba a passagem automática de “à frente” para “superior”; não prova, por si só, que a linha seja superior. Escreva essas duas conclusões separadamente."
+    ],
+    [
+      "Imitar uma relação, não um enfeite",
+      "Em vez de trocar apenas agulha por martelo, preserve a estrutura: disputa de importância → trabalho conjunto → diferença de reconhecimento → comentário que reabre o problema. Mude a situação e o destinatário. Um vocabulário antigo, sozinho, não demonstra imitatio."
+    ]
+  ],
+  "prompts": {
+    "reading": "Leia Um apólogo inteiro e Quintiliano X.2.1–8. Marque três mudanças de voz, dois referentes e uma comparação. Responda às quatro perguntas de leitura com passagem e comentário, em até 180 palavras no total. Não procure uma moral única antes de examinar o final.",
+    "seminar": "Traga duas leituras do silêncio da linha, cada uma com uma passagem de apoio. Antes de discordar de um colega, restitua sua leitura em uma frase que ele reconheça. O grupo distinguirá voz narrativa, interesse da personagem e interpretação do leitor. Ao final, revise uma atribuição de voz que você fez na leitura inicial.",
+    "imitatio": "Escreva 100–130 palavras de uma cena entre dois objetos que cooperam, mas disputam reconhecimento. Preserve uma relação estrutural de Um apólogo e mude o desfecho. Acrescente 50 palavras identificando modelo, empréstimo e transformação. Esta cena será aproveitada na composição, não constitui um segundo trabalho longo.",
+    "composition": "Produza uma imitação declarada de 350–500 palavras para um leitor adulto que não conhece o conto. Escolha uma situação diferente da costura; crie duas vozes distinguíveis e um final que complique a disputa. Acrescente uma nota de 80–120 palavras com duas passagens-modelo, o que preservou e o que mudou. Não apresente frases de Machado como suas. Entregue versão inicial, comentário do par e versão revista como etapas da mesma produção.",
+    "disputatio": "Discuta: “No conto, receber o reconhecimento final é suficiente para demonstrar maior valor.” Dois defensores reconstruirão a melhor defesa textual; dois objetores apresentarão um contraexemplo interno; um observador acompanhará referentes e mudanças de sentido de valor; um relator registrará acordo e dissenso. Troquem defesa e objeção na segunda rodada. Não usem a popularidade da personagem como prova.",
+    "declamatio": "Apresente em 3 minutos sua cena e, em 1 minuto, explique uma transformação em relação a Machado. Receba uma pergunta de 1 minuto. Leia com vozes reconhecíveis sem caricatura. Ao ouvir, o par anotará onde a mudança de voz ficou clara e onde precisou inferi-la.",
+    "reflection": "Em 120–180 palavras, compare o primeiro esboço com a versão revista: uma mudança de referente ou voz, uma correção de analogia e uma decisão de efeito. Cite a frase alterada e formule um próximo passo para reconstruir argumentos em C3."
+  },
+  "weeks": [
+    {
+      "week": 1,
+      "tasks": [
+        {
+          "title": "Primeira leitura de Machado",
+          "minutes": 25
+        },
+        {
+          "title": "Quintiliano e glossário",
+          "minutes": 25
+        },
+        {
+          "title": "Mapa de vozes e perguntas",
+          "minutes": 45
+        },
+        {
+          "title": "Codex 1",
+          "minutes": 15
+        },
+        {
+          "title": "Releitura do final",
+          "minutes": 20
+        }
+      ],
+      "individual_minutes": 130,
+      "meeting_minutes": 0
+    },
+    {
+      "week": 2,
+      "tasks": [
+        {
+          "title": "Releitura e explicações pelo texto",
+          "minutes": 35
+        },
+        {
+          "title": "Esboço de imitatio",
+          "minutes": 35
+        },
+        {
+          "title": "Comparação de duas interpretações",
+          "minutes": 35
+        },
+        {
+          "title": "Preparação do seminário",
+          "minutes": 20
+        },
+        {
+          "title": "Codex 2",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 140,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 3,
+      "tasks": [
+        {
+          "title": "Composição inicial e nota",
+          "minutes": 65
+        },
+        {
+          "title": "Feedback de um par",
+          "minutes": 20
+        },
+        {
+          "title": "Preparação da disputatio",
+          "minutes": 35
+        },
+        {
+          "title": "Codex 3",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 135,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 4,
+      "tasks": [
+        {
+          "title": "Revisão da composição",
+          "minutes": 40
+        },
+        {
+          "title": "Ensaio oral",
+          "minutes": 25
+        },
+        {
+          "title": "Tarefa de transferência",
+          "minutes": 20
+        },
+        {
+          "title": "Reflexão",
+          "minutes": 20
+        },
+        {
+          "title": "Seleção do portfólio e Codex 4",
+          "minutes": 20
+        }
+      ],
+      "individual_minutes": 125,
+      "meeting_minutes": 90
+    }
+  ],
+  "codex": [
+    "Uma expressão cujo referente você precisou recuperar.",
+    "Uma analogia do conto e aquilo que ela não demonstra.",
+    "Uma escolha de transformação no seu esboço.",
+    "Uma interpretação que mudou após ouvir um colega."
+  ],
+  "answers": [
+    "A agulha reivindica comando por preceder a linha; a resposta dos batedores mostra que precedência física não equivale a poder. Não se conclui daí que a linha detenha todo o mérito.",
+    "O silêncio pode ser concentração no trabalho ou recusa da discussão; a provocação no baile permite ler cálculo de reconhecimento. Ambas precisam considerar o narrador.",
+    "O alfinete recomenda imobilidade interessada; o professor de melancolia se identifica com a agulha. O fecho pode ironizar ambos. Não exigir a tese de que Machado simplesmente manda ser alfinete.",
+    "Quintiliano reconhece modelos na aprendizagem e argumenta que repetir exclusivamente impediria novas descobertas. Seu percurso histórico é ilustrativo; não é prova de que qualquer novidade seja boa."
+  ],
+  "interventions": "Se alguém procurar a moral correta, peça que identifique quem enunciou a frase escolhida. Se a narrativa nova só trocar nomes, peça que altere a distribuição do reconhecimento. Não penalize linguagem simples: a questão é a relação entre estrutura, significado e efeito.",
+  "probe": "Um mapa disse à bússola: “Sou maior e tenho mais nomes, portanto sou eu quem orienta.” A bússola respondeu: “Quando você está virado ao contrário, quem ajuda a colocá-lo no rumo?” O viajante guardou ambos e perguntou ao morador por uma ponte que nenhum dos dois indicava.",
+  "probe_task": "Em 20 minutos, separe narrador e falas, explicite a inferência do mapa, diga o que a resposta da bússola refuta e escreva um final alternativo de duas frases. Não use a história como prova de uma regra universal.",
+  "probe_key": "A bússola enfraquece tamanho/número de nomes como condição suficiente de orientação. A entrada do morador mostra insuficiência conjunta em certas situações, sem inutilizar os instrumentos. Aceitar finais variados com voz e consequência coerentes.",
+  "schema": "liceu.module/v1",
+  "version": "0.3.0",
+  "editorial_status": "draft",
+  "approval_note": "Novo conteúdo preparado em 2026-10-19; revisão docente e das traduções ainda não registrada.",
+  "rubric": {
+    "key": "c02.integrated",
+    "title": "Imitar com discernimento",
+    "criteria": [
+      {
+        "key": "c02.grammar",
+        "pillar": "grammar",
+        "label": "Voz e referência",
+        "descriptors": {
+          "support": "Confunde autor, narrador e personagem ou deixa referentes centrais indeterminados.",
+          "developing": "Distingue as vozes com apoio, mas uma retomada ainda altera o sentido.",
+          "consistent": "Distingue as vozes e mantém referentes claros na leitura e na imitação.",
+          "transfer": "Faz a mesma distinção em narrativa nova e explica um uso deliberado de ambiguidade."
+        }
+      },
+      {
+        "key": "c02.logic",
+        "pillar": "logic",
+        "label": "Limite da analogia",
+        "descriptors": {
+          "support": "Converte posição física ou prestígio em prova automática de valor.",
+          "developing": "Percebe a comparação, mas precisa de ajuda para delimitar sua conclusão.",
+          "consistent": "Explicita a relação comparada e indica uma propriedade que não se transfere.",
+          "transfer": "Constrói um contraexemplo pertinente e revisa a comparação sem descartá-la integralmente."
+        }
+      },
+      {
+        "key": "c02.rhetoric",
+        "pillar": "rhetoric",
+        "label": "Transformação do modelo",
+        "descriptors": {
+          "support": "Copia a superfície sem atribuição ou sem mudança reconhecível de situação.",
+          "developing": "Declara o modelo, mas as mudanças têm pouca relação com o efeito pretendido.",
+          "consistent": "Transforma estrutura e audiência e justifica duas escolhas com passagens.",
+          "transfer": "Compara efeitos de duas soluções possíveis e escolhe uma sem reduzir o modelo a fórmula."
+        }
+      }
+    ]
+  },
+  "materials": [
+    {
+      "role": "participant",
+      "path": "materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+      "sha256": "c5b68fc6d770093bc6ac3b447e92fb6424f98884f160c9a82efc3d3b81c097cb"
+    },
+    {
+      "role": "teacher",
+      "path": "materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+      "sha256": "02d9f1163b927cfb9c54c68a9d19957685feccb89e7556919552636635af0e8e"
+    }
+  ],
+  "agendas": [
+    {
+      "meeting": 1,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Acolher e recuperar a questão de C1"
+        },
+        {
+          "minutes": 20,
+          "title": "Ler o diálogo de Machado, atribuindo as vozes"
+        },
+        {
+          "minutes": 20,
+          "title": "Examinar os batedores: o que o contraexemplo refuta"
+        },
+        {
+          "minutes": 15,
+          "title": "Relacionar imitação e invenção em Quintiliano"
+        },
+        {
+          "minutes": 15,
+          "title": "Comparar duas imitações e comentar referentes"
+        },
+        {
+          "minutes": 10,
+          "title": "Registrar uma revisão e preparar a composição"
+        }
+      ]
+    },
+    {
+      "meeting": 2,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Delimitar valor e reconhecimento"
+        },
+        {
+          "minutes": 15,
+          "title": "Preparar passagens e distribuir os seis papéis"
+        },
+        {
+          "minutes": 20,
+          "title": "Primeira rodada da disputatio"
+        },
+        {
+          "minutes": 20,
+          "title": "Trocar posições e realizar a segunda rodada"
+        },
+        {
+          "minutes": 15,
+          "title": "Observador e relator distinguem concessões e dissensos"
+        },
+        {
+          "minutes": 10,
+          "title": "Definir a revisão de cada autor"
+        }
+      ]
+    },
+    {
+      "meeting": 3,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Combinar critérios de escuta"
+        },
+        {
+          "minutes": 36,
+          "title": "Seis apresentações: 3 minutos de cena, 1 de justificativa, 1 de pergunta e 1 de transição"
+        },
+        {
+          "minutes": 20,
+          "title": "Devolutiva docente por padrões e duas passagens"
+        },
+        {
+          "minutes": 14,
+          "title": "Reflexão e escolha de evidência"
+        },
+        {
+          "minutes": 10,
+          "title": "Preparar a pergunta de C3"
+        }
+      ]
+    }
+  ],
+  "bibliography": [
+    {
+      "key": "machado.apologo",
+      "author": "Machado de Assis",
+      "title": "Um apólogo",
+      "location": "Integral; Várias Histórias, Laemmert, 1896, pp. 253–257",
+      "url": "https://pt.wikisource.org/wiki/Um_Ap%C3%B3logo",
+      "rights": "Texto original em domínio público; transcrição Wikisource; duas junções de extração corrigidas e documentadas.",
+      "sha256": "f29895619f42746dbf878282882e80212266d5c8e16b531ecb4ae2d7c2bf9c7a",
+      "required": true,
+      "selection_group": null
+    },
+    {
+      "key": "quintilian.x2",
+      "author": "Quintiliano",
+      "title": "Instituição oratória",
+      "location": "X.2.1–8",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10B*.html",
+      "rights": "Base Butler, 1920, domínio público; versão indireta de trabalho com assistência de IA, revisão humana pendente.",
+      "sha256": "7eaed5b4a04d4871ded0d0477628ea00e6bbff4f3f28782eedc37f4ed975b1c0",
+      "required": true,
+      "selection_group": null
+    }
+  ]
+}

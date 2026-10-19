@@ -1,0 +1,345 @@
+{
+  "key": "c05",
+  "title": "Pronunciar e responder",
+  "question": "Como dar voz a uma interpretação e continuar pensando quando alguém a contesta?",
+  "readings": [
+    "plato.crito50",
+    "quintilian.xi3"
+  ],
+  "objectives": {
+    "grammar": "Preservar referentes, condições e distinções por meio de segmentação, pausas e precisão oral.",
+    "logic": "Reconstruir premissas implícitas e distribuir a carga da prova sem confundir força da voz e força da razão.",
+    "rhetoric": "Apresentar uma interpretação em cinco minutos e responder a objeções com escuta, concessão e retomada."
+  },
+  "context": "O argumento das Leis é apresentado por Sócrates, que imagina sua voz. Ler em voz alta permite perceber o efeito dessa personificação, mas efeito não é validade. Quintiliano descreve o poder da execução: vamos experimentá-lo e também perguntar o que uma boa execução não pode provar.",
+  "glossary": {
+    "execução ou pronunciação": "Realização vocal e corporal de uma fala preparada; não significa decorar uma atuação única.",
+    "prosódia": "Ritmo, acento, duração e entonação que ajudam a organizar o sentido da fala.",
+    "premissa implícita": "Razão necessária à reconstrução, mas não formulada como proposição separada; deve ser identificada como reconstrução do leitor.",
+    "carga da prova": "Responsabilidade de oferecer razões para uma afirmação contestada, sem exigir que o outro refute tudo.",
+    "concessão": "Reconhecimento de um ponto procedente do interlocutor; não exige abandonar toda a tese.",
+    "Tessália": "Região para a qual se imagina a fuga; sua descrição no argumento é parte da caracterização proposta pelas Leis."
+  },
+  "questions": [
+    "Quem dá voz às Leis? Em que momento a fala volta explicitamente a Críton?",
+    "Qual passagem liga permanecer na cidade a concordar com suas leis? Que premissa sustenta essa passagem?",
+    "As Leis distinguem o dano causado por homens do dano atribuído às leis? Como isso afeta a conclusão?",
+    "Quintiliano afirma que impressionar equivale a provar? Compare o efeito dos atores com a verdade dos assuntos representados."
+  ],
+  "lessons": [
+    [
+      "A pausa também interpreta",
+      "Leia “ele não obedece nem convence” sem separar os dois verbos, depois com pausa que destaque a alternativa. Anote o que pode ser perdido se o ouvinte escutar apenas “obedece”. Prepare uma fala em unidades de sentido, não em respirações impostas por cada linha da página."
+    ],
+    [
+      "Permanecer não é uma premissa sem discussão",
+      "Reconstrua: houve oportunidade real de partir; Sócrates permaneceu conhecendo as regras; essa permanência expressa acordo. A conclusão depende de como se entende oportunidade e consentimento. Distingua a tese concreta sobre Sócrates de uma regra universal segundo a qual toda permanência é consentimento."
+    ],
+    [
+      "Convencer os ouvidos não encerra o argumento",
+      "Quintiliano observa que atores comovem até em assuntos fictícios. Isso permite distinguir eficácia expressiva e verdade. Leia o mesmo argumento com duas entonações e peça ao colega que restitua as razões. Uma entonação mais forte não acrescenta uma premissa."
+    ],
+    [
+      "Responder em quatro movimentos",
+      "Primeiro restitua a objeção; depois indique o ponto que concede; ofereça uma razão textual; por fim reformule a tese, se necessário. Exemplo de início: “Você questiona se havia liberdade real de sair. Concordo que permanecer não prova sempre consentimento. Minha leitura desta fala das Leis depende de...” Complete com evidência, não com uma fórmula vazia."
+    ]
+  ],
+  "prompts": {
+    "reading": "Leia Críton 50a–54d e Quintiliano XI.3.1–9. Distinga a voz de Sócrates, a das Leis imaginadas e a resposta de Críton. Responda às quatro perguntas; marque uma premissa implícita como reconstrução sua, não como citação.",
+    "seminar": "Compare duas leituras: as Leis formulam uma regra geral de obediência ou um argumento dirigido à história particular de Sócrates? Cada leitor sustenta sua interpretação com duas passagens e enfrenta uma passagem resistente. Não resolva o problema pela mera força da leitura em voz alta.",
+    "imitatio": "Escolha um parágrafo das Leis. Leia-o duas vezes, preservando as palavras e mudando somente pausas e ênfases. O par restitui o que compreendeu. Depois escreva 80–120 palavras em que uma biblioteca se dirige a seus leitores, identificando o recurso de personificação e uma diferença em relação a Platão. O exercício não será um ensaio adicional.",
+    "composition": "Prepare um roteiro de 350–500 palavras ou tópicos equivalentes para uma fala de cinco minutos: pergunta, tese interpretativa, duas passagens, objeção e resposta provisória. Inclua indicações de pausa e uma frase de retomada. Este roteiro substitui um ensaio escrito; não há entrega de composição longa além dele. Revise-o após o feedback do par.",
+    "disputatio": "Discuta: “A permanência de Sócrates em Atenas demonstra consentimento suficiente para a obrigação descrita pelas Leis.” Dois defensores sustentam a leitura; dois objetores testam a premissa de consentimento; um observador registra mudança de referentes e de sentido de livre; um relator registra uma concessão por rodada. Na segunda rodada invertam posições. Cada objeção deve ser restituída antes de receber resposta.",
+    "declamatio": "Apresente sua interpretação em cinco minutos e responda a duas objeções em até três minutos. Oito minutos por participante. Pode usar roteiro, falar sentado e fazer pausas. Não se exigem gravação, volume alto, sotaque específico ou gestual padronizado. A evidência é a inteligibilidade da tese e das razões sob objeção.",
+    "reflection": "Em 120–180 palavras, identifique uma pausa que melhorou o sentido, uma premissa que precisou explicitar e uma concessão que modificou sua fala. Compare roteiro e execução com registro do professor ou gravação consentida. Delimite o texto clássico que pretende interpretar em C6."
+  },
+  "weeks": [
+    {
+      "week": 1,
+      "tasks": [
+        {
+          "title": "Primeira leitura do Críton",
+          "minutes": 65
+        },
+        {
+          "title": "Quintiliano",
+          "minutes": 20
+        },
+        {
+          "title": "Mapa de vozes e perguntas",
+          "minutes": 35
+        },
+        {
+          "title": "Codex 1",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 135,
+      "meeting_minutes": 0
+    },
+    {
+      "week": 2,
+      "tasks": [
+        {
+          "title": "Releitura das passagens resistentes",
+          "minutes": 35
+        },
+        {
+          "title": "Imitatio vocal e personificação",
+          "minutes": 30
+        },
+        {
+          "title": "Reconstrução do consentimento",
+          "minutes": 30
+        },
+        {
+          "title": "Preparação do seminário",
+          "minutes": 20
+        },
+        {
+          "title": "Codex 2",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 130,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 3,
+      "tasks": [
+        {
+          "title": "Roteiro da fala",
+          "minutes": 50
+        },
+        {
+          "title": "Feedback de um par",
+          "minutes": 20
+        },
+        {
+          "title": "Preparação da disputatio",
+          "minutes": 35
+        },
+        {
+          "title": "Primeiro ensaio",
+          "minutes": 15
+        },
+        {
+          "title": "Codex 3",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 135,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 4,
+      "tasks": [
+        {
+          "title": "Revisão e ensaio com tempo",
+          "minutes": 45
+        },
+        {
+          "title": "Transferência",
+          "minutes": 20
+        },
+        {
+          "title": "Escolha de recorte para C6",
+          "minutes": 25
+        },
+        {
+          "title": "Reflexão",
+          "minutes": 20
+        },
+        {
+          "title": "Codex 4",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 125,
+      "meeting_minutes": 90
+    }
+  ],
+  "codex": [
+    "Uma passagem com voz dentro de outra voz.",
+    "Uma pausa que alterou o sentido percebido.",
+    "Uma premissa implícita cuja aceitação você questionou.",
+    "Uma objeção que levou a uma concessão e o recorte escolhido para C6."
+  ],
+  "answers": [
+    "Sócrates imagina a fala das Leis; o leitor não deve apagar essa mediação dramática. A volta a Críton ocorre tanto nas perguntas intermediárias quanto no silêncio final.",
+    "A permanência conhecida e duradoura é apresentada como acordo em atos. A objeção pode examinar se oportunidades de saída e consentimento são suficientes; não transformar a interpretação em aconselhamento jurídico atual.",
+    "A distinção entre vítima dos homens e não das leis sustenta a recusa de retribuir dano às leis. Pode ser contestada, mas não omitida da reconstrução.",
+    "A capacidade de comover em assuntos fictícios evidencia a diferença entre efeito e verdade. O texto defende a importância da execução, não fornece licença para substituir evidência por teatralidade."
+  ],
+  "interventions": "Não use padrões físicos antigos como rubrica contemporânea. O recorte termina antes dos juízos posteriores de Quintiliano sobre corpos e impedimentos. Ofereça participação sentada, roteiro ampliado, registro escrito equivalente e pausa. O objetivo é inteligibilidade, não corrigir identidade vocal ou impor performance corporal.",
+  "probe": "Uma associação afirma: “Você continuou frequentando as reuniões depois da mudança das regras; portanto, concordou com todas elas.” Uma integrante responde: “Eu continuei para pedir que uma delas fosse revista, como registrei em ata.”",
+  "probe_task": "Em 20 minutos, prepare uma resposta oral de até 90 segundos, ou transcrição equivalente: restitua o argumento, explicite uma premissa implícita e responda ao contraexemplo sem negar que a pessoa continuou frequentando. O professor lê a pergunta, sem oferecer o texto antes.",
+  "probe_key": "A permanência pode coexistir com contestação explícita. O contraexemplo nega a suficiência de continuar para consentir com tudo, não qualquer valor indiciário da permanência. Escuta, alcance de todas e concessão devem ser observados separadamente.",
+  "schema": "liceu.module/v1",
+  "version": "0.3.0",
+  "editorial_status": "draft",
+  "approval_note": "Novo conteúdo preparado em 2026-10-19; revisão docente e das traduções ainda não registrada.",
+  "rubric": {
+    "key": "c05.integrated",
+    "title": "Pronunciar e responder",
+    "criteria": [
+      {
+        "key": "c05.grammar",
+        "pillar": "grammar",
+        "label": "Precisão oral",
+        "descriptors": {
+          "support": "A fala perde referentes ou altera uma condição decisiva.",
+          "developing": "A tese pode ser reconstruída, mas depende de perguntas para esclarecer termos.",
+          "consistent": "Pausas, referentes e termos permitem acompanhar a tese sem alterar o texto.",
+          "transfer": "Reformula uma passagem difícil sob pergunta preservando distinções essenciais."
+        }
+      },
+      {
+        "key": "c05.logic",
+        "pillar": "logic",
+        "label": "Premissas e carga da prova",
+        "descriptors": {
+          "support": "Invoca força vocal ou autoridade como substituto das razões.",
+          "developing": "Identifica uma premissa implícita, mas atribui ao outro toda a tarefa de refutação.",
+          "consistent": "Assume a defesa das premissas de sua leitura e distingue efeito de prova.",
+          "transfer": "Revê uma premissa diante de objeção e delimita o que ainda consegue sustentar."
+        }
+      },
+      {
+        "key": "c05.rhetoric",
+        "pillar": "rhetoric",
+        "label": "Escuta e resposta",
+        "descriptors": {
+          "support": "Ignora a objeção ou responde a outra pergunta.",
+          "developing": "Restitui a pergunta com ajuda e oferece resposta parcialmente pertinente.",
+          "consistent": "Restitui, concede quando cabe e responde com uma passagem relevante.",
+          "transfer": "Integra uma objeção inesperada em uma reformulação clara sem disfarçar a concessão."
+        }
+      }
+    ]
+  },
+  "materials": [
+    {
+      "role": "participant",
+      "path": "materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+      "sha256": "676af9a0fdb7595eb8a48ca5b3da11cb23e7e65720af9f2a3314565c29583432"
+    },
+    {
+      "role": "teacher",
+      "path": "materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+      "sha256": "c3982c0ba63452d774b393a5ac7eb69d03faa7fcc8e258455e1f9b83b60818a3"
+    }
+  ],
+  "agendas": [
+    {
+      "meeting": 1,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Distinguir quem fala na prisão e quem é imaginado"
+        },
+        {
+          "minutes": 20,
+          "title": "Reconstruir o acordo implícito"
+        },
+        {
+          "minutes": 20,
+          "title": "Comparar leitura geral e leitura particular"
+        },
+        {
+          "minutes": 15,
+          "title": "Ler Quintiliano sobre efeito e ficção"
+        },
+        {
+          "minutes": 15,
+          "title": "Experimentar duas pausas na mesma passagem"
+        },
+        {
+          "minutes": 10,
+          "title": "Fixar tese provisória do roteiro"
+        }
+      ]
+    },
+    {
+      "meeting": 2,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Definir consentimento no argumento"
+        },
+        {
+          "minutes": 15,
+          "title": "Preparar as funções"
+        },
+        {
+          "minutes": 20,
+          "title": "Primeira rodada com restituição obrigatória"
+        },
+        {
+          "minutes": 20,
+          "title": "Troca de posições e segunda rodada"
+        },
+        {
+          "minutes": 15,
+          "title": "Registrar premissas revistas e concessões"
+        },
+        {
+          "minutes": 10,
+          "title": "Definir ajustes de roteiro"
+        }
+      ]
+    },
+    {
+      "meeting": 3,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Acolhimento e condições de participação"
+        },
+        {
+          "minutes": 48,
+          "title": "Seis falas de cinco minutos e arguição de três minutos"
+        },
+        {
+          "minutes": 12,
+          "title": "Devolutiva docente focada em evidência"
+        },
+        {
+          "minutes": 10,
+          "title": "Reflexão sobre uma resposta"
+        },
+        {
+          "minutes": 10,
+          "title": "Delimitar escolhas preliminares para C6"
+        }
+      ]
+    }
+  ],
+  "bibliography": [
+    {
+      "key": "plato.crito50",
+      "author": "Platão",
+      "title": "Críton",
+      "location": "50a–54d; início da pergunta em 49e incluído; sem a fala de 54e",
+      "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
+      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA, revisão humana pendente.",
+      "sha256": "1a01875af41271608e8bbbacf4b573fff41a329b4ad3851a7e5f6ce653fd8427",
+      "required": true,
+      "selection_group": null
+    },
+    {
+      "key": "quintilian.xi3",
+      "author": "Quintiliano",
+      "title": "Instituição oratória",
+      "location": "XI.3.1–9",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/11C*.html",
+      "rights": "Base Butler, 1920, domínio público; versão indireta com assistência de IA, revisão humana pendente.",
+      "sha256": "10eabd0ddc148465b938fd7f9730f9db3263e7923bb99bb17bd7ed3574f0a933",
+      "required": true,
+      "selection_group": null
+    }
+  ]
+}

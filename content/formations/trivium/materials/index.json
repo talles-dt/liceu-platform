@@ -1,0 +1,74 @@
+{
+  "c01": {
+    "0.2.0": {
+      "participant": {
+        "path": "drafts/c01/materiais/0.2.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "78477779fe0d4c8dd6fa431d520a1b4ee7e70011374db1b5214ed5de4d86d970"
+      },
+      "teacher": {
+        "path": "drafts/c01/materiais/0.2.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "05e949c6f923819b855d600a61f73f939ac679b678626d6d3fbd82511d02d4ac"
+      }
+    }
+  },
+  "c02": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c02/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "c5b68fc6d770093bc6ac3b447e92fb6424f98884f160c9a82efc3d3b81c097cb"
+      },
+      "teacher": {
+        "path": "drafts/c02/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "02d9f1163b927cfb9c54c68a9d19957685feccb89e7556919552636635af0e8e"
+      }
+    }
+  },
+  "c03": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c03/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "a2867710b5f79163b41b0f8e79bacd22415bcad9df7f3ac3a7e2ed07e342139f"
+      },
+      "teacher": {
+        "path": "drafts/c03/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "3417cfdfc2eabc723323caa9a8af598331c9cd3eedac42a92a7e45ac90bb163b"
+      }
+    }
+  },
+  "c04": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c04/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "c3d3221b2ad88e05db1d6efcaade06cb32cf31ec277c5dd751f64a8614149462"
+      },
+      "teacher": {
+        "path": "drafts/c04/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "9031ed65c8e4d8f19141b677988a0363598bd3fd970c3802c812d4e65b3cf011"
+      }
+    }
+  },
+  "c05": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c05/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "676af9a0fdb7595eb8a48ca5b3da11cb23e7e65720af9f2a3314565c29583432"
+      },
+      "teacher": {
+        "path": "drafts/c05/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "c3982c0ba63452d774b393a5ac7eb69d03faa7fcc8e258455e1f9b83b60818a3"
+      }
+    }
+  },
+  "c06": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c06/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "b218f7a408e2dc69c08f471eecd46290d0e2cb527166dc529e53985d3151d3fd"
+      },
+      "teacher": {
+        "path": "drafts/c06/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "dd6d6840c61b964a380f9148392848f480defa66cffcd5035e4f4b6fcd63271a"
+      }
+    }
+  }
+}

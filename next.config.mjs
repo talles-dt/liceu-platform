@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   typedRoutes: true,
   outputFileTracingIncludes: {
-    "/api/formations/*/materials": ["./content/formations/trivium/drafts/c01/materiais/0.2.0/*.md"],
+    "/api/formations/*/materials": ["./content/formations/trivium/drafts/*/materiais/*/*.md"],
   },
   async headers() {
     return [

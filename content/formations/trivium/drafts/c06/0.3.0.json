@@ -1,0 +1,366 @@
+{
+  "key": "c06",
+  "title": "Integrar e interpretar",
+  "question": "Que interpretação consigo sustentar de um clássico e quais limites reconheço no que afirmo?",
+  "readings": [
+    "c01.plato.apology",
+    "machado.apologo",
+    "plato.crito46",
+    "vieira.v",
+    "plato.crito50"
+  ],
+  "objectives": {
+    "grammar": "Interpretar e editar passagens preservando vozes, referentes, condições e localização.",
+    "logic": "Sustentar uma tese interpretativa com razões textuais e enfrentar uma leitura alternativa forte.",
+    "rhetoric": "Compor e apresentar uma interpretação delimitada, responder à arguição e reconhecer o que permanece aberto."
+  },
+  "context": "O corpus abaixo é um menu de escolha, não cinco leituras novas obrigatórias. Escolha um recorte já estudado e confirme sua delimitação com o professor até o seminário. Releia integralmente apenas o item escolhido; os demais permanecem incorporados para consulta. A tarefa final é interpretar um clássico, não escrever uma opinião geral sobre seu tema.",
+  "glossary": {
+    "tese interpretativa": "Afirmação discutível sobre como uma passagem produz sentido, apoiada em evidências do texto.",
+    "recorte": "Unidade textual delimitada que permite compreender a questão sem exigir a obra inteira como pré-requisito.",
+    "leitura alternativa": "Interpretação concorrente plausível que considera as passagens relevantes, não uma objeção inventada para ser facilmente vencida.",
+    "evidência": "Passagem, escolha de linguagem ou relação textual que apoia uma interpretação; uma citação precisa de explicação.",
+    "limite": "Aquilo que o argumento ou o recorte não permite estabelecer, sem invalidar automaticamente o que foi demonstrado."
+  },
+  "questions": [
+    "Qual pergunta sobre a passagem admite ao menos duas respostas plausíveis?",
+    "Quais três passagens sustentam sua tese e qual parece resistir a ela?",
+    "Em que sua leitura difere da alternativa mais forte sem atribuir a ela um erro que não comete?",
+    "O que mudaria na sua tese se a passagem resistente fosse mais importante do que você supôs?"
+  ],
+  "lessons": [
+    [
+      "Uma pergunta delimitada",
+      "“Qual é a importância de Platão?” é amplo demais. “A fala das Leis depende da história particular de Sócrates?” delimita um problema e permite buscar evidências. Para Machado, “O conselho do alfinete encerra ou complica a narrativa?” faz o mesmo. Escolha uma pergunta, não uma lista de assuntos."
+    ],
+    [
+      "Citar e interpretar são atos diferentes",
+      "Monte uma ficha com localização, excerto, paráfrase e inferência sua em campos separados. A paráfrase restitui; a inferência argumenta. Não faça o nome de um autor trabalhar no lugar da análise. Um único excerto contrário à sua tese merece exame, não omissão."
+    ],
+    [
+      "Revisar sem apagar o percurso",
+      "Conserve uma frase da primeira versão e sua revisão. Explique que evidência provocou a mudança. Compare uma produção de C1 com o trabalho atual por pilar: clareza de referência, qualidade da inferência e resposta ao interlocutor. Não converta essa comparação em porcentagem de melhoria."
+    ]
+  ],
+  "prompts": {
+    "reading": "Escolha um item da antologia incorporada: Apologia (recortes de C1), Um apólogo, Críton 46b–49e, Sexagésima V ou Críton 50a–54d. Releia apenas o escolhido como leitura obrigatória. Entregue pergunta, delimitação e três fichas de passagem, incluindo uma que resista à tese. O professor confirma que o problema cabe em 700–900 palavras.",
+    "seminar": "Apresente pergunta e tese em 90 segundos, seguidas de uma passagem favorável e uma resistente. Um colega formula a melhor leitura alternativa; confirme se a reconhece. O professor ajuda a reduzir amplitude, sem escolher a conclusão que o aluno deverá defender.",
+    "imitatio": "Reescreva um parágrafo de sua interpretação usando um movimento estudado: pergunta e exame do Críton, contraste de vozes de Machado ou imagem seguida de distinção em Vieira. Produza duas versões de 80–120 palavras e escolha uma, explicando em 40 palavras qual preserva melhor a evidência. É revisão do ensaio, não tarefa longa adicional.",
+    "composition": "Escreva um ensaio interpretativo de 700–900 palavras sobre o recorte aprovado: pergunta, tese, três passagens analisadas, leitura alternativa forte, resposta e limite. Identifique obra e localização das passagens; não é preciso bibliografia secundária obrigatória. Entregue esboço, feedback do par e versão final como um único percurso. Anexe nota de revisão de 80–120 palavras com uma mudança por pilar.",
+    "disputatio": "Em três pares, cada autor formula sua tese e recebe do colega uma interpretação alternativa apoiada no mesmo texto. No plenário, dois defensores e dois objetores examinam um caso selecionado por pertinência pedagógica; um observador registra precisão textual e um relator registra concessões. Troquem funções na segunda rodada. O julgamento é das razões, não do prestígio do texto escolhido.",
+    "declamatio": "Prepare uma fala de cinco minutos sobre o ensaio, integrada à banca final: pergunta e tese, duas evidências, alternativa e limite. Não leia as 700–900 palavras. Ensaie com o roteiro; esta fala não exige um encontro adicional nem constitui uma segunda apresentação avaliada.",
+    "reflection": "Em 150–250 palavras, compare uma evidência de C1, uma de C3 e uma de C6. Separe o que você consegue fazer com mais autonomia, o que ainda exige apoio e o que não foi observado. Ligue cada afirmação a um trecho ou registro e escolha um próximo passo para cada pilar.",
+    "symposium": "Após as seis apresentações, conversem por 20 minutos sobre “O que torna uma interpretação responsável?”. Distribuam duas apresentações de contraste, duas interlocuções, uma conexão entre autores e uma relatoria. Todos contribuem com uma evidência. A síntese registra uma convergência, uma divergência e uma questão que o percurso não resolveu.",
+    "panel": "Banca de 60 minutos: seis participantes, dez minutos cada (cinco de apresentação, quatro de arguição e um de transição/registro). O professor usa a rubrica e um par formula uma pergunta textual. A declamatio é a apresentação da banca, não evento extra. A tarefa breve de transferência acontece no orçamento individual e fica separada do ensaio. A conclusão combina evidências, sem média automática nem classificação dos alunos."
+  },
+  "weeks": [
+    {
+      "week": 1,
+      "tasks": [
+        {
+          "title": "Releitura do item escolhido",
+          "minutes": 55
+        },
+        {
+          "title": "Pergunta e delimitação",
+          "minutes": 25
+        },
+        {
+          "title": "Três fichas de passagem",
+          "minutes": 40
+        },
+        {
+          "title": "Codex 1",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 135,
+      "meeting_minutes": 0
+    },
+    {
+      "week": 2,
+      "tasks": [
+        {
+          "title": "Plano do ensaio",
+          "minutes": 25
+        },
+        {
+          "title": "Primeiro esboço",
+          "minutes": 65
+        },
+        {
+          "title": "Imitatio como revisão",
+          "minutes": 25
+        },
+        {
+          "title": "Preparação do seminário",
+          "minutes": 15
+        },
+        {
+          "title": "Codex 2",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 145,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 3,
+      "tasks": [
+        {
+          "title": "Completar esboço",
+          "minutes": 40
+        },
+        {
+          "title": "Feedback de um par",
+          "minutes": 25
+        },
+        {
+          "title": "Revisão inicial",
+          "minutes": 35
+        },
+        {
+          "title": "Preparação da disputatio",
+          "minutes": 25
+        },
+        {
+          "title": "Codex 3",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 140,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 4,
+      "tasks": [
+        {
+          "title": "Versão final e nota",
+          "minutes": 45
+        },
+        {
+          "title": "Ensaio oral",
+          "minutes": 25
+        },
+        {
+          "title": "Transferência",
+          "minutes": 20
+        },
+        {
+          "title": "Autoavaliação e seleção de evidências",
+          "minutes": 35
+        },
+        {
+          "title": "Codex 4",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 140,
+      "meeting_minutes": 90
+    }
+  ],
+  "codex": [
+    "Pergunta interpretativa e por que o recorte cabe nela.",
+    "Uma passagem que resiste à tese inicial.",
+    "Uma concessão que melhorou o ensaio.",
+    "Um próximo passo em cada pilar apoiado em evidência."
+  ],
+  "answers": [
+    "Aceitar questões distintas se forem textualmente respondíveis e delimitadas. Recusar “o autor está certo?” sem especificar em qual afirmação e em qual passagem.",
+    "As três fichas podem vir de um recorte curto. Quantidade não substitui análise. Uma passagem resistente não é um defeito a ocultar.",
+    "Uma leitura alternativa precisa ser plausível no corpus. O professor pode discordar dela e ainda reconhecer boa reconstrução.",
+    "O limite pode ser histórico, textual ou inferencial. Não exigir uma declaração vaga de que tudo é relativo; exigir o que esta tese não demonstra."
+  ],
+  "interventions": "Até o seminário, devolver a cada aluno uma orientação de delimitação de no máximo três pontos. Na banca, fazer uma pergunta sobre evidência e outra sobre limite, sem tentar surpreender com erudição externa. Registrar não observado quando a evidência faltar; não converter ausência em incapacidade. A revisão final é delimitada, em até sete dias, sem exclusão automática.",
+  "probe": "Na ata da assembleia lê-se: “Todos os moradores presentes aprovaram o jardim. Alguns moradores não puderam comparecer.” O boletim anunciou: “Todos os moradores aprovaram o jardim; logo, nenhuma objeção merece nova discussão.” Uma carta respondeu: “Não sabemos o que pensam os ausentes; a decisão dos presentes pode continuar válida, mas não demonstra unanimidade do bairro.”",
+  "probe_task": "Em 20 minutos, identifique a alteração gramatical entre ata e boletim, reconstrua o argumento do boletim e escreva uma resposta de 100–140 palavras que preserve o que a ata permite afirmar. Nos últimos dois minutos, prepare uma restituição oral de 30 segundos ou equivalente escrito. Não consulte o ensaio final.",
+  "probe_key": "A restrição presentes foi apagada; aprovação dos presentes não implica unanimidade de moradores nem exclusão de objeções. A carta não prova que a decisão seja inválida. Comparar com o baseline por tipo de evidência, não por pontuação psicométrica. Uma boa interpretação ensaiada não garante desempenho igual em material novo.",
+  "schema": "liceu.module/v1",
+  "version": "0.3.0",
+  "editorial_status": "draft",
+  "approval_note": "Novo conteúdo preparado em 2026-10-19; revisão docente e das traduções ainda não registrada.",
+  "rubric": {
+    "key": "c06.integrated",
+    "title": "Integrar e interpretar",
+    "criteria": [
+      {
+        "key": "c06.grammar",
+        "pillar": "grammar",
+        "label": "Fidelidade e edição",
+        "descriptors": {
+          "support": "Citações ou paráfrases alteram uma voz, referência ou condição central.",
+          "developing": "Localiza passagens, mas uma interpretação depende de correção externa do texto.",
+          "consistent": "Localiza e interpreta preservando as relações de linguagem relevantes.",
+          "transfer": "Aplica os mesmos cuidados a passagem nova e explica uma decisão de edição."
+        }
+      },
+      {
+        "key": "c06.logic",
+        "pillar": "logic",
+        "label": "Sustentação e limite",
+        "descriptors": {
+          "support": "A tese é opinião sem apoio ou omite evidência contrária decisiva.",
+          "developing": "Há apoio textual, mas a alternativa é fraca ou o vínculo permanece implícito.",
+          "consistent": "Analisa três passagens, enfrenta alternativa plausível e delimita a conclusão.",
+          "transfer": "Reformula a tese diante de passagem resistente, preservando o que pode sustentar."
+        }
+      },
+      {
+        "key": "c06.rhetoric",
+        "pillar": "rhetoric",
+        "label": "Exposição e arguição",
+        "descriptors": {
+          "support": "A apresentação não permite reconhecer a pergunta ou evita a arguição.",
+          "developing": "Apresenta a tese, mas precisa de apoio para responder à pergunta recebida.",
+          "consistent": "Expõe a interpretação no tempo e responde à pergunta com evidência e escuta.",
+          "transfer": "Integra uma pergunta nova, concede quando necessário e formula um desdobramento preciso."
+        }
+      }
+    ]
+  },
+  "materials": [
+    {
+      "role": "participant",
+      "path": "materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+      "sha256": "b218f7a408e2dc69c08f471eecd46290d0e2cb527166dc529e53985d3151d3fd"
+    },
+    {
+      "role": "teacher",
+      "path": "materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+      "sha256": "dd6d6840c61b964a380f9148392848f480defa66cffcd5035e4f4b6fcd63271a"
+    }
+  ],
+  "agendas": [
+    {
+      "meeting": 1,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Confirmar menu e critério de delimitação"
+        },
+        {
+          "minutes": 36,
+          "title": "Seis propostas: pergunta, duas passagens e alternativa, seis minutos cada"
+        },
+        {
+          "minutes": 20,
+          "title": "Comparar teses amplas e delimitadas"
+        },
+        {
+          "minutes": 14,
+          "title": "Planejar revisão do ensaio"
+        },
+        {
+          "minutes": 10,
+          "title": "Confirmar recortes e próximo passo individual"
+        }
+      ]
+    },
+    {
+      "meeting": 2,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Organizar três pares por afinidade de problema"
+        },
+        {
+          "minutes": 15,
+          "title": "Cada par prepara tese e alternativa"
+        },
+        {
+          "minutes": 20,
+          "title": "Primeira rodada plenária sobre um caso"
+        },
+        {
+          "minutes": 20,
+          "title": "Segunda rodada com troca de funções"
+        },
+        {
+          "minutes": 15,
+          "title": "Aplicar a aprendizagem às seis revisões"
+        },
+        {
+          "minutes": 10,
+          "title": "Combinar banca, tempo e registro"
+        }
+      ]
+    },
+    {
+      "meeting": 3,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 60,
+          "title": "Banca: seis turnos de 5 minutos de fala, 4 de arguição e 1 de registro/transição"
+        },
+        {
+          "minutes": 20,
+          "title": "Symposium: 3 de abertura, 10 de contribuições, 5 de comparação e 2 de síntese"
+        },
+        {
+          "minutes": 10,
+          "title": "Autoavaliação, devolutiva de percurso e próximos passos"
+        }
+      ]
+    }
+  ],
+  "bibliography": [
+    {
+      "key": "c01.plato.apology",
+      "author": "Platão",
+      "title": "Apologia de Sócrates",
+      "location": "17a–18a; 20c–23b; closing sentence completed in 23c",
+      "url": "https://www.gutenberg.org/files/1656/1656-h/1656-h.htm",
+      "rights": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18; fontes e direitos identificados no texto.",
+      "sha256": "15b12b781d5484a263ae7331f00b897abddd338fb4db1f65cc36b73c73d7cdf8",
+      "required": false,
+      "selection_group": "choose_one"
+    },
+    {
+      "key": "machado.apologo",
+      "author": "Machado de Assis",
+      "title": "Um apólogo",
+      "location": "Integral; Várias Histórias, Laemmert, 1896, pp. 253–257",
+      "url": "https://pt.wikisource.org/wiki/Um_Ap%C3%B3logo",
+      "rights": "Texto original em domínio público; transcrição Wikisource; duas junções de extração corrigidas e documentadas.",
+      "sha256": "f29895619f42746dbf878282882e80212266d5c8e16b531ecb4ae2d7c2bf9c7a",
+      "required": false,
+      "selection_group": "choose_one"
+    },
+    {
+      "key": "plato.crito46",
+      "author": "Platão",
+      "title": "Críton",
+      "location": "46b–49e; pergunta e resposta finais completadas em 50a",
+      "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
+      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler; revisão humana pendente.",
+      "sha256": "7e50312db76d91ab2d2282e44863f1f1939c17920e126236071c595b384adae8",
+      "required": false,
+      "selection_group": "choose_one"
+    },
+    {
+      "key": "vieira.v",
+      "author": "António Vieira",
+      "title": "Sermão da Sexagésima",
+      "location": "Seção V integral; pp. 13–16 da transcrição BOCC",
+      "url": "https://arquivo.bocc.ubi.pt/pag/vieira-antonio-sermao-sexagesima.pdf",
+      "rights": "Original em domínio público; transcrição BOCC; cabeçalhos e hifens de translineação removidos; sem reprodução de aparato crítico.",
+      "sha256": "078d8a756b8f7b27c5197afba3e08b0d1657efb5826e9f9d61cb609986db0a3c",
+      "required": false,
+      "selection_group": "choose_one"
+    },
+    {
+      "key": "plato.crito50",
+      "author": "Platão",
+      "title": "Críton",
+      "location": "50a–54d; início da pergunta em 49e incluído; sem a fala de 54e",
+      "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
+      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA, revisão humana pendente.",
+      "sha256": "1a01875af41271608e8bbbacf4b573fff41a329b4ad3851a7e5f6ce653fd8427",
+      "required": false,
+      "selection_group": "choose_one"
+    }
+  ]
+}

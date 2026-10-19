@@ -32,6 +32,11 @@ export function validateCurriculum(input:unknown, forPublication=false): Curricu
  for(const r of rubrics){const criteria=list(r.criteria,"critérios");unique(criteria,"critérios");for(const c of criteria){check(pillars.includes(c.pillar as Pillar)&&text(c.label),"critério sem pilar");for(const level of ["support","developing","consistent","transfer"])check(record(c.descriptors)&&text(c.descriptors[level]),`descritor ${level} ausente`);}}
  check(cycles.length===6,"piloto exige seis ciclos");const all:Record<string,unknown>[]=[];
  for(const c of cycles){
+ if(c.cadence!==undefined){
+ const cadence=c.cadence;
+ check(record(cadence)&&cadence.weeks===4&&Array.isArray(cadence.individual_minutes)&&cadence.individual_minutes.length===4&&cadence.individual_minutes.every(n=>Number.isInteger(n)&&Number(n)>=120&&Number(n)<=180),`${c.key}: carga individual deve caber em quatro semanas de 120–180 minutos`);
+ check(record(cadence)&&Array.isArray(cadence.meeting_minutes)&&cadence.meeting_minutes.length===4&&cadence.meeting_minutes.filter(n=>n===90).length===3&&cadence.meeting_minutes.filter(n=>n===0).length===1,`${c.key}: três encontros de 90 minutos obrigatórios`);
+ }
  check(text(c.title)&&text(c.question),"ciclo sem questão/título");const activities=list(c.activities,"atividades");all.push(...activities);
  if(forPublication)check(activities.some(a=>Array.isArray(a.reading_keys)&&a.reading_keys.length>0),`${c.key}: bibliografia do ciclo ainda incompleta`);
  for(const type of movements)check(activities.some(a=>a.type===type),`${c.key}: movimento ${type} ausente`);
@@ -50,6 +55,7 @@ export function validateCurriculum(input:unknown, forPublication=false): Curricu
  check(activities.some(a=>Array.isArray(a.pillars)&&a.pillars.includes(p)&&Array.isArray(a.competency_keys)&&a.competency_keys.some(k=>competencies.some(x=>x.key===k&&x.pillar===p))&&rubrics.some(r=>r.key===a.rubric_key&&Array.isArray(r.criteria)&&r.criteria.some(x=>record(x)&&x.pillar===p))),`${c.key}: falta evidência e critério de ${p}`);
  }
  }
+ if(record(input.materials))for(const key of Object.keys(input.materials))check(cycles.some(c=>c.key===key),"material sem ciclo correspondente");
  unique(all,"atividades");check(all.some(a=>a.type==="baseline"),"baseline ausente");check(all.some(a=>a.type==="panel"),"banca ausente");
  if(errors.length)throw Error(errors.join("\n"));return input as unknown as Curriculum;
 }

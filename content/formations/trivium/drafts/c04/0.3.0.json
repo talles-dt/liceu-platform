@@ -1,0 +1,337 @@
+{
+  "key": "c04",
+  "title": "Compor e julgar",
+  "question": "Como tornar um discurso claro sem empobrecer o problema nem esconder uma passagem frágil?",
+  "readings": [
+    "vieira.v",
+    "plato.goodlife"
+  ],
+  "objectives": {
+    "grammar": "Revisar referentes, transições e hierarquia entre parágrafos para uma audiência definida.",
+    "logic": "Distinguir exemplo, analogia e evidência e explicitar a passagem entre razões e conclusão.",
+    "rhetoric": "Organizar uma composição com unidade, objeção pertinente e escolhas justificadas de disposição."
+  },
+  "context": "Vieira discute o estilo da pregação diante de ouvintes com diferentes recursos de compreensão. A seção V, lida integralmente, confronta clareza e ornamentação. Não contém todo o sermão nem deve ser confundida com a seção VI. Vamos usar seus problemas de disposição para rever como apresentamos um argumento do Críton.",
+  "glossary": {
+    "estilo afectado": "Modo de expressão percebido como artificial ou excessivamente trabalhado para exibir efeito.",
+    "disposição": "Organização das partes de um discurso segundo seu propósito e interlocutores.",
+    "antítese": "Aproximação de expressões opostas; pode esclarecer uma distinção ou apenas ornamentar.",
+    "alegar": "Invocar uma autoridade ou razão em apoio de uma afirmação.",
+    "mareante": "Quem navega. No texto, um dos públicos que compreendem algo nas estrelas.",
+    "boçal": "Termo historicamente depreciativo. Identificar seu funcionamento no texto sem incorporá-lo como tratamento legítimo de pessoas."
+  },
+  "questions": [
+    "Que diferença Vieira estabelece entre ordem e “xadrez de palavras”? Localize o contraste.",
+    "As estrelas demonstram que todo discurso pode ser claro e elevado ou oferecem uma analogia? O que a imagem permite ver?",
+    "Por que o exemplo dos nomes dos santos importa para a compreensão do ouvinte?",
+    "Como a ressalva final sobre grandes autores modifica a força da condenação anterior?"
+  ],
+  "lessons": [
+    [
+      "O mesmo assunto não basta para produzir um parágrafo",
+      "No trecho das estrelas, as retomadas articulam clareza, altura e diferentes públicos. Num parágrafo seu, escreva na margem a função de cada frase: tese, razão, exemplo, ressalva. Uma frase sem função pode ser interessante e ainda assim quebrar a unidade."
+    ],
+    [
+      "Imagem não é prova automática",
+      "A comparação do céu com um sermão torna visível uma ordem não mecânica. Não prova por si que toda dificuldade de linguagem seja vaidade. Formule uma razão independente: por exemplo, se o destinatário não consegue recuperar os nomes referidos, perde acesso à autoridade alegada. Depois pergunte em que situação um termo técnico é necessário."
+    ],
+    [
+      "Um argumento para dois leitores",
+      "Retome o trecho sobre viver e viver bem. Explique-o em 70 palavras a um colega que não leu Platão e em outras 70 a alguém que discorda da prioridade dada à justiça. Na primeira versão, forneça contexto; na segunda, explicite a premissa contestável. Não mude a tese de Sócrates para agradar ao leitor."
+    ]
+  ],
+  "prompts": {
+    "reading": "Leia toda a seção V e o recorte de retomada do Críton. Marque as funções de cinco frases de Vieira e responda às quatro perguntas com localização por parágrafo e palavras iniciais. Separe a imagem das estrelas da razão que ela ajuda a expor.",
+    "seminar": "Leve as duas explicações de 70 palavras do argumento de Sócrates. Um colega identifica a audiência pretendida sem que você a anuncie. Discutam quando uma explicação mais simples esclarece e quando apaga uma distinção. Ao final, reconstruam a ressalva final de Vieira sem anularem sua crítica anterior.",
+    "imitatio": "Imite, em 100–140 palavras, o movimento de Vieira “imagem concreta → distinção → aplicação ao discurso”, usando uma imagem diferente do céu e da semeadura. Acrescente uma frase sobre o que sua imagem não demonstra. O trecho poderá integrar a composição, mas não precisa ser mantido se prejudicar a unidade.",
+    "composition": "Escreva 550–750 palavras para leitores de um círculo de leitura sem formação filosófica: explique por que o argumento sobre viver bem merece discussão, sem exigir adesão. Entregue plano de cinco funções (contexto, tese, razões, objeção, fecho), texto e nota de revisão de 80–100 palavras. Use uma passagem do Críton e uma observação de Vieira; distinga paráfrase, citação e comentário. Revise duas transições após o feedback do par.",
+    "disputatio": "Discuta: “Uma linguagem clara é sempre uma linguagem simples.” Dois defensores delimitam simples; dois objetores apresentam caso de precisão que exige distinção; observador acompanha mudanças do sentido de claro e simples; relator separa desacordo verbal e desacordo substantivo. A seção V é evidência de uma posição, não autoridade que encerra a discussão.",
+    "declamatio": "Apresente em 4 minutos a abertura, a objeção e o fecho de sua composição, indicando o que omitiu. Responda em 1 minuto a uma pergunta do leitor. Cada par deve conseguir restituir a ordem das razões. Não avalie clareza pelo número de palavras difíceis apenas.",
+    "reflection": "Em 120–180 palavras, mostre uma transição antes e depois da revisão; explique uma diferença entre exemplo e razão em seu texto e uma adaptação à audiência que preservou a tese. Registre um ponto que precisará ser resolvido oralmente em C5."
+  },
+  "weeks": [
+    {
+      "week": 1,
+      "tasks": [
+        {
+          "title": "Leitura integral de Vieira",
+          "minutes": 55
+        },
+        {
+          "title": "Retomada do Críton",
+          "minutes": 20
+        },
+        {
+          "title": "Glossário e perguntas",
+          "minutes": 35
+        },
+        {
+          "title": "Codex 1",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 125,
+      "meeting_minutes": 0
+    },
+    {
+      "week": 2,
+      "tasks": [
+        {
+          "title": "Mapa de funções dos parágrafos",
+          "minutes": 30
+        },
+        {
+          "title": "Duas explicações de 70 palavras",
+          "minutes": 30
+        },
+        {
+          "title": "Imitatio",
+          "minutes": 25
+        },
+        {
+          "title": "Preparação do seminário",
+          "minutes": 30
+        },
+        {
+          "title": "Codex 2",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 130,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 3,
+      "tasks": [
+        {
+          "title": "Plano e composição inicial",
+          "minutes": 75
+        },
+        {
+          "title": "Feedback de um par",
+          "minutes": 20
+        },
+        {
+          "title": "Preparação da disputatio",
+          "minutes": 30
+        },
+        {
+          "title": "Codex 3",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 140,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 4,
+      "tasks": [
+        {
+          "title": "Revisão e nota",
+          "minutes": 45
+        },
+        {
+          "title": "Ensaio oral",
+          "minutes": 25
+        },
+        {
+          "title": "Transferência",
+          "minutes": 20
+        },
+        {
+          "title": "Reflexão",
+          "minutes": 20
+        },
+        {
+          "title": "Codex 4 e portfólio",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 125,
+      "meeting_minutes": 90
+    }
+  ],
+  "codex": [
+    "Uma imagem de Vieira e o que ela esclarece.",
+    "Uma frase que mudou quando você definiu o leitor.",
+    "Uma objeção que mereceu um parágrafo próprio.",
+    "Uma passagem eliminada e a razão da eliminação."
+  ],
+  "answers": [
+    "Vieira não condena toda ordem: opõe uma ordem viva, ligada ao assunto, à simetria verbal mecânica. A antítese é também um recurso que ele próprio usa.",
+    "A imagem dá a ver clareza com profundidade para públicos diferentes. Não é experimento nem demonstração universal sobre todo vocabulário.",
+    "A perífrase transforma a referência em enigma: o ouvinte pode atribuir o nome a outra pessoa. Trabalhar o exemplo antes de exigir conhecimentos de todos os santos citados.",
+    "A reverência aos grandes autores impede encerrar a busca de causa só pela acusação de estilo. Uma leitura que apaga a ressalva torna o texto mais categórico do que ele é."
+  ],
+  "interventions": "Traduza expressões latinas para situar seu papel, sem tornar o latim uma prova de entrada. Contextualize a linguagem depreciativa e a audiência religiosa. Não peça à turma que adote a confissão religiosa para analisar a construção do sermão. Reduza referências paralelas quando o texto histórico consumir mais tempo.",
+  "probe": "O museu deve ampliar o horário porque a cidade merece cultura. No último sábado, dez visitantes chegaram após o fechamento. Um museu aberto é uma janela acesa. Contudo, ainda não sabemos o custo de manter a equipe por mais uma hora.",
+  "probe_task": "Em 20 minutos, identifique tese, dado, imagem e ressalva. Reordene o parágrafo para leitores que decidirão um teste de horário. Acrescente uma frase que diga o que os dez visitantes permitem concluir e o que não permitem.",
+  "probe_key": "O dado sugere demanda pontual, não prova viabilidade geral. A janela é imagem, não estimativa de custo. Aceitar ordens distintas se a ressalva permanecer visível e a proposta não se fortalecer sem fundamento.",
+  "schema": "liceu.module/v1",
+  "version": "0.3.0",
+  "editorial_status": "draft",
+  "approval_note": "Novo conteúdo preparado em 2026-10-19; revisão docente e das traduções ainda não registrada.",
+  "rubric": {
+    "key": "c04.integrated",
+    "title": "Compor e julgar",
+    "criteria": [
+      {
+        "key": "c04.grammar",
+        "pillar": "grammar",
+        "label": "Coerência e revisão",
+        "descriptors": {
+          "support": "Parágrafos justapostos ou referentes ambíguos impedem acompanhar a tese.",
+          "developing": "Há uma linha geral, mas duas transições dependem de explicação oral adicional.",
+          "consistent": "Transições e referentes permitem acompanhar as funções dos parágrafos.",
+          "transfer": "Reorganiza um texto novo e justifica a revisão em função da audiência."
+        }
+      },
+      {
+        "key": "c04.logic",
+        "pillar": "logic",
+        "label": "Razão, exemplo e evidência",
+        "descriptors": {
+          "support": "Uma imagem ou citação é tratada como demonstração suficiente.",
+          "developing": "Distingue exemplos, mas deixa implícita a passagem central à conclusão.",
+          "consistent": "Separa evidência textual, razão e ilustração, explicitando o vínculo principal.",
+          "transfer": "Identifica os limites de uma analogia e oferece uma razão independente pertinente."
+        }
+      },
+      {
+        "key": "c04.rhetoric",
+        "pillar": "rhetoric",
+        "label": "Disposição e audiência",
+        "descriptors": {
+          "support": "Acumula assuntos sem hierarquia ou presume conhecimentos não oferecidos.",
+          "developing": "Define leitor e tese, mas a ordem dificulta reconhecer a objeção.",
+          "consistent": "Organiza contexto, tese, razões, objeção e fecho para o leitor indicado.",
+          "transfer": "Compara duas ordens possíveis e explica a escolha sem manipular o sentido do texto."
+        }
+      }
+    ]
+  },
+  "materials": [
+    {
+      "role": "participant",
+      "path": "materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+      "sha256": "c3d3221b2ad88e05db1d6efcaade06cb32cf31ec277c5dd751f64a8614149462"
+    },
+    {
+      "role": "teacher",
+      "path": "materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+      "sha256": "9031ed65c8e4d8f19141b677988a0363598bd3fd970c3802c812d4e65b3cf011"
+    }
+  ],
+  "agendas": [
+    {
+      "meeting": 1,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Situar sermão, público e seção V"
+        },
+        {
+          "minutes": 20,
+          "title": "Ler o contraste entre ordem e xadrez"
+        },
+        {
+          "minutes": 15,
+          "title": "Recuperar referentes nos nomes dos santos"
+        },
+        {
+          "minutes": 15,
+          "title": "Distinguir analogia e razão"
+        },
+        {
+          "minutes": 20,
+          "title": "Comparar explicações para dois leitores"
+        },
+        {
+          "minutes": 10,
+          "title": "Escolher uma revisão de disposição"
+        }
+      ]
+    },
+    {
+      "meeting": 2,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Delimitar claro e simples"
+        },
+        {
+          "minutes": 15,
+          "title": "Preparar evidências e distribuir funções"
+        },
+        {
+          "minutes": 20,
+          "title": "Primeira rodada"
+        },
+        {
+          "minutes": 20,
+          "title": "Segunda rodada com troca de posições"
+        },
+        {
+          "minutes": 15,
+          "title": "Distinguir desacordo verbal de substantivo"
+        },
+        {
+          "minutes": 10,
+          "title": "Registrar plano da revisão"
+        }
+      ]
+    },
+    {
+      "meeting": 3,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Relembrar audiência e critérios"
+        },
+        {
+          "minutes": 36,
+          "title": "Seis falas: 4 minutos, 1 de pergunta e 1 de transição"
+        },
+        {
+          "minutes": 20,
+          "title": "Revisar coletivamente duas transições anonimizadas"
+        },
+        {
+          "minutes": 14,
+          "title": "Reflexão sobre imagem e prova"
+        },
+        {
+          "minutes": 10,
+          "title": "Preparar passagem da escrita à voz"
+        }
+      ]
+    }
+  ],
+  "bibliography": [
+    {
+      "key": "vieira.v",
+      "author": "António Vieira",
+      "title": "Sermão da Sexagésima",
+      "location": "Seção V integral; pp. 13–16 da transcrição BOCC",
+      "url": "https://arquivo.bocc.ubi.pt/pag/vieira-antonio-sermao-sexagesima.pdf",
+      "rights": "Original em domínio público; transcrição BOCC; cabeçalhos e hifens de translineação removidos; sem reprodução de aparato crítico.",
+      "sha256": "078d8a756b8f7b27c5197afba3e08b0d1657efb5826e9f9d61cb609986db0a3c",
+      "required": true,
+      "selection_group": null
+    },
+    {
+      "key": "plato.goodlife",
+      "author": "Platão",
+      "title": "Críton — viver e viver bem",
+      "location": "48b–49a; retomada delimitada no texto",
+      "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
+      "rights": "Recorte da versão de trabalho de C3; base Jowett, domínio público; revisão humana pendente.",
+      "sha256": "c5c9d08b87f47559dfa7e8352cc652019adf77403e88fcf08179b44ca8a9dba2",
+      "required": true,
+      "selection_group": null
+    }
+  ]
+}
