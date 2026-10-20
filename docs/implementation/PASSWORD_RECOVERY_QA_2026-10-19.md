@@ -47,3 +47,10 @@ Validação: 146 testes passam, incluindo três testes de interface de recupera�
 Integração real em 2026-10-20T11:12:21.967Z: duas leituras GET da página não consomem token; verifyOtp com tipo recovery cria sessão; nova senha funciona, antiga falha, reutilização é recusada. Conta temporária removida. Esse teste é de API com página pública, não prova de entrega de novo email ou teste humano completo. Nenhuma senha de usuário existente foi alterada.
 
 Ainda pendentes: confirmação da abertura do novo email pelo destinatário, harmonização da política de senha entre formulário e API alternativa, auditoria de limitação de solicitações de recuperação e de mensagens que possam revelar existência de conta. Não se declara a autenticação inteira auditada por estes testes.
+
+### Publicação e verificação no navegador
+
+- Código: `86e0500c2ec128ce7c2a287a9b76b5c3cd66ff06`, enviado para `origin/codex/liceu-implementation`.
+- Deploy `dpl_yu8kugdQr5oiQ67urrVRS6kF42uS`: READY; `vercel inspect www.oliceu.com` confirmou esse deploy no domínio público.
+- Navegador em produção: um token sintético inválido exibiu primeiro “Continuar recuperação”; após confirmação, exibiu a mensagem de link inválido e “Solicitar novo link”, que levou ao formulário correto.
+- Um novo email foi solicitado uma única vez ao destinatário autorizado, pelo formulário de produção. A interface confirmou o envio. Recebimento e abertura deste novo email pelo destinatário ainda pendentes.
