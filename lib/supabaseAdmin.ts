@@ -5,7 +5,7 @@ import type { Database } from "@/lib/database.types";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SafeClient = SupabaseClient<any, string, any>;
 
-export function createSupabaseAdminClient(): SafeClient {
+export function createSupabaseAdminClient(actorId?: string): SafeClient {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
   const key =
     process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SERVICE_KEY;
@@ -21,6 +21,7 @@ export function createSupabaseAdminClient(): SafeClient {
 
   return createClient<Database>(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
+    global: { headers: actorId ? { "x-liceu-actor": actorId } : {} },
   }) as SafeClient;
 }
 

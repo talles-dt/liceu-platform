@@ -7,6 +7,8 @@ import {
   sendDiagnosisEntrevistaEmail,
 } from "../../mocks/email";
 
+vi.mock("@/lib/publicRequests",()=>({validEmail:(v:unknown)=>typeof v==="string"&&v.includes("@"),authorizeEmail:async()=>null,publicLimit:async()=>null}));
+
 beforeEach(() => {
   vi.clearAllMocks();
   vi.resetModules();
@@ -14,7 +16,7 @@ beforeEach(() => {
 
 describe("POST /api/email/diagnostico", () => {
   it("returns 400 for invalid JSON body", async () => {
-    const { POST } = await import("../../../../app/api/email/diagnostico/route");
+    const { POST } = await import("@/app/api/email/diagnostico/route");
     const req = new Request("http://localhost/api/email/diagnostico", {
       method: "POST",
       body: "not json",
@@ -27,7 +29,7 @@ describe("POST /api/email/diagnostico", () => {
   });
 
   it("returns 400 when email is missing", async () => {
-    const { POST } = await import("../../../../app/api/email/diagnostico/route");
+    const { POST } = await import("@/app/api/email/diagnostico/route");
     const req = new Request("http://localhost/api/email/diagnostico", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -41,7 +43,7 @@ describe("POST /api/email/diagnostico", () => {
   });
 
   it("returns 400 when nome is missing", async () => {
-    const { POST } = await import("../../../../app/api/email/diagnostico/route");
+    const { POST } = await import("@/app/api/email/diagnostico/route");
     const req = new Request("http://localhost/api/email/diagnostico", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -53,7 +55,7 @@ describe("POST /api/email/diagnostico", () => {
   });
 
   it("returns 400 when resultado is missing", async () => {
-    const { POST } = await import("../../../../app/api/email/diagnostico/route");
+    const { POST } = await import("@/app/api/email/diagnostico/route");
     const req = new Request("http://localhost/api/email/diagnostico", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -65,7 +67,7 @@ describe("POST /api/email/diagnostico", () => {
   });
 
   it("returns 400 for invalid resultado value", async () => {
-    const { POST } = await import("../../../../app/api/email/diagnostico/route");
+    const { POST } = await import("@/app/api/email/diagnostico/route");
     const req = new Request("http://localhost/api/email/diagnostico", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -79,7 +81,7 @@ describe("POST /api/email/diagnostico", () => {
   });
 
   it("returns 200 for valid video diagnosis", async () => {
-    const { POST } = await import("../../../../app/api/email/diagnostico/route");
+    const { POST } = await import("@/app/api/email/diagnostico/route");
     const req = new Request("http://localhost/api/email/diagnostico", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -94,7 +96,7 @@ describe("POST /api/email/diagnostico", () => {
   });
 
   it("returns 200 for valid apostila diagnosis", async () => {
-    const { POST } = await import("../../../../app/api/email/diagnostico/route");
+    const { POST } = await import("@/app/api/email/diagnostico/route");
     const req = new Request("http://localhost/api/email/diagnostico", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -107,7 +109,7 @@ describe("POST /api/email/diagnostico", () => {
   });
 
   it("returns 200 for valid entrevista diagnosis", async () => {
-    const { POST } = await import("../../../../app/api/email/diagnostico/route");
+    const { POST } = await import("@/app/api/email/diagnostico/route");
     const req = new Request("http://localhost/api/email/diagnostico", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -120,7 +122,7 @@ describe("POST /api/email/diagnostico", () => {
   });
 
   it("returns 200 for valid rejeicao diagnosis", async () => {
-    const { POST } = await import("../../../../app/api/email/diagnostico/route");
+    const { POST } = await import("@/app/api/email/diagnostico/route");
     const req = new Request("http://localhost/api/email/diagnostico", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

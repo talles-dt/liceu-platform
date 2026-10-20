@@ -1,0 +1,39 @@
+import {beforeEach,describe,it,expect,vi} from "vitest";
+import type Stripe from "stripe";
+const m=vi.hoisted(()=>({rpc:vi.fn(),from:vi.fn(),retrieve:vi.fn(),cancel:vi.fn(),items:vi.fn(),account:vi.fn(),previous:vi.fn(),order:vi.fn()}));
+vi.mock("@/lib/supabaseAdmin",()=>({createSupabaseAdminClient:()=>({rpc:m.rpc,from:m.from})}));
+vi.mock("@/lib/stripe",()=>({getStripeClient:()=>({subscriptions:{retrieve:m.retrieve,cancel:m.cancel},checkout:{sessions:{listLineItems:m.items}}})}));
+import {handleSubscriptionEvent,handleServiceEvent} from "@/lib/billing/webhook";
+const event=(object:unknown,type='customer.subscription.updated')=>({id:'evt_test',type,created:100,data:{object}} as unknown as Stripe.Event);
+const subscription={object:'subscription',id:'sub_test',metadata:{liceu_user_id:'user'},customer:'cus_test',status:'active',latest_invoice:{status:'paid'},current_period_end:2000,trial_end:null,cancel_at_period_end:false};
+beforeEach(()=>{vi.clearAllMocks();vi.stubEnv('TRIAL_HASH_SECRET','x'.repeat(32));m.rpc.mockImplementation(async(name:string)=>({data:name==='liceu_lock_billing_entity'||name==='liceu_claim_trial_card'?true:null}));m.account.mockResolvedValue({data:{user_id:'user'}});m.previous.mockResolvedValue({data:{access_until:'2030-01-01T00:00:00Z'}});m.order.mockResolvedValue({data:{user_id:'user',status:'offered',stripe_session_id:'cs_test',price_id:'price_test'}});m.from.mockImplementation((table:string)=>{const q={select:()=>q,eq:()=>q,maybeSingle:table==='liceu_billing_accounts'?m.account:m.previous,single:m.order};return q;});m.retrieve.mockResolvedValue(subscription);m.items.mockResolvedValue({data:[{price:{id:'price_test'},quantity:1}]});});
+describe('subscription state, serialization and failure handling',()=>{
+ it.each([
+  {object:'invoice',subscription:'sub_test'},
+  {object:'invoice',subscription:{id:'sub_test'}},
+  {object:'invoice',parent:{type:'subscription_details',subscription_details:{subscription:'sub_test'}}},
+  {object:'invoice',parent:{type:'subscription_details',subscription_details:{subscription:{id:'sub_test'}}}},
+ ])('resolves paid invoice subscription across API versions: %j',async invoice=>{
+  expect(await handleSubscriptionEvent(event(invoice,'invoice.paid'))).toBe(true);
+  expect(m.retrieve).toHaveBeenCalledWith('sub_test',expect.anything());
+  expect(m.rpc).toHaveBeenCalledWith('liceu_apply_subscription',expect.objectContaining({p_status:'active',p_until:new Date(2000000).toISOString()}));
+ });
+ it('ignores standalone invoice without subscription',async()=>{
+  expect(await handleSubscriptionEvent(event({object:'invoice',parent:null},'invoice.paid'))).toBe(false);
+  expect(m.retrieve).not.toHaveBeenCalled();
+ });
+ it('serializes provider reads and fails for another owner of the lease',async()=>{m.rpc.mockResolvedValueOnce({data:false});await expect(handleSubscriptionEvent(event(subscription))).rejects.toThrow('busy');expect(m.retrieve).not.toHaveBeenCalled();});
+ it('records only the paid interval and releases its own lease',async()=>{await handleSubscriptionEvent(event(subscription));expect(m.rpc).toHaveBeenCalledWith('liceu_apply_subscription',expect.objectContaining({p_status:'active',p_until:new Date(2000000).toISOString()}));expect(m.rpc.mock.calls.at(-1)?.[0]).toBe('liceu_unlock_billing_entity');});
+ it('preserves already paid time after renewal failure',async()=>{m.retrieve.mockResolvedValue({...subscription,status:'past_due',latest_invoice:{status:'open'}});await handleSubscriptionEvent(event(subscription));expect(m.rpc).toHaveBeenCalledWith('liceu_apply_subscription',expect.objectContaining({p_status:'past_due',p_until:'2030-01-01T00:00:00.000Z'}));});
+ it('does not grant a new interval merely because subscription status is active',async()=>{m.previous.mockResolvedValue({data:null});m.retrieve.mockResolvedValue({...subscription,latest_invoice:{status:'open'}});await handleSubscriptionEvent(event(subscription));expect(m.rpc).toHaveBeenCalledWith('liceu_apply_subscription',expect.objectContaining({p_until:null}));});
+ it('retains previously paid access while an active subscription awaits invoice payment',async()=>{m.retrieve.mockResolvedValue({...subscription,latest_invoice:{status:'open'}});await handleSubscriptionEvent(event(subscription));expect(m.rpc).toHaveBeenCalledWith('liceu_apply_subscription',expect.objectContaining({p_until:'2030-01-01T00:00:00.000Z'}));});
+ it('does not trust subscription metadata without customer ownership',async()=>{m.account.mockResolvedValue({data:{user_id:'someone-else'}});await expect(handleSubscriptionEvent(event(subscription))).rejects.toThrow('ownership');expect(m.rpc.mock.calls.some(c=>c[0]==='liceu_apply_subscription')).toBe(false);});
+ it('rejects persistence failure so Stripe can retry',async()=>{m.rpc.mockImplementation(async(name:string)=>name==='liceu_apply_subscription'?{error:new Error('db offline')}:{data:true});await expect(handleSubscriptionEvent(event(subscription))).rejects.toThrow('db offline');});
+});
+describe('paid services',()=>{
+ const checkout={object:'checkout.session',id:'cs_test',mode:'payment',metadata:{liceu_order_id:'order',liceu_user_id:'user'},payment_status:'paid',payment_intent:'pi_test'};
+ it('records the exact order, intent and event atomically',async()=>{await handleServiceEvent(event(checkout,'checkout.session.completed'));expect(m.rpc).toHaveBeenCalledWith('liceu_record_service_payment',{p_order:'order',p_user:'user',p_session:'cs_test',p_intent:'pi_test',p_event:'evt_test'});});
+ it('does not deliver an unpaid checkout',async()=>{await handleServiceEvent(event({...checkout,payment_status:'unpaid'},'checkout.session.completed'));expect(m.rpc).not.toHaveBeenCalled();});
+ it('rejects a different price instead of marking paid',async()=>{m.items.mockResolvedValue({data:[{price:{id:'wrong'},quantity:1}]});await expect(handleServiceEvent(event(checkout,'checkout.session.completed'))).rejects.toThrow('price mismatch');expect(m.rpc).not.toHaveBeenCalled();});
+ it('retries a failed payment ledger write',async()=>{m.rpc.mockResolvedValue({error:new Error('ledger offline')});await expect(handleServiceEvent(event(checkout,'checkout.session.completed'))).rejects.toThrow('ledger offline');});
+});

@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getCurrentUser } from "@/lib/supabaseServer";
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
     const status = searchParams.get("status");
     const offset = (page - 1) * limit;
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     let query = supabase
       .from("users")
@@ -45,7 +46,7 @@ export async function GET(request: Request) {
     
     // Get access grant counts for each user
     const userIds = data?.map(u => u.id) || [];
-    let grantsMap = new Map<string, number>();
+    const grantsMap = new Map<string, number>();
     if (userIds.length > 0) {
       const { data: grants } = await supabase
         .from("access_grants")
@@ -79,6 +80,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+ if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -89,12 +91,13 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { email, name, role = "student", password } = body;
     
-    if (!email) {
+    if (!["student", "teacher", "admin"].includes(role)) return NextResponse.json({ error: "Invalid role" }, { status: 400 });
+    if (typeof email !== "string" || !email) {
       return NextResponse.json({ error: "Email required" }, { status: 400 });
     }
     
     const emailLower = email.trim().toLowerCase();
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Check if email already exists
     const { data: existingUsers } = await supabase.auth.admin.listUsers();
@@ -129,7 +132,7 @@ export async function POST(request: Request) {
     // Create profile in public.users
     const { data: profile, error: profileError } = await supabase
       .from("users")
-      .insert({
+      .upsert({
         id: authUser.user.id,
         name: name || emailLower.split("@")[0],
         email: emailLower,

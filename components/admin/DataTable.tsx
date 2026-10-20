@@ -53,6 +53,7 @@ export function DataTable<Row>({
             </tr>
           </thead>
           <tbody>
+            {rows.length===0&&<tr><td colSpan={columns.length} className="p-4 text-sm">Nenhum registro encontrado.</td></tr>}
             {rows.map((row) => (
               <tr
                 key={rowKey(row)}

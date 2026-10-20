@@ -5,12 +5,12 @@ import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { getPostBySlug as serverGetPostBySlug } from "@/app/blog/blog-server-actions";
 
 // Export server actions for direct use in server components
-export const getPostBySlug = serverGetPostBySlug;
+const getPostBySlug = serverGetPostBySlug;
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
- const { slug } = params;
+ const { slug } = await params;
  const post = await getPostBySlug(slug);
  if (!post) return {};
 
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
- const post = await getPostBySlug(params.slug);
+ const post = await getPostBySlug((await params).slug);
  if (!post) notFound();
 
  return (

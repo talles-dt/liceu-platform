@@ -28,13 +28,13 @@ const RESULT_MAP: Record<Result, ResultConfig> = {
   },
   apostila: {
     label: "RECOMENDAÇÃO: EBOOK",
-    title: "Sua estrutura tem fissuras. O ebook é o ponto de entrada.",
+    title: "Sua estrutura tem fissuras. O estudo guiado é o ponto de entrada.",
     body: [
       "Você reconhece que o problema não é timidez ou falta de voz — é uma falha de esqueleto lógico. Mas ainda não está pronto para a pressão ao vivo.",
-      "O ebook é o programa completo em forma escrita. Seis módulos, exercícios, flashcards SM-2 e progressão guiada. Você lê, pratica e constrói a fundação no seu ritmo.",
+      "A assinatura dá acesso ao conteúdo publicado. Seis módulos, exercícios, flashcards SM-2 e progressão guiada. Você lê, pratica e constrói a fundação no seu ritmo.",
       "Se após o ebook você sentir que precisa de mais, o upgrade para vídeo-aulas ou mentoria está aberto.",
     ],
-    ctaLabel: "Comprar ebook — R$ 149",
+    ctaLabel: "Conhecer a assinatura",
     ctaKind: "ebook",
     accentColor: "var(--liceu-accent)",
   },
@@ -46,7 +46,7 @@ const RESULT_MAP: Record<Result, ResultConfig> = {
       "As vídeo-aulas mostram os dispositivos retóricos em ação. A diferença entre ler sobre pressão e ver a estrutura operar sob ela é brutal.",
       "Ebook + aulas gravadas com demonstração prática. Progressão estrita. Sem atalhos.",
     ],
-    ctaLabel: "Comprar vídeo-aulas — R$ 1.297",
+    ctaLabel: "Conhecer a assinatura",
     ctaKind: "video",
     accentColor: "var(--liceu-accent)",
   },
@@ -55,10 +55,10 @@ const RESULT_MAP: Record<Result, ResultConfig> = {
     title: "Você é o tipo de aluno que o Liceu existe para treinar.",
     body: [
       "Você não engole o 'não' em seco. Questiona sob premissas. Exige argumentação sustentada. Isso é exatamente o perfil que a mentoria individual foi construída para forjar.",
-      "O processo começa com uma entrevista de qualificação de 30 minutos (taxa de R$ 99). Se houver encaixe, você recebe um link de pagamento com o crédito aplicado e paga R$ 4.900 pelo programa completo.",
-      "Seis sessões ao vivo. Correção técnica implacável. Sem aplausos.",
+      "O processo começa com uma entrevista de qualificação de 30 minutos (sem taxa de entrevista). Se houver encaixe, você recebe um link de pagamento para uma sessão, com valor e duração informados antes do pagamento.",
+      "Sessões avulsas, com objetivo, duração e preço apresentados antes do pagamento.",
     ],
-    ctaLabel: "Agendar entrevista — R$ 99",
+    ctaLabel: "Conhecer a mentoria",
     ctaKind: "mentoring_interview",
     accentColor: "var(--liceu-secondary)",
   },
@@ -109,21 +109,7 @@ export default function DiagnosticoResultadoClient() {
     if (!config.ctaKind) return;
     setLoading(true);
     try {
-      const res = await fetch("/api/stripe/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: config.ctaKind }),
-      });
-      const data = await res.json();
-      if (res.status === 401) {
-        window.location.href = "/login";
-        return;
-      }
-      if (!res.ok || !data.url) {
-        setLoading(false);
-        return;
-      }
-      window.location.href = data.url;
+      window.location.href = config.ctaKind === "mentoring_interview" ? "/servicos" : "/conta";
     } catch {
       setLoading(false);
     }
@@ -132,24 +118,9 @@ export default function DiagnosticoResultadoClient() {
   return (
     <div className="min-h-screen bg-[var(--liceu-bg)] text-[var(--liceu-text)]">
       {/* Top Bar */}
-      <header className="border-b border-[var(--liceu-stone)] border-l-4 border-l-[var(--liceu-accent)] bg-[var(--liceu-surface)]">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-          <Link
-            href="/"
-            className="font-[var(--font-noto-serif)] text-xl font-black uppercase tracking-tight text-[var(--liceu-accent)]"
-          >
-            Liceu Underground
-          </Link>
-          <Link
-            href="/diagnostico"
-            className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)] hover:text-[var(--liceu-accent)] transition-colors"
-          >
-            Refazer diagnóstico
-          </Link>
-        </div>
-      </header>
 
-      <main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
+
+      <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         {/* Result Header */}
         <div className="mb-12">
           <div
@@ -229,7 +200,7 @@ export default function DiagnosticoResultadoClient() {
             Blog
           </Link>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

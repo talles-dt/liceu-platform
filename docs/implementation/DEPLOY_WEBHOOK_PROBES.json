@@ -1,0 +1,27 @@
+{
+  "deployment": "dpl_89F9G3p6hAHN3xXaQfT5dURJ4EgV",
+  "source": "manually_signed_synthetic_event_not_Stripe_delivery",
+  "results": [
+    {
+      "case": "valid_signature",
+      "http_status": 200,
+      "response": {
+        "received": true
+      }
+    },
+    {
+      "case": "tampered_payload",
+      "http_status": 400,
+      "response": {
+        "error": "Invalid signature"
+      }
+    },
+    {
+      "case": "expired_signature",
+      "http_status": 400,
+      "response": {
+        "error": "Invalid signature"
+      }
+    }
+  ]
+}

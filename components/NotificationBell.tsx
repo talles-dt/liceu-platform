@@ -57,7 +57,6 @@ export function NotificationBell() {
 
   useEffect(() => {
     if (!open) return;
-    void loadNotifications();
 
     function handleClickOutside(e: MouseEvent) {
       if (
@@ -88,7 +87,7 @@ export function NotificationBell() {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => { if (!open) void loadNotifications(); setOpen((prev) => !prev); }}
         className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--liceu-stone)] bg-[var(--liceu-surface)] text-[var(--liceu-muted)] hover:text-[var(--liceu-text)] hover:border-[var(--liceu-accent)]/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--liceu-accent)]"
         aria-label="Notificacoes"
       >

@@ -10,15 +10,15 @@ import { mockSupabase } from "../../mocks/supabase";
 
 describe("POST /api/auth/logout", () => {
   it("only allows POST (no GET handler exported)", async () => {
-    const mod = await import("../../../../app/api/auth/logout/route");
+    const mod = await import("@/app/api/auth/logout/route");
 
     // The route only exports POST
-    expect(mod.GET).toBeUndefined();
+    expect("GET" in mod).toBe(false);
     expect(mod.POST).toBeDefined();
   });
 
   it("calls signOut and returns 200 on POST", async () => {
-    const { POST } = await import("../../../../app/api/auth/logout/route");
+    const { POST } = await import("@/app/api/auth/logout/route");
 
     const res = await POST();
 

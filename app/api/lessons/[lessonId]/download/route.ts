@@ -8,7 +8,7 @@ type Context = { params: Promise<{ lessonId: string }> };
 type DbLesson = {
   id: string;
   title: string;
-  content: string | null;
+  content?: string | null;
   order_index: number;
   module_id: string;
   modules: { title: string; order_index: number; course_id: string } | null;
@@ -32,12 +32,15 @@ export async function GET(_req: Request, { params }: Context) {
   const supabase = createSupabaseAdminClient();
 
   const { data: lesson } = await supabase
-    .from("lessons")
-    .select("id, title, content, order_index, module_id, modules(title, order_index, course_id)")
+    .from("liceu_lessons")
+    .select("id, title, order_index, module_id, modules:liceu_modules(title, order_index)")
     .eq("id", lessonId)
     .maybeSingle<DbLesson>();
 
   if (!lesson) return new NextResponse("Not found", { status: 404 });
+  const { data: sections, error: contentError } = await supabase.from("liceu_theoretical_content").select("title,content_markdown").eq("lesson_id",lessonId).order("section_order");
+  if (contentError) return new NextResponse("Content unavailable", {status:500});
+  lesson.content = (sections ?? []).map(s => `## ${s.title}\n\n${s.content_markdown}`).join("\n\n");
   if (!lesson.content) return new NextResponse("No content", { status: 404 });
 
   const moduleTitle = lesson.modules?.title ?? "Módulo";

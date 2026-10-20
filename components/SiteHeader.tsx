@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV = [
@@ -14,6 +15,8 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  if (pathname === "/dashboard" || pathname.startsWith("/admin")) return null;
 
   return (
     <header className="border-b border-[var(--liceu-stone)] bg-[var(--liceu-bg)] border-l-4 border-l-[var(--liceu-accent)]">
@@ -22,7 +25,7 @@ export function SiteHeader() {
           href="/"
           className="font-[var(--font-space-grotesk)] text-[12px] uppercase tracking-[0.28em] text-[var(--liceu-accent)] font-black"
         >
-          Liceu
+          Liceu Underground
         </Link>
 
         {/* Desktop / tablet navigation */}
@@ -41,7 +44,8 @@ export function SiteHeader() {
         {/* Mobile hamburger toggle */}
         <button
           type="button"
-          aria-label="Abrir menu"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-controls="site-mobile-nav"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="flex h-9 w-9 items-center justify-center border border-[var(--liceu-stone)] text-[var(--liceu-accent)] sm:hidden"
@@ -53,7 +57,7 @@ export function SiteHeader() {
       {/* Mobile drawer */}
       {open && (
         <div className="sm:hidden">
-          <nav className="flex flex-col border-t border-[var(--liceu-stone)] px-6 py-2">
+          <nav id="site-mobile-nav" aria-label="Navegação principal" className="flex flex-col border-t border-[var(--liceu-stone)] px-6 py-2">
             {NAV.map((item) => (
               <Link
                 key={item.href}

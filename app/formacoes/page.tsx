@@ -1,0 +1,7 @@
+import {StudentAreaNav} from "@/components/StudentAreaNav";
+import Link from "next/link";
+import {identity} from "@/lib/formation/server";
+
+export const dynamic="force-dynamic";
+export default async function FormationsPage(){const auth=await identity();let cohorts:{id:string;title:string}[]=[];let unavailable=false;if(auth){const {data,error}=await auth.db.from("formation_cohorts").select("id,title");unavailable=!!error;cohorts=data??[];}
+return <div className="max-w-5xl mx-auto p-6 md:p-10 space-y-8"><StudentAreaNav area="formation"/><header><p>Liceu Underground</p><h1 className="text-4xl font-serif">Formações</h1><p>Leitura, pensamento e expressão em coortes pequenas.</p></header><Link href="/formacoes/curriculo" className="underline">Conhecer a proposta pelo Trivium</Link>{!auth?<p><Link className="underline" href="/login">Entre na sua conta</Link> para acessar sua coorte.</p>:unavailable?<p role="alert">A formação ainda não está disponível neste ambiente.</p>:cohorts.length?cohorts.map(c=><Link className="block border p-5 text-xl" key={c.id} href={`/formacoes/${c.id}`}>{c.title}</Link>):<p>Você ainda não está matriculado em uma coorte.</p>}{auth?.role==="admin"&&!unavailable&&<Link className="block border p-4 underline" href="/admin/formations">Administrar coortes e acesso de professores</Link>}</div>;}

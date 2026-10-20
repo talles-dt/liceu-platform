@@ -1,80 +1,35 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "@/lib/database.types";
 
+// The generated database types are refreshed during schema reconciliation.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SafeClient = SupabaseClient<any, string, any>;
 
-type CookieOptions = {
-  domain?: string;
-  expires?: Date;
-  httpOnly?: boolean;
-  maxAge?: number;
-  path?: string;
-  sameSite?: "lax" | "strict" | "none";
-  secure?: boolean;
-};
-
 export async function createSupabaseServerClient(): Promise<SafeClient> {
   const cookieStore = await cookies();
-
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error("Supabase environment variables are not configured.");
-  }
-
-  // Production-ready cookie settings (no domain)
-  const cookieOptions: CookieOptions = {
-    path: "/",
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    httpOnly: true,
-    // Remove domain to support:
-    // - localhost
-    // - preview deployments (Vercel)
-    // - email links opened in different contexts
-    // domain: process.env.NODE_ENV === "production" 
-    //   ? ".oliceu.com"
-    //   : undefined,
-  };
-
-  return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) throw new Error("Supabase environment variables are not configured.");
+  return createServerClient(url, key, {
     cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value;
-      },
-      set(name: string, value: string, options: CookieOptions) {
+      getAll: () => cookieStore.getAll(),
+      setAll(cookiesToSet) {
         try {
-          cookieStore.set({ name, value, ...cookieOptions, ...options });
-        } catch (error) {
-          console.error(`[supabaseServer] Failed to set cookie ${name}`, error);
-        }
-      },
-      remove(name: string, options: CookieOptions) {
-        try {
-          cookieStore.set({ name, value: "", ...cookieOptions, ...options, maxAge: 0 });
-        } catch (error) {
-          console.error(`[supabaseServer] Failed to remove cookie ${name}`, error);
+          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+        } catch {
+          // Server Components cannot set cookies. The proxy refreshes them.
         }
       },
     },
-  }) as SafeClient;
+  });
 }
 
-/**
- * Get the currently authenticated user from the session cookie.
- * Uses getSession() (local cookie read) instead of getUser() (network call to Supabase).
- * getSession() is more resilient — it doesn't fail if Supabase is temporarily unreachable.
- * Token refresh (if needed) happens automatically on the next server request.
- */
+/** Verify identity with Auth; never authorize using an unverified cookie. */
 export async function getCurrentUser() {
   const supabase = await createSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  return session?.user ?? null;
+  const { data: { user }, error } = await supabase.auth.getUser();
+  if(error||!user)return null;
+  const {data:profile,error:profileError}=await supabase.from("users").select("suspended_at").eq("id",user.id).maybeSingle();
+  return profileError||!profile||profile.suspended_at?null:user;
 }
-

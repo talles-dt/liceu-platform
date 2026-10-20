@@ -1,0 +1,37 @@
+// Presentation-only cleanup. Historical source files and approvals remain unchanged.
+// Do not remove pedagogical notes, source credits, AI attribution or classical passages.
+export function publicationCopy(text) {
+ return text
+  .replace(/Revisão e aprovação do pacote declaradas pelo responsável em 18\/10\/2026, na conversa de implantação\. ?/g,'')
+  .replace(/A aprovação declarada abrange o pacote e suas traduções\. ?/g,'')
+  .replace(/A aprovação foi declarada pelo responsável na conversa em 18\/10\/2026\. ?/g,'')
+  .replace(/Não se atribui a esta declaração uma certificação filológica independente\. ?/g,'')
+  .replace(/Revisão humana desta versão pendente\. ?/g,'')
+  .replace(/; revisão humana pendente/g,'')
+  .replace(/, revisão humana pendente/g,'')
+  .replace(/; revisão humana desta versão pendente/g,'')
+  .replace(/Não foi anexado relatório separado de colação com o fac-símile\. ?/g,'')
+  .replace(/; sem relatório separado de colação do testemunho digital/g,'')
+  .replace(/Material completo para revisão docente; novas traduções ainda aguardam revisão humana\. ?/g,'')
+  .replace(/A aprovação do módulo 1 não constitui revisão dos novos materiais\. ?/g,'')
+  .replace(/Esta preparação não publica uma release curricular completa, não altera uma coorte e não faz deploy\. ?/g,'')
+  .replace(/Antes de publicar esta edição para uma coorte, revisar traduções, recortes, perguntas, descritores e carga; registrar responsável e data sem sobrescrever versões já utilizadas\./g,'Registrar melhorias para futuras edições, preservando a versão utilizada pela coorte.')
+  .replace(/### Revisão editorial antes da edição de coorte/g,'### Acompanhamento dos textos na coorte')
+  .replace(/## Bibliografia e situação editorial/g,'## Bibliografia')
+  .replace(/edição de preparação 0\.2\.0 • 15\/10\/2026/g,'edição 0.3.0')
+  .replace(/Edição 0\.3\.0 · Liceu Underground · preparada em 19\/10\/2026\./g,'Edição 0.3.0 · Liceu Underground.')
+  .replace(/versões de trabalho/g,'versões portuguesas')
+  .replace(/Versão de trabalho em português/g,'Versão portuguesa')
+  .replace(/versão portuguesa de trabalho/g,'versão portuguesa')
+  .replace(/Versão portuguesa de trabalho/g,'Versão portuguesa')
+  .replace(/versão indireta de trabalho/g,'versão indireta')
+  .replace(/tradução indireta de trabalho/g,'tradução indireta')
+  .replace(/tradução de trabalho/g,'tradução')
+  .replace(/versão de trabalho de C3/g,'versão de C3')
+  .replace(/nesta preparação/g,'para esta edição')
+  .replace(/para esta preparação/g,'para esta edição')
+  .replace(/São escolhas de trabalho/g,'São escolhas de tradução')
+  .replace(/Planejamento docente preliminar: [^\n]+/g,'')
+  .replace(/(?<! ) (?=\n)/g,'')
+  .replace(/\n{3,}/g,'\n\n');
+}

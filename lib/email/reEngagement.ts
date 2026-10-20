@@ -1,6 +1,7 @@
-import { Resend } from "resend";
+import { escapeHtml } from "@/lib/routeSecurity";
+import { getResendClient } from "@/lib/resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 const FROM_EMAIL =
   process.env.FROM_EMAIL ?? "Liceu Underground <contato@oliceu.com>";
@@ -17,7 +18,7 @@ export async function sendReEngagementEmail(
     return;
   }
 
-  await resend.emails.send({
+  await getResendClient().emails.send({
     from: FROM_EMAIL,
     to: studentEmail,
     subject: "O Liceu ainda te espera",
@@ -28,10 +29,10 @@ export async function sendReEngagementEmail(
 
         <div style="margin: 24px 0; padding: 20px; background: #1c1b1b; border-left: 4px solid #004D32;">
           <p style="font-size: 16px; margin: 0 0 8px 0;">
-            Olá, <strong>${studentName}</strong>.
+            Olá, <strong>${escapeHtml(studentName)}</strong>.
           </p>
           <p style="font-size: 16px; margin: 0; line-height: 1.8;">
-            Você parou no módulo <strong>${moduleName}</strong>.<br>
+            Você parou no módulo <strong>${escapeHtml(moduleName)}</strong>.<br>
             Continue de onde parou — o conhecimento te espera.
           </p>
         </div>

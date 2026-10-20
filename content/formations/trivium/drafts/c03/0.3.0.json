@@ -1,0 +1,318 @@
+{
+  "key": "c03",
+  "title": "Argumentar e objetar",
+  "question": "Quais razões sustentam uma interpretação e o que uma boa objeção realmente derruba?",
+  "readings": [
+    "plato.crito46"
+  ],
+  "objectives": {
+    "grammar": "Controlar negações, quantificadores e condicionais ao parafrasear o diálogo.",
+    "logic": "Distinguir validade e verdade, reconstruir premissas e testar uma inferência com contraexemplo.",
+    "rhetoric": "Defender uma interpretação e responder à melhor objeção sem transformar o interlocutor em caricatura."
+  },
+  "context": "Críton oferece a fuga a Sócrates, condenado à morte. Neste recorte, Sócrates examina como deliberar, a quem ouvir e se uma injustiça sofrida autoriza outra. A tarefa não é decidir primeiro se gostamos da conclusão: precisamos descobrir o que a sustenta e o que permanece por demonstrar.",
+  "glossary": {
+    "premissa": "Afirmação usada como razão para uma conclusão. Pode ser discutível mesmo quando a inferência é válida.",
+    "conclusão": "Aquilo que o argumento pretende estabelecer; não é necessariamente a última frase do parágrafo.",
+    "validade": "Relação na qual, se as premissas forem verdadeiras, a conclusão não poderá ser falsa. Não certifica a verdade das premissas.",
+    "condicional": "Afirmação do tipo se P, então Q. Dizer Q não basta para concluir P.",
+    "quantificador": "Expressão como todos, alguns ou nenhum, que delimita o alcance de uma afirmação.",
+    "Stephanus": "Sistema tradicional de localização em Platão, por página, letra e, quando necessário, linha; não é a paginação do caderno."
+  },
+  "questions": [
+    "Sócrates rejeita toda opinião ou distingue opiniões? Localize as expressões que delimitam o alcance.",
+    "O exemplo do treinador demonstra sozinho que existe um conhecedor da justiça? Distinga comparação e conclusão.",
+    "Por que reconhecer que a multidão pode matar não resolve a questão de como agir?",
+    "A regra de não retribuir injustiça já demonstra que fugir é injusto? Que passo ainda falta?"
+  ],
+  "lessons": [
+    [
+      "Não ouvir todos não significa não ouvir ninguém",
+      "Compare: “não devemos seguir todas as opiniões” e “não devemos seguir opinião alguma”. A primeira nega uma exigência universal; a segunda exclui todas. Substitua “todos” por “alguns” numa paráfrase sua e explique se o argumento mudou."
+    ],
+    [
+      "Uma conclusão verdadeira pode estar mal sustentada",
+      "Exemplo didático: “Se é treinador, conhece exercícios; conhece exercícios; logo é treinador.” A forma não garante a conclusão: alguém pode conhecer exercícios sem ser treinador. O contraexemplo atinge a inferência. Isso é diferente de mostrar que uma premissa é falsa. A comparação de Sócrates precisa ainda justificar a passagem do cuidado do corpo ao justo."
+    ],
+    [
+      "Reconstruir antes de objetar",
+      "Escreva: P1 não se deve praticar injustiça; P2 fugir nestas condições seria injusto; C não se deve fugir nestas condições. A forma é compreensível, mas P2 não está demonstrada apenas por P1. A objeção forte examina P2 ou o vínculo proposto, em vez de atribuir a Sócrates desprezo por toda vida."
+    ]
+  ],
+  "prompts": {
+    "reading": "Leia Críton 46b–49e, incluindo a transição explicitada no texto. Marque uma negação, um quantificador e um condicional. Responda às quatro perguntas em até 200 palavras e monte um argumento em três linhas, distinguindo palavras do autor de premissa reconstruída por você.",
+    "seminar": "Apresente seu mapa de três linhas e peça a um colega que identifique qual premissa exige mais defesa. Antes de responder, confirme que compreendeu a objeção. O grupo comparará o argumento do treinador e a regra de não retribuir injustiça, registrando o que cada um estabelece e o que deixa em aberto.",
+    "imitatio": "Reproduza o movimento pergunta–resposta–revisão em diálogo original de 100–150 palavras sobre uma decisão cotidiana sem informação sensível. Inclua uma objeção que obrigue a corrigir um quantificador. Indique o movimento de Sócrates que serviu de modelo. Use o exercício para esclarecer a objeção do ensaio.",
+    "composition": "Defenda, em 450–650 palavras, uma interpretação da regra de não retribuir injustiça no recorte. Use duas passagens localizadas, reconstrua duas premissas e uma conclusão, formule a melhor objeção à sua leitura e responda indicando um limite. O mapa pode integrar o texto. Não é necessário defender a conclusão de Sócrates para interpretar fielmente seu argumento.",
+    "disputatio": "Discuta: “A regra de não retribuir injustiça, por si só, basta para concluir que Sócrates não deve fugir.” Dois defensores apresentam a reconstrução mais forte; dois objetores identificam uma premissa adicional; um observador registra alterações de nunca, alguns, se; um relator distingue rejeição de premissa e rejeição de inferência. Invertam defesa e objeção na segunda rodada.",
+    "declamatio": "Em 3 minutos exponha tese interpretativa, duas razões textuais e uma objeção. Use mais 2 minutos para responder a uma pergunta e até 2 para ouvir a restituição de sua fala pelo par. Cada participante ocupa no máximo 7 minutos do encontro; não leia o ensaio inteiro.",
+    "reflection": "Em 120–180 palavras, compare sua resposta inicial à última pergunta de leitura com o ensaio revisto. Identifique uma mudança de alcance gramatical, uma premissa agora explícita e uma resposta mais justa ao interlocutor. Selecione duas evidências de C1–C3 para o symposium.",
+    "symposium": "Em 30 minutos, o grupo discutirá: “Quando mudar de opinião é sinal de rigor?” Cada um traz uma passagem e uma revisão própria de C1–C3. Duas pessoas apresentam casos, duas os interrogam, uma conecta leituras e uma registra a síntese. Todos intervêm; não se vota o melhor aluno. O relator registra duas convergências, uma divergência e uma pergunta ainda aberta."
+  },
+  "weeks": [
+    {
+      "week": 1,
+      "tasks": [
+        {
+          "title": "Leitura do diálogo com pausas",
+          "minutes": 55
+        },
+        {
+          "title": "Glossário e perguntas",
+          "minutes": 40
+        },
+        {
+          "title": "Mapa inicial",
+          "minutes": 20
+        },
+        {
+          "title": "Codex 1",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 130,
+      "meeting_minutes": 0
+    },
+    {
+      "week": 2,
+      "tasks": [
+        {
+          "title": "Releitura das negações e condicionais",
+          "minutes": 35
+        },
+        {
+          "title": "Exercício do contraexemplo",
+          "minutes": 25
+        },
+        {
+          "title": "Imitatio dialogada",
+          "minutes": 25
+        },
+        {
+          "title": "Preparação do seminário",
+          "minutes": 30
+        },
+        {
+          "title": "Codex 2",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 130,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 3,
+      "tasks": [
+        {
+          "title": "Composição inicial",
+          "minutes": 65
+        },
+        {
+          "title": "Feedback de um par",
+          "minutes": 20
+        },
+        {
+          "title": "Preparação da disputatio",
+          "minutes": 35
+        },
+        {
+          "title": "Codex 3",
+          "minutes": 15
+        }
+      ],
+      "individual_minutes": 135,
+      "meeting_minutes": 90
+    },
+    {
+      "week": 4,
+      "tasks": [
+        {
+          "title": "Revisão",
+          "minutes": 40
+        },
+        {
+          "title": "Preparação oral",
+          "minutes": 20
+        },
+        {
+          "title": "Transferência",
+          "minutes": 20
+        },
+        {
+          "title": "Portfólio e preparação do symposium",
+          "minutes": 30
+        },
+        {
+          "title": "Reflexão e Codex 4",
+          "minutes": 25
+        }
+      ],
+      "individual_minutes": 135,
+      "meeting_minutes": 90
+    }
+  ],
+  "codex": [
+    "Uma negação cujo alcance altera a interpretação.",
+    "Uma inferência e um contraexemplo que a testa.",
+    "A melhor objeção que você recebeu.",
+    "Duas evidências de mudança em C1–C3 e uma dúvida persistente."
+  ],
+  "answers": [
+    "A distinção entre opiniões boas e más impede a leitura “ninguém deve ser ouvido”. Pedir ao aluno que mostre a restrição, não que memorize a classificação.",
+    "O treinador torna plausível distinguir competência e quantidade de opiniões; não demonstra sem premissa adicional que exista um único especialista moral reconhecível.",
+    "A capacidade de matar é admitida como fato; Sócrates disputa sua prioridade normativa. Aceitar objeção a essa prioridade se ela não negar o que o texto admite.",
+    "Falta estabelecer que a fuga concreta seja injusta. Esse passo motiva o diálogo com as Leis, em C5; não tratar o trecho futuro como já demonstrado neste recorte."
+  ],
+  "interventions": "Se surgir linguagem técnica decorada, peça um exemplo concreto e sua aplicação ao diálogo. Se a turma disputar apenas se Sócrates tinha razão, volte a uma premissa textual. Uma leitura crítica pode alcançar o nível consistente sem aderir ao princípio moral do personagem.",
+  "probe": "O regulamento de um clube diz: “Se uma proposta foi aprovada, ela recebeu parecer escrito.” Uma proposta recebeu parecer escrito; a secretária concluiu que estava aprovada. O tesoureiro acrescentou: “Nenhuma proposta sem parecer pode ser aprovada.”",
+  "probe_task": "Em 20 minutos, identifique a conclusão da secretária, construa um caso em que o parecer existe sem aprovação e compare a fala do tesoureiro com a regra original. Escreva uma resposta de 80–120 palavras à secretária, sem atacar sua pessoa.",
+  "probe_key": "A secretária afirma o consequente. Um parecer negativo é contraexemplo possível. A fala do tesoureiro reformula a condição necessária e não autoriza a conclusão da secretária. Avaliar a precisão da explicação sem exigir o nome da falácia.",
+  "schema": "liceu.module/v1",
+  "version": "0.3.0",
+  "editorial_status": "draft",
+  "approval_note": "Novo conteúdo preparado em 2026-10-19; revisão docente e das traduções ainda não registrada.",
+  "rubric": {
+    "key": "c03.integrated",
+    "title": "Argumentar e objetar",
+    "criteria": [
+      {
+        "key": "c03.grammar",
+        "pillar": "grammar",
+        "label": "Alcance das afirmações",
+        "descriptors": {
+          "support": "Troca alguns por todos ou apaga uma condição decisiva.",
+          "developing": "Reconhece as expressões, mas precisa de ajuda para preservar seu alcance.",
+          "consistent": "Parafraseia negações e condições sem fortalecer indevidamente a tese.",
+          "transfer": "Diagnostica uma alteração sutil de alcance em texto novo e a corrige."
+        }
+      },
+      {
+        "key": "c03.logic",
+        "pillar": "logic",
+        "label": "Reconstrução e teste",
+        "descriptors": {
+          "support": "Trata concordância com a conclusão como prova da inferência.",
+          "developing": "Identifica razões, mas confunde premissa falsa e passagem inválida.",
+          "consistent": "Explicita premissas e conclusão e dirige a objeção ao ponto pertinente.",
+          "transfer": "Propõe contraexemplo que testa precisamente a passagem e delimita o resultado."
+        }
+      },
+      {
+        "key": "c03.rhetoric",
+        "pillar": "rhetoric",
+        "label": "Resposta à objeção",
+        "descriptors": {
+          "support": "Responde a uma versão que o interlocutor não reconhece.",
+          "developing": "Restitui parte da objeção, mas muda de assunto na resposta.",
+          "consistent": "Reconstrói a objeção de maneira justa e responde com evidência textual.",
+          "transfer": "Concede um ponto relevante, ajustando a tese sem perder o problema central."
+        }
+      }
+    ]
+  },
+  "materials": [
+    {
+      "role": "participant",
+      "path": "materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+      "sha256": "aed7573a81f3442018a337fb2ddf807b9df8dd7c04b066609b4ac9797df677d9"
+    },
+    {
+      "role": "teacher",
+      "path": "materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+      "sha256": "844360f541072a1c9ffbe189d559b32cb942c58561456743c459fe02b1312057"
+    }
+  ],
+  "agendas": [
+    {
+      "meeting": 1,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Situar prisão e proposta de fuga"
+        },
+        {
+          "minutes": 20,
+          "title": "Restituir o argumento do treinador"
+        },
+        {
+          "minutes": 20,
+          "title": "Ler negações e comparar quantificadores"
+        },
+        {
+          "minutes": 15,
+          "title": "Testar uma inferência com contraexemplo"
+        },
+        {
+          "minutes": 15,
+          "title": "Ouvir a objeção mais forte ao mapa"
+        },
+        {
+          "minutes": 10,
+          "title": "Registrar o que ainda falta provar"
+        }
+      ]
+    },
+    {
+      "meeting": 2,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 10,
+          "title": "Ler a proposição da disputatio"
+        },
+        {
+          "minutes": 15,
+          "title": "Distribuir papéis e conferir premissas"
+        },
+        {
+          "minutes": 20,
+          "title": "Primeira rodada"
+        },
+        {
+          "minutes": 20,
+          "title": "Troca de lados e segunda rodada"
+        },
+        {
+          "minutes": 15,
+          "title": "Distinguir ataques à premissa e à inferência"
+        },
+        {
+          "minutes": 10,
+          "title": "Preparar revisão e portfólio"
+        }
+      ]
+    },
+    {
+      "meeting": 3,
+      "total_minutes": 90,
+      "segments": [
+        {
+          "minutes": 42,
+          "title": "Seis declamationes de até sete minutos, incluindo resposta e restituição"
+        },
+        {
+          "minutes": 18,
+          "title": "Devolutiva e reflexão com evidência"
+        },
+        {
+          "minutes": 30,
+          "title": "Symposium: 5 de abertura, 12 de contribuições, 8 de discussão e 5 de síntese"
+        }
+      ]
+    }
+  ],
+  "bibliography": [
+    {
+      "key": "plato.crito46",
+      "author": "Platão",
+      "title": "Críton",
+      "location": "46b–49e; pergunta e resposta finais completadas em 50a",
+      "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
+      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler.",
+      "sha256": "dcb2ea7d3d1ae93367d8fbcb56fbe19f68d4670e1bc3b9c3953cbdae4e421675",
+      "required": true,
+      "selection_group": null
+    }
+  ]
+}

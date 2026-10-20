@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { assertAdmin } from "@/lib/admin/auth";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
@@ -13,6 +14,7 @@ export async function PATCH(
   req: Request,
   { params }: { params: Promise<{ submissionId: string }> },
 ) {
+ if(!sameOrigin(req))return NextResponse.json({error:"Forbidden"},{status:403});
   const admin = await assertAdmin();
   if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 

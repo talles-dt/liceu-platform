@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getCurrentUser } from "@/lib/supabaseServer";
@@ -16,7 +17,7 @@ export async function GET(request: Request) {
     const grantType = searchParams.get("grant_type");
     const activeOnly = searchParams.get("active_only") === "true";
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     let query = supabase
       .from("access_grants")
@@ -50,6 +51,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+ if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -73,7 +75,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "user_id and grant_type required" }, { status: 400 });
     }
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Verify user exists
     const { data: targetUser } = await supabase

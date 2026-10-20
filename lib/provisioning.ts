@@ -38,7 +38,7 @@ export async function ensureCourseProgressForUserAdmin(
 
   const { error: upsertError } = await supabase
     .from("module_progress")
-    .upsert(rows, { onConflict: "user_id,module_id" });
+    .upsert(rows, { onConflict: "user_id,module_id", ignoreDuplicates: true });
 
   if (upsertError) {
     console.error("[provisioning] Failed to upsert module progress", userId, courseId, upsertError);
