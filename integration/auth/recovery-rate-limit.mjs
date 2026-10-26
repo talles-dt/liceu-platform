@@ -9,6 +9,7 @@ const options={auth:{persistSession:false,autoRefreshToken:false}};
 const db=createClient(url,process.env.SUPABASE_SERVICE_ROLE_KEY,options);
 const anon=createClient(url,process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,options);
 const key=`qa:recovery-limit:${randomUUID()}`;
+let primaryError;
 try {
  const args={p_key:key,p_limit:3,p_seconds:60};
  const attempts=await Promise.all(Array.from({length:10},()=>db.rpc('liceu_rate_limit',args)));
@@ -18,7 +19,11 @@ try {
  const expired=await db.from('liceu_rate_limits').update({window_end:new Date(Date.now()-1000).toISOString()}).eq('key',key);assert.ok(!expired.error);
  const reopened=await db.rpc('liceu_rate_limit',args);assert.equal(reopened.data,true,'Window expiration restores access');
  console.log('PASS: 3/10 concurrent requests accepted; anonymous mutation denied; expired window resets.');
+} catch(error) {
+ primaryError=error; throw error;
 } finally {
- const removed=await db.from('liceu_rate_limits').delete().eq('key',key);assert.ok(!removed.error,'Disposable counter removed');
- console.log('Temporary counter removed.');
+ const removed=await db.from('liceu_rate_limits').delete().eq('key',key);if(removed.error){
+  console.error('Cleanup could not be confirmed for temporary counter:',key);
+  if(!primaryError)throw new Error('Disposable counter cleanup failed');
+ }else console.log('Temporary counter removed.');
 }
