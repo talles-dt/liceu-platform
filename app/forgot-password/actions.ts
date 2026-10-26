@@ -1,5 +1,8 @@
 "use server";
 
+import { headers } from "next/headers";
+import { recoveryLimit } from "@/lib/recoveryLimit";
+
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getResendClient } from "@/lib/resend";
 
@@ -11,6 +14,14 @@ function getSiteUrl(): string {
 }
 
 export async function sendRecoveryLink(email: string) {
+  if (typeof email !== "string" || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+    return { error: "Informe um email válido." };
+  }
+  email = email.trim().toLowerCase();
+  const request = new Request(getSiteUrl(), { headers: await headers() });
+  const limitError = await recoveryLimit(request, email);
+  if (limitError) return { error: limitError };
+
   const siteUrl = getSiteUrl();
   const supabase = createSupabaseAdminClient();
 
