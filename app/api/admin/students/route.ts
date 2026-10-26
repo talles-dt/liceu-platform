@@ -1,3 +1,4 @@
+import { passwordError } from "@/lib/passwordPolicy";
 import {sameOrigin,uuid} from '@/lib/formation/server';
 import {NextResponse} from 'next/server';
 import {createSupabaseAdminClient} from '@/lib/supabaseAdmin';
@@ -14,6 +15,7 @@ export async function POST(req:Request){
  const actor=await assertAdmin();if(!actor)return response({error:'Acesso administrativo necessário.'},403);
  const b=await req.json().catch(()=>null);
  if(!b||typeof b!=='object'||!uuid(b.requestId)||typeof b.email!=='string'||!/^\S+@\S+\.\S+$/.test(b.email.trim())||b.email.length>254||!['none','formation','mentoring','both'].includes(b.access)|| (b.name!==undefined&&(typeof b.name!=='string'||b.name.length>160)) || (b.password!==undefined&&(typeof b.password!=='string'||b.password.length>128||(b.password.length>0&&b.password.length<12))))return response({error:'Confira email, nome, senha (mínimo 12 caracteres) e tipo de acesso.'},400);
+ if(b.password&&passwordError(b.password))return response({error:passwordError(b.password)},400);
  const formation=['formation','both'].includes(b.access),mentoring=['mentoring','both'].includes(b.access);
  if(formation&&!uuid(b.cohortId))return response({error:'Escolha uma coorte para a Formação.'},400);
  if(mentoring&&(typeof b.scope!=='string'||b.scope.trim().length<20||b.scope.trim().length>3000))return response({error:'Descreva o escopo da Mentoria em 20 a 3.000 caracteres.'},400);
@@ -32,7 +34,7 @@ export async function POST(req:Request){
    // JSONB key order is not stable; compare each persisted field instead.
    if(account.email?.toLowerCase()!==email||account.app_metadata.manual_provisioning_by!==actor.id||Object.entries(choices).some(([k,v])=>account?.app_metadata.manual_access?.[k]!==v))return response({error:'Esta solicitação pertence a outro cadastro ou possui opções diferentes.'},409);
   }else{
-   const password=b.password||randomBytes(24).toString('base64url');
+   const password=b.password||randomBytes(24).toString('base64url')+'A!';
    const created=await db.auth.admin.createUser({id:b.requestId,email,password,email_confirm:true,user_metadata:{name:b.name?.trim()||null},app_metadata:{manual_provisioning_by:actor.id,manual_access:choices}});
    if(created.error)return response({error:'Não foi possível criar a conta. Confira se o email já está cadastrado.'},409);
    account=created.data.user;accountCreated=true;if(!b.password)generatedPassword=password;

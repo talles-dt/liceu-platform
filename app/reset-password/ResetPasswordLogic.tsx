@@ -1,5 +1,6 @@
 "use client";
 
+import { passwordError, PASSWORD_MIN_LENGTH, PASSWORD_REQUIREMENTS } from "@/lib/passwordPolicy";
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ReadingLayout } from "@/components/ReadingLayout";
@@ -149,8 +150,9 @@ export default function ResetPasswordLogic() {
       return;
     }
 
-    if (newPassword.length < 6) {
-      setError("A senha deve ter pelo menos 6 caracteres.");
+    const strengthError = passwordError(newPassword);
+    if (strengthError) {
+      setError(strengthError);
       return;
     }
 
@@ -254,12 +256,13 @@ export default function ResetPasswordLogic() {
       <form onSubmit={handleSubmit} className="space-y-5 border border-stone-200 bg-surface/40 px-5 py-5">
         <div className="space-y-2">
           <label className="block text-xs uppercase tracking-wider text-muted">Nova senha</label>
+          <p className="text-sm text-muted">{PASSWORD_REQUIREMENTS}</p>
           <input
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             required
-            minLength={6}
+            minLength={PASSWORD_MIN_LENGTH}
             className="w-full rounded-sm border border-stone-200 bg-neutral px-3 py-2 text-sm"
           />
         </div>
@@ -270,7 +273,7 @@ export default function ResetPasswordLogic() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            minLength={6}
+            minLength={PASSWORD_MIN_LENGTH}
             className="w-full rounded-sm border border-stone-200 bg-neutral px-3 py-2 text-sm"
           />
         </div>
