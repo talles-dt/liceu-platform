@@ -24,3 +24,11 @@ A proteção não resolve enumeração de contas por outras respostas do fluxo n
 - Variáveis locais temporárias removidas. Nenhum email foi enviado neste teste.
 
 Próximo passo: restabelecer o projeto Supabase e repetir integração de concorrência, expiração e bloqueio de solicitações pelo formulário. Não tratar esta publicação como aceite completo de produção enquanto o banco estiver inativo.
+
+## Validação após reativação — 2026-10-26
+
+O projeto passou por COMING_UP e RESTORING até ACTIVE_HEALTHY. Após estabilização da API, a integração real passou: exatamente três de dez chamadas simultâneas foram aceitas, chamada anônima à RPC foi recusada e a janela expirada voltou a aceitar solicitações. O contador descartável foi removido; resíduos das tentativas durante a restauração também foram removidos por suas chaves exatas.
+
+No formulário de produção, um endereço fictício inexistente passou pelo limite e chegou à tentativa de geração de link. A repetição imediata exibiu “Limite de solicitações atingido”, com a regra de um pedido por minuto e três por hora. Confirmação do bloqueio no servidor, sem envio de email real e sem alteração de senha. Arquivo temporário de variáveis removido.
+
+O bloqueio de infraestrutura registrado acima foi resolvido. O teste desta etapa valida limitação de pedidos; não repete entrega de email nem todo o fluxo de redefinição de senha.
