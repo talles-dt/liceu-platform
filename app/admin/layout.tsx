@@ -42,7 +42,15 @@ export default async function AdminLayout({
 
   // Final check
   if (!admin) {
-    redirect("/");
+    return (
+      <main className="mx-auto max-w-xl space-y-5 px-6 py-16">
+        <h1 className="text-2xl font-serif">Acesso administrativo não disponível</h1>
+        <p>Você está conectado, mas não foi possível confirmar a permissão administrativa desta conta.</p>
+        <p>Se você já é administrador, tente novamente. Se o problema continuar, solicite a revisão do seu acesso.</p>
+        <Link href="/dashboard" className="block underline">Ir para meus espaços</Link>
+        <Link href="/admin/login" className="block underline">Entrar com outra conta</Link>
+      </main>
+    );
   }
 
   return (
