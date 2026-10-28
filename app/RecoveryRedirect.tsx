@@ -27,7 +27,7 @@ export default function RecoveryRedirect() {
     // 2️⃣ generateLink flow: listen for PASSWORD_RECOVERY event
     const supabase = createSupabaseBrowserClient();
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY") {
+      if (event === "PASSWORD_RECOVERY" && window.location.pathname !== "/reset-password") {
         router.push("/reset-password");
       }
     });

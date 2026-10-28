@@ -1,0 +1,94 @@
+{
+  "c01": {
+    "0.2.0": {
+      "participant": {
+        "path": "drafts/c01/materiais/0.2.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "78477779fe0d4c8dd6fa431d520a1b4ee7e70011374db1b5214ed5de4d86d970"
+      },
+      "teacher": {
+        "path": "drafts/c01/materiais/0.2.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "05e949c6f923819b855d600a61f73f939ac679b678626d6d3fbd82511d02d4ac"
+      }
+    },
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c01/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "1333d862e14e561c600db691301895fcbcfd3ee69f3bb3a73e3066737ebc70e6"
+      },
+      "teacher": {
+        "path": "drafts/c01/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "98b0e29582c48d4fd463e6a5e1bf31d65eab2c802e4b0c005c80b8203330b259"
+      }
+    },
+    "0.4.0": {
+      "participant": {
+        "path": "drafts/c01/materiais/0.4.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "927183e7334dd5ce0d9912d90b6d9dd4d9d4e58c9d614771c4186381ce257a3e"
+      },
+      "teacher": {
+        "path": "drafts/c01/materiais/0.4.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "4ae6c6931d852f4f28d576f978eac15be1044e66d39d02bfb72237915e13ca94"
+      }
+    }
+  },
+  "c02": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c02/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "7fb0bb0bb30bfb31f067748a7ccf75cd8dda25b4940ae10e5a96cefc4e067741"
+      },
+      "teacher": {
+        "path": "drafts/c02/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "f86f0daba66ba84f665da48b4b89b0967094291bac49dd26e5f7cbd8bc5d27d7"
+      }
+    }
+  },
+  "c03": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c03/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "aed7573a81f3442018a337fb2ddf807b9df8dd7c04b066609b4ac9797df677d9"
+      },
+      "teacher": {
+        "path": "drafts/c03/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "844360f541072a1c9ffbe189d559b32cb942c58561456743c459fe02b1312057"
+      }
+    }
+  },
+  "c04": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c04/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "a8d40552d762a425540eb30a4c4f0205b4c179b646a39598b26a87e4d0439fd3"
+      },
+      "teacher": {
+        "path": "drafts/c04/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "678547961cf3395e1c86a88ab4dafb68ad8ccec5f7bd9806df74fdbe41369f99"
+      }
+    }
+  },
+  "c05": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c05/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "a7637ea6d8c462bdcb7e93e3fae44648ddbe9c9cd86bb5dd4d97c79435af3c5a"
+      },
+      "teacher": {
+        "path": "drafts/c05/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "2b8944abd3b4b55025751d8bc7d9920de2c0dbbfcf64f5c28642f16feeb1a172"
+      }
+    }
+  },
+  "c06": {
+    "0.3.0": {
+      "participant": {
+        "path": "drafts/c06/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "3931156d9677743acd484e940537053164dd03a9ad9cce14622fed1b4aad9c58"
+      },
+      "teacher": {
+        "path": "drafts/c06/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "9ac7af9d56b3da8d0a47eb28f650d97c5ba4c0865a120f5f0d3585b73ec5594c"
+      }
+    }
+  }
+}

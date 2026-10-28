@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-15",
+  "status": "sandbox_refunds_and_replay_verified",
+  "scope": "Browser against isolated local Next/Supabase and Stripe sandbox; not production",
+  "verified_before_pivot": [
+    "Browser login and subscription Checkout: trialing shown through 2026-10-29",
+    "Teacher offered review and mentoring via browser",
+    "Student paid review BRL199 and mentoring BRL449 via hosted Checkout; both paid in application"
+  ],
+  "pending": [],
+  "subscription_id": "sub_1UQmEXDLweZOOMDK0hwdFUQs",
+  "subscription_cleanup_provider_status": "canceled",
+  "service_orders": [
+    "3316a45c-025f-4366-99e8-6a5a99b709ef",
+    "bcefd98f-0014-4004-8222-1ecc050b8565"
+  ],
+  "note": "Checkpoint de contratação do navegador complementado por APIs reais locais para reembolso e replay. Sem aceite do Cal externo ou abertura de vendas reais.",
+  "resumed_at": "2026-10-28",
+  "completion_evidence": [
+    "STRIPE_SERVICE_ACCEPTANCE_2026-10-28.json",
+    "STRIPE_REPLAY_2026-10-28.json"
+  ]
+}

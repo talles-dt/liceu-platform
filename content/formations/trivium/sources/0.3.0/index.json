@@ -1,0 +1,38 @@
+[
+  {
+    "file": "quintilian-x.html",
+    "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10B*.html",
+    "retrieved_on": "2026-10-19",
+    "sha256": "697caeadb4dfd7b8005a5de0c8f7c361f11917a1f8b145d0edd67efd58b9ae10"
+  },
+  {
+    "file": "quintilian-xi.html",
+    "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/11C*.html",
+    "retrieved_on": "2026-10-19",
+    "sha256": "b41d19093b1d839ef986ea9281213f907074aee7976d7851b58e0bd95fadbba3"
+  },
+  {
+    "file": "crito.html",
+    "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
+    "retrieved_on": "2026-10-19",
+    "sha256": "b5b976e4a988d6f09289714017c260d1446974adcb3e9eb1a303705e755e2cfa"
+  },
+  {
+    "file": "vieira.pdf",
+    "url": "https://arquivo.bocc.ubi.pt/pag/vieira-antonio-sermao-sexagesima.pdf",
+    "retrieved_on": "2026-10-19",
+    "sha256": "9965d20dbe59c8dac047213031bb4a4d1866dd8363b20682da78bcbf91fb59e2"
+  },
+  {
+    "file": "machado.html",
+    "url": "https://pt.wikisource.org/wiki/Um_Ap%C3%B3logo",
+    "retrieved_on": "2026-10-19",
+    "sha256": "7e3ee11b364efc2b8f41203b9164304d4a5202d1a249197e1679715fdf5d4465"
+  },
+  {
+    "file": "crito-fowler-markers.xml",
+    "url": "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0059/tlg003/tlg0059.tlg003.perseus-eng2.xml",
+    "retrieved_on": "2026-10-19",
+    "sha256": "88f984ed9fabbbbc40f6a920ffc062c90a6673055d3489384d1ebef934d9f01d"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-28T03:29:09.430Z",
+  "environment": "Stripe sandbox + local Next/Auth/PostgREST; CLI OAuth transport",
+  "account": "acct_1TC9LbDLweZOOMDK",
+  "livemode": false,
+  "results": [
+    {
+      "order": "3316a45c-025f-4366-99e8-6a5a99b709ef",
+      "kind": "review",
+      "amount": 19900,
+      "status": "refunded",
+      "refund": "re_3UQmIeDLweZOOMDK2CmRJoRS",
+      "repeated_without_duplicate": true
+    },
+    {
+      "order": "bcefd98f-0014-4004-8222-1ecc050b8565",
+      "kind": "mentoring",
+      "amount": 44900,
+      "status": "refunded",
+      "refund": "re_3UQmJLDLweZOOMDK24dNAsoe",
+      "repeated_without_duplicate": true
+    }
+  ],
+  "limits": [
+    "No live payment or production mutation",
+    "Provider webhook timing recorded separately",
+    "Cal external not covered"
+  ]
+}

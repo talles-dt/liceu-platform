@@ -31,6 +31,7 @@ export async function resolveLiceuLessonAccess(
     .from("liceu_lessons")
     .select("id, module_id")
     .eq("id", lessonId)
+    .eq("is_published", true)
     .maybeSingle<{
       id: string;
       module_id: string;
@@ -70,10 +71,6 @@ export async function requireCronSecret(request: Request): Promise<NextResponse 
 }
 
 export function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&")
-    .replace(/</g, "<")
-    .replace(/>/g, ">")
-    .replace(/"/g, '"')
-    .replace(/'/g, "'");
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }

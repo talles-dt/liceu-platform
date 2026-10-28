@@ -1,3 +1,4 @@
+import {sameOrigin} from "@/lib/formation/server";
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getCurrentUser } from "@/lib/supabaseServer";
@@ -15,7 +16,7 @@ export async function GET(
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     
     const { id } = await params;
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Get user profile
     const { data: profile, error: profileError } = await supabase
@@ -67,6 +68,7 @@ export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+ if(!sameOrigin(request))return NextResponse.json({error:"Forbidden"},{status:403});
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -78,7 +80,7 @@ export async function PATCH(
     const body = await request.json();
     const { name, role, suspended, suspension_reason } = body;
     
-    const supabase = createSupabaseAdminClient();
+    const supabase = createSupabaseAdminClient(user.id);
     
     // Get current state for audit
     const { data: current } = await supabase
@@ -125,50 +127,7 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  try {
-    const user = await getCurrentUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    
-    const admin = await assertAdmin();
-    if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    
-    const { id } = await params;
-    
-    // Prevent self-deletion
-    if (id === user.id) {
-      return NextResponse.json({ error: "Cannot delete yourself" }, { status: 400 });
-    }
-    
-    const supabase = createSupabaseAdminClient();
-    
-    // Get user for audit
-    const { data: targetUser } = await supabase
-      .from("users")
-      .select("email, name")
-      .eq("id", id)
-      .single();
-    
-    // Delete from auth (cascades to public.users via trigger)
-    const { error: authError } = await supabase.auth.admin.deleteUser(id);
-    if (authError) throw authError;
-    
-    // Audit log
-        await supabase.rpc("log_audit", {
-          p_action: "user_deleted",
-          p_target_type: "user",
-          p_target_id: id,
-          p_target_identifier: targetUser?.email || id,
-          p_old_values: targetUser,
-          p_metadata: { deleted_by: user.id }
-        });
-    
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("[admin/users/[id]] Delete error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
-  }
+export async function DELETE(){
+ const user=await assertAdmin();if(!user)return NextResponse.json({error:"Forbidden"},{status:403});
+ return NextResponse.json({error:"Use o pedido de exclusão revisado em /admin/operacoes. Nenhum dado foi apagado."},{status:409});
 }

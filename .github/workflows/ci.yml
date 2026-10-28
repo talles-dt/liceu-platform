@@ -1,41 +1,38 @@
 name: CI
-
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
-
+    branches: [main]
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: local-build-placeholder
+      NEXT_TELEMETRY_DISABLED: 1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: "npm"
-      - run: npm ci
-      - run: npm run build
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
-      - run: npm ci
-      - run: npm test
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
+          node-version: 22
+          cache: npm
       - run: npm ci
       - run: npm run lint
+      - run: npm test
+      - run: npm run formation:validate
+      - run: npm run typecheck
+      - run: npm run build
+
+  database:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Synthetic PostgreSQL only
+        run: docker run -d --name liceu-implementation-db -e POSTGRES_PASSWORD=synthetic-ci-only postgres:16-alpine
+      - name: Wait for database
+        run: for attempt in $(seq 1 30); do docker exec liceu-implementation-db pg_isready -U postgres && exit 0; sleep 1; done; exit 1
+      - run: python scripts/verify-database.py
+      - run: python scripts/verify-formation.py
+      - run: python scripts/verify-u00-u05.py
+      - run: python scripts/verify-operations.py

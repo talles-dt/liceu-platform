@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-27T12:47:07.879Z",
+  "environment": "local Auth/PostgREST/Storage/Next; synthetic accounts",
+  "curriculum": "0.4.0",
+  "checks": [
+    "area destinations",
+    "six notebooks and teacher guides",
+    "baseline glossary gate",
+    "draft reload/isolation",
+    "Codex privacy",
+    "peer/teacher/self feedback",
+    "stale draft conflict",
+    "immutable revisions and scoped peer access",
+    "schedule and calendar",
+    "participation and performance",
+    "private upload/download",
+    "account export"
+  ],
+  "result": "passed",
+  "limits": [
+    "browser interaction recorded separately",
+    "no production academic mutations",
+    "not pedagogical validation"
+  ]
+}

@@ -1,0 +1,485 @@
+{
+  "schema": "liceu.module-proposal/v1",
+  "module_key": "c01",
+  "version": "0.2.0",
+  "editorial_status": "approved",
+  "created_on": "2026-10-15",
+  "title": "Ler e escutar: compreender antes de julgar",
+  "question": "O que o outro realmente afirma, que razões oferece e o que estamos autorizados a concluir?",
+  "based_on_release": "trivium/0.1.0",
+  "publish_to_cohort": false,
+  "confirmed_decisions": {
+    "cohort_size": 6,
+    "weeks": 4,
+    "meetings": 3,
+    "meeting_minutes": 90,
+    "individual_hours_per_week": [
+      2,
+      3
+    ],
+    "confirmation": "Responsável confirmou manter a carga do piloto em 15/10/2026."
+  },
+  "document": {
+    "path": "MODULO_01.md",
+    "sha256": "86883e123298b5ae224df71c9bb7c244f2a5f84e291bc91ab5fb8df95d8e8ebe",
+    "role": "unchanged_pedagogical_proposal_0.1.0"
+  },
+  "objectives": {
+    "grammar": "Preservar referentes, voz, negação e alcance na paráfrase; justificar revisões.",
+    "logic": "Distinguir afirmações, razões e conclusão; explicitar um limite da inferência.",
+    "rhetoric": "Reconstruir uma posição com fidelidade, situar a audiência e responder a uma objeção."
+  },
+  "readings": [
+    {
+      "key": "c01.plato.apology",
+      "required": true,
+      "author": "Platão",
+      "work": "Apologia de Sócrates",
+      "location": [
+        "17a–18a",
+        "20c–23b; closing sentence completed in 23c"
+      ],
+      "language": "pt-BR",
+      "url": "https://www.gutenberg.org/files/1656/1656-h/1656-h.htm",
+      "delivery": "embedded_in_workbook_and_teacher_guide",
+      "rights_status": "historical_base_public_domain_in_Brazil; new_working_translation_not_a_claim_of_public_domain_for_entire_package",
+      "base_translator": "Benjamin Jowett",
+      "translation_method": "translation_from_english",
+      "translation_credit": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18",
+      "path": "textos/0.2.0/PLATAO.md",
+      "sha256": "15b12b781d5484a263ae7331f00b897abddd338fb4db1f65cc36b73c73d7cdf8"
+    },
+    {
+      "key": "c01.phaedrus.1.1",
+      "required": true,
+      "author": "Fedro",
+      "work": "Fábulas",
+      "location": [
+        "I.1 integral; 15 verses"
+      ],
+      "url": "https://www.thelatinlibrary.com/phaedr1.html",
+      "delivery": "embedded_in_workbook_and_teacher_guide",
+      "rights_status": "historical_base_public_domain_in_Brazil; new_working_translation_not_a_claim_of_public_domain_for_entire_package",
+      "language": "pt-BR",
+      "base_translator": null,
+      "translation_method": "translation_from_latin",
+      "translation_credit": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18",
+      "path": "textos/0.2.0/FEDRO.md",
+      "sha256": "0435614f893369cba40d0acf20f746e631f8cea95a95d6baa49b9f87af4082f4"
+    },
+    {
+      "key": "c01.worksheet",
+      "required": true,
+      "author": "Proposta curricular do Liceu",
+      "work": "Instrumentos de leitura",
+      "location": [
+        "MODULO_01.md, seção 7"
+      ],
+      "delivery": "included_original_text",
+      "rights_status": "Original material authored for this proposal"
+    },
+    {
+      "key": "c01.aristotle.interpretation.4",
+      "required": false,
+      "audience": "teacher_or_optional",
+      "author": "Aristóteles",
+      "work": "Da interpretação",
+      "location": [
+        "chapter 4 complete"
+      ],
+      "language": "pt-BR",
+      "url": "https://en.wikisource.org/wiki/Page:O._F._Owen%27s_Organon_of_Aristotle_Vol._1_(1853).djvu/69",
+      "delivery": "embedded_in_workbook_and_teacher_guide",
+      "base_translator": "O. F. Owen",
+      "translation_method": "translation_from_english",
+      "translation_credit": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18",
+      "rights_status": "historical_base_public_domain_in_Brazil; new_working_translation_not_a_claim_of_public_domain_for_entire_package",
+      "path": "textos/0.2.0/ARISTOTELES.md",
+      "sha256": "5181bda5f54a8456f74f25fba3cb9dacd9b7147daf4889410be464349ef93d5e"
+    },
+    {
+      "key": "c01.quintilian.10.1",
+      "required": false,
+      "audience": "teacher_or_optional",
+      "author": "Quintiliano",
+      "work": "Institutio oratoria",
+      "location": [
+        "X.1.19–20 complete"
+      ],
+      "language": "pt-BR",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10A%2A.html",
+      "delivery": "embedded_in_workbook_and_teacher_guide",
+      "base_translator": "H. E. Butler",
+      "translation_method": "translation_from_english",
+      "translation_credit": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18",
+      "rights_status": "historical_base_public_domain_in_Brazil; new_working_translation_not_a_claim_of_public_domain_for_entire_package",
+      "path": "textos/0.2.0/QUINTILIANO.md",
+      "sha256": "4b9ee624a2efb264eeeaa061acf09a56efedcfd43fdc7de076bb050fc8d59735"
+    },
+    {
+      "key": "c01.bechara.reference",
+      "required": false,
+      "audience": "teacher",
+      "author": "Evanildo Bechara",
+      "work": "Moderna gramática portuguesa",
+      "edition": "40ª",
+      "publisher": "Nova Fronteira",
+      "url": "https://www.novafronteira.com.br/moderna-gramatica-portuguesa-40a-edicao",
+      "location": [],
+      "verification": "edition_metadata_only; no mandatory page assignment",
+      "delivery": "consultation_from_licensed_copy"
+    }
+  ],
+  "weeks": [
+    {
+      "number": 1,
+      "individual_minutes": 120,
+      "tasks": [
+        {
+          "key": "baseline",
+          "minutes": 45
+        },
+        {
+          "key": "first_reading",
+          "minutes": 30
+        },
+        {
+          "key": "reading_notes",
+          "minutes": 30
+        },
+        {
+          "key": "codex",
+          "minutes": 15
+        }
+      ],
+      "meeting_minutes": 0
+    },
+    {
+      "number": 2,
+      "individual_minutes": 150,
+      "tasks": [
+        {
+          "key": "rereading",
+          "minutes": 45
+        },
+        {
+          "key": "worksheet",
+          "minutes": 45
+        },
+        {
+          "key": "paraphrase",
+          "minutes": 20
+        },
+        {
+          "key": "imitatio",
+          "minutes": 20
+        },
+        {
+          "key": "codex",
+          "minutes": 20
+        }
+      ],
+      "meeting_minutes": 90,
+      "meeting_type": "seminar"
+    },
+    {
+      "number": 3,
+      "individual_minutes": 135,
+      "tasks": [
+        {
+          "key": "fable",
+          "minutes": 20
+        },
+        {
+          "key": "composition",
+          "minutes": 45
+        },
+        {
+          "key": "peer_feedback",
+          "minutes": 20
+        },
+        {
+          "key": "disputatio_preparation",
+          "minutes": 35
+        },
+        {
+          "key": "codex",
+          "minutes": 15
+        }
+      ],
+      "meeting_minutes": 90,
+      "meeting_type": "disputatio"
+    },
+    {
+      "number": 4,
+      "individual_minutes": 120,
+      "tasks": [
+        {
+          "key": "revision",
+          "minutes": 40
+        },
+        {
+          "key": "oral_preparation",
+          "minutes": 30
+        },
+        {
+          "key": "transfer_probe",
+          "minutes": 20
+        },
+        {
+          "key": "reflection",
+          "minutes": 20
+        },
+        {
+          "key": "codex",
+          "minutes": 10
+        }
+      ],
+      "meeting_minutes": 90,
+      "meeting_type": "declamatio_reflection"
+    }
+  ],
+  "activities": [
+    {
+      "key": "c01.baseline",
+      "type": "baseline",
+      "prompt_ref": "MODULO_01.md#A0",
+      "conditions": "Before corpus and instruction; no generative assistance; accessibility supports recorded",
+      "artifacts": [
+        "initial_paraphrase",
+        "initial_argument_map",
+        "response_120_180_words",
+        "recording_up_to_3_minutes",
+        "conditions_log"
+      ]
+    },
+    {
+      "key": "c01.reading",
+      "type": "reading",
+      "prompt_ref": "MODULO_01.md#A1",
+      "reading_keys": [
+        "c01.plato.apology",
+        "c01.worksheet"
+      ],
+      "artifacts": [
+        "paraphrase_150_200_words",
+        "three_terms",
+        "open_question"
+      ]
+    },
+    {
+      "key": "c01.seminar",
+      "type": "seminar",
+      "prompt_ref": "MODULO_01.md#A1",
+      "roles": {
+        "participant": 6
+      },
+      "segments_minutes": [
+        10,
+        15,
+        35,
+        20,
+        10
+      ]
+    },
+    {
+      "key": "c01.imitatio",
+      "type": "imitatio",
+      "prompt_ref": "MODULO_01.md#A2",
+      "artifacts": [
+        "imitation_100_150_words",
+        "comment_40_60_words"
+      ]
+    },
+    {
+      "key": "c01.composition",
+      "type": "composition",
+      "prompt_ref": "MODULO_01.md#A3",
+      "reading_keys": [
+        "c01.plato.apology",
+        "c01.phaedrus.1.1"
+      ],
+      "artifacts": [
+        "draft_450_650_words",
+        "revision_450_650_words",
+        "argument_map_3_5_propositions",
+        "two_language_revisions",
+        "one_peer_feedback",
+        "response_to_peer_feedback"
+      ]
+    },
+    {
+      "key": "c01.disputatio",
+      "type": "disputatio",
+      "prompt_ref": "MODULO_01.md#A4",
+      "proposition": "A competência técnica basta para dispensar a justificação pública de uma recomendação.",
+      "roles": {
+        "defender": 2,
+        "objector": 2,
+        "rapporteur": 1,
+        "fidelity_observer": 1
+      },
+      "rounds": 2,
+      "rotation": "Round 2: rapporteur and observer become defenders; defenders become objectors; objectors become rapporteur and observer.",
+      "segments_minutes": [
+        10,
+        15,
+        20,
+        20,
+        15,
+        10
+      ]
+    },
+    {
+      "key": "c01.declamatio",
+      "type": "declamatio",
+      "prompt_ref": "MODULO_01.md#A5",
+      "roles": {
+        "speaker": 6
+      },
+      "per_person": {
+        "speech_minutes": 4,
+        "questions_minutes": 3
+      },
+      "shared_meeting_segments_minutes": [
+        5,
+        42,
+        13,
+        20,
+        10
+      ]
+    },
+    {
+      "key": "c01.reflection",
+      "type": "reflection",
+      "prompt_ref": "MODULO_01.md#A5",
+      "artifacts": [
+        "reflection_150_250_words",
+        "one_next_step",
+        "two_self_selected_codex_entries"
+      ],
+      "transfer_probe_ref": "MODULO_01.md, seção 6"
+    }
+  ],
+  "rubric": {
+    "key": "c01.integrated",
+    "version": "0.1.0",
+    "levels": [
+      "support",
+      "developing",
+      "consistent",
+      "transfer"
+    ],
+    "missing_evidence_status": "not_observed",
+    "aggregation": "No numeric overall score or cross-pillar compensation",
+    "criteria": [
+      {
+        "key": "grammar.precision",
+        "descriptors": {
+          "support": "Troca referentes, negações ou voz do autor.",
+          "developing": "Preserva o núcleo com ajuda; explica parcialmente as escolhas.",
+          "consistent": "Preserva alcance e referentes; justifica duas revisões.",
+          "transfer": "Aplica o cuidado em texto novo sem orientação pontual."
+        }
+      },
+      {
+        "key": "logic.inference",
+        "descriptors": {
+          "support": "Confunde opinião, razão e conclusão.",
+          "developing": "Identifica a conclusão, mas omite uma ligação relevante.",
+          "consistent": "Explicita razões, conclusão e um limite inferencial.",
+          "transfer": "Reconstrói outro argumento e delimita o que falta saber."
+        }
+      },
+      {
+        "key": "rhetoric.expression",
+        "descriptors": {
+          "support": "Caricatura a posição ou não responde à objeção.",
+          "developing": "Expõe com apoio e responde parcialmente.",
+          "consistent": "Situa a fala, representa o outro com justiça e responde de modo pertinente.",
+          "transfer": "Ajusta a exposição a outra audiência preservando o argumento."
+        }
+      }
+    ]
+  },
+  "completion": {
+    "required": "Portfolio evidence, participation or agreed equivalent, teacher narrative by pillar",
+    "transfer_level_required": false,
+    "automatic_access_block": false,
+    "revision_window_days": 7,
+    "decision_authority": "teacher"
+  },
+  "codex": {
+    "entries": 4,
+    "shared_entries": 2,
+    "default_visibility": "private"
+  },
+  "publication_gates": [
+    "Collate Owen transcription against facsimile and confirm all passage boundaries",
+    "Workload rehearsal",
+    "Dates and teacher capacity agreed",
+    "Incorporate into new full six-cycle release and run existing release validator",
+    "Pin approved release explicitly to cohort"
+  ],
+  "previous_version": "0.1.0",
+  "pedagogical_design_status": "accepted_by_responsible_in_conversation",
+  "translation_review": "approved",
+  "change_summary": [
+    "Embedded all selected classical passages in both materials in Portuguese.",
+    "Replaced required access to modern translations with newly prepared working translations from public-domain bases.",
+    "Plato closing sentence includes initial words of 23c, explicitly marked.",
+    "Cadence, activities and rubric unchanged; no cohort release published."
+  ],
+  "materials": [
+    {
+      "role": "participant",
+      "path": "materiais/0.2.0/CADERNO_DO_PARTICIPANTE.md",
+      "sha256": "78477779fe0d4c8dd6fa431d520a1b4ee7e70011374db1b5214ed5de4d86d970"
+    },
+    {
+      "role": "teacher",
+      "path": "materiais/0.2.0/GUIA_DO_PROFESSOR.md",
+      "sha256": "05e949c6f923819b855d600a61f73f939ac679b678626d6d3fbd82511d02d4ac"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "textos/0.2.0/ARISTOTELES.md",
+      "sha256": "697c536441fb71a4d9b90de754159f0ca72490cb1c77819b3d9008b0a423ec42"
+    },
+    {
+      "path": "textos/0.2.0/ARISTOTELES_BASE_EN.txt",
+      "sha256": "966fae35cc28fa17293536a69e9d19e6839a22727ff3875a2a86ce075578d9d7"
+    },
+    {
+      "path": "textos/0.2.0/FEDRO.md",
+      "sha256": "14a38d12e7669e701db62c721dcb447b247c005705f2f76a0de088fc1d87ab04"
+    },
+    {
+      "path": "textos/0.2.0/PLATAO.md",
+      "sha256": "6ff8122fca977dac1653178f418bccc589c97c2234200ad529346a9e32e69c13"
+    },
+    {
+      "path": "textos/0.2.0/PLATAO_BASE_EN.txt",
+      "sha256": "6919e0059283f4dfe5c84b11b37cd05c2874d85b12acc847ebeba796015c080e"
+    },
+    {
+      "path": "textos/0.2.0/PROVENIENCIA.md",
+      "sha256": "a4e33476c424baa7a35a087004ee63e7b0520ed04e6d6652591913f9c73d9c41"
+    },
+    {
+      "path": "textos/0.2.0/QUINTILIANO.md",
+      "sha256": "9fc9236a4c1bf016286a8751c9104dae7eb2c366aae73f0e17b4ee8c03c6de34"
+    },
+    {
+      "path": "textos/0.2.0/QUINTILIANO_BASE_EN.txt",
+      "sha256": "705adcb2623450293f3db3b59f688cdcfc5af6c7085e7986f3953730e14a5ebd"
+    },
+    {
+      "path": "ORIENTACOES_DOCENTES_0.2.0.md",
+      "sha256": "d2217265768c7f931593d39dbb889afe0afec0847eecc53b66f9cb742daf0d8d"
+    }
+  ],
+  "embedded_access_status": "All required Portuguese excerpts and optional classical readings are embedded in both materials; review and approval declared by the project owner on 2026-10-18.",
+  "approval_note": "Revisão e aprovação do pacote declaradas pelo responsável em 18/10/2026, na conversa de implantação."
+}

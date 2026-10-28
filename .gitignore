@@ -61,3 +61,6 @@ Thumbs.db
 # Design references
 stitch_liceu_underground_prd/
 *.zip
+
+# Isolated local Supabase verification (contains local credentials)
+/.local-u00u05/

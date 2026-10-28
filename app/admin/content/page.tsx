@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
 type Module = { id: string; code: string; title: string; subtitle: string; description: string; order_index: number; estimated_hours: number; is_active: boolean };
@@ -11,7 +12,7 @@ type Excerpt = { lesson_id: string; author: string; work: string };
 export default async function AdminContentPage() {
   const supabase = createSupabaseAdminClient();
 
-  const [{ data: mods }, { data: lss }, { data: th }, { data: fc }, { data: ex }, { data: sim }, { data: xp }] =
+  const results =
     await Promise.all([
       supabase.from("liceu_modules").select("id, code, title, subtitle, description, order_index, estimated_hours, is_active").order("order_index"),
       supabase.from("liceu_lessons").select("id, module_id, code, title, subtitle, learning_objective, order_index, difficulty_tier, estimated_minutes, is_published, rhetorical_dimension").order("order_index"),
@@ -22,6 +23,8 @@ export default async function AdminContentPage() {
       supabase.from("liceu_rhetorical_excerpts").select("lesson_id, author, work").eq("is_published", true),
     ]);
 
+  if(results.some(r=>r.error))throw Error("Conteúdos indisponíveis.");
+  const [{ data: mods }, { data: lss }, { data: th }, { data: fc }, { data: ex }, { data: sim }, { data: xp }]=results;
   const modules = (mods as Module[]) ?? [];
   const lessons = (lss as Lesson[]) ?? [];
   const theory = (th as Theory[]) ?? [];
@@ -61,17 +64,18 @@ export default async function AdminContentPage() {
           /admin/content
         </div>
         <div className="mt-2 font-serif text-[22px] leading-tight text-[var(--liceu-text)]">
-          Conteúdo do Liceu Underground
+          Conteúdo da área de estudo
         </div>
         <div className="mt-2 font-[var(--font-liceu-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
           {modules.length} módulos · {lessons.length} lições · {theory.length} textos teóricos · {flashcards.length} flashcards · {exercises.length} exercícios · {simulations.length} simulações · {excerpts.length} excertos
         </div>
       </header>
 
+      <p>O currículo versionado da Formação está em <Link className="underline" href="/admin/formations">Formação intelectual</Link>.</p>
       {modules.length === 0 ? (
         <div className="border border-[var(--liceu-stone)] p-6 text-center">
           <p className="font-[var(--font-liceu-sans)] text-[14px] text-[var(--liceu-muted)]">
-            Nenhum módulo encontrado. Execute as seeds primeiro.
+            Nenhum módulo cadastrado nesta área.
           </p>
         </div>
       ) : (
@@ -148,7 +152,7 @@ export default async function AdminContentPage() {
                             {l.code}
                           </td>
                           <td className="py-2 pr-3">
-                            <div className="font-serif text-[13px] text-[var(--liceu-text)]">{l.title}</div>
+                            <div className="font-serif text-[13px] text-[var(--liceu-text)]">{l.title} <a className="underline ml-2" href={"/admin/content/lesson/"+l.id}>Editar</a></div>
                             {l.subtitle && (
                               <div className="font-serif text-[11px] italic text-[var(--liceu-muted)]/60">{l.subtitle}</div>
                             )}

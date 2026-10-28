@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { passwordError, PASSWORD_MIN_LENGTH, PASSWORD_REQUIREMENTS } from "@/lib/passwordPolicy";
+import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
@@ -13,18 +14,14 @@ export default function ResetPasswordLogic() {
   const [error, setError] = useState<string | null>(null);
   const [needsResend, setNeedsResend] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [pendingToken, setPendingToken] = useState<string | null>(null);
+  const preparation = useRef<Promise<void> | null>(null);
+  const confirming = useRef(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
     async function prepareRecoverySession() {
-      // Prevent double-execution on React StrictMode
-      if ((window as any).__resetPasswordPrep__) {
-        setCheckingSession(false);
-        return;
-      }
-      (window as any).__resetPasswordPrep__ = true;
-
       const supabase = createSupabaseBrowserClient();
       const code = searchParams.get("code");
       const token = searchParams.get("token");
@@ -33,8 +30,19 @@ export default function ResetPasswordLogic() {
       // Dashboard resend sends #token= — read from hash as well
       const hashToken = hashParams.get("token");
 
-      if (hashError) {
-        setError(hashError);
+      if (hashError || hashParams.has("error")) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+        setNeedsResend(true);
+        setError("Este link expirou ou já foi utilizado. Solicite um novo link de recuperação.");
+        setCheckingSession(false);
+        return;
+      }
+
+      const recoveryToken = hashParams.get("recovery_token");
+      if (recoveryToken) {
+        // Merely opening the email link must never consume its one-time token.
+        setPendingToken(recoveryToken);
+        window.history.replaceState({}, document.title, window.location.pathname);
         setCheckingSession(false);
         return;
       }
@@ -104,9 +112,34 @@ export default function ResetPasswordLogic() {
       }
     }
 
-    prepareRecoverySession();
+    preparation.current ??= prepareRecoverySession();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Run once on mount
+
+  async function confirmRecovery() {
+    if (!pendingToken || confirming.current) return;
+    confirming.current = true;
+    setLoading(true);
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const { data, error: verificationError } = await supabase.auth.verifyOtp({
+        token_hash: pendingToken,
+        type: "recovery",
+      });
+      if (verificationError || !data.session) {
+        setError("Este link expirou ou já foi utilizado. Solicite um novo link de recuperação.");
+        setNeedsResend(true);
+      }
+      setPendingToken(null);
+    } catch {
+      setError("Não foi possível validar o link. Solicite um novo link de recuperação.");
+      setNeedsResend(true);
+      setPendingToken(null);
+    } finally {
+      confirming.current = false;
+      setLoading(false);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -117,8 +150,9 @@ export default function ResetPasswordLogic() {
       return;
     }
 
-    if (newPassword.length < 6) {
-      setError("A senha deve ter pelo menos 6 caracteres.");
+    const strengthError = passwordError(newPassword);
+    if (strengthError) {
+      setError(strengthError);
       return;
     }
 
@@ -182,6 +216,21 @@ export default function ResetPasswordLogic() {
     );
   }
 
+  if (pendingToken) {
+    return (
+      <ReadingLayout eyebrow="LICEU UNDERGROUND / RECUPERAÇÃO" title="REDEFINIR SENHA"
+        subtitle="Confirme para escolher sua nova senha.">
+        <div className="space-y-5 border border-stone-200 bg-surface px-5 py-5">
+          <p className="text-sm text-muted">Sua senha só será alterada depois que você definir e salvar uma nova.</p>
+          <button type="button" disabled={loading} onClick={confirmRecovery}
+            className="rounded-sm bg-secondary px-4 py-2 text-sm text-white disabled:opacity-50">
+            {loading ? "Validando..." : "Continuar recuperação"}
+          </button>
+        </div>
+      </ReadingLayout>
+    );
+  }
+
   // Success state
   if (success) {
     return (
@@ -207,12 +256,13 @@ export default function ResetPasswordLogic() {
       <form onSubmit={handleSubmit} className="space-y-5 border border-stone-200 bg-surface/40 px-5 py-5">
         <div className="space-y-2">
           <label className="block text-xs uppercase tracking-wider text-muted">Nova senha</label>
+          <p className="text-sm text-muted">{PASSWORD_REQUIREMENTS}</p>
           <input
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             required
-            minLength={6}
+            minLength={PASSWORD_MIN_LENGTH}
             className="w-full rounded-sm border border-stone-200 bg-neutral px-3 py-2 text-sm"
           />
         </div>
@@ -223,7 +273,7 @@ export default function ResetPasswordLogic() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            minLength={6}
+            minLength={PASSWORD_MIN_LENGTH}
             className="w-full rounded-sm border border-stone-200 bg-neutral px-3 py-2 text-sm"
           />
         </div>

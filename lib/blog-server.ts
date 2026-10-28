@@ -1,10 +1,10 @@
 // lib/blog-server.ts - Server-side blog utilities
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import {parseFrontmatter as matter} from "@/lib/frontmatter";
 import { BlogPost } from "@/types/blog";
 
-const POSTS_DIR = path.join(process.cwd(), "posts");
+const POSTS_DIR = path.join(process.cwd(), "content", "blog");
 
 // Utility function to get all posts
 export function getAllPosts(): BlogPost[] {
@@ -19,10 +19,10 @@ export function getAllPosts(): BlogPost[] {
  
  return {
  slug,
- title: data.title || "Untitled",
- date: data.date || new Date().toISOString(),
- excerpt: data.excerpt || "",
- imageUrl: data.imageUrl || "/images/blog/default.jpg",
+ title: typeof data.title==="string"?data.title:"Untitled",
+ date: typeof data.date==="string"?data.date:new Date().toISOString(),
+ excerpt: typeof data.excerpt==="string"?data.excerpt:"",
+ imageUrl: typeof data.imageUrl==="string"?data.imageUrl:"/images/blog/default.jpg",
  };
  });
  } catch {
@@ -33,6 +33,7 @@ export function getAllPosts(): BlogPost[] {
 
 // Get post by slug
 export function getPostBySlug(slug: string): BlogPost & { content: string } | null {
+ if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
  try {
  const filePath = path.join(POSTS_DIR, `${slug}.md`);
  
@@ -43,11 +44,11 @@ export function getPostBySlug(slug: string): BlogPost & { content: string } | nu
  
  return {
  slug,
- title: data.title || "Untitled",
+ title: typeof data.title==="string"?data.title:"Untitled",
  content,
- date: data.date || new Date().toISOString(),
- excerpt: data.excerpt || "",
- imageUrl: data.imageUrl || "/images/blog/default.jpg",
+ date: typeof data.date==="string"?data.date:new Date().toISOString(),
+ excerpt: typeof data.excerpt==="string"?data.excerpt:"",
+ imageUrl: typeof data.imageUrl==="string"?data.imageUrl:"/images/blog/default.jpg",
  };
  } catch {
  console.error(`Failed to read blog post: ${slug}`);

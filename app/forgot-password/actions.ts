@@ -1,5 +1,8 @@
 "use server";
 
+import { headers } from "next/headers";
+import { recoveryLimit } from "@/lib/recoveryLimit";
+
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getResendClient } from "@/lib/resend";
 
@@ -11,6 +14,14 @@ function getSiteUrl(): string {
 }
 
 export async function sendRecoveryLink(email: string) {
+  if (typeof email !== "string" || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+    return { error: "Informe um email válido." };
+  }
+  email = email.trim().toLowerCase();
+  const request = new Request(getSiteUrl(), { headers: await headers() });
+  const limitError = await recoveryLimit(request, email);
+  if (limitError) return { error: limitError };
+
   const siteUrl = getSiteUrl();
   const supabase = createSupabaseAdminClient();
 
@@ -26,11 +37,14 @@ export async function sendRecoveryLink(email: string) {
     return { error: "Erro ao gerar link de recuperação" };
   }
 
-  const actionLink = (data.properties as Record<string, unknown>)?.action_link;
+  const tokenHash = data.properties?.hashed_token;
 
-  if (!actionLink || typeof actionLink !== "string") {
+  if (!tokenHash || typeof tokenHash !== "string") {
     return { error: "Link de recuperação não gerado" };
   }
+
+  const actionLink = new URL("/reset-password", siteUrl);
+  actionLink.hash = new URLSearchParams({ recovery_token: tokenHash }).toString();
 
   const resend = getResendClient();
 
@@ -57,7 +71,7 @@ export async function sendRecoveryLink(email: string) {
     </p>
 
     <p style="font-size:13px;line-height:1.7;color:#6b6860;margin:0 0 32px;">
-      Este link é de uso único e expira em 24 horas. Se não foi você, ignore este email.
+      Este link é de uso único. Abra-o e confirme a recuperação no site. Se estiver expirado, solicite outro. Se não foi você, ignore este email.
     </p>
 
     <a href="${actionLink}"

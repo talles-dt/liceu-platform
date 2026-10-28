@@ -1,6 +1,7 @@
 import { vi } from "vitest";
 
 export const mockSupabase = {
+  rpc: vi.fn(),
   from: vi.fn(() => mockTable),
   auth: {
     signOut: vi.fn().mockResolvedValue({}),

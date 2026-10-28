@@ -1,9 +1,12 @@
-import { withSentryConfig } from "@sentry/nextjs";
+import { withSentryConfig } from "@sentry/nextjs/config";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   typedRoutes: true,
+  outputFileTracingIncludes: {
+    "/api/formations/*/materials": ["./content/formations/trivium/drafts/*/materiais/*/*.md", "./content/formations/trivium/supplements/entrada/0.1.0/*"],
+  },
   async headers() {
     return [
       {
@@ -20,13 +23,13 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://*.sentry.io",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://*.sentry.io https://plausible.io",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: blob: https:",
               "media-src 'self' blob: https:",
               "connect-src 'self' https://*.supabase.co https://api.stripe.com https://*.sentry.io https://api.resend.com",
-              "frame-src https://js.stripe.com https://checkout.stripe.com https://*.typebot.io https://iframe.cloudflarestream.com",
+              "frame-src https://js.stripe.com https://checkout.stripe.com https://*.typebot.io https://iframe.cloudflarestream.com https://*.cloudflarestream.com",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",

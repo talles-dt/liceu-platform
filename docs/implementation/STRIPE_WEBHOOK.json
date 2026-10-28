@@ -1,0 +1,23 @@
+{
+  "id": "we_1UPy9sDLweZOOMDKrMaB3C3K",
+  "url": "https://www.oliceu.com/api/stripe/webhook",
+  "status": "enabled",
+  "livemode": true,
+  "api_version": "2024-06-20",
+  "enabled_events": [
+    "checkout.session.completed",
+    "checkout.session.async_payment_succeeded",
+    "customer.subscription.created",
+    "customer.subscription.updated",
+    "customer.subscription.deleted",
+    "invoice.paid",
+    "invoice.payment_failed",
+    "refund.created",
+    "refund.updated",
+    "refund.failed"
+  ],
+  "account_id": "acct_1TC9LbDLweZOOMDK",
+  "vercel_secret_target": "production",
+  "delivery_verified": true,
+  "verification_scope": "Real Stripe product.updated event persisted with status done; financial lifecycle not yet homologated"
+}

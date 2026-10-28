@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
-import { syncCurrentUserProfile, getRedirectUrl } from "@/lib/actions";
+import { loginWithPassword, confirmLoginSession } from "./actions";
 import { ReadingLayout } from "@/components/ReadingLayout";
 import { MinimalButton } from "@/components/MinimalButton";
 
@@ -36,28 +36,17 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const supabase = createSupabaseBrowserClient();
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: email.trim().toLowerCase(),
-        password,
-      });
-
-      if (signInError) {
-        throw signInError;
+      const result = await loginWithPassword(email, password);
+      if (result.error || !result.destination) {
+        setError(result.error || "Não foi possível concluir o login.");
+        return;
       }
-
-      // Sync user to public.users (ensures admin role for env-listed admins)
-      try {
-        await syncCurrentUserProfile();
-      } catch (syncErr) {
-        console.error("[login] Failed to sync user profile:", syncErr);
-        // Continue anyway
+      const { confirmed } = await confirmLoginSession();
+      if (!confirmed) {
+        setError("Não foi possível manter sua sessão. Verifique se o navegador permite cookies para este site e tente novamente. Se continuar, entre em contato com o Liceu.");
+        return;
       }
-
-      // Redirect: admins → /admin, everyone else → /dashboard
-      // Server action checks ADMIN_EMAILS (not NEXT_PUBLIC_) so no public env var needed
-      const redirectUrl = await getRedirectUrl();
-      window.location.href = redirectUrl;
+      window.location.assign(result.destination);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro inesperado. Tente novamente.");
     } finally {

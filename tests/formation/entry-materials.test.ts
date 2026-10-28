@@ -1,0 +1,41 @@
+import {beforeEach,describe,it,expect,vi} from 'vitest';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import manifest from '@/content/formations/trivium/releases/0.4.0.json';
+import previous from '@/content/formations/trivium/releases/0.3.0.json';
+import {validateCurriculum} from '@/lib/formation/curriculum';
+import {readEntry} from '@/lib/formation/entry';
+import {materialResponse} from '@/lib/formation/materialResponse';
+const mocks=vi.hoisted(()=>({identity:vi.fn(),from:vi.fn(),calls:[] as unknown[][]}));
+vi.mock('@/lib/formation/server',async original=>({...await original<typeof import('@/lib/formation/server')>(),identity:mocks.identity}));
+import {GET} from '@/app/api/formations/[cohortId]/materials/route';
+const id='11111111-1111-4111-8111-111111111111',actor='22222222-2222-4222-8222-222222222222';
+const ctx={params:Promise.resolve({cohortId:id})};
+const req=(entry='glossary',extra='')=>new Request(`https://www.oliceu.com/api/formations/${id}/materials?entry=${entry}${extra}`);
+function replies(values:unknown[]){mocks.from.mockImplementation((table:string)=>{const result=values.shift();mocks.calls.push(['from',table]);const chain={select:()=>chain,eq:(...args:unknown[])=>{mocks.calls.push(['eq',...args]);return chain;},in:(...args:unknown[])=>{mocks.calls.push(['in',...args]);return chain;},contains:(...args:unknown[])=>{mocks.calls.push(['contains',...args]);return chain;},limit:()=>chain,maybeSingle:async()=>result,single:async()=>result,then:(resolve:(x:unknown)=>unknown)=>Promise.resolve(result).then(resolve)};return chain;});}
+const base=(role='participant',status='active',release:unknown=manifest)=>[{data:{role,status}},{data:{release_id:'pinned'}},{data:{manifest:release}}];
+beforeEach(()=>{vi.clearAllMocks();mocks.calls.length=0;mocks.identity.mockResolvedValue({user:{id:actor},db:{from:mocks.from}});});
+describe('Entry supplement publication and authorization',()=>{
+ it('publishes six cycles with pinned supplement without changing the preceding release',async()=>{
+  expect(validateCurriculum(manifest,true).cycles).toHaveLength(6);expect(manifest.cycles).toEqual(previous.cycles);
+  expect(manifest.materials.c01.version).toBe('0.4.0');expect(previous.materials.c01.version).toBe('0.3.0');
+  const root='content/formations/trivium/supplements/entrada/0.1.0/';const raw=readFileSync(root+'manifest.json','utf8');
+  expect(createHash('sha256').update(raw).digest('hex')).toBe(manifest.entry.manifest_sha256);
+  const m=JSON.parse(raw);expect(m.editorial_status).toBe('approved');expect(m.terms).toHaveLength(41);expect(m.week1_replacement.reduce((s:number,t:{minutes:number})=>s+t.minutes,0)).toBe(120);
+  for(const k of ['welcome','notebook','glossary','teacher'] as const)expect(await readEntry(validateCurriculum(manifest),k)).toBeTruthy();
+  expect(await readEntry(validateCurriculum(previous),'glossary')).toBeNull();
+  const altered=structuredClone(manifest);altered.entry.manifest_sha256='f'.repeat(64);await expect(readEntry(validateCurriculum(altered),'glossary')).rejects.toThrow('Integridade');
+ });
+ it('denies unauthenticated requests before querying',async()=>{mocks.identity.mockResolvedValue(null);expect((await GET(req(),ctx)).status).toBe(401);expect(mocks.from).not.toHaveBeenCalled();});
+ it.each(['paused','withdrawn'])('denies %s membership',async status=>{replies(base('participant',status));expect((await GET(req(),ctx)).status).toBe(403);});
+ it('denies mentoring-only access and evaluator access',async()=>{replies([{data:null}]);expect((await GET(req(),ctx)).status).toBe(403);replies(base('evaluator'));expect((await GET(req(),ctx)).status).toBe(403);});
+ it('cannot request the teacher guide by disguising kind',async()=>{replies(base());expect((await GET(req('teacher','&kind=participant'),ctx)).status).toBe(403);});
+ it('allows welcome before baseline without looking up submissions',async()=>{replies(base());const r=await GET(req('welcome'),ctx);expect(r.status).toBe(200);expect(await r.text()).toContain('Bem-vindo');expect(mocks.from).not.toHaveBeenCalledWith('formation_submissions');});
+ it('denies notebook and direct download before baseline',async()=>{replies([...base(),{data:[{id:'baseline'}]},{data:null},{data:null}]);expect((await GET(req('notebook','&download=1'),ctx)).status).toBe(403);});
+ it('uses only the requester, pinned cohort/release and baseline activity, ignoring query overrides',async()=>{replies([...base(),{data:[{id:'baseline'}]},{data:{id:'submitted'}}]);const r=await GET(req('glossary','&user_id=other&release=0.3.0'),ctx);expect(r.status).toBe(200);expect(await r.text()).toContain('Premissa');expect(mocks.calls).toContainEqual(['eq','user_id',actor]);expect(mocks.calls).toContainEqual(['eq','cohort_id',id]);expect(mocks.calls).toContainEqual(['eq','release_id','pinned']);expect(mocks.calls).toContainEqual(['in','activity_id',['baseline']]);});
+ it('accepts a teacher recorded baseline performance for this participant',async()=>{replies([...base(),{data:[{id:'baseline'}]},{data:null},{data:{id:'performance'}}]);expect((await GET(req(),ctx)).status).toBe(200);expect(mocks.calls).toContainEqual(['contains','participants',[actor]]);});
+ it('fails closed on lookup errors rather than opening material',async()=>{replies([...base(),{error:{code:'XX000'}}]);expect((await GET(req(),ctx)).status).toBe(503);});
+ it('does not attach the supplement to older releases',async()=>{replies(base('participant','active',previous));expect((await GET(req('welcome'),ctx)).status).toBe(404);});
+ it('allows teachers to prepare before student submissions',async()=>{replies(base('teacher'));const r=await GET(req('teacher'),ctx);expect(r.status).toBe(200);expect(await r.text()).toContain('orientação docente');expect(mocks.from).not.toHaveBeenCalledWith('formation_submissions');});
+ it('keeps supplement links and download bound to the selected release',async()=>{const text=(await readEntry(validateCurriculum(manifest),'notebook'))!;const r=await materialResponse(text,'participant',false,{entry:'notebook',version:'0.1.0',previewRelease:'0.4.0'});const html=await r.text();expect(await(await materialResponse(text,'participant',true,{entry:'notebook',version:'0.1.0'})).text()).toBe(text);expect(html).toContain('entry=glossary');expect(html).toContain('release=0.4.0');expect(html).not.toContain('href="GLOSSARIO.md"');expect(r.headers.get('Cache-Control')).toBe('private, no-store');});
+});

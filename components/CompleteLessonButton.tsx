@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Props = {
   moduleId: string;
   lessonId: string;
+  initialCompleted?: boolean;
 };
 
-export function CompleteLessonButton({ moduleId, lessonId }: Props) {
+export function CompleteLessonButton({ moduleId, lessonId, initialCompleted = false }: Props) {
   const [submitting, setSubmitting] = useState(false);
-  const [completed, setCompleted] = useState(false);
+  const [completed, setCompleted] = useState(initialCompleted);
   const [error, setError] = useState("");
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {

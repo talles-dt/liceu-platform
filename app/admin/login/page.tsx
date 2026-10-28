@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { adminLoginAction } from "./actions";
 
@@ -30,24 +30,11 @@ export default function AdminLoginPage({
 }) {
   const [state, formAction] = useFormState(adminLoginAction, null);
   const [urlError, setUrlError] = useState<string | null>(null);
-  // Track submission to distinguish initial null from success-returned null
-  const wasSubmitted = useRef(false);
-
   useEffect(() => {
     searchParams.then((p) => {
       if (p.error) setUrlError(p.error);
     });
   }, [searchParams]);
-
-  // Success = state went from non-null (or initial) to null after submission
-  useEffect(() => {
-    if (state === null && wasSubmitted.current) {
-      window.location.href = "/admin";
-    }
-    if (state !== null) {
-      wasSubmitted.current = true;
-    }
-  }, [state]);
 
   const displayError = state?.error || urlError;
 

@@ -1,7 +1,7 @@
 import { AssignmentsTable, type AssignmentRow } from "@/components/admin/tables/AssignmentsTable";
 import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
-export const revalidate = 60;
+
 
 export default async function AdminAssignmentsPage() {
   const supabase = createSupabaseAdminClient();
@@ -12,6 +12,7 @@ export default async function AdminAssignmentsPage() {
     .order("updated_at", { ascending: false })
     .limit(200);
 
+  if(error)throw Error("Entregas indisponíveis.");
   const submissions =
     (!error
       ? ((subs as unknown as {
@@ -64,10 +65,6 @@ export default async function AdminAssignmentsPage() {
     };
   });
 
-  const safeRows: AssignmentRow[] =
-    rows.length > 0
-      ? rows
-      : [{ id: "placeholder", student: "—", module: "—", status: "pending", updatedAt: "—" }];
 
   return (
     <div className="p-4 md:p-6">
@@ -76,15 +73,15 @@ export default async function AdminAssignmentsPage() {
           /admin/assignments
         </div>
         <div className="mt-2 font-[var(--font-noto-serif)] text-[22px] leading-tight text-[var(--liceu-text)]">
-          Manuscripts
+          Entregas avulsas
         </div>
         <div className="mt-2 font-[var(--font-work-sans)] text-[12px] leading-relaxed text-[var(--liceu-muted)]">
-          Pending reviews, approved, revision required. Read like a ledger.
+          Entregas da área de estudo. As produções da Formação são acompanhadas por coorte.
         </div>
       </header>
 
       <div className="mt-5">
-        <AssignmentsTable rows={safeRows} />
+        <AssignmentsTable rows={rows} />
       </div>
     </div>
   );

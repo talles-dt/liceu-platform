@@ -1,3 +1,4 @@
+import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/supabaseServer";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
@@ -54,9 +55,11 @@ export async function POST(req: Request, { params }: Context) {
 
   const supabase = await createSupabaseServerClient();
 
+  const { data: card, error: cardError } = await supabase.from("liceu_flashcards").select("id").eq("id",cardId).eq("is_published",true).maybeSingle();
+  if (cardError || !card) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   // Load current state
   const { data: existing } = await supabase
-    .from("flashcard_progress")
+    .from("liceu_flashcard_progress")
     .select("easiness, interval_days, repetitions")
     .eq("user_id", user.id)
     .eq("card_id", cardId)
@@ -69,7 +72,7 @@ export async function POST(req: Request, { params }: Context) {
     existing?.repetitions ?? 0,
   );
 
-  await supabase.from("flashcard_progress").upsert(
+  const { error: saveError } = await createSupabaseAdminClient().from("liceu_flashcard_progress").upsert(
     {
       user_id: user.id,
       card_id: cardId,
@@ -81,5 +84,6 @@ export async function POST(req: Request, { params }: Context) {
     { onConflict: "user_id,card_id" },
   );
 
+  if (saveError) return NextResponse.json({ error: "Não foi possível salvar a revisão." }, { status: 500 });
   return NextResponse.json({ easiness, intervalDays, repetitions, nextReview });
 }

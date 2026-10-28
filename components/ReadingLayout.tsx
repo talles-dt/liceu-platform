@@ -35,9 +35,9 @@ export function ReadingLayout({
           {right && <div className="hidden md:block">{right}</div>}
         </header>
 
-        <main className="mx-auto w-full max-w-[var(--liceu-maxw)] pb-16">
+        <div className="mx-auto w-full max-w-[var(--liceu-maxw)] pb-16">
           {children}
-        </main>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,83 @@
+{
+  "statement": "Excelente. Revisado e aprovado. Não se esqueça de tirar as anotações quando enviar para prod!",
+  "follow_up": "Ah!, se ficaram também no módulo 1, por favor, retire de lá também. Pode começar.",
+  "source": "Declarações diretas do responsável nesta conversa",
+  "recorded_on": "2026-10-19",
+  "scope": "Pacote 0.3.0 dos módulos 2–6 aprovado; limpeza das anotações internas autorizada nos seis módulos. C1 mantém sua aprovação anterior.",
+  "reviewed_commit": "d1ed705",
+  "reviewed_file_hashes": {
+    "releases/0.3.0.json": "da9b8cd87f676a218c5eb8fbeb9cc32d632e27ca64981c5a78ecbf315bc663f4",
+    "drafts/c05/materiais/0.3.0/GUIA_DO_PROFESSOR.md": "c3982c0ba63452d774b393a5ac7eb69d03faa7fcc8e258455e1f9b83b60818a3",
+    "drafts/c05/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md": "676af9a0fdb7595eb8a48ca5b3da11cb23e7e65720af9f2a3314565c29583432",
+    "drafts/c03/materiais/0.3.0/GUIA_DO_PROFESSOR.md": "3417cfdfc2eabc723323caa9a8af598331c9cd3eedac42a92a7e45ac90bb163b",
+    "drafts/c03/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md": "a2867710b5f79163b41b0f8e79bacd22415bcad9df7f3ac3a7e2ed07e342139f",
+    "drafts/c04/materiais/0.3.0/GUIA_DO_PROFESSOR.md": "9031ed65c8e4d8f19141b677988a0363598bd3fd970c3802c812d4e65b3cf011",
+    "drafts/c04/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md": "c3d3221b2ad88e05db1d6efcaade06cb32cf31ec277c5dd751f64a8614149462",
+    "drafts/c02/materiais/0.3.0/GUIA_DO_PROFESSOR.md": "02d9f1163b927cfb9c54c68a9d19957685feccb89e7556919552636635af0e8e",
+    "drafts/c02/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md": "c5b68fc6d770093bc6ac3b447e92fb6424f98884f160c9a82efc3d3b81c097cb",
+    "drafts/c06/materiais/0.3.0/GUIA_DO_PROFESSOR.md": "dd6d6840c61b964a380f9148392848f480defa66cffcd5035e4f4b6fcd63271a",
+    "drafts/c06/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md": "b218f7a408e2dc69c08f471eecd46290d0e2cb527166dc529e53985d3151d3fd"
+  },
+  "published_material_hashes": {
+    "c01": {
+      "participant": {
+        "path": "drafts/c01/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "1333d862e14e561c600db691301895fcbcfd3ee69f3bb3a73e3066737ebc70e6"
+      },
+      "teacher": {
+        "path": "drafts/c01/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "98b0e29582c48d4fd463e6a5e1bf31d65eab2c802e4b0c005c80b8203330b259"
+      }
+    },
+    "c02": {
+      "participant": {
+        "path": "drafts/c02/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "7fb0bb0bb30bfb31f067748a7ccf75cd8dda25b4940ae10e5a96cefc4e067741"
+      },
+      "teacher": {
+        "path": "drafts/c02/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "f86f0daba66ba84f665da48b4b89b0967094291bac49dd26e5f7cbd8bc5d27d7"
+      }
+    },
+    "c03": {
+      "participant": {
+        "path": "drafts/c03/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "aed7573a81f3442018a337fb2ddf807b9df8dd7c04b066609b4ac9797df677d9"
+      },
+      "teacher": {
+        "path": "drafts/c03/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "844360f541072a1c9ffbe189d559b32cb942c58561456743c459fe02b1312057"
+      }
+    },
+    "c04": {
+      "participant": {
+        "path": "drafts/c04/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "a8d40552d762a425540eb30a4c4f0205b4c179b646a39598b26a87e4d0439fd3"
+      },
+      "teacher": {
+        "path": "drafts/c04/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "678547961cf3395e1c86a88ab4dafb68ad8ccec5f7bd9806df74fdbe41369f99"
+      }
+    },
+    "c05": {
+      "participant": {
+        "path": "drafts/c05/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "a7637ea6d8c462bdcb7e93e3fae44648ddbe9c9cd86bb5dd4d97c79435af3c5a"
+      },
+      "teacher": {
+        "path": "drafts/c05/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "2b8944abd3b4b55025751d8bc7d9920de2c0dbbfcf64f5c28642f16feeb1a172"
+      }
+    },
+    "c06": {
+      "participant": {
+        "path": "drafts/c06/materiais/0.3.0/CADERNO_DO_PARTICIPANTE.md",
+        "sha256": "3931156d9677743acd484e940537053164dd03a9ad9cce14622fed1b4aad9c58"
+      },
+      "teacher": {
+        "path": "drafts/c06/materiais/0.3.0/GUIA_DO_PROFESSOR.md",
+        "sha256": "9ac7af9d56b3da8d0a47eb28f650d97c5ba4c0865a120f5f0d3585b73ec5594c"
+      }
+    }
+  }
+}

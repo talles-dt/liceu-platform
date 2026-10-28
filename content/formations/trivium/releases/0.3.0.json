@@ -1,0 +1,1784 @@
+{
+  "schema_version": 1,
+  "slug": "trivium",
+  "title": "Formação pelo Trivium",
+  "version": "0.3.0",
+  "editorial_status": "approved",
+  "approval_note": "Pacote 0.3.0 revisado e aprovado pelo responsável nesta conversa em 19/10/2026. Registro: APROVACAO_0.3.0.json; C1 conserva sua aprovação anterior.",
+  "competencies": [
+    {
+      "key": "grammar.precision",
+      "pillar": "grammar",
+      "objective": "Interpretar relações, referentes e sentidos; revisar ambiguidades sem distorcer o texto."
+    },
+    {
+      "key": "logic.inference",
+      "pillar": "logic",
+      "objective": "Reconstruir premissas e conclusão, testar inferências e justificar objeções."
+    },
+    {
+      "key": "rhetoric.expression",
+      "pillar": "rhetoric",
+      "objective": "Compor e pronunciar razões adequadas à audiência, com escuta e responsabilidade."
+    }
+  ],
+  "readings": [
+    {
+      "key": "reading.workshop",
+      "title": "Uma decisão sobre a biblioteca — texto de trabalho",
+      "author": "Equipe curricular do Liceu — rascunho para revisão docente",
+      "location": "Texto integral, parágrafos 1–2",
+      "url": "",
+      "rights": "Texto original deste pacote; sem reprodução de obra externa.",
+      "status": "verified",
+      "text": "A biblioteca recebe poucos visitantes à noite. Por isso, devemos fechar mais cedo. Todos os leitores que trabalham precisam de horários acessíveis. Alguns desses leitores só podem visitar a biblioteca depois do expediente.\n\nO conselho propõe manter uma noite por semana aberta até mais tarde durante dois meses e observar o uso. A proposta não prova que o horário ampliado será suficiente; oferece uma forma de testar essa hipótese antes de decidir."
+    },
+    {
+      "key": "c01.plato.apology",
+      "title": "Apologia de Sócrates",
+      "author": "Platão",
+      "location": "17a–18a; 20c–23b; closing sentence completed in 23c",
+      "url": "https://www.gutenberg.org/files/1656/1656-h/1656-h.htm",
+      "rights": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18; fontes e direitos identificados no texto.",
+      "text": "## P1 — Platão: Apologia de Sócrates\n\n**Leitura obrigatória.** Dois recortes completos, sem resumos substitutivos. Versão portuguesa produzida com assistência de IA para esta edição, por tradução indireta da versão inglesa de Benjamin Jowett (1817–1893), em domínio público. Não é a tradução de André Malta nem uma tradução direta do grego.\n\n**Fonte:** [texto de Jowett, Project Gutenberg, n. 1656](https://www.gutenberg.org/files/1656/1656-h/1656-h.htm). A divisão de parágrafos abaixo é editorial; P1a e P1b são identificadores do caderno, não divisões antigas. Não foram reproduzidos a introdução, o aparato ou o material institucional do site.\n\n**Localização:** 17a–18a; 20c–23b, com as palavras iniciais de 23c necessárias para completar a última frase. Limites conferidos com a [transcrição de Fowler no Perseus](https://github.com/PerseusDL/canonical-greekLit/blob/master/data/tlg0059/tlg002/tlg0059.tlg002.perseus-eng2.xml). O segundo recorte termina antes do comentário sobre os jovens que acompanham Sócrates. A obra apresenta a defesa de Sócrates segundo Platão; não é uma transcrição judicial garantida.\n\n### P1a — O discurso diante dos juízes (17a–18a)\n\nNão sei, atenienses, que efeito meus acusadores tiveram sobre vocês. Quanto a mim, sei que quase me fizeram esquecer quem sou, tão persuasivamente falaram; e, no entanto, quase não disseram uma palavra verdadeira. Entre tantas falsidades, uma sobretudo me espantou: disseram que vocês deveriam ficar atentos para não se deixarem enganar pela força de minha eloquência. Dizer isso, quando seriam desmentidos assim que eu abrisse a boca e mostrasse que estou longe de ser um grande orador, pareceu-me de fato a maior falta de vergonha — a menos que chamem de força da eloquência a força da verdade. Se é isso que querem dizer, admito ser eloquente, mas de maneira muito diferente da deles!\n\nComo eu dizia, eles quase nada disseram de verdadeiro; de mim, porém, vocês ouvirão toda a verdade. Não a ouvirão à maneira deles, em um discurso preparado e enfeitado com palavras e expressões. Não, pelos céus! Usarei as palavras e os argumentos que me ocorrerem, pois confio na justiça de minha causa. Na minha idade, não seria próprio comparecer diante de vocês, homens de Atenas, como um jovem que ensaia discursos. Que ninguém espere isso de mim.\n\nPeço-lhes ainda um favor: se eu me defender do modo como costumo falar, e vocês me ouvirem empregar as palavras que uso na praça, junto às mesas dos cambistas ou em qualquer outro lugar, não se espantem nem me interrompam por isso. Tenho mais de setenta anos e esta é a primeira vez que compareço a um tribunal; sou, portanto, inteiramente estranho à linguagem daqui. Considerem-me como considerariam um estrangeiro, a quem desculpariam por falar em sua língua e segundo os costumes de seu país. Faço um pedido injusto? Deixem de lado a maneira de falar, que pode ser boa ou ruim; atentem apenas para a verdade do que digo. Que o orador fale a verdade e que o juiz julgue com justiça.\n\n### P1b — A investigação sobre a sabedoria (20c–23b; conclusão da frase em 23c)\n\nImagino, atenienses, que alguém entre vocês responda: “Mas, Sócrates, de onde vêm essas acusações? Você deve ter feito alguma coisa fora do comum. Todos esses rumores e comentários não teriam surgido se você fosse como os outros. Diga-nos então a causa, pois não queremos julgá-lo precipitadamente”. Considero justa essa pergunta e procurarei explicar por que me chamam sábio e por que tenho tão má reputação. Prestem atenção. Embora alguns possam pensar que estou brincando, afirmo que lhes direi toda a verdade.\n\nHomens de Atenas, essa reputação me veio de certa espécie de sabedoria que possuo. Que sabedoria? Talvez aquela que um ser humano pode alcançar; nesse sentido, inclino-me a acreditar que sou sábio. Já aqueles de quem eu falava possuem uma sabedoria sobre-humana, que talvez eu nem saiba descrever, pois não a possuo. Quem diz que a possuo fala falsamente e me difama. Peço-lhes, homens de Atenas, que não me interrompam, mesmo que eu pareça dizer algo extraordinário. Pois a palavra que vou apresentar não é minha. Indicarei uma testemunha digna de crédito: o deus de Delfos. Ele lhes dirá se tenho alguma sabedoria e de que espécie ela é.\n\nVocês conheceram Querefonte. Desde cedo ele foi meu amigo, e também amigo de vocês: participou do recente exílio do povo e voltou com vocês. Como sabem, era impetuoso em tudo o que fazia. Pois bem: foi a Delfos e ousou perguntar ao oráculo — torno a pedir que não me interrompam — se havia alguém mais sábio do que eu. A sacerdotisa respondeu que não havia ninguém mais sábio. Querefonte já morreu, mas seu irmão, aqui presente, confirmará o que digo.\n\nPor que menciono isso? Porque vou explicar a origem de minha má reputação. Quando ouvi a resposta, pensei: “Que quer dizer o deus? Como interpretar esse enigma? Tenho consciência de não possuir sabedoria, nem pequena nem grande. Que quer ele dizer, então, ao afirmar que sou o mais sábio? E, no entanto, sendo deus, não pode mentir: isso seria contrário à sua natureza”. Depois de muito refletir, encontrei um modo de examinar a questão. Se descobrisse alguém mais sábio do que eu, poderia levar ao deus uma refutação e dizer: “Aqui está um homem mais sábio do que eu; você, porém, disse que eu era o mais sábio”.\n\nFui então a alguém que tinha fama de sábio. Não preciso dizer seu nome: era um político que escolhi para examinar. O resultado foi este: ao conversar com ele, pareceu-me que não era realmente sábio, embora muitos o julgassem assim, e ele próprio ainda mais. Procurei mostrar-lhe que se julgava sábio sem ser. Com isso, tornei-me odioso para ele e para vários dos que presenciavam a conversa. Ao sair, disse a mim mesmo: “Embora eu não suponha que nenhum de nós conheça algo verdadeiramente belo e bom, estou em melhor situação do que ele. Ele nada sabe e pensa saber; eu não sei, mas tampouco penso saber. Nesse pequeno ponto, parece que levo vantagem: não penso saber aquilo que não sei”.\n\nDepois fui a outro que tinha pretensões ainda maiores à sabedoria, e cheguei à mesma conclusão. Assim fiz mais um inimigo, além de muitos outros.\n\nPassei de um homem a outro, consciente da hostilidade que provocava; isso me afligia e assustava. Mas eu me sentia obrigado a continuar: a palavra do deus, pensava, devia vir primeiro. Disse então a mim mesmo que precisava procurar todos os que pareciam saber, para descobrir o sentido do oráculo. E juro-lhes, atenienses, pelo cão — pois devo dizer a verdade —, que este foi o resultado de minha busca: os de maior reputação estavam quase entre os menos sensatos, enquanto outros, menos estimados, eram de fato mais sábios e melhores. Vou contar minhas andanças e os trabalhos, por assim dizer, de Héracles que suportei, apenas para descobrir, ao fim, que o oráculo não podia ser refutado.\n\nDepois dos políticos, fui aos poetas: os de tragédias, os de ditirambos e os demais. Pensei: “Aqui você será logo desmascarado; descobrirá que é mais ignorante do que eles”. Levei-lhes algumas das passagens mais elaboradas de suas próprias obras e perguntei o que significavam, esperando aprender alguma coisa. Acreditam em mim? Quase tenho vergonha de dizer a verdade, mas preciso dizê-la: quase qualquer pessoa presente teria falado melhor sobre aqueles poemas do que seus autores. Compreendi então que os poetas não compunham por sabedoria, mas por certa disposição e inspiração, como os adivinhos e profetas, que dizem muitas coisas belas sem compreender o que dizem. Os poetas me pareceram estar em condição semelhante. Notei ainda que, por causa de sua poesia, acreditavam ser os mais sábios também em outros assuntos, nos quais não eram sábios. Afastei-me, portanto, considerando que tinha sobre eles a mesma vantagem que sobre os políticos.\n\nPor fim, fui aos artesãos. Eu tinha consciência de, por assim dizer, nada saber, e estava certo de que eles sabiam muitas coisas belas. Nisso não me enganei: sabiam muitas coisas que eu ignorava e, nesse aspecto, eram certamente mais sábios do que eu. Mas observei que até os bons artesãos incorriam no mesmo erro dos poetas: por exercerem bem seu ofício, pensavam saber também tudo sobre os assuntos mais elevados, e esse defeito obscurecia sua sabedoria. Perguntei então a mim mesmo, em nome do oráculo, se preferia continuar como estava, sem possuir nem o saber nem a ignorância deles, ou ser como eles em ambas as coisas. Respondi a mim e ao oráculo que era melhor continuar como estava.\n\nEssa investigação me trouxe muitos inimigos, dos mais perigosos e hostis, e deu ocasião a muitas calúnias. Chamam-me sábio porque os ouvintes imaginam que possuo a sabedoria cuja falta mostro nos outros. Mas a verdade, homens de Atenas, é que somente o deus é sábio; com sua resposta, ele pretende mostrar que a sabedoria humana vale pouco ou nada. Não está propriamente falando de Sócrates, mas usando meu nome como exemplo, como se dissesse: “O mais sábio entre vocês, homens, é aquele que, como Sócrates, reconhece que sua sabedoria, na verdade, nada vale”.\n\nPor isso continuo a procurar e examinar, em obediência ao deus, qualquer pessoa, cidadão ou estrangeiro, que pareça sábia. Quando não o é, mostro que não é sábia, em defesa do oráculo. Essa ocupação me absorve de tal modo que não tenho tempo para cuidar de assuntos públicos importantes nem dos meus próprios; vivo em extrema pobreza por causa desse serviço ao deus.\n\n**Nota editorial, fora do texto:** a alternativa parentética de tradução que Jowett oferece na abertura não foi incorporada ao discurso. “Deus” designa aqui o deus do oráculo de Delfos; o termo não deve receber automaticamente o sentido de uma formulação teológica cristã. Ditirambo é uma forma poética ligada ao canto coral. Esses esclarecimentos não acrescentam premissas à fala de Sócrates.\n",
+      "status": "verified"
+    },
+    {
+      "key": "c01.phaedrus.1.1",
+      "title": "Fábulas",
+      "author": "Fedro",
+      "location": "I.1 integral; 15 verses",
+      "url": "https://www.thelatinlibrary.com/phaedr1.html",
+      "rights": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18; fontes e direitos identificados no texto.",
+      "text": "## P2 — Fedro: O lobo e o cordeiro\n\n**Leitura obrigatória. Fábulas, I.1, integral, 15 versos.** Texto latino antigo em domínio público. Versão portuguesa, em prosa, produzida com assistência de IA para esta edição a partir do latim; não reproduz a tradução de Weberson Fernandes Grizoste. A disposição em prosa não procura reproduzir o metro latino.\n\n**Fontes de conferência:** [The Latin Library, livro I](https://www.thelatinlibrary.com/phaedr1.html); texto latino da p. XLVI da [edição bilíngue de Grizoste, 2023](https://latinitates.com/gallery/Grizoste-Fedro-Anuario-n-1.pdf). Não se reproduzem a tradução portuguesa nem as notas modernas dessa edição. O original latino está transcrito adiante para consulta facultativa.\n\n### Texto em português\n\nUm lobo e um cordeiro haviam chegado ao mesmo riacho, impelidos pela sede. O lobo estava mais acima; o cordeiro, bem mais abaixo. Então o ladrão, instigado por sua garganta voraz, inventou um motivo para brigar.\n\n“Por que”, disse, “você turvou a água que estou bebendo?”\n\nO cordeiro, temeroso, respondeu: “Como posso, diga-me, fazer aquilo de que você se queixa, lobo? A água corre de você para o lugar onde eu bebo”.\n\nRepelido pela força da verdade, o lobo disse: “Há seis meses você falou mal de mim”.\n\nO cordeiro respondeu: “Mas eu ainda nem tinha nascido”.\n\n“Por Hércules, foi seu pai que falou mal de mim!”, disse o lobo. E assim agarrou o cordeiro e o dilacerou, matando-o injustamente.\n\nEsta fábula foi escrita por causa daqueles que oprimem inocentes com motivos inventados.\n\n### Original latino — consulta facultativa\n\n```text\nAd riuum eundem lupus et agnus uenerant,\nsiti compulsi. Superior stabat lupus,\nlongeque inferior agnus. Tunc fauce improba\nlatro incitatus iurgii causam intulit;\n«Cur» inquit «turbulentam fecisti mihi\naquam bibenti?» Laniger contra timens\n«Qui possum, quaeso, facere quod quereris, lupe?\nA te decurrit ad meos haustus liquor».\nRepulsus ille ueritatis uiribus\n«Ante hos sex menses male» ait «dixisti mihi».\nRespondit agnus «Equidem natus non eram».\n«Pater hercle tuus» ille inquit «male dixit mihi»;\natque ita correptum lacerat iniusta nece.\nHaec propter illos scripta est homines fabula\nqui fictis causis innocentes opprimunt.\n```\n\n**Nota editorial, fora do texto:** “ladrão” e a sentença final pertencem à voz do narrador. “Por Hércules” traduz o juramento latino *hercle*. Não é preciso conhecer latim para realizar qualquer atividade do módulo.\n",
+      "status": "verified"
+    },
+    {
+      "key": "c01.aristotle.interpretation.4",
+      "title": "Da interpretação",
+      "author": "Aristóteles",
+      "location": "chapter 4 complete",
+      "url": "https://en.wikisource.org/wiki/Page:O._F._Owen%27s_Organon_of_Aristotle_Vol._1_(1853).djvu/69",
+      "rights": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18; fontes e direitos identificados no texto.",
+      "text": "## P4 — Aristóteles: Da interpretação, capítulo 4\n\n**Apoio docente e aprofundamento facultativo. Capítulo integral.** Versão portuguesa produzida com assistência de IA para esta edição, por tradução indireta de Octavius Freire Owen (1816–1873), *The Organon*, vol. I, 1853. Base histórica em domínio público; Não se utiliza a tradução de E. M. Edghill como base de reprodução.\n\n**Fonte:** [Owen, capítulo 4, folha digital 69](https://en.wikisource.org/wiki/Page:O._F._Owen%27s_Organon_of_Aristotle_Vol._1_(1853).djvu/69). A transcrição consultada está marcada como ainda não revisada no Wikisource. O recorte exclui o final do capítulo 3 que aparece no alto da mesma página. O texto inglês consultado é preservado no repositório para comparação.\n\n### Texto em português\n\nUm enunciado é uma expressão vocal que significa por convenção, da qual uma parte, tomada separadamente, possui significado como palavra, mas não como afirmação ou negação. Por exemplo: “homem” significa algo, mas não indica que é ou que não é; se algo lhe for acrescentado, haverá afirmação ou negação.\n\nUma sílaba da palavra *ánthrōpos* não significa, porém, por si mesma; tampouco o “ŷs” de *mŷs*: nesse caso, é apenas som. Nas palavras compostas, uma parte tem significado, mas não por si mesma, como já observamos.\n\nTodo enunciado possui significado, não como instrumento, mas, como dissemos, por convenção. Nem todo enunciado, porém, é declarativo: é declarativo aquele em que há verdade ou falsidade. Estas não estão presentes em todos os enunciados: uma prece, por exemplo, é um enunciado, mas não é verdadeira nem falsa. Deixemos, portanto, os outros enunciados, cujo exame pertence mais propriamente à retórica ou à poética; o enunciado declarativo pertence à nossa investigação presente.\n\n**Nota editorial, fora do texto:** *ánthrōpos* significa “homem/ser humano”; *mŷs*, “rato”. Neste caderno, “enunciado” traduz o *sentence* de Owen e “declarativo”, *enunciative*. São escolhas de tradução, não equivalências únicas entre tradições. O trecho delimita o objeto desta investigação; não declara que perguntas, pedidos e preces sejam sem sentido ou intelectualmente inferiores. Não fundamenta, sozinho, todas as noções de argumento usadas na ficha do Liceu.\n",
+      "status": "verified"
+    },
+    {
+      "key": "c01.quintilian.10.1",
+      "title": "Institutio oratoria",
+      "author": "Quintiliano",
+      "location": "X.1.19–20 complete",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10A%2A.html",
+      "rights": "Working version prepared with AI assistance for this module; review and approval declared by the project owner on 2026-10-18; fontes e direitos identificados no texto.",
+      "text": "## P5 — Quintiliano: Instituição oratória, X.1.19–20\n\n**Apoio docente e aprofundamento facultativo. Dois parágrafos integrais.** Versão portuguesa produzida com assistência de IA para esta edição, por tradução indireta de H. E. Butler (1878–1951). Base histórica em domínio público no Brasil;\n\n**Fonte:** [Institutio oratoria, livro X, tradução de Butler, LacusCurtius/Universidade de Chicago](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10A%2A.html). Apenas o texto dos parágrafos 19 e 20: não se incorporam notas ou comentários modernos do site. O parágrafo 19 retoma uma comparação anterior entre ouvir e ler.\n\n### Texto em português\n\n**19.** Por outro lado, às vezes acontece que um público de mau gosto deixa de conceder o elogio devido às falas mais admiráveis. A leitura, porém, é livre e não passa por nós com a velocidade da fala: podemos reler uma passagem muitas vezes, se temos dúvidas ou queremos fixá-la na memória. Devemos voltar ao que lemos e reconsiderá-lo com cuidado. Assim como não engolimos o alimento antes de mastigá-lo e reduzi-lo quase a um líquido, para facilitar a digestão, também o que lemos não deve ser confiado à memória para posterior imitação enquanto ainda está em estado bruto. É preciso amaciá-lo e, se posso usar essa expressão, reduzi-lo a uma pasta por meio de releituras frequentes.\n\n**20.** Durante bastante tempo, devemos ler apenas os melhores autores, aqueles menos propensos a trair nossa confiança; e nossa leitura deve ser quase tão minuciosa quanto seria se estivéssemos transcrevendo o que lemos. Não devemos estudar a obra apenas em partes, mas lê-la inteira, do começo ao fim, e depois lê-la novamente. Esse preceito se aplica especialmente aos discursos, cujas qualidades muitas vezes são deliberadamente disfarçadas.\n\n**Nota editorial, fora do texto:** Quintiliano recomenda também a leitura integral. O módulo usa recortes por uma decisão de iniciação e carga; não deve ocultar essa tensão nem atribuir ao autor uma defesa de leitura somente fragmentária. A leitura integral da Apologia permanece uma possibilidade futura, não uma obrigação acrescentada ao piloto.\n",
+      "status": "verified"
+    },
+    {
+      "key": "c01.worksheet",
+      "title": "Instrumentos de leitura",
+      "author": "Liceu Underground",
+      "location": "Ficha integral",
+      "url": "",
+      "rights": "Texto original preparado para este módulo.",
+      "text": "**Referente e voz.** Em “A coordenadora respondeu à aluna depois que ela terminou”, o pronome pode deixar incerto quem terminou. Reescreva duas versões, cada uma com um referente explícito. Depois distinga “o narrador afirma que o personagem é sábio” de “o personagem afirma ser sábio”. A segunda frase atribui uma declaração; não endossa seu conteúdo.\n\n**Predicação e alcance.** Identifique de quem se fala e o que se afirma. Compare “alguns especialistas erram fora de sua área” e “os especialistas não sabem nada”. A segunda formulação amplia o alcance e altera a tese. Ao parafrasear, preserve sujeitos, negação, tempo e expressões como “alguns”, “nessa situação” e “talvez”.\n\n**Conectivos.** “Porque” pode introduzir uma razão, mas sua presença não garante que a razão sustente a conclusão. “Portanto” anuncia uma inferência; ainda precisamos examiná-la. “Embora” apresenta uma concessão que não deve desaparecer no resumo. Em três frases do corpus, explicite o que o conectivo faz na passagem.\n\n**Proposição e argumento.** Uma pergunta ou pedido pode ter sentido sem afirmar algo verdadeiro ou falso. Em um argumento, uma ou mais afirmações são apresentadas como razões para aceitar outra. Escreva P1, P2 e C quando isso ajudar, mas não force todo trecho narrativo a virar silogismo. Marque uma premissa reconstruída como implícita; não a atribua ao autor como citação.\n\n**O que segue e o que falta.** “Duas sessões lotaram; portanto, todos preferem esse horário” passa de uma observação restrita a uma conclusão mais ampla. Para testar a passagem, pergunte que outra explicação seria compatível com a observação. O objetivo inicial é delimitar a inferência, não recitar o nome de uma falácia. “Não foi demonstrado” não equivale a “é falso”.\n\n**Escuta e exposição.** Antes da objeção: “Entendi que sua conclusão é X, apoiada em Y. É isso?”. Depois, ataque a ligação ou a premissa indicada, sem inventar uma versão mais fácil de derrotar. Termine a resposta distinguindo o que mantém, o que concede e o que precisa investigar.",
+      "status": "verified"
+    },
+    {
+      "key": "machado.apologo",
+      "author": "Machado de Assis",
+      "title": "Um apólogo",
+      "location": "Integral; Várias Histórias, Laemmert, 1896, pp. 253–257",
+      "url": "https://pt.wikisource.org/wiki/Um_Ap%C3%B3logo",
+      "rights": "Texto original em domínio público; transcrição Wikisource; duas junções de extração corrigidas e documentadas.",
+      "text": "# Machado de Assis — Um apólogo\n\nTexto integral. Base: Várias Histórias, edição Laemmert, 1896, pp. 253–257, transcrição da Wikisource. Autor falecido em 1908; texto original em domínio público. Removida a navegação; corrigidas apenas duas junções/quebras de extração (linha ordinária; dizia a agulha). Sem modernização adicional.\n\nEra uma vez uma agulha, que disse a um novelo de linha:\n\n— Por que está você com esse ar, toda cheia de si, toda enrolada, para fingir que vale alguma coisa neste mundo?\n\n— Deixe-me, senhora.\n\n— Que a deixe? Que a deixe, por quê? Porque lhe digo que está com um ar insuportável? Repito que sim, e falarei sempre que me der na cabeça.\n\n— Que cabeça, senhora? A senhora não é alfinete, é agulha. Agulha não tem cabeça. Que lhe importa o meu ar? Cada qual tem o ar que Deus lhe deu. Importe-se com a sua vida e deixe a dos outros.\n\n— Mas você é orgulhosa.\n\n— Decerto que sou.\n\n— Mas por quê?\n\n— É boa! Porque coso. Então os vestidos e enfeites de nossa ama, quem é que os cose, senão eu?\n\n— Você? Esta agora é melhor. Você é que os cose? Você ignora que quem os cose sou eu, e muito eu?\n\n— Você fura o pano, nada mais; eu é que coso, prendo um pedaço ao outro, dou feição aos babados...\n\n— Sim, mas que vale isso? Eu é que furo o pano, vou adiante, puxando por você, que vem atrás, obedecendo ao que eu faço e mando...\n\n— Também os batedores vão adiante do imperador.\n\n— Você é imperador?\n\n— Não digo isso. Mas a verdade é que você faz um papel subalterno, indo adiante; vai só mostrando o caminho, vai fazendo o trabalho obscuro e ínfimo. Eu é que prendo, ligo, ajunto...\n\nEstavam nisto, quando a costureira chegou à casa da baronesa. Não sei se disse que isto se passava em casa de uma baronesa, que tinha a modista ao pé de si, para não andar atrás dela. Chegou a costureira, pegou do pano, pegou da agulha, pegou da linha, enfiou a linha na agulha, e entrou a coser. Uma e outra iam andando orgulhosas, pelo pano adiante, que era a melhor das sedas, entre os dedos da costureira, ágeis como os galgos de Diana — para dar a isto uma cor poética. E dizia a agulha:\n\n— Então, senhora linha, ainda teima no que dizia há pouco? Não repara que esta distinta costureira só se importa comigo; eu é que vou aqui entre os dedos dela, unidinha a eles, furando abaixo e acima.\nA linha não respondia nada; ia andando. Buraco aberto pela agulha era logo enchido por ela, silenciosa e ativa como quem sabe o que faz, e não está para ouvir palavras loucas. A agulha vendo que ela não lhe dava resposta, calou-se também, e foi andando. E era tudo silêncio na saleta de costura; não se ouvia mais que o plic-plic plic-plic da agulha no pano. Caindo o sol, a costureira dobrou a costura, para o dia seguinte; continuou ainda nesse e no outro, até que no quarto acabou a obra, e ficou esperando o baile.\n\nVeio a noite do baile, e a baronesa vestiu-se. A costureira, que a ajudou a vestir-se, levava a agulha espetada no corpinho, para dar algum ponto necessário. E quando compunha o vestido da bela dama, e puxava a um lado ou outro, arregaçava daqui ou dali, alisando, abotoando, acolchetando, a linha, para mofar da agulha, perguntou-lhe:\n\n— Ora agora, diga-me quem é que vai ao baile, no corpo da baronesa, fazendo parte do vestido e da elegância? Quem é que vai dançar com ministros e diplomatas, enquanto você volta para a caixinha da costureira, antes de ir para o balaio das mucamas? Vamos, diga lá.\n\nParece que a agulha não disse nada; mas um alfinete, de cabeça grande e não menor experiência, murmurou à pobre agulha:\n\n— Anda, aprende, tola. Cansas-te em abrir caminho para ela e ela é que vai gozar da vida, enquanto aí ficas na caixinha de costura. Faze como eu, que não abro caminho para ninguém. Onde me espetam, fico.\n\nContei esta história a um professor de melancolia, que me disse, abanando a cabeça: — Também eu tenho servido de agulha a muita linha ordinária!\n",
+      "status": "verified"
+    },
+    {
+      "key": "quintilian.x2",
+      "author": "Quintiliano",
+      "title": "Instituição oratória",
+      "location": "X.2.1–8",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/10B*.html",
+      "rights": "Base Butler, 1920, domínio público; versão indireta com assistência de IA.",
+      "text": "# Quintiliano — Instituição oratória X.2.1–8\n\nRecorte integral dos oito parágrafos. Versão portuguesa preparada com assistência de IA a partir de H. E. Butler, Loeb Classical Library, vol. IV, 1920, transcrição LacusCurtius. Butler faleceu em 1951; base histórica em domínio público no Brasil. Não é tradução direta do latim nem reprodução de tradução portuguesa comercial. Números correspondem aos parágrafos da obra; notas modernas do site não foram reproduzidas.\n\n**1.** É desses autores e de outros dignos de nosso estudo que devemos tirar nosso repertório de palavras, a variedade de figuras e os modos de composição, formando também nosso espírito segundo o modelo de toda excelência. Não pode haver dúvida de que, na arte, parte considerável de nossa tarefa consiste na imitação: embora a invenção tenha vindo primeiro e seja de máxima importância, convém imitar o que foi inventado com êxito.\n\n**2.** É regra geral da vida desejarmos copiar aquilo que aprovamos nos outros. Por isso os meninos copiam as formas das letras para aprender a escrever; os músicos tomam por modelo as vozes dos mestres, os pintores as obras dos predecessores e os agricultores os métodos de cultivo comprovados pela prática. Podemos observar, de fato, que o estudo inicial de qualquer disciplina se orienta por algum padrão definido, colocado diante de quem aprende.\n\n**3.** Precisamos ser semelhantes ou dessemelhantes àqueles que demonstraram excelência. Raramente a natureza produz essa semelhança; mais frequentemente ela resulta da imitação. Mas o próprio fato de que, em qualquer matéria, o caminho seja tão mais fácil para nós do que para aqueles que não tinham modelo constitui uma desvantagem, se não usarmos esse benefício duvidoso com cautela e discernimento.\n\n**4.** A primeira coisa a compreender, portanto, é que a imitação, sozinha, não basta, até porque uma natureza indolente está muito disposta a contentar-se com as invenções alheias. O que teria acontecido, quando ainda não havia modelos, se os homens resolvessem fazer e pensar somente o que já conheciam? A resposta é evidente: nada jamais teria sido descoberto.\n\n**5.** Por que seria então um erro descobrirmos algo novo? Teriam os primeiros homens sido levados a tantas descobertas apenas pela força natural de sua imaginação, e não seríamos nós estimulados a procurar novidades justamente por sabermos que aqueles que antes procuraram obtiveram êxito?\n\n**6.** E, se aqueles que não tinham quem lhes ensinasse transmitiram tão grande saber à posteridade, recusaremos empregar a experiência que já temos de algumas coisas para descobrir outras, sem possuir nada que não devamos à atividade benéfica dos outros? Seguiremos o exemplo dos pintores cuja única ambição é copiar retratos com régua e instrumento de medida?\n\n**7.** É verdadeira vergonha contentar-se em dever à imitação tudo quanto realizamos. Pergunto novamente: qual teria sido o resultado se ninguém fizesse mais do que seus predecessores? Lívio Andrônico marcaria nossa realização máxima na poesia, e os anais dos pontífices seriam nosso limite na história. Ainda navegaríamos em jangadas, e a pintura se limitaria a contornar uma sombra projetada pelo sol.\n\n**8.** Percorrei com os olhos toda a história: não encontrareis arte alguma que tenha permanecido tal como foi descoberta ou se detido no próprio nascimento, a menos que queiramos condenar especialmente nossa geração por ser tão estéril de invenção que nenhum desenvolvimento posterior seja possível. É certamente verdade que nenhum desenvolvimento é possível para quem se restringe à imitação.\n",
+      "status": "verified"
+    },
+    {
+      "key": "plato.crito46",
+      "author": "Platão",
+      "title": "Críton",
+      "location": "46b–49e; pergunta e resposta finais completadas em 50a",
+      "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
+      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA; 49e cotejado com Fowler.",
+      "text": "# Platão — Críton 46b–49e\n\nVersão portuguesa, preparada com assistência de IA a partir da tradução inglesa de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base em domínio público; não é tradução direta do grego. A passagem sobre acordos em 49e foi cotejada com Harold North Fowler no Perseus para explicitar a condição de justiça. O recorte começa na resposta de Sócrates à proposta de fuga. Completa-se a última pergunta, iniciada em 49e, e a resposta imediata em 50a para não cortar uma frase; essa transição reaparece no módulo 5. As divisões abaixo são editoriais, não novos números de Stephanus. As breves notas do editor inglês não foram incorporadas.\n\n## Razões e circunstâncias\n\n**Sócrates:** Meu caro Críton, teu empenho é de grande valor, se for correto; mas, se estiver errado, quanto maior o empenho, maior o perigo. Por isso devemos examinar se farei ou não o que dizes. Sou, e sempre fui, daqueles que devem deixar-se guiar pela razão que, depois de examinada, lhes pareça a melhor. Agora que me aconteceu isso, não posso repudiar minhas próprias palavras. Continuo a honrar e respeitar os princípios que antes honrava; se não encontrarmos imediatamente outros melhores, certamente não concordarei contigo, nem mesmo se a força da multidão nos ameaçasse com ainda mais prisões, confiscos e mortes, assustando-nos como crianças com terrores de fantasmas. Qual será a maneira mais justa de examinar a questão? Retomaremos teu antigo argumento acerca das opiniões dos homens? Dizíamos que algumas devem ser consideradas, e outras não. Estávamos certos em sustentar isso antes de eu ser condenado? E o argumento que então era bom tornou-se agora conversa por conversar, simples brincadeira infantil? É isso que quero examinar contigo: se, nas minhas circunstâncias atuais, o argumento mudou de algum modo e se devo aceitá-lo ou rejeitá-lo. Esse argumento, sustentado, creio, por muitas pessoas respeitáveis, dizia que as opiniões de alguns homens devem ser consideradas, e as de outros não. Tu, Críton, não vais morrer amanhã — ao menos não há probabilidade humana disso — e, por isso, não estás exposto ao engano produzido pelas circunstâncias em que me encontro. Diz-me, então: tenho razão em dizer que certas opiniões, e apenas as de certos homens, devem ser valorizadas, enquanto outras opiniões e as de outros homens não devem? Estava certo ao sustentar isso?\n\n**Críton:** Certamente.\n\n**Sócrates:** Devemos considerar as boas, não as más?\n\n**Críton:** Sim.\n\n**Sócrates:** E as opiniões dos sensatos são boas, enquanto as dos insensatos são más?\n\n**Críton:** Certamente.\n\n## O praticante e o conhecedor\n\n**Sócrates:** E o que se dizia de outra questão? Quem se dedica à ginástica deve prestar atenção ao elogio, à censura e à opinião de todos os homens ou somente de um, seu médico ou treinador, seja ele quem for?\n\n**Críton:** De um só.\n\n**Sócrates:** Deve temer a censura e acolher o elogio desse único homem, não os da multidão?\n\n**Críton:** Evidentemente.\n\n**Sócrates:** E deve agir, exercitar-se, comer e beber conforme pareça bom àquele mestre que entende do assunto, em vez de seguir a opinião de todos os demais reunidos?\n\n**Críton:** É verdade.\n\n**Sócrates:** Se desobedecer e desprezar a opinião e a aprovação desse único homem, atendendo às da multidão que não entende, não sofrerá algum mal?\n\n**Críton:** Certamente sofrerá.\n\n**Sócrates:** Que mal será esse? Para onde se dirige e o que atinge naquele que desobedece?\n\n**Críton:** É evidente que atinge o corpo: é ele que esse mal destrói.\n\n**Sócrates:** Muito bem. Não acontece o mesmo, Críton, com outras coisas que não precisamos enumerar uma a uma? Nas questões de justo e injusto, belo e vergonhoso, bom e mau, de que agora deliberamos, devemos seguir e temer a opinião da multidão ou a do único que entende? Não devemos temê-lo e respeitá-lo mais do que a todos os outros? E, se o abandonarmos, não destruiremos e prejudicaremos aquilo em nós que, podemos admitir, melhora com a justiça e se deteriora com a injustiça? Existe algo assim?\n\n**Críton:** Certamente existe, Sócrates.\n\n**Sócrates:** Considera um caso paralelo. Se, seguindo o conselho dos que não entendem, destruirmos aquilo que melhora com a saúde e se deteriora com a doença, valerá a pena viver? E aquilo que se destrói é o corpo?\n\n**Críton:** Sim.\n\n**Sócrates:** Poderíamos viver com um corpo arruinado e corrompido?\n\n**Críton:** Certamente não.\n\n**Sócrates:** E valerá a pena viver se estiver destruída aquela parte superior do homem que melhora com a justiça e se corrompe com a injustiça? Consideramos aquilo em nós, seja o que for, a que dizem respeito a justiça e a injustiça, inferior ao corpo?\n\n**Críton:** Certamente não.\n\n**Sócrates:** Mais digno de honra que o corpo?\n\n**Críton:** Muito mais.\n\n**Sócrates:** Então, meu amigo, não devemos levar em conta o que a multidão dirá de nós, mas o que dirá aquele que entende do justo e do injusto, e o que dirá a própria verdade. Portanto, começas pelo erro quando aconselhas que consideremos a opinião da multidão sobre o justo e o injusto, o bom e o mau, o honroso e o vergonhoso. “Mas”, dirá alguém, “a multidão pode matar-nos.”\n\n**Críton:** Sim, Sócrates, essa será claramente a resposta.\n\n## Viver e viver bem\n\n**Sócrates:** E é verdade. Apesar disso, vejo, com surpresa, que o antigo argumento permanece tão firme quanto antes. Gostaria de saber se posso dizer o mesmo de outra proposição: o que se deve valorizar sobretudo não é viver, mas viver bem.\n\n**Críton:** Sim, essa também permanece firme.\n\n**Sócrates:** E viver bem equivale a viver de maneira justa e honrosa: isso também permanece?\n\n**Críton:** Sim.\n\n**Sócrates:** Partindo dessas premissas, passo à questão de saber se devo tentar fugir sem o consentimento dos atenienses. Se for claramente justo fugir, tentarei; se não, me absterei. As outras considerações que mencionas — dinheiro, perda de reputação e o dever de educar os filhos — receio que sejam apenas doutrinas da multidão, que estaria tão pronta a ressuscitar as pessoas, se pudesse, quanto a matá-las, e com igualmente pouca razão. Mas agora, como o argumento até aqui prevaleceu, resta somente examinar se agiremos justamente ao fugir, ao permitir que outros ajudem na fuga e ao recompensá-los com dinheiro e agradecimentos, ou se, na verdade, não agiremos justamente. Se não agirmos, a morte ou qualquer outra calamidade decorrente de eu permanecer aqui não poderá entrar no cálculo.\n\n**Críton:** Parece-me que tens razão, Sócrates. Como prosseguiremos?\n\n**Sócrates:** Examinemos juntos. Refuta-me, se puderes, e me convencerei; caso contrário, deixa de repetir, meu caro amigo, que devo fugir contra a vontade dos atenienses. Dou grande valor a tuas tentativas de me persuadir, mas não devo ser persuadido contra meu melhor juízo. Considera agora minha primeira proposição e procura responder da melhor maneira.\n\n**Críton:** Assim farei.\n\n## Injustiça e retribuição\n\n**Sócrates:** Diremos que nunca se deve praticar injustiça deliberadamente? Ou que, de uma maneira, se deve, e de outra, não? Ou praticar injustiça é sempre mau e vergonhoso, como eu dizia há pouco e como já reconhecemos? Devemos lançar fora tudo o que admitimos há poucos dias? Teremos passado a vida, já nesta idade, conversando seriamente um com o outro para descobrir que não somos melhores que crianças? Ou, apesar da opinião da multidão e das consequências, melhores ou piores, insistiremos na verdade do que então dissemos: que a injustiça é sempre um mal e uma vergonha para quem a pratica? Diremos isso ou não?\n\n**Críton:** Sim.\n\n**Sócrates:** Então não devemos praticar injustiça?\n\n**Críton:** Certamente não.\n\n**Sócrates:** Nem, quando sofrermos injustiça, cometê-la em troca, como pensa a multidão, pois não devemos ser injustos com ninguém?\n\n**Críton:** Evidentemente não.\n\n**Sócrates:** E podemos fazer mal, Críton?\n\n**Críton:** Certamente não, Sócrates.\n\n**Sócrates:** E fazer mal em troca do mal, como quer a moral da multidão: é justo ou não?\n\n**Críton:** Não é justo.\n\n**Sócrates:** Pois fazer mal a outro é o mesmo que praticar injustiça contra ele?\n\n**Críton:** É verdade.\n\n**Sócrates:** Portanto, não devemos retribuir injustiça nem devolver mal por mal a ninguém, seja qual for o mal que tenhamos sofrido. Mas examina, Críton, se realmente pensas o que dizes. Essa opinião nunca foi, nem será, sustentada por muita gente. Quem concorda e quem discorda nesse ponto não possuem terreno comum e só podem desprezar-se mutuamente ao perceberem quanto divergem. Diz-me, então, se concordas com meu primeiro princípio: nunca é correto praticar injustiça, retribuí-la ou afastar um mal por outro mal. Será essa a premissa de nosso argumento? Ou a recusas? Sempre pensei assim e continuo a pensar; se tens outra opinião, deixa-me ouvi-la. Se, porém, conservas a opinião de antes, passarei ao ponto seguinte.\n\n**Críton:** Podes prosseguir, pois não mudei de opinião.\n\n**Sócrates:** Passarei então ao ponto seguinte, ou antes a uma pergunta: deve alguém cumprir aquilo com que concordou, desde que seja justo, ou pode trair o acordo?\n\n**Críton:** Deve cumpri-lo.\n\n**Sócrates:** Se isso é verdade, considera sua aplicação. Saindo daqui sem a vontade dos atenienses, fazemos mal a alguém — ou justamente àqueles a quem menos deveríamos fazê-lo? Abandonamos os princípios que reconhecemos como justos? Que dizes?\n\n**Críton:** Não sei responder, Sócrates, porque não compreendo.\n",
+      "status": "verified"
+    },
+    {
+      "key": "vieira.v",
+      "author": "António Vieira",
+      "title": "Sermão da Sexagésima",
+      "location": "Seção V integral; pp. 13–16 da transcrição BOCC",
+      "url": "https://arquivo.bocc.ubi.pt/pag/vieira-antonio-sermao-sexagesima.pdf",
+      "rights": "Original em domínio público; transcrição BOCC; cabeçalhos e hifens de translineação removidos; sem reprodução de aparato crítico.",
+      "text": "# António Vieira — Sermão da Sexagésima, seção V\n\nSeção integral, pp. 13–16 da transcrição BOCC/Universidade da Beira Interior. Autor falecido em 1697; texto em domínio público. Removidos cabeçalhos e hifens de translineação; conservadas grafia e formulações da transcrição, inclusive vocabulário histórico depreciativo, a ser contextualizado. Não reproduz aparato crítico moderno.\n\nSerá porventura o estilo que hoje se usa nos púlpitos? Um estilo tão empeçado, um estilo tão dificultoso, um estilo tão afectado, um estilo tão encontrado a toda a arte e a toda a natureza? Boa razão é também esta. O estilo há-de ser muito fácil e muito natural. Por isso Cristo comparou o pregar ao semear: Exiit, qui seminat, seminare. Compara Cristo o pregar ao semear, porque o semear é uma arte que tem mais de natureza que de arte. Nas outras artes tudo é arte: na música tudo se faz por compasso, na arquitectura tudo se faz por regra, na aritmética tudo se faz por conta, na geometria tudo se faz por medida. O semear não é assim. É uma arte sem arte, caia onde cair. Vede como semeava o nosso lavrador do Evangelho. “Caía o trigo nos espinhos e nascia”: Aliud cecidit inter spinas, et simul exortae spinae. “Caía o trigo nas pedras e nascia”: Aliud cecidit super petram, et ortum. “Caía o trigo na terra boa e nascia”: Aliud cecidit in terram bonam, et natum. Ia o trigo caindo e ia nascendo.\n\nAssim há-de ser o pregar. Hão-de cair as coisas e hão-de nascer; tão naturais que vão caindo, tão próprias que venham nascendo. Que diferente é o estilo violento e tirânico que hoje se usa! Ver vir os tristes passos da Escritura, como quem vem ao martírio; uns vêm acarretados, outros vêm arrastados, outros vêm estirados, outros vêm torcidos, outros vêm despedaçados; só atados não vêm! Há tal tirania? Então no meio disto, que bem levantado está aquilo! Não está a coisa no levantar, está no cair: Cecidit. Notai uma alegoria própria da nossa língua. O trigo do semeador, ainda que caiu quatro vezes, só de três nasceu; para o sermão vir nascendo, há-de ter três modos de cair: há-de cair com queda, há-de cair com cadência, há-de cair com caso. A queda é para as coisas, a cadência para as palavras, o caso para a disposição. A queda é para as coisas, porque hão-de vir bem trazidas e em seu lugar; hão-de ter queda. A cadência é para as palavras, porque não hão-de ser escabrosas nem dissonantes; hão-de ter cadência. O caso é para a disposição, porque há-de ser tão natural e tão desafectada que pareça caso e não estudo: Cecidit, cecidit, cecidit.\n\nJá que falo contra os estilos modernos, quero alegar por mim o estilo do mais antigo pregador que houve no Mundo. E qual foi ele? – O mais antigo pregador que houve no Mundo foi o céu. Coeli enarrant gloriam Dei et opera manuum ejus annuntiat Firmamentum – diz David. Suposto que o céu é pregador, deve de ter sermões e deve de ter: palavras. Sim, tem, diz o mesmo David; tem palavras e tem sermões; e mais, muito bem ouvidos. Non sunt loquellae, nec sermones, quorum non audiantur voces eorum. E quais são estes sermões e estas palavras do céu? – As palavras são as estrelas, os sermões são a composição, a ordem, a harmonia e o curso delas. Vede como diz o estilo de pregar do céu, com o estilo que Cristo ensinou na terra. Um e outro é semear; a terra semeada de trigo, o céu semeado de estrelas. O pregar há-de ser como quem semeia, e não como quem ladrilha ou azuleja. Ordenado, mas como as estrelas: Stellae manentes in ordine suo. Todas as estrelas estão por sua ordem; mas é ordem que faz influência, não é ordem que faça lavor. Não fez Deus o céu em xadrez de estrelas, como os pregadores fazem o sermão em xadrez de palavras. Se de uma parte há-de estar branco, da outra há-de estar negro; se de uma parte dizem luz, da outra hão-de dizer sombra; se de uma parte dizem desceu, da outra hão-de dizer subiu. Basta que não havemos de ver num sermão duas palavras em paz? Todas hão-de estar sempre em fronteira com o seu contrário? Aprendamos do céu o estilo da disposição, e também o das palavras. As estrelas são muito distintas e muito claras. Assim há-de ser o estilo da pregação; muito distinto e muito claro. E nem por isso temais que pareça o estilo baixo; as estrelas são muito distintas e muito claras, e altíssimas. O estilo pode ser muito claro e muito alto; tão claro que o entendam os que não sabem e tão alto que tenham muito que entender os que sabem. O rústico acha documentos nas estrelas para sua lavoura e o mareante para sua navegação e o matemático para as suas observações e para os seus juízos. De maneira que o rústico e o mareante, que não sabem ler nem escrever, entendem as estrelas; e o matemático, que tem lido quantos escreveram, não alcança a entender quanto nelas há. Tal pode ser o sermão: – estrelas que todos vêem, e muito poucos as medem.\n\nSim, Padre; porém esse estilo de pregar não é pregar culto. Mas fosse! Este desventurado estilo que hoje se usa, os que o querem honrar chamam-lhe culto, os que o condenam chamam-lhe escuro, mas ainda lhe fazem muita honra. O estilo culto não é escuro, é negro, e negro boçal e muito cerrado. E possível que somos portugueses e havemos de ouvir um pregador em português e não havemos de entender o que diz?! Assim como há Lexicon para o grego e Calepino para o latim, assim é necessário haver um vocabulário do púlpito. Eu ao menos o tomara para os nomes próprios, porque os cultos têm desbaptizados os santos, e cada autor que alegam é um enigma. Assim o disse o Ceptro Penitente, assim o disse o Evangelista Apeles, assim o disse a Águia de África, o Favo de Claraval, a Púrpura de Belém, a Boca de Ouro. Há tal modo de alegar! O Ceptro Penitente dizem que é David, como se todos os ceptros não foram penitência; o Evangelista Apeles, que é S. Lucas; o Favo de Claraval, S. Bernardo; a Águia de África, Santo Agostinho; a Púrpura de Belém, S. Jerónimo; a Boca de Ouro, S. Crisóstomo. E quem quitaria ao outro cuidar que a Púrpura de Belém é Herodes, que a Águia de África é Cipião, e que a Boca de Ouro é Midas? Se houvesse um advogado que alegasse assim a Bártolo e Baldo, havíeis de fiar dele o vosso pleito? Se houvesse um homem que assim falasse na conversação, não o havíeis de ter por néscio? Pois o que na conversação seria necedade, como há-de ser discrição no púlpito?\n\nBoa me parecia também esta razão; mas como os cultos pelo pulido e estudado se defendem com o grande Nazianzeno, com Ambrósio, com Crisólogo, com Leão, e pelo escuro e duro, com Clemente Alexandrino, com Tertuliano, com Basílio de Selêucia, com Zeno Veronense e outros, não podemos negar a reverência a tamanhos autores, posto que desejáramos, nos que se prezam de beber destes rios, a sua profundidade. Qual será logo a causa de nossa queixa?\n",
+      "status": "verified"
+    },
+    {
+      "key": "plato.goodlife",
+      "author": "Platão",
+      "title": "Críton — viver e viver bem",
+      "location": "48b–49a; retomada delimitada no texto",
+      "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
+      "rights": "Recorte da versão de C3, preparada com assistência de IA; base Jowett, domínio público.",
+      "text": "# Platão — Críton, retomada de 48b–49a\n\nRecorte de retomada: do exame de viver bem até a aceitação do exame conjunto por Críton, imediatamente antes da pergunta sobre praticar injustiça. Mesma versão indireta de C3, baseada em Jowett. Não é leitura adicional de todo o diálogo.\n\n**Sócrates:** E é verdade. Apesar disso, vejo, com surpresa, que o antigo argumento permanece tão firme quanto antes. Gostaria de saber se posso dizer o mesmo de outra proposição: o que se deve valorizar sobretudo não é viver, mas viver bem.\n\n**Críton:** Sim, essa também permanece firme.\n\n**Sócrates:** E viver bem equivale a viver de maneira justa e honrosa: isso também permanece?\n\n**Críton:** Sim.\n\n**Sócrates:** Partindo dessas premissas, passo à questão de saber se devo tentar fugir sem o consentimento dos atenienses. Se for claramente justo fugir, tentarei; se não, me absterei. As outras considerações que mencionas — dinheiro, perda de reputação e o dever de educar os filhos — receio que sejam apenas doutrinas da multidão, que estaria tão pronta a ressuscitar as pessoas, se pudesse, quanto a matá-las, e com igualmente pouca razão. Mas agora, como o argumento até aqui prevaleceu, resta somente examinar se agiremos justamente ao fugir, ao permitir que outros ajudem na fuga e ao recompensá-los com dinheiro e agradecimentos, ou se, na verdade, não agiremos justamente. Se não agirmos, a morte ou qualquer outra calamidade decorrente de eu permanecer aqui não poderá entrar no cálculo.\n\n**Críton:** Parece-me que tens razão, Sócrates. Como prosseguiremos?\n\n**Sócrates:** Examinemos juntos. Refuta-me, se puderes, e me convencerei; caso contrário, deixa de repetir, meu caro amigo, que devo fugir contra a vontade dos atenienses. Dou grande valor a tuas tentativas de me persuadir, mas não devo ser persuadido contra meu melhor juízo. Considera agora minha primeira proposição e procura responder da melhor maneira.\n\n**Críton:** Assim farei.\n",
+      "status": "verified"
+    },
+    {
+      "key": "plato.crito50",
+      "author": "Platão",
+      "title": "Críton",
+      "location": "50a–54d; início da pergunta em 49e incluído; sem a fala de 54e",
+      "url": "https://www.gutenberg.org/files/1657/1657-h/1657-h.htm",
+      "rights": "Base Jowett, domínio público; versão indireta com assistência de IA.",
+      "text": "# Platão — Críton 50a–54d\n\nVersão portuguesa, preparada com assistência de IA a partir de Benjamin Jowett (1817–1893), Project Gutenberg 1657. Base histórica em domínio público; não é tradução direta do grego. Inclui-se o início da pergunta que atravessa 49e–50a, repetido de C3, para completar a transição. O recorte termina com a resposta de Críton em 54d; a última fala de Sócrates, em 54e, está fora dele. Divisões internas editoriais. Falas das Leis estão dentro da fala imaginada por Sócrates: não são um novo interlocutor presente na prisão.\n\n## A pergunta às Leis\n\n**Sócrates:** Se isso é verdade, considera sua aplicação. Saindo daqui sem a vontade dos atenienses, fazemos mal a alguém — ou justamente àqueles a quem menos deveríamos fazê-lo? Abandonamos os princípios que reconhecemos como justos? Que dizes?\n\n**Críton:** Não sei responder, Sócrates, porque não compreendo.\n\n**Sócrates:** Examina assim. Imagina que, quando eu estivesse prestes a fugir — dá a isso o nome que quiseres —, as leis e a comunidade política viessem interrogar-me: “Dize-nos, Sócrates, o que pretendes fazer? Não estás tentando, por esse ato, derrubar-nos, a nós, as leis, e a cidade inteira, na medida de tuas forças? Julgas possível que subsista, sem ser destruída, uma cidade na qual as decisões judiciais não têm força, sendo anuladas e pisoteadas por particulares?” Que responderemos, Críton, a essas palavras e outras semelhantes? Qualquer pessoa, sobretudo um orador, teria muito a dizer em defesa da lei que exige o cumprimento de uma sentença. Argumentaria que ela não deve ser anulada. Responderemos: “Sim, mas a cidade nos fez injustiça e proferiu uma sentença injusta”? Diremos isso?\n\n**Críton:** Muito bem, Sócrates.\n\n## Criação, educação e autoridade\n\n**Sócrates:** “Foi esse o nosso acordo contigo?”, responderia a lei. “Ou concordaste em acatar a sentença da cidade?” Se eu manifestasse espanto, provavelmente acrescentaria: “Responde, Sócrates, em vez de arregalar os olhos: estás habituado a perguntar e responder. Que queixa tens contra nós que justifique tua tentativa de destruir-nos e à cidade? Primeiro, não te trouxemos à existência? Por nosso auxílio teu pai se casou com tua mãe e te gerou. Tens alguma objeção contra as leis que regulam os casamentos?” Nenhuma, responderia. “Ou contra aquelas que, depois do nascimento, regulam a criação e a educação das crianças, pelas quais tu também foste educado? Não fizeram bem as leis da educação ao ordenar a teu pai que te instruísse em música e ginástica?” Fizeram, responderia. “Então, tendo nascido, sido criado e educado por nós, podes negar, em primeiro lugar, que és nosso filho e servo, como teus antepassados? Se isso é verdade, não estás em pé de igualdade conosco, nem podes supor que tens o direito de fazer-nos o que fazemos a ti. Terias o direito de bater, insultar ou fazer qualquer outro mal a teu pai ou a teu senhor, se o tivesses, porque recebeste deles golpes, insultos ou outro mal? Não dirias isso. E, porque julgamos correto destruir-te, pensas ter o direito de destruir-nos em troca, a nós e à tua pátria, na medida de tuas forças? Tu, que professas a verdadeira virtude, pretenderás estar justificado? Um filósofo como tu não descobriu que a pátria é mais valiosa, mais elevada e mais sagrada que mãe, pai ou qualquer antepassado, e mais considerada entre os deuses e os homens sensatos? Que se deve apaziguá-la e tratá-la com brandura e reverência quando se irrita, ainda mais do que a um pai, e persuadi-la ou, não conseguindo persuadi-la, obedecer-lhe? Quando nos castiga, com prisão ou golpes, devemos suportar o castigo em silêncio; se nos conduz a ferimentos ou morte na batalha, devemos segui-la, como é justo. Ninguém deve ceder, recuar ou abandonar seu posto; na batalha, no tribunal ou em qualquer lugar, deve fazer o que sua cidade e sua pátria ordenam, ou mudar sua compreensão do que é justo. Se não é permitido fazer violência ao pai ou à mãe, muito menos à pátria.” Que resposta daremos, Críton? As leis dizem a verdade ou não?\n\n**Críton:** Parece-me que sim.\n\n## Permanência e acordo\n\n**Sócrates:** As leis dirão então: “Considera, Sócrates, se dizemos a verdade ao afirmar que, com tua tentativa, nos causarás injustiça. Depois de te trazer ao mundo, criar e educar, e de dar a ti e a todos os cidadãos participação em todos os bens que podíamos oferecer, proclamamos ainda, pela liberdade concedida a cada ateniense, que, se não gostar de nós depois de atingir a maioridade, observar os costumes da cidade e nos conhecer, poderá ir para onde quiser, levando seus bens. Nenhuma de nós, leis, o proibirá ou impedirá. Quem não gostar de nós e da cidade e quiser emigrar para uma colônia ou para outra cidade poderá fazê-lo, conservando sua propriedade. Mas aquele que conhece o modo como distribuímos justiça e administramos a cidade e ainda assim permanece estabeleceu implicitamente um acordo de fazer o que ordenamos. Quem nos desobedece, sustentamos, é injusto de três modos: primeiro, porque desobedece a seus pais; segundo, porque somos responsáveis por sua educação; terceiro, porque concordou em obedecer devidamente às nossas ordens e não obedece nem nos convence de que são injustas. Não as impomos de maneira grosseira: oferecemos a alternativa de obedecer ou convencer-nos, e ele não faz nenhuma das duas coisas. A tais acusações, como dizíamos, estarás exposto se realizares tua intenção, Sócrates; tu, mais do que qualquer outro ateniense.”\n\nSuponhamos que eu pergunte: por que eu mais que os outros? Elas replicarão, com justiça, que eu, mais que todos, reconheci o acordo: “Há prova clara, Sócrates, de que nós e a cidade não te desagradávamos. De todos os atenienses, foste o mais constante morador da cidade: como quase nunca a deixas, podemos supor que a amas. Nunca saíste para assistir aos jogos, salvo uma vez ao Istmo, nem para outro lugar, exceto em serviço militar; tampouco viajaste como os outros. Não tiveste curiosidade de conhecer outras cidades ou suas leis. Tuas afeições não ultrapassaram a nós e à nossa cidade: éramos tuas favoritas, e aceitaste nosso governo. Aqui geraste teus filhos, prova de tua satisfação. Além disso, durante o julgamento, poderias ter proposto o exílio como pena, se quisesses. A cidade, que agora não te deixa sair, então o teria permitido. Mas declaraste preferir a morte ao exílio e não estar contrariado em morrer. Agora esqueceste essas belas palavras, não nos respeitas, a nós, leis, e te tornas nosso destruidor; ages como um escravo miserável, fugindo e voltando as costas aos pactos e acordos que fizeste como cidadão. Responde primeiro: temos razão ao dizer que concordaste em ser governado por nós não só em palavras, mas em atos? É verdade ou não?” Que responderemos, Críton? Não devemos concordar?\n\n**Críton:** Não podemos deixar de fazê-lo, Sócrates.\n\n**Sócrates:** Não dirão então: “Sócrates, rompes pactos e acordos que fizeste com tempo, sem pressa, coação ou engano, depois de teres setenta anos para refletir sobre eles. Durante todo esse tempo podias deixar a cidade, se não gostasses de nós ou se nossos acordos te parecessem injustos. Podias escolher e ir para a Lacedemônia ou Creta, cidades que frequentemente elogias por seu bom governo, ou para qualquer outra cidade grega ou estrangeira. Mas tu, mais que todos os atenienses, parecias gostar da cidade — isto é, de nós, suas leis; pois quem gostaria de uma cidade sem leis? — a ponto de nunca saíres dela. Nem os coxos, cegos ou mutilados permaneciam nela mais do que tu. E agora foges e abandonas teus acordos. Não faças isso, Sócrates, se aceitas nosso conselho; não te tornes ridículo fugindo da cidade.”\n\n## Consequências da fuga\n\n“Considera: se transgredires e errares desse modo, que bem farás a ti ou a teus amigos? É bastante certo que teus amigos serão exilados e privados de cidadania ou perderão seus bens. E tu, se fugires para uma cidade vizinha, como Tebas ou Mégara, ambas bem governadas, chegarás como inimigo, Sócrates. Seus governantes estarão contra ti, e todos os cidadãos zelosos por sua pátria te olharão com suspeita, como destruidor das leis; confirmarás, na mente dos juízes, a justiça de tua condenação. Pois quem corrompe as leis provavelmente também corromperá os jovens e os insensatos. Fugirás então das cidades bem ordenadas e dos homens virtuosos? Vale a pena viver nessas condições? Ou irás até eles sem vergonha e lhes falarás? E o que dirás? Aquilo que dizes aqui: que a virtude, a justiça, as instituições e as leis são os maiores bens entre os homens? Isso seria decoroso? Certamente não. Mas, se deixares as cidades bem governadas e fores para os amigos de Críton na Tessália, onde há grande desordem e licença, eles ficarão encantados ao ouvir a história de tua fuga, com detalhes ridículos sobre como te envolveste numa pele de cabra ou outro disfarce e te transformaste, à maneira dos fugitivos. Mas ninguém te lembrará que, na velhice, não tiveste vergonha de violar as leis mais sagradas pelo miserável desejo de viver um pouco mais? Talvez não, se os mantiveres satisfeitos; mas, se se irritarem, ouvirás muitas coisas humilhantes. Viverás, mas como? Bajulando todos e servindo a todos. E fazendo o quê? Comendo e bebendo na Tessália, tendo viajado para conseguir um jantar. Onde estarão tuas belas palavras sobre justiça e virtude? Dizes que queres viver por teus filhos, para criá-los e educá-los: tu os levarás à Tessália e os privarás da cidadania ateniense? Será esse o benefício que lhes darás? Ou imaginas que, estando vivo, embora ausente, eles serão mais bem cuidados e educados aqui, porque teus amigos cuidarão deles? Julgas que cuidarão deles se fores morador da Tessália e não cuidarão se fores morador do outro mundo? Se aqueles que se dizem teus amigos valem alguma coisa, cuidarão, certamente.”\n\n## A resposta de Sócrates\n\n“Escuta, pois, Sócrates, a nós que te criamos. Não penses primeiro na vida e nos filhos e só depois na justiça, mas primeiro na justiça, para poderes justificar-te diante dos governantes do mundo de baixo. Pois nem tu nem os teus sereis mais felizes, piedosos ou justos nesta vida, nem mais felizes na outra, se fizeres o que Críton aconselha. Agora partes inocente, sofrendo um mal sem o praticar; vítima dos homens, não das leis. Mas, se saíres retribuindo mal por mal e injustiça por injustiça, rompendo teus pactos e acordos conosco e prejudicando aqueles a quem menos deverias prejudicar — a ti mesmo, a teus amigos, a tua pátria e a nós —, estaremos irritadas contigo enquanto viveres. E nossas irmãs, as leis do mundo de baixo, te receberão como inimigo, pois saberão que fizeste o possível para destruir-nos. Escuta-nos, portanto, e não a Críton.”\n\nÉ essa, meu caro Críton, a voz que me parece murmurar aos ouvidos, como o som da flauta aos ouvidos dos iniciados. Essa voz ressoa em mim e me impede de ouvir qualquer outra. Sei que tudo o mais que disseres será em vão. Mesmo assim, fala, se tens algo a dizer.\n\n**Críton:** Não tenho nada a dizer, Sócrates.\n",
+      "status": "verified"
+    },
+    {
+      "key": "quintilian.xi3",
+      "author": "Quintiliano",
+      "title": "Instituição oratória",
+      "location": "XI.3.1–9",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/11C*.html",
+      "rights": "Base Butler, 1920, domínio público; versão indireta com assistência de IA.",
+      "text": "# Quintiliano — Instituição oratória XI.3.1–9\n\nRecorte integral dos nove parágrafos. Versão portuguesa preparada com assistência de IA a partir de H. E. Butler, Loeb Classical Library, vol. IV, 1920, transcrição LacusCurtius. Butler faleceu em 1951; base histórica em domínio público no Brasil. Não é tradução direta do latim. Conservam-se os exemplos históricos do autor; as remissões e notas modernas do site não integram o recorte.\n\n**1.** A execução do discurso costuma também chamar-se ação. O primeiro nome deriva da voz; o segundo, do gesto. Cícero, em uma passagem, chama a ação de uma forma de fala e, em outra, de uma espécie de eloquência do corpo. Entretanto, divide a ação nos mesmos dois elementos da execução: voz e movimento. Por isso não importa qual dos termos empreguemos.\n\n**2.** A própria coisa, porém, exerce um efeito extraordinariamente poderoso na oratória. A natureza do discurso que compusemos em nossa mente não importa tanto quanto o modo de o apresentar, pois a emoção de cada ouvinte dependerá da impressão produzida em seus ouvidos. Consequentemente, nenhuma prova, ao menos das elaboradas pelo próprio orador, será tão segura que não perca sua força se ele não a apresentar com uma voz que a faça atingir o alvo. Todos os apelos à emoção cairão por terra se não receberem o fogo que a voz, o olhar e toda a atitude do corpo lhes podem dar.\n\n**3.** Mesmo depois de fazermos tudo isso, ainda nos podemos considerar afortunados se conseguirmos comunicar ao juiz o fogo de nossa paixão. Assim, não podemos esperar comovê-lo falando com languidez e indiferença, nem impedir que ceda ao efeito entorpecente de nossos próprios bocejos.\n\n**4.** Os atores no teatro dão prova disso. Acrescentam tanto ao encanto até dos maiores poetas que os versos nos comovem muito mais quando ouvidos do que quando lidos; e conseguem obter atenção mesmo para autores sem valor, que repetidamente são acolhidos no palco e recusados na biblioteca.\n\n**5.** Se a execução pode tanto em assuntos que sabemos fictícios e sem realidade, a ponto de provocar nossa cólera, nossas lágrimas ou nossa ansiedade, quanto maior deverá ser seu efeito quando realmente acreditamos no que ouvimos? De minha parte, não hesitaria em afirmar que um discurso mediano, sustentado por toda a força da execução, causará maior impressão que o melhor discurso privado desse poder.\n\n**6.** Por isso Demóstenes, perguntado sobre o que era mais importante na oratória, deu o primeiro lugar à execução e lhe atribuiu também o segundo e o terceiro, até que seu interlocutor deixasse de perguntar. Quase se justifica concluir que ele a considerava não apenas a primeira, mas a única virtude da oratória.\n\n**7.** Isso explica por que estudou com o ator Andrônico com tamanho empenho e êxito, justificando plenamente o comentário feito por Ésquines aos ródios, quando estes admiraram o discurso de Demóstenes em favor de Ctesifonte: “Que diríeis se o tivésseis ouvido pessoalmente?” Cícero também considera a ação o elemento supremo da oratória.\n\n**8.** Ele registra que Gneu Lêntulo adquiriu maior reputação por sua execução do que por sua eloquência propriamente dita; que Caio Graco, pelo mesmo recurso, levou todo o povo romano às lágrimas ao lamentar a morte do irmão; e que Antônio e Crasso causaram grande impressão por seu domínio dessa qualidade, embora a maior de todas tenha sido a de Quinto Hortênsio. O testemunho é fortemente sustentado pelo fato de os escritos deste último ficarem tão aquém da reputação que por tanto tempo lhe assegurou o primeiro lugar entre os oradores, depois o fez ser considerado rival de Cícero e, por fim, lhe deu, pelo restante da vida, posição inferior apenas à dele. Sua fala devia, portanto, possuir algum encanto que não encontramos ao lê-lo.\n\n**9.** E, de fato, como as palavras por si mesmas têm grande valor, e a voz acrescenta força própria ao assunto de que fala, enquanto gesto e movimento são cheios de significado, podemos estar certos de encontrar algo próximo da perfeição quando todas essas qualidades se combinam.\n",
+      "status": "verified"
+    }
+  ],
+  "rubrics": [
+    {
+      "key": "trivium.integrated",
+      "title": "Gramática, lógica e retórica — apreciações distintas",
+      "criteria": [
+        {
+          "key": "grammar.precision",
+          "pillar": "grammar",
+          "label": "Precisão de leitura e expressão",
+          "descriptors": {
+            "support": "Perde referentes ou altera a tese ao parafrasear.",
+            "developing": "Reconhece relações com apoio e ainda deixa ambiguidades.",
+            "consistent": "Preserva sentido, explicita referentes e justifica revisão.",
+            "transfer": "Transfere a análise a novo gênero e explica efeitos de registro."
+          }
+        },
+        {
+          "key": "logic.inference",
+          "pillar": "logic",
+          "label": "Reconstrução e avaliação da inferência",
+          "descriptors": {
+            "support": "Confunde afirmação, premissa e conclusão.",
+            "developing": "Reconstrói parte do argumento, mas precisa de apoio para testá-lo.",
+            "consistent": "Distingue verdade/validade e testa a inferência com razões ou contraexemplo.",
+            "transfer": "Avalia argumento novo, torna pressupostos explícitos e revê a conclusão."
+          }
+        },
+        {
+          "key": "rhetoric.expression",
+          "pillar": "rhetoric",
+          "label": "Expressão situada e resposta ao outro",
+          "descriptors": {
+            "support": "Tese e audiência pouco claras; não responde à objeção.",
+            "developing": "Organiza razões, mas adequação e resposta ainda exigem apoio.",
+            "consistent": "Expõe razões para audiência definida e responde à objeção com justiça.",
+            "transfer": "Adapta forma e razões a situação nova e explica escolhas responsáveis."
+          }
+        }
+      ]
+    },
+    {
+      "key": "c01.integrated",
+      "title": "Módulo 1 — leitura, raciocínio e expressão",
+      "criteria": [
+        {
+          "key": "grammar.precision",
+          "pillar": "grammar",
+          "label": "Precisão de leitura e expressão",
+          "descriptors": {
+            "support": "Troca referentes, negações ou voz do autor.",
+            "developing": "Preserva o núcleo com ajuda; explica parcialmente as escolhas.",
+            "consistent": "Preserva alcance e referentes; justifica duas revisões.",
+            "transfer": "Aplica o cuidado em texto novo sem orientação pontual."
+          }
+        },
+        {
+          "key": "logic.inference",
+          "pillar": "logic",
+          "label": "Reconstrução e avaliação da inferência",
+          "descriptors": {
+            "support": "Confunde opinião, razão e conclusão.",
+            "developing": "Identifica a conclusão, mas omite uma ligação relevante.",
+            "consistent": "Explicita razões, conclusão e um limite inferencial.",
+            "transfer": "Reconstrói outro argumento e delimita o que falta saber."
+          }
+        },
+        {
+          "key": "rhetoric.expression",
+          "pillar": "rhetoric",
+          "label": "Expressão situada e resposta ao outro",
+          "descriptors": {
+            "support": "Caricatura a posição ou não responde à objeção.",
+            "developing": "Expõe com apoio e responde parcialmente.",
+            "consistent": "Situa a fala, representa o outro com justiça e responde de modo pertinente.",
+            "transfer": "Ajusta a exposição a outra audiência preservando o argumento."
+          }
+        }
+      ]
+    },
+    {
+      "key": "c02.integrated",
+      "title": "Imitar com discernimento",
+      "criteria": [
+        {
+          "key": "c02.grammar",
+          "pillar": "grammar",
+          "label": "Voz e referência",
+          "descriptors": {
+            "support": "Confunde autor, narrador e personagem ou deixa referentes centrais indeterminados.",
+            "developing": "Distingue as vozes com apoio, mas uma retomada ainda altera o sentido.",
+            "consistent": "Distingue as vozes e mantém referentes claros na leitura e na imitação.",
+            "transfer": "Faz a mesma distinção em narrativa nova e explica um uso deliberado de ambiguidade."
+          }
+        },
+        {
+          "key": "c02.logic",
+          "pillar": "logic",
+          "label": "Limite da analogia",
+          "descriptors": {
+            "support": "Converte posição física ou prestígio em prova automática de valor.",
+            "developing": "Percebe a comparação, mas precisa de ajuda para delimitar sua conclusão.",
+            "consistent": "Explicita a relação comparada e indica uma propriedade que não se transfere.",
+            "transfer": "Constrói um contraexemplo pertinente e revisa a comparação sem descartá-la integralmente."
+          }
+        },
+        {
+          "key": "c02.rhetoric",
+          "pillar": "rhetoric",
+          "label": "Transformação do modelo",
+          "descriptors": {
+            "support": "Copia a superfície sem atribuição ou sem mudança reconhecível de situação.",
+            "developing": "Declara o modelo, mas as mudanças têm pouca relação com o efeito pretendido.",
+            "consistent": "Transforma estrutura e audiência e justifica duas escolhas com passagens.",
+            "transfer": "Compara efeitos de duas soluções possíveis e escolhe uma sem reduzir o modelo a fórmula."
+          }
+        }
+      ]
+    },
+    {
+      "key": "c03.integrated",
+      "title": "Argumentar e objetar",
+      "criteria": [
+        {
+          "key": "c03.grammar",
+          "pillar": "grammar",
+          "label": "Alcance das afirmações",
+          "descriptors": {
+            "support": "Troca alguns por todos ou apaga uma condição decisiva.",
+            "developing": "Reconhece as expressões, mas precisa de ajuda para preservar seu alcance.",
+            "consistent": "Parafraseia negações e condições sem fortalecer indevidamente a tese.",
+            "transfer": "Diagnostica uma alteração sutil de alcance em texto novo e a corrige."
+          }
+        },
+        {
+          "key": "c03.logic",
+          "pillar": "logic",
+          "label": "Reconstrução e teste",
+          "descriptors": {
+            "support": "Trata concordância com a conclusão como prova da inferência.",
+            "developing": "Identifica razões, mas confunde premissa falsa e passagem inválida.",
+            "consistent": "Explicita premissas e conclusão e dirige a objeção ao ponto pertinente.",
+            "transfer": "Propõe contraexemplo que testa precisamente a passagem e delimita o resultado."
+          }
+        },
+        {
+          "key": "c03.rhetoric",
+          "pillar": "rhetoric",
+          "label": "Resposta à objeção",
+          "descriptors": {
+            "support": "Responde a uma versão que o interlocutor não reconhece.",
+            "developing": "Restitui parte da objeção, mas muda de assunto na resposta.",
+            "consistent": "Reconstrói a objeção de maneira justa e responde com evidência textual.",
+            "transfer": "Concede um ponto relevante, ajustando a tese sem perder o problema central."
+          }
+        }
+      ]
+    },
+    {
+      "key": "c04.integrated",
+      "title": "Compor e julgar",
+      "criteria": [
+        {
+          "key": "c04.grammar",
+          "pillar": "grammar",
+          "label": "Coerência e revisão",
+          "descriptors": {
+            "support": "Parágrafos justapostos ou referentes ambíguos impedem acompanhar a tese.",
+            "developing": "Há uma linha geral, mas duas transições dependem de explicação oral adicional.",
+            "consistent": "Transições e referentes permitem acompanhar as funções dos parágrafos.",
+            "transfer": "Reorganiza um texto novo e justifica a revisão em função da audiência."
+          }
+        },
+        {
+          "key": "c04.logic",
+          "pillar": "logic",
+          "label": "Razão, exemplo e evidência",
+          "descriptors": {
+            "support": "Uma imagem ou citação é tratada como demonstração suficiente.",
+            "developing": "Distingue exemplos, mas deixa implícita a passagem central à conclusão.",
+            "consistent": "Separa evidência textual, razão e ilustração, explicitando o vínculo principal.",
+            "transfer": "Identifica os limites de uma analogia e oferece uma razão independente pertinente."
+          }
+        },
+        {
+          "key": "c04.rhetoric",
+          "pillar": "rhetoric",
+          "label": "Disposição e audiência",
+          "descriptors": {
+            "support": "Acumula assuntos sem hierarquia ou presume conhecimentos não oferecidos.",
+            "developing": "Define leitor e tese, mas a ordem dificulta reconhecer a objeção.",
+            "consistent": "Organiza contexto, tese, razões, objeção e fecho para o leitor indicado.",
+            "transfer": "Compara duas ordens possíveis e explica a escolha sem manipular o sentido do texto."
+          }
+        }
+      ]
+    },
+    {
+      "key": "c05.integrated",
+      "title": "Pronunciar e responder",
+      "criteria": [
+        {
+          "key": "c05.grammar",
+          "pillar": "grammar",
+          "label": "Precisão oral",
+          "descriptors": {
+            "support": "A fala perde referentes ou altera uma condição decisiva.",
+            "developing": "A tese pode ser reconstruída, mas depende de perguntas para esclarecer termos.",
+            "consistent": "Pausas, referentes e termos permitem acompanhar a tese sem alterar o texto.",
+            "transfer": "Reformula uma passagem difícil sob pergunta preservando distinções essenciais."
+          }
+        },
+        {
+          "key": "c05.logic",
+          "pillar": "logic",
+          "label": "Premissas e carga da prova",
+          "descriptors": {
+            "support": "Invoca força vocal ou autoridade como substituto das razões.",
+            "developing": "Identifica uma premissa implícita, mas atribui ao outro toda a tarefa de refutação.",
+            "consistent": "Assume a defesa das premissas de sua leitura e distingue efeito de prova.",
+            "transfer": "Revê uma premissa diante de objeção e delimita o que ainda consegue sustentar."
+          }
+        },
+        {
+          "key": "c05.rhetoric",
+          "pillar": "rhetoric",
+          "label": "Escuta e resposta",
+          "descriptors": {
+            "support": "Ignora a objeção ou responde a outra pergunta.",
+            "developing": "Restitui a pergunta com ajuda e oferece resposta parcialmente pertinente.",
+            "consistent": "Restitui, concede quando cabe e responde com uma passagem relevante.",
+            "transfer": "Integra uma objeção inesperada em uma reformulação clara sem disfarçar a concessão."
+          }
+        }
+      ]
+    },
+    {
+      "key": "c06.integrated",
+      "title": "Integrar e interpretar",
+      "criteria": [
+        {
+          "key": "c06.grammar",
+          "pillar": "grammar",
+          "label": "Fidelidade e edição",
+          "descriptors": {
+            "support": "Citações ou paráfrases alteram uma voz, referência ou condição central.",
+            "developing": "Localiza passagens, mas uma interpretação depende de correção externa do texto.",
+            "consistent": "Localiza e interpreta preservando as relações de linguagem relevantes.",
+            "transfer": "Aplica os mesmos cuidados a passagem nova e explica uma decisão de edição."
+          }
+        },
+        {
+          "key": "c06.logic",
+          "pillar": "logic",
+          "label": "Sustentação e limite",
+          "descriptors": {
+            "support": "A tese é opinião sem apoio ou omite evidência contrária decisiva.",
+            "developing": "Há apoio textual, mas a alternativa é fraca ou o vínculo permanece implícito.",
+            "consistent": "Analisa três passagens, enfrenta alternativa plausível e delimita a conclusão.",
+            "transfer": "Reformula a tese diante de passagem resistente, preservando o que pode sustentar."
+          }
+        },
+        {
+          "key": "c06.rhetoric",
+          "pillar": "rhetoric",
+          "label": "Exposição e arguição",
+          "descriptors": {
+            "support": "A apresentação não permite reconhecer a pergunta ou evita a arguição.",
+            "developing": "Apresenta a tese, mas precisa de apoio para responder à pergunta recebida.",
+            "consistent": "Expõe a interpretação no tempo e responde à pergunta com evidência e escuta.",
+            "transfer": "Integra uma pergunta nova, concede quando necessário e formula um desdobramento preciso."
+          }
+        }
+      ]
+    }
+  ],
+  "cycles": [
+    {
+      "key": "c01",
+      "title": "Ler e escutar: compreender antes de julgar",
+      "question": "O que o outro realmente afirma, que razões oferece e o que estamos autorizados a concluir?",
+      "objectives": {
+        "grammar": "Preservar referentes, voz, negação e alcance na paráfrase; justificar revisões.",
+        "logic": "Distinguir afirmações, razões e conclusão; explicitar um limite da inferência.",
+        "rhetoric": "Reconstruir uma posição com fidelidade, situar a audiência e responder a uma objeção."
+      },
+      "activities": [
+        {
+          "key": "c01.baseline",
+          "type": "baseline",
+          "title": "Diagnóstico inicial",
+          "prompt": "### A0 — Baseline, antes de P1 e das oficinas\n\n45 minutos; guardar a primeira versão sem correção prévia. Texto original, fictício:\n\n> Em uma oficina de escrita, quatro dos seis participantes entregaram a atividade depois do prazo. Todos os que entregaram depois do prazo disseram ter lido as instruções pelo celular. A coordenação concluiu que o celular provocou os atrasos e propôs proibir seu uso. Uma participante observou que não se registrou como os dois pontuais leram as instruções, nem quanto tempo cada pessoa teve para escrever. Ela sugeriu observar mais uma atividade antes de mudar a regra.\n\nInstrução: identifique o referente de “ela”; reconte a proposta da coordenação em até 80 palavras; liste sua conclusão e as razões apresentadas; aponte uma informação que falta; escreva uma resposta de 120–180 palavras à coordenação; grave uma explicação de até três minutos. Registre tempo, consultas e ajuda recebida. Distribuição orientadora: leitura 5, linguagem 5, mapa 8, escrita 17, fala 5, registro 5 minutos. Sem IA ou texto de terceiros para produzir a resposta; recursos de acessibilidade permitidos e registrados.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c01.integrated",
+          "reading_keys": [],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.reading",
+          "type": "reading",
+          "title": "Leitura",
+          "prompt": "### A1 — Leitura e seminário\n\nPara P1, trazer: uma passagem localizada; uma paráfrase de 150–200 palavras de uma unidade argumentativa dentro de 20c–23b; três termos ou expressões cuja interpretação precisa justificar; uma pergunta sem resposta pronta. Marcar separadamente **o que está escrito**, **o que estou inferindo** e **minha avaliação**.\n\nEncontro 1 (90): abertura/contexto 10; releitura e referentes 15; seminário 35; oficina de reconstrução do argumento 20; síntese e tarefa seguinte 10. Professor modera. Os seis participantes têm uma intervenção inicial curta; em cada resposta, primeiro reconstituem a contribuição anterior. Não premiar quem fala mais.\n\nPerguntas: que diferença há entre possuir uma habilidade e supor-se competente em outros assuntos? O que o relato permite atribuir a Sócrates? Que inferência sobre todas as pessoas desse grupo seria excessiva? A expressão “Sócrates nada sabe” preserva as distinções do trecho?",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c01.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "c01.worksheet"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.seminar",
+          "type": "seminar",
+          "title": "Seminário",
+          "prompt": "### A1 — Leitura e seminário\n\nPara P1, trazer: uma passagem localizada; uma paráfrase de 150–200 palavras de uma unidade argumentativa dentro de 20c–23b; três termos ou expressões cuja interpretação precisa justificar; uma pergunta sem resposta pronta. Marcar separadamente **o que está escrito**, **o que estou inferindo** e **minha avaliação**.\n\nEncontro 1 (90): abertura/contexto 10; releitura e referentes 15; seminário 35; oficina de reconstrução do argumento 20; síntese e tarefa seguinte 10. Professor modera. Os seis participantes têm uma intervenção inicial curta; em cada resposta, primeiro reconstituem a contribuição anterior. Não premiar quem fala mais.\n\nPerguntas: que diferença há entre possuir uma habilidade e supor-se competente em outros assuntos? O que o relato permite atribuir a Sócrates? Que inferência sobre todas as pessoas desse grupo seria excessiva? A expressão “Sócrates nada sabe” preserva as distinções do trecho?",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c01.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "c01.worksheet"
+          ],
+          "roles": {
+            "participant": 6
+          }
+        },
+        {
+          "key": "c01.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio",
+          "prompt": "### A2 — Imitação declarada\n\nEscolha uma sequência do texto — expectativa, investigação, contraste ou revisão de juízo — e componha 100–150 palavras sobre situação fictícia diferente. Acrescente 40–60 palavras identificando a passagem-modelo, a estrutura preservada e a mudança de sentido. Não exigir imitação do vocabulário arcaizante. Este exercício prepara a composição; não é um segundo ensaio a ser corrigido integralmente.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c01.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "c01.worksheet"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.composition",
+          "type": "composition",
+          "title": "Composição",
+          "prompt": "### A3 — Composição e feedback de par\n\n**Prompt:** um conselho de formação considera dispensar os especialistas de justificar suas recomendações. Escreva para esse conselho: em que condições a competência em uma área autoriza confiança, e o que ela não dispensa? Reconstrua uma posição de P1 antes de avaliá-la; use P2 para examinar um limite ou contraste, sem tratá-lo como prova empírica universal.\n\n450–650 palavras, com tese, duas razões, uma objeção plausível e resposta. Anexar mapa de 3–5 proposições e duas revisões linguísticas comentadas. Uma versão inicial e uma revista da mesma composição; preservar ambas.\n\nPares em três duplas, 20 minutos por leitor: (1) restituir a tese do colega; (2) apontar uma passagem precisa; (3) indicar uma pergunta ou salto inferencial; (4) sugerir uma revisão. Não dar nota ao colega nem reescrever por ele. Autor registra qual sugestão adotou ou recusou e por quê.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c01.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "c01.phaedrus.1.1"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c01.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio",
+          "prompt": "### A4 — Disputatio inicial\n\nProposição didática: **“A competência técnica basta para dispensar a justificação pública de uma recomendação.”** Definir “competência”, “basta”, “justificação” e “pública” antes do confronto. Defender um papel não significa aderir pessoalmente à tese. O foco é reconstruir e testar razões, não ganhar um debate.\n\nEncontro 2 (90): termos e regras 10; leitura de P2 e distinção entre razão/pretexto 15; rodada 1, 20; troca de papéis e rodada 2, 20; síntese das concessões 15; encaminhamento da revisão 10.\n\nCada rodada: dois defensores, dois objetores, um relator, um observador da fidelidade. Na segunda, os dois que não falaram como debatedores entram na defesa; os defensores anteriores tornam-se objetores; os objetores anteriores assumem relato/observação. Todos debatem ao menos uma vez. Preparar ambos os lados antes do encontro. Antes de objetar, reconstruir o argumento e obter confirmação do interlocutor; distinguir concessão de abandono total da tese.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c01.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "c01.worksheet"
+          ],
+          "roles": {
+            "defender": 2,
+            "objector": 2,
+            "rapporteur": 1,
+            "fidelity_observer": 1
+          }
+        },
+        {
+          "key": "c01.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio",
+          "prompt": "### A5 — Declamatio e reflexão\n\nEncontro 3 (90): orientação 5; seis apresentações com 4 minutos de fala e 3 de arguição cada (42); síntese dos pares 13; reflexão comparativa 20; próximos passos 10. A fala adapta a composição ao ouvido, sem obrigação de decorar ou ler o ensaio inteiro. Pode usar uma ficha de tópicos.\n\nA objeção deve exigir esclarecimento de um termo ou de uma passagem inferencial. O apresentador pode dizer “isso ainda não está demonstrado” e revisar a tese. Não avaliar desempenho teatral, personalidade ou autoconfiança aparente.\n\nReflexão de 150–250 palavras: uma mudança de leitura, uma revisão de raciocínio, uma mudança de expressão, cada qual ligada a uma evidência. Ao final, definir um único próximo passo para C2.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c01.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "c01.worksheet"
+          ],
+          "roles": {
+            "speaker": 6
+          }
+        },
+        {
+          "key": "c01.reflection",
+          "type": "reflection",
+          "title": "Reflexão",
+          "prompt": "### A5 — Declamatio e reflexão\n\nEncontro 3 (90): orientação 5; seis apresentações com 4 minutos de fala e 3 de arguição cada (42); síntese dos pares 13; reflexão comparativa 20; próximos passos 10. A fala adapta a composição ao ouvido, sem obrigação de decorar ou ler o ensaio inteiro. Pode usar uma ficha de tópicos.\n\nA objeção deve exigir esclarecimento de um termo ou de uma passagem inferencial. O apresentador pode dizer “isso ainda não está demonstrado” e revisar a tese. Não avaliar desempenho teatral, personalidade ou autoconfiança aparente.\n\nReflexão de 150–250 palavras: uma mudança de leitura, uma revisão de raciocínio, uma mudança de expressão, cada qual ligada a uma evidência. Ao final, definir um único próximo passo para C2.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c01.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "c01.worksheet"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ],
+      "cadence": {
+        "weeks": 4,
+        "individual_minutes": [
+          120,
+          150,
+          135,
+          120
+        ],
+        "meeting_minutes": [
+          0,
+          90,
+          90,
+          90
+        ]
+      }
+    },
+    {
+      "key": "c02",
+      "title": "Imitar com discernimento",
+      "question": "O que podemos aprender com uma forma sem repetir o juízo de quem a usa?",
+      "objectives": {
+        "grammar": "Distinguir narrador e personagens, recuperar referentes e controlar o efeito do diálogo.",
+        "logic": "Explicitar o termo de comparação e o limite de uma analogia; distinguir condição necessária de superioridade.",
+        "rhetoric": "Transformar uma estrutura narrativa para outra situação e justificar o efeito sobre a audiência."
+      },
+      "activities": [
+        {
+          "key": "c02.reading",
+          "type": "reading",
+          "title": "Leitura — Imitar com discernimento",
+          "prompt": "Leia Um apólogo inteiro e Quintiliano X.2.1–8. Marque três mudanças de voz, dois referentes e uma comparação. Responda às quatro perguntas de leitura com passagem e comentário, em até 180 palavras no total. Não procure uma moral única antes de examinar o final.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c02.integrated",
+          "reading_keys": [
+            "machado.apologo",
+            "quintilian.x2"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c02.seminar",
+          "type": "seminar",
+          "title": "Seminário — Imitar com discernimento",
+          "prompt": "Traga duas leituras do silêncio da linha, cada uma com uma passagem de apoio. Antes de discordar de um colega, restitua sua leitura em uma frase que ele reconheça. O grupo distinguirá voz narrativa, interesse da personagem e interpretação do leitor. Ao final, revise uma atribuição de voz que você fez na leitura inicial.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c02.integrated",
+          "reading_keys": [
+            "machado.apologo",
+            "quintilian.x2"
+          ],
+          "roles": {
+            "participante": 6,
+            "moderador": 1
+          }
+        },
+        {
+          "key": "c02.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio — Imitar com discernimento",
+          "prompt": "Escreva 100–130 palavras de uma cena entre dois objetos que cooperam, mas disputam reconhecimento. Preserve uma relação estrutural de Um apólogo e mude o desfecho. Acrescente 50 palavras identificando modelo, empréstimo e transformação. Esta cena será aproveitada na composição, não constitui um segundo trabalho longo.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c02.integrated",
+          "reading_keys": [
+            "machado.apologo",
+            "quintilian.x2"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c02.composition",
+          "type": "composition",
+          "title": "Composição — Imitar com discernimento",
+          "prompt": "Produza uma imitação declarada de 350–500 palavras para um leitor adulto que não conhece o conto. Escolha uma situação diferente da costura; crie duas vozes distinguíveis e um final que complique a disputa. Acrescente uma nota de 80–120 palavras com duas passagens-modelo, o que preservou e o que mudou. Não apresente frases de Machado como suas. Entregue versão inicial, comentário do par e versão revista como etapas da mesma produção.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c02.integrated",
+          "reading_keys": [
+            "machado.apologo",
+            "quintilian.x2"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c02.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio — Imitar com discernimento",
+          "prompt": "Discuta: “No conto, receber o reconhecimento final é suficiente para demonstrar maior valor.” Dois defensores reconstruirão a melhor defesa textual; dois objetores apresentarão um contraexemplo interno; um observador acompanhará referentes e mudanças de sentido de valor; um relator registrará acordo e dissenso. Troquem defesa e objeção na segunda rodada. Não usem a popularidade da personagem como prova.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c02.integrated",
+          "reading_keys": [
+            "machado.apologo",
+            "quintilian.x2"
+          ],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "observador": 1,
+            "relator": 1
+          }
+        },
+        {
+          "key": "c02.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio — Imitar com discernimento",
+          "prompt": "Apresente em 3 minutos sua cena e, em 1 minuto, explique uma transformação em relação a Machado. Receba uma pergunta de 1 minuto. Leia com vozes reconhecíveis sem caricatura. Ao ouvir, o par anotará onde a mudança de voz ficou clara e onde precisou inferi-la.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c02.integrated",
+          "reading_keys": [
+            "machado.apologo",
+            "quintilian.x2"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c02.reflection",
+          "type": "reflection",
+          "title": "Reflexão — Imitar com discernimento",
+          "prompt": "Em 120–180 palavras, compare o primeiro esboço com a versão revista: uma mudança de referente ou voz, uma correção de analogia e uma decisão de efeito. Cite a frase alterada e formule um próximo passo para reconstruir argumentos em C3.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c02.integrated",
+          "reading_keys": [
+            "machado.apologo",
+            "quintilian.x2"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ],
+      "cadence": {
+        "weeks": 4,
+        "individual_minutes": [
+          130,
+          140,
+          135,
+          125
+        ],
+        "meeting_minutes": [
+          0,
+          90,
+          90,
+          90
+        ]
+      }
+    },
+    {
+      "key": "c03",
+      "title": "Argumentar e objetar",
+      "question": "Quais razões sustentam uma interpretação e o que uma boa objeção realmente derruba?",
+      "objectives": {
+        "grammar": "Controlar negações, quantificadores e condicionais ao parafrasear o diálogo.",
+        "logic": "Distinguir validade e verdade, reconstruir premissas e testar uma inferência com contraexemplo.",
+        "rhetoric": "Defender uma interpretação e responder à melhor objeção sem transformar o interlocutor em caricatura."
+      },
+      "activities": [
+        {
+          "key": "c03.reading",
+          "type": "reading",
+          "title": "Leitura — Argumentar e objetar",
+          "prompt": "Leia Críton 46b–49e, incluindo a transição explicitada no texto. Marque uma negação, um quantificador e um condicional. Responda às quatro perguntas em até 200 palavras e monte um argumento em três linhas, distinguindo palavras do autor de premissa reconstruída por você.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c03.integrated",
+          "reading_keys": [
+            "plato.crito46"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.seminar",
+          "type": "seminar",
+          "title": "Seminário — Argumentar e objetar",
+          "prompt": "Apresente seu mapa de três linhas e peça a um colega que identifique qual premissa exige mais defesa. Antes de responder, confirme que compreendeu a objeção. O grupo comparará o argumento do treinador e a regra de não retribuir injustiça, registrando o que cada um estabelece e o que deixa em aberto.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c03.integrated",
+          "reading_keys": [
+            "plato.crito46"
+          ],
+          "roles": {
+            "participante": 6,
+            "moderador": 1
+          }
+        },
+        {
+          "key": "c03.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio — Argumentar e objetar",
+          "prompt": "Reproduza o movimento pergunta–resposta–revisão em diálogo original de 100–150 palavras sobre uma decisão cotidiana sem informação sensível. Inclua uma objeção que obrigue a corrigir um quantificador. Indique o movimento de Sócrates que serviu de modelo. Use o exercício para esclarecer a objeção do ensaio.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c03.integrated",
+          "reading_keys": [
+            "plato.crito46"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.composition",
+          "type": "composition",
+          "title": "Composição — Argumentar e objetar",
+          "prompt": "Defenda, em 450–650 palavras, uma interpretação da regra de não retribuir injustiça no recorte. Use duas passagens localizadas, reconstrua duas premissas e uma conclusão, formule a melhor objeção à sua leitura e responda indicando um limite. O mapa pode integrar o texto. Não é necessário defender a conclusão de Sócrates para interpretar fielmente seu argumento.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c03.integrated",
+          "reading_keys": [
+            "plato.crito46"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio — Argumentar e objetar",
+          "prompt": "Discuta: “A regra de não retribuir injustiça, por si só, basta para concluir que Sócrates não deve fugir.” Dois defensores apresentam a reconstrução mais forte; dois objetores identificam uma premissa adicional; um observador registra alterações de nunca, alguns, se; um relator distingue rejeição de premissa e rejeição de inferência. Invertam defesa e objeção na segunda rodada.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c03.integrated",
+          "reading_keys": [
+            "plato.crito46"
+          ],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "observador": 1,
+            "relator": 1
+          }
+        },
+        {
+          "key": "c03.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio — Argumentar e objetar",
+          "prompt": "Em 3 minutos exponha tese interpretativa, duas razões textuais e uma objeção. Use mais 2 minutos para responder a uma pergunta e até 2 para ouvir a restituição de sua fala pelo par. Cada participante ocupa no máximo 7 minutos do encontro; não leia o ensaio inteiro.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c03.integrated",
+          "reading_keys": [
+            "plato.crito46"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.reflection",
+          "type": "reflection",
+          "title": "Reflexão — Argumentar e objetar",
+          "prompt": "Em 120–180 palavras, compare sua resposta inicial à última pergunta de leitura com o ensaio revisto. Identifique uma mudança de alcance gramatical, uma premissa agora explícita e uma resposta mais justa ao interlocutor. Selecione duas evidências de C1–C3 para o symposium.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c03.integrated",
+          "reading_keys": [
+            "plato.crito46"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c03.symposium",
+          "type": "symposium",
+          "title": "Symposium — Argumentar e objetar",
+          "prompt": "Em 30 minutos, o grupo discutirá: “Quando mudar de opinião é sinal de rigor?” Cada um traz uma passagem e uma revisão própria de C1–C3. Duas pessoas apresentam casos, duas os interrogam, uma conecta leituras e uma registra a síntese. Todos intervêm; não se vota o melhor aluno. O relator registra duas convergências, uma divergência e uma pergunta ainda aberta.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c03.integrated",
+          "reading_keys": [
+            "plato.crito46"
+          ],
+          "roles": {
+            "apresentador": 2,
+            "interlocutor": 2,
+            "conector": 1,
+            "relator": 1
+          }
+        }
+      ],
+      "cadence": {
+        "weeks": 4,
+        "individual_minutes": [
+          130,
+          130,
+          135,
+          135
+        ],
+        "meeting_minutes": [
+          0,
+          90,
+          90,
+          90
+        ]
+      }
+    },
+    {
+      "key": "c04",
+      "title": "Compor e julgar",
+      "question": "Como tornar um discurso claro sem empobrecer o problema nem esconder uma passagem frágil?",
+      "objectives": {
+        "grammar": "Revisar referentes, transições e hierarquia entre parágrafos para uma audiência definida.",
+        "logic": "Distinguir exemplo, analogia e evidência e explicitar a passagem entre razões e conclusão.",
+        "rhetoric": "Organizar uma composição com unidade, objeção pertinente e escolhas justificadas de disposição."
+      },
+      "activities": [
+        {
+          "key": "c04.reading",
+          "type": "reading",
+          "title": "Leitura — Compor e julgar",
+          "prompt": "Leia toda a seção V e o recorte de retomada do Críton. Marque as funções de cinco frases de Vieira e responda às quatro perguntas com localização por parágrafo e palavras iniciais. Separe a imagem das estrelas da razão que ela ajuda a expor.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c04.integrated",
+          "reading_keys": [
+            "vieira.v",
+            "plato.goodlife"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c04.seminar",
+          "type": "seminar",
+          "title": "Seminário — Compor e julgar",
+          "prompt": "Leve as duas explicações de 70 palavras do argumento de Sócrates. Um colega identifica a audiência pretendida sem que você a anuncie. Discutam quando uma explicação mais simples esclarece e quando apaga uma distinção. Ao final, reconstruam a ressalva final de Vieira sem anularem sua crítica anterior.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c04.integrated",
+          "reading_keys": [
+            "vieira.v",
+            "plato.goodlife"
+          ],
+          "roles": {
+            "participante": 6,
+            "moderador": 1
+          }
+        },
+        {
+          "key": "c04.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio — Compor e julgar",
+          "prompt": "Imite, em 100–140 palavras, o movimento de Vieira “imagem concreta → distinção → aplicação ao discurso”, usando uma imagem diferente do céu e da semeadura. Acrescente uma frase sobre o que sua imagem não demonstra. O trecho poderá integrar a composição, mas não precisa ser mantido se prejudicar a unidade.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c04.integrated",
+          "reading_keys": [
+            "vieira.v",
+            "plato.goodlife"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c04.composition",
+          "type": "composition",
+          "title": "Composição — Compor e julgar",
+          "prompt": "Escreva 550–750 palavras para leitores de um círculo de leitura sem formação filosófica: explique por que o argumento sobre viver bem merece discussão, sem exigir adesão. Entregue plano de cinco funções (contexto, tese, razões, objeção, fecho), texto e nota de revisão de 80–100 palavras. Use uma passagem do Críton e uma observação de Vieira; distinga paráfrase, citação e comentário. Revise duas transições após o feedback do par.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c04.integrated",
+          "reading_keys": [
+            "vieira.v",
+            "plato.goodlife"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c04.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio — Compor e julgar",
+          "prompt": "Discuta: “Uma linguagem clara é sempre uma linguagem simples.” Dois defensores delimitam simples; dois objetores apresentam caso de precisão que exige distinção; observador acompanha mudanças do sentido de claro e simples; relator separa desacordo verbal e desacordo substantivo. A seção V é evidência de uma posição, não autoridade que encerra a discussão.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c04.integrated",
+          "reading_keys": [
+            "vieira.v",
+            "plato.goodlife"
+          ],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "observador": 1,
+            "relator": 1
+          }
+        },
+        {
+          "key": "c04.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio — Compor e julgar",
+          "prompt": "Apresente em 4 minutos a abertura, a objeção e o fecho de sua composição, indicando o que omitiu. Responda em 1 minuto a uma pergunta do leitor. Cada par deve conseguir restituir a ordem das razões. Não avalie clareza pelo número de palavras difíceis apenas.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c04.integrated",
+          "reading_keys": [
+            "vieira.v",
+            "plato.goodlife"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c04.reflection",
+          "type": "reflection",
+          "title": "Reflexão — Compor e julgar",
+          "prompt": "Em 120–180 palavras, mostre uma transição antes e depois da revisão; explique uma diferença entre exemplo e razão em seu texto e uma adaptação à audiência que preservou a tese. Registre um ponto que precisará ser resolvido oralmente em C5.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c04.integrated",
+          "reading_keys": [
+            "vieira.v",
+            "plato.goodlife"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ],
+      "cadence": {
+        "weeks": 4,
+        "individual_minutes": [
+          125,
+          130,
+          140,
+          125
+        ],
+        "meeting_minutes": [
+          0,
+          90,
+          90,
+          90
+        ]
+      }
+    },
+    {
+      "key": "c05",
+      "title": "Pronunciar e responder",
+      "question": "Como dar voz a uma interpretação e continuar pensando quando alguém a contesta?",
+      "objectives": {
+        "grammar": "Preservar referentes, condições e distinções por meio de segmentação, pausas e precisão oral.",
+        "logic": "Reconstruir premissas implícitas e distribuir a carga da prova sem confundir força da voz e força da razão.",
+        "rhetoric": "Apresentar uma interpretação em cinco minutos e responder a objeções com escuta, concessão e retomada."
+      },
+      "activities": [
+        {
+          "key": "c05.reading",
+          "type": "reading",
+          "title": "Leitura — Pronunciar e responder",
+          "prompt": "Leia Críton 50a–54d e Quintiliano XI.3.1–9. Distinga a voz de Sócrates, a das Leis imaginadas e a resposta de Críton. Responda às quatro perguntas; marque uma premissa implícita como reconstrução sua, não como citação.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c05.integrated",
+          "reading_keys": [
+            "plato.crito50",
+            "quintilian.xi3"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c05.seminar",
+          "type": "seminar",
+          "title": "Seminário — Pronunciar e responder",
+          "prompt": "Compare duas leituras: as Leis formulam uma regra geral de obediência ou um argumento dirigido à história particular de Sócrates? Cada leitor sustenta sua interpretação com duas passagens e enfrenta uma passagem resistente. Não resolva o problema pela mera força da leitura em voz alta.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c05.integrated",
+          "reading_keys": [
+            "plato.crito50",
+            "quintilian.xi3"
+          ],
+          "roles": {
+            "participante": 6,
+            "moderador": 1
+          }
+        },
+        {
+          "key": "c05.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio — Pronunciar e responder",
+          "prompt": "Escolha um parágrafo das Leis. Leia-o duas vezes, preservando as palavras e mudando somente pausas e ênfases. O par restitui o que compreendeu. Depois escreva 80–120 palavras em que uma biblioteca se dirige a seus leitores, identificando o recurso de personificação e uma diferença em relação a Platão. O exercício não será um ensaio adicional.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c05.integrated",
+          "reading_keys": [
+            "plato.crito50",
+            "quintilian.xi3"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c05.composition",
+          "type": "composition",
+          "title": "Composição — Pronunciar e responder",
+          "prompt": "Prepare um roteiro de 350–500 palavras ou tópicos equivalentes para uma fala de cinco minutos: pergunta, tese interpretativa, duas passagens, objeção e resposta provisória. Inclua indicações de pausa e uma frase de retomada. Este roteiro substitui um ensaio escrito; não há entrega de composição longa além dele. Revise-o após o feedback do par.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c05.integrated",
+          "reading_keys": [
+            "plato.crito50",
+            "quintilian.xi3"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c05.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio — Pronunciar e responder",
+          "prompt": "Discuta: “A permanência de Sócrates em Atenas demonstra consentimento suficiente para a obrigação descrita pelas Leis.” Dois defensores sustentam a leitura; dois objetores testam a premissa de consentimento; um observador registra mudança de referentes e de sentido de livre; um relator registra uma concessão por rodada. Na segunda rodada invertam posições. Cada objeção deve ser restituída antes de receber resposta.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c05.integrated",
+          "reading_keys": [
+            "plato.crito50",
+            "quintilian.xi3"
+          ],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "observador": 1,
+            "relator": 1
+          }
+        },
+        {
+          "key": "c05.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio — Pronunciar e responder",
+          "prompt": "Apresente sua interpretação em cinco minutos e responda a duas objeções em até três minutos. Oito minutos por participante. Pode usar roteiro, falar sentado e fazer pausas. Não se exigem gravação, volume alto, sotaque específico ou gestual padronizado. A evidência é a inteligibilidade da tese e das razões sob objeção.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c05.integrated",
+          "reading_keys": [
+            "plato.crito50",
+            "quintilian.xi3"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c05.reflection",
+          "type": "reflection",
+          "title": "Reflexão — Pronunciar e responder",
+          "prompt": "Em 120–180 palavras, identifique uma pausa que melhorou o sentido, uma premissa que precisou explicitar e uma concessão que modificou sua fala. Compare roteiro e execução com registro do professor ou gravação consentida. Delimite o texto clássico que pretende interpretar em C6.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c05.integrated",
+          "reading_keys": [
+            "plato.crito50",
+            "quintilian.xi3"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        }
+      ],
+      "cadence": {
+        "weeks": 4,
+        "individual_minutes": [
+          135,
+          130,
+          135,
+          125
+        ],
+        "meeting_minutes": [
+          0,
+          90,
+          90,
+          90
+        ]
+      }
+    },
+    {
+      "key": "c06",
+      "title": "Integrar e interpretar",
+      "question": "Que interpretação consigo sustentar de um clássico e quais limites reconheço no que afirmo?",
+      "objectives": {
+        "grammar": "Interpretar e editar passagens preservando vozes, referentes, condições e localização.",
+        "logic": "Sustentar uma tese interpretativa com razões textuais e enfrentar uma leitura alternativa forte.",
+        "rhetoric": "Compor e apresentar uma interpretação delimitada, responder à arguição e reconhecer o que permanece aberto."
+      },
+      "activities": [
+        {
+          "key": "c06.reading",
+          "type": "reading",
+          "title": "Leitura — Integrar e interpretar",
+          "prompt": "Escolha um item da antologia incorporada: Apologia (recortes de C1), Um apólogo, Críton 46b–49e, Sexagésima V ou Críton 50a–54d. Releia apenas o escolhido como leitura obrigatória. Entregue pergunta, delimitação e três fichas de passagem, incluindo uma que resista à tese. O professor confirma que o problema cabe em 700–900 palavras.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c06.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "machado.apologo",
+            "plato.crito46",
+            "vieira.v",
+            "plato.crito50"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.seminar",
+          "type": "seminar",
+          "title": "Seminário — Integrar e interpretar",
+          "prompt": "Apresente pergunta e tese em 90 segundos, seguidas de uma passagem favorável e uma resistente. Um colega formula a melhor leitura alternativa; confirme se a reconhece. O professor ajuda a reduzir amplitude, sem escolher a conclusão que o aluno deverá defender.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c06.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "machado.apologo",
+            "plato.crito46",
+            "vieira.v",
+            "plato.crito50"
+          ],
+          "roles": {
+            "participante": 6,
+            "moderador": 1
+          }
+        },
+        {
+          "key": "c06.imitatio",
+          "type": "imitatio",
+          "title": "Imitatio — Integrar e interpretar",
+          "prompt": "Reescreva um parágrafo de sua interpretação usando um movimento estudado: pergunta e exame do Críton, contraste de vozes de Machado ou imagem seguida de distinção em Vieira. Produza duas versões de 80–120 palavras e escolha uma, explicando em 40 palavras qual preserva melhor a evidência. É revisão do ensaio, não tarefa longa adicional.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c06.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "machado.apologo",
+            "plato.crito46",
+            "vieira.v",
+            "plato.crito50"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.composition",
+          "type": "composition",
+          "title": "Composição — Integrar e interpretar",
+          "prompt": "Escreva um ensaio interpretativo de 700–900 palavras sobre o recorte aprovado: pergunta, tese, três passagens analisadas, leitura alternativa forte, resposta e limite. Identifique obra e localização das passagens; não é preciso bibliografia secundária obrigatória. Entregue esboço, feedback do par e versão final como um único percurso. Anexe nota de revisão de 80–120 palavras com uma mudança por pilar.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c06.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "machado.apologo",
+            "plato.crito46",
+            "vieira.v",
+            "plato.crito50"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.disputatio",
+          "type": "disputatio",
+          "title": "Disputatio — Integrar e interpretar",
+          "prompt": "Em três pares, cada autor formula sua tese e recebe do colega uma interpretação alternativa apoiada no mesmo texto. No plenário, dois defensores e dois objetores examinam um caso selecionado por pertinência pedagógica; um observador registra precisão textual e um relator registra concessões. Troquem funções na segunda rodada. O julgamento é das razões, não do prestígio do texto escolhido.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c06.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "machado.apologo",
+            "plato.crito46",
+            "vieira.v",
+            "plato.crito50"
+          ],
+          "roles": {
+            "defensor": 2,
+            "objetor": 2,
+            "observador": 1,
+            "relator": 1
+          }
+        },
+        {
+          "key": "c06.declamatio",
+          "type": "declamatio",
+          "title": "Declamatio — Integrar e interpretar",
+          "prompt": "Prepare uma fala de cinco minutos sobre o ensaio, integrada à banca final: pergunta e tese, duas evidências, alternativa e limite. Não leia as 700–900 palavras. Ensaie com o roteiro; esta fala não exige um encontro adicional nem constitui uma segunda apresentação avaliada.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c06.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "machado.apologo",
+            "plato.crito46",
+            "vieira.v",
+            "plato.crito50"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.reflection",
+          "type": "reflection",
+          "title": "Reflexão — Integrar e interpretar",
+          "prompt": "Em 150–250 palavras, compare uma evidência de C1, uma de C3 e uma de C6. Separe o que você consegue fazer com mais autonomia, o que ainda exige apoio e o que não foi observado. Ligue cada afirmação a um trecho ou registro e escolha um próximo passo para cada pilar.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c06.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "machado.apologo",
+            "plato.crito46",
+            "vieira.v",
+            "plato.crito50"
+          ],
+          "roles": {
+            "participante": 6
+          }
+        },
+        {
+          "key": "c06.symposium",
+          "type": "symposium",
+          "title": "Symposium — Integrar e interpretar",
+          "prompt": "Após as seis apresentações, conversem por 20 minutos sobre “O que torna uma interpretação responsável?”. Distribuam duas apresentações de contraste, duas interlocuções, uma conexão entre autores e uma relatoria. Todos contribuem com uma evidência. A síntese registra uma convergência, uma divergência e uma questão que o percurso não resolveu.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c06.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "machado.apologo",
+            "plato.crito46",
+            "vieira.v",
+            "plato.crito50"
+          ],
+          "roles": {
+            "apresentador": 2,
+            "interlocutor": 2,
+            "conector": 1,
+            "relator": 1
+          }
+        },
+        {
+          "key": "c06.panel",
+          "type": "panel",
+          "title": "Banca final — Integrar e interpretar",
+          "prompt": "Banca de 60 minutos: seis participantes, dez minutos cada (cinco de apresentação, quatro de arguição e um de transição/registro). O professor usa a rubrica e um par formula uma pergunta textual. A declamatio é a apresentação da banca, não evento extra. A tarefa breve de transferência acontece no orçamento individual e fica separada do ensaio. A conclusão combina evidências, sem média automática nem classificação dos alunos.",
+          "pillars": [
+            "grammar",
+            "logic",
+            "rhetoric"
+          ],
+          "competency_keys": [
+            "grammar.precision",
+            "logic.inference",
+            "rhetoric.expression"
+          ],
+          "rubric_key": "c06.integrated",
+          "reading_keys": [
+            "c01.plato.apology",
+            "machado.apologo",
+            "plato.crito46",
+            "vieira.v",
+            "plato.crito50"
+          ],
+          "roles": {
+            "participante": 6,
+            "professor": 1
+          }
+        }
+      ],
+      "cadence": {
+        "weeks": 4,
+        "individual_minutes": [
+          135,
+          145,
+          140,
+          140
+        ],
+        "meeting_minutes": [
+          0,
+          90,
+          90,
+          90
+        ]
+      }
+    }
+  ],
+  "materials": {
+    "c01": {
+      "version": "0.3.0",
+      "translation_review": "approved",
+      "participant_sha256": "1333d862e14e561c600db691301895fcbcfd3ee69f3bb3a73e3066737ebc70e6",
+      "teacher_sha256": "98b0e29582c48d4fd463e6a5e1bf31d65eab2c802e4b0c005c80b8203330b259"
+    },
+    "c02": {
+      "version": "0.3.0",
+      "translation_review": "approved",
+      "participant_sha256": "7fb0bb0bb30bfb31f067748a7ccf75cd8dda25b4940ae10e5a96cefc4e067741",
+      "teacher_sha256": "f86f0daba66ba84f665da48b4b89b0967094291bac49dd26e5f7cbd8bc5d27d7"
+    },
+    "c03": {
+      "version": "0.3.0",
+      "translation_review": "approved",
+      "participant_sha256": "aed7573a81f3442018a337fb2ddf807b9df8dd7c04b066609b4ac9797df677d9",
+      "teacher_sha256": "844360f541072a1c9ffbe189d559b32cb942c58561456743c459fe02b1312057"
+    },
+    "c04": {
+      "version": "0.3.0",
+      "translation_review": "approved",
+      "participant_sha256": "a8d40552d762a425540eb30a4c4f0205b4c179b646a39598b26a87e4d0439fd3",
+      "teacher_sha256": "678547961cf3395e1c86a88ab4dafb68ad8ccec5f7bd9806df74fdbe41369f99"
+    },
+    "c05": {
+      "version": "0.3.0",
+      "translation_review": "approved",
+      "participant_sha256": "a7637ea6d8c462bdcb7e93e3fae44648ddbe9c9cd86bb5dd4d97c79435af3c5a",
+      "teacher_sha256": "2b8944abd3b4b55025751d8bc7d9920de2c0dbbfcf64f5c28642f16feeb1a172"
+    },
+    "c06": {
+      "version": "0.3.0",
+      "translation_review": "approved",
+      "participant_sha256": "3931156d9677743acd484e940537053164dd03a9ad9cce14622fed1b4aad9c58",
+      "teacher_sha256": "9ac7af9d56b3da8d0a47eb28f650d97c5ba4c0865a120f5f0d3585b73ec5594c"
+    }
+  }
+}

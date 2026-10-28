@@ -3,18 +3,18 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { getCurrentUser } from "@/lib/supabaseServer";
 import { assertAdmin } from "@/lib/admin/auth";
-import { createSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
 const NAV = [
-  { href: "/admin" as const, label: "command" },
-  { href: "/admin/students" as const, label: "students" },
-  { href: "/admin/students/create" as const, label: "create" },
-  { href: "/admin/progress" as const, label: "progress" },
-  { href: "/admin/assignments" as const, label: "assignments" },
-  { href: "/admin/mentorship" as const, label: "mentorship" },
-  { href: "/admin/content" as const, label: "content" },
-  { href: "/admin/system" as const, label: "system" },
-  { href: "/admin/zernio" as const, label: "zernio" },
+  { href: "/admin/operacoes" as const, label: "operações" },
+  { href: "/admin" as const, label: "visão geral" },
+  { href: "/admin/students" as const, label: "alunos e acessos" },
+  { href: "/admin/students/create" as const, label: "criar aluno" },
+  { href: "/admin/formations" as const, label: "formação" },
+  { href: "/admin/progress" as const, label: "acompanhamento" },
+  { href: "/admin/assignments" as const, label: "entregas avulsas" },
+  { href: "/admin/mentorship" as const, label: "mentoria" },
+  { href: "/admin/content" as const, label: "conteúdo de estudo" },
+  { href: "/admin/system" as const, label: "sistema e auditoria" },
 ] as const satisfies ReadonlyArray<{ readonly href: string; readonly label: string }>;
 
 export default async function AdminLayout({
@@ -38,50 +38,19 @@ export default async function AdminLayout({
   // ── ALL OTHER /admin/* ROUTES ──
   if (!user) redirect("/login");
 
-  // Try admin check; if it fails but user is authenticated, try to sync profile
-  let admin = await assertAdmin();
-  if (!admin) {
-    // Attempt to create the user profile in public.users (for env-admin emails)
-    // Then retry the admin check
-    const adminClient = createSupabaseAdminClient(); // Local import from the top
-    const { data: existing } = await adminClient
-      .from("users")
-      .select("id, role")
-      .eq("id", user.id)
-      .maybeSingle();
-
-    if (!existing) {
-      // User is authenticated in auth.users but missing from public.users
-      // Auto-create the profile
-      const envAdmins = (process.env.ADMIN_EMAILS ?? "")
-        .split(/[,;\s]+/)
-        .map((s) => s.trim().toLowerCase())
-        .filter((s) => s.length > 0 && s.includes("@"));
-      const isAdminEmail = user.email ? envAdmins.includes(user.email.toLowerCase()) : false;
-
-      const { error: insertError } = await adminClient.from("users").insert({
-        id: user.id,
-        name:
-          (user.user_metadata?.full_name as string) ||
-          (user.user_metadata?.name as string) ||
-          user.email?.split("@")[0] ||
-          "User",
-        email: user.email,
-        role: isAdminEmail ? "admin" : "student",
-      });
-
-      if (insertError) {
-        console.error("[admin/layout] Failed to auto-create user profile:", insertError.message);
-      } else {
-        // Retry admin assertion
-        admin = await assertAdmin();
-      }
-    }
-  }
+  const admin = await assertAdmin();
 
   // Final check
   if (!admin) {
-    redirect("/");
+    return (
+      <main className="mx-auto max-w-xl space-y-5 px-6 py-16">
+        <h1 className="text-2xl font-serif">Acesso administrativo não disponível</h1>
+        <p>Você está conectado, mas não foi possível confirmar a permissão administrativa desta conta.</p>
+        <p>Se você já é administrador, tente novamente. Se o problema continuar, solicite a revisão do seu acesso.</p>
+        <Link href="/dashboard" className="block underline">Ir para meus espaços</Link>
+        <Link href="/admin/login" className="block underline">Entrar com outra conta</Link>
+      </main>
+    );
   }
 
   return (
@@ -94,10 +63,10 @@ export default async function AdminLayout({
                 Liceu / Admin
               </div>
               <div className="mt-2 font-[var(--font-noto-serif)] text-[18px] leading-tight uppercase">
-                Command center
+                Administração
               </div>
               <div className="mt-2 font-[var(--font-work-sans)] text-[11px] leading-relaxed text-[var(--liceu-muted)]">
-                Severe. Precise. Analytical.
+                Formação intelectual e mentoria.
               </div>
             </div>
 
@@ -120,7 +89,7 @@ export default async function AdminLayout({
 
             <div className="mt-2 border-t border-[var(--liceu-stone)] px-4 py-4">
               <div className="font-[var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.22em] text-[var(--liceu-muted)]">
-                operator
+                responsável
               </div>
               <div className="mt-2 flex items-baseline justify-between gap-3">
                 <div className="truncate font-[var(--font-work-sans)] text-[12px] text-[var(--liceu-text)]">
@@ -131,7 +100,7 @@ export default async function AdminLayout({
                     type="submit"
                     className="font-[var(--font-space-grotesk)] text-[10px] tracking-[0.22em] text-[var(--liceu-muted)] underline underline-offset-4 hover:text-[var(--liceu-text)] bg-transparent border-none p-0 cursor-pointer"
                   >
-                    logout
+                    Sair
                   </button>
                 </form>
               </div>

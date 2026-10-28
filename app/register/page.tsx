@@ -1,5 +1,6 @@
 "use client";
 
+import { passwordError, PASSWORD_MIN_LENGTH, PASSWORD_REQUIREMENTS } from "@/lib/passwordPolicy";
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabaseClient";
@@ -15,6 +16,8 @@ export default function RegisterPage() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
+    const strengthError = passwordError(password);
+    if (strengthError) { setError(strengthError); return; }
     setLoading(true);
     try {
       const supabase = createSupabaseBrowserClient();
@@ -69,11 +72,11 @@ export default function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              minLength={6}
+              minLength={PASSWORD_MIN_LENGTH}
               className="w-full rounded-sm border border-[var(--liceu-stone)] bg-[var(--liceu-neutral)] px-3 py-2 font-[var(--font-work-sans)] text-sm text-[var(--liceu-text)] outline-none focus-visible:ring-1 focus-visible:ring-[var(--liceu-secondary)]/55"
             />
             <p className="font-[var(--font-work-sans)] text-[10px] text-[var(--liceu-muted)]">
-              Mínimo 6 caracteres.
+              {PASSWORD_REQUIREMENTS}
             </p>
           </div>
 

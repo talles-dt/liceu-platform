@@ -1,35 +1,18 @@
 "use server";
 
+import { passwordError } from "@/lib/passwordPolicy";
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "../../../../lib/supabaseServer";
 
-interface ResetRequest {
-  password: string;
-}
-
 export async function POST(request: Request) {
+  let body;
+  try { body = await request.json(); } catch {
+    return NextResponse.json({ success: false, error: "Solicitação inválida." }, { status: 400 });
+  }
+  const password = body?.password;
+  const strengthError = passwordError(password);
+  if (strengthError) return NextResponse.json({ success: false, error: strengthError }, { status: 400 });
   const supabase = await createSupabaseServerClient();
-  const { password } = (await request.json()) as ResetRequest;
-
-  // Validate password strength
-  if (password.length < 8) {
-    return NextResponse.json(
-      { success: false, error: "Senha deve ter no mínimo 8 caracteres." },
-      { status: 400 },
-    );
-  }
-  if (!/[A-Z]/.test(password)) {
-    return NextResponse.json(
-      { success: false, error: "Senha deve conter pelo menos 1 letra maiúscula." },
-      { status: 400 },
-    );
-  }
-  if (!/[!@#$%^&*()_+{};':\"\\|,.<>?~-]/.test(password)) {
-    return NextResponse.json(
-      { success: false, error: "Senha deve conter pelo menos 1 símbolo." },
-      { status: 400 },
-    );
-  }
 
   const {
     data: { user },
