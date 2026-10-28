@@ -1,5 +1,6 @@
 # Formação pelo Trivium — auditoria e roadmap do piloto
 
+> Estado de execução reconciliado em 27/10/2026: [STATUS.md](docs/implementation/STATUS.md). Este documento preserva requisitos e checkpoints históricos; suas pendências antigas não substituem o registro atual.
 **Status:** proposta para revisão pedagógica e técnica; nenhuma feature, migração ou cobrança implementada por este documento.
 **Data da auditoria:** 9 de outubro de 2026. **Revisão e consolidação:** 10 de outubro de 2026.
 

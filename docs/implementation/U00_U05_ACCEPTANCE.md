@@ -1,5 +1,6 @@
 # U00–U05: registro de execução e aceite
 
+> Estado de execução reconciliado em 27/10/2026: [STATUS.md](STATUS.md). Este documento preserva requisitos e checkpoints históricos; suas pendências antigas não substituem o registro atual.
 > Atualização de 12/10/2026: veja [OPERATIONS.md](OPERATIONS.md) para o incremento posterior. Auditoria transacional, fila retomável, conciliação explícita e exclusão revisada já foram implementadas e testadas localmente. As pendências históricas abaixo descrevem o checkpoint anterior, não o estado integral atual. U00–U05 seguem sem aceite de produção.
 
 

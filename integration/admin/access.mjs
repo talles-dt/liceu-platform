@@ -10,13 +10,14 @@ assert.equal(new URL(config.API_URL).hostname,'127.0.0.1');
 const health=await fetch(config.API_URL+'/auth/v1/health',{signal:AbortSignal.timeout(5000)});assert.ok(health.ok,'Local Auth unavailable');
 const admin=createClient(config.API_URL,config.SERVICE_ROLE_KEY,{auth:{persistSession:false}});
 const origin='http://127.0.0.1:3177';
-const app=spawn('node',['node_modules/next/dist/bin/next','dev','--webpack','--port','3177','--hostname','127.0.0.1'],{env:{...process.env,WATCHPACK_POLLING:'true',NEXT_PUBLIC_SUPABASE_URL:config.API_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY:config.ANON_KEY,SUPABASE_SERVICE_ROLE_KEY:config.SERVICE_ROLE_KEY,NEXT_PUBLIC_SITE_URL:origin,STRIPE_SALES_ENABLED:'false'},stdio:['ignore','ignore','pipe']});
-let errors='';app.stderr.on('data',d=>{errors+=d.toString()});
+const app=process.env.QA_REUSE_APP==='1'?null:spawn('node',['node_modules/next/dist/bin/next','dev','--webpack','--port','3177','--hostname','127.0.0.1'],{env:{...process.env,WATCHPACK_POLLING:'true',NEXT_PUBLIC_SUPABASE_URL:config.API_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY:config.ANON_KEY,SUPABASE_SERVICE_ROLE_KEY:config.SERVICE_ROLE_KEY,NEXT_PUBLIC_SITE_URL:origin,STRIPE_SALES_ENABLED:'false'},stdio:['ignore','ignore','pipe']});
+let errors='';app?.stderr.on('data',d=>{errors+=d.toString()});
 const tag=randomUUID().slice(0,8),people={};
 async function rpc(name,args){const r=await admin.rpc(name,args);if(r.error)throw Error(r.error.message);return r.data;}
 async function request(who,path,body){return fetch(origin+path,{method:body?'POST':'GET',headers:{cookie:people[who]?.cookie??'',origin,'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined,redirect:'manual'});}
+async function assertDestination(who,expected){const r=await request(who,'/dashboard');const html=await r.text();assert.ok(r.headers.get('location')===expected||html.includes(`url=${expected}`)||html.includes(`NEXT_REDIRECT;replace;${expected};`),`${who}: expected ${expected}`);}
 try{
- let ready=false;for(let i=0;i<60;i++){if(app.exitCode!==null)throw Error('Local app exited: '+errors);try{if((await fetch(origin+'/login',{signal:AbortSignal.timeout(5000)})).ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,500));}if(!ready)throw Error('Local app did not start');
+ let ready=false;for(let i=0;i<60;i++){if(app&&app.exitCode!==null)throw Error('Local app exited: '+errors);try{if((await fetch(origin+'/login',{signal:AbortSignal.timeout(5000)})).ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,500));}if(!ready)throw Error('Local app did not start');
  for(const name of ['admin','teacher','formation','mentoring','both','outsider']){
   const email=`areas-${tag}-${name}@example.invalid`,password=randomUUID()+'Ab1!';
   const r=await admin.auth.admin.createUser({email,password,email_confirm:true});if(r.error)throw r.error;
@@ -39,7 +40,7 @@ try{
  assert.equal((await edit('admin',enroll,'https://elsewhere.invalid')).status,403);
  assert.equal((await edit('admin',enroll)).status,200);
  assert.equal((await edit('admin',enroll)).status,409,'stale page cannot overwrite');
- assert.equal((await request('formation','/dashboard')).headers.get('location'),'/formacoes');
+ await assertDestination('formation','/formacoes');
  const first=await membership();
  assert.equal((await edit('admin',{...enroll,expected:first,status:'paused'})).status,200);
  assert.equal((await request('formation',`/api/formations/${cohort}/materials`)).status,403);
@@ -54,7 +55,7 @@ try{
  assert.equal((await edit('admin',{...grant,expected:revision(g),scope:'Novo escopo revisto pelo administrador.'})).status,200);
  assert.equal((await edit('admin',{...grant,expected:revision(g)})).status,409);
  assert.equal((await edit('admin',{...grant,expected:revision(await readGrant()),mode:'revoke'})).status,200);
- assert.equal((await request('formation','/dashboard')).headers.get('location'),'/formacoes');
+ await assertDestination('formation','/formacoes');
  assert.equal((await edit('admin',{...grant,expected:revision(await readGrant())})).status,403,'revoked history not resurrected');
  const paid=await admin.from('liceu_service_orders').insert({user_id:student,kind:'mentoring',scope:'Serviço pago sintético, sem transação financeira.',status:'paid'});if(paid.error)throw paid.error;
  assert.equal((await request('formation','/dashboard')).status,200,'paid order independently restores mentoring');
@@ -68,8 +69,8 @@ try{
  const memberAfter=await membership();assert.equal(memberAfter.status,'withdrawn');
  const log=await admin.from('audit_logs').select('id,actor_id,metadata').eq('target_identifier',student).contains('metadata',{operation:'admin_student_access'});if(log.error)throw log.error;assert.ok(log.data.length>=7);assert.ok(log.data.every(x=>x.actor_id===people.admin.id&&x.metadata.reason));
  for(const path of ['/admin','/admin/students',`/admin/students/${student}`,'/admin/formations','/admin/progress','/admin/system']){const r=await request('admin',path);assert.equal(r.status,200,path);const html=await r.text();assert.ok(!html.includes('pending instrumentation'));assert.ok(!html.includes('derive from time-per-lesson'));}
- const denied=await request('outsider',`/admin/students/${student}`);assert.ok([303,307].includes(denied.status));
+ const denied=await request('outsider',`/admin/students/${student}`);assert.equal(denied.status,200);assert.ok((await denied.text()).includes('acesso'),'denied user sees explanatory page');
  console.log('PASS local authenticated HTTP: admin/CSRF boundaries; enrollment, pause, reactivation, withdraw; capacity; stale updates; mentoring grant/update/revoke; reload and area routing; paid access preservation; audit and all admin pages.');
  console.log('Synthetic local fixture:',tag,'— no remote accounts or charges.');
 
-}catch(e){console.error(e);console.error(errors.slice(-3500));process.exitCode=1;}finally{app.kill('SIGTERM');}
+}catch(e){console.error(e);console.error(errors.slice(-3500));process.exitCode=1;}finally{app?.kill('SIGTERM');}

@@ -1,5 +1,6 @@
 # Liceu Underground — plano consolidado de plataforma e formação
 
+> Estado de execução reconciliado em 27/10/2026: [STATUS.md](docs/implementation/STATUS.md). Este documento preserva requisitos e checkpoints históricos; suas pendências antigas não substituem o registro atual.
 **Revisão:** 10/10/2026. **Estado:** planejamento para revisão; não é atestado de implementação ou publicação.
 
 Este é o plano coordenador da correção e evolução do Liceu. Consolida a auditoria e o plano R0–R8 da tarefa **“Auditar código do Liceu”** (`01a11cc9-c9e0-7083-81cf-207ddea91ada`) com o [roadmap da formação pelo Trivium](FORMATION_ROADMAP.md). Preserva os 34 achados, as decisões comerciais e pedagógicas do curso existente, o cleanup solicitado e a nova formação de seis pessoas. Gramática, lógica e retórica são pilares obrigatórios dessa formação.
